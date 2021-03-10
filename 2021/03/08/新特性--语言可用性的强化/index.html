@@ -44,7 +44,7 @@
     
     <title>
         
-            Git常用操作 | 
+            C++1x 新特性（一）语言可用性的强化 | 
         
         进阶之路
     </title>
@@ -82,6 +82,9 @@
         <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?NKhlKQkXw/c66TR5p4wO+w==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
 
         
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?CC5Yjp011Bf1QgvH2to+Cw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/tomorrow-night-bright.min.css?8VgE6WqhtH02IzxbAnMvKA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
             
         
 
@@ -216,7 +219,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="进阶之路">
-    <meta name="msapplication-starturl" content="http://example.com/Git%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">
+    <meta name="msapplication-starturl" content="http://example.com/2021/03/08/%E6%96%B0%E7%89%B9%E6%80%A7--%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="进阶之路">
@@ -231,13 +234,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://example.com/Git%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">
+    <meta property="og:url" content="http://example.com/2021/03/08/%E6%96%B0%E7%89%B9%E6%80%A7--%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Git常用操作 | 进阶之路">
+    <meta property="og:title" content="C++1x 新特性（一）语言可用性的强化 | 进阶之路">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="">
     
 
+    
+        <meta property="article:published_time" content="Mon Mar 08 2021 20:38:27 GMT+0800">
+        <meta property="article:modified_time" content="Wed Mar 10 2021 23:20:24 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -245,13 +251,43 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://example.com/Git%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/index.html" />
+        <link rel="canonical" href="http://example.com/2021/03/08/%E6%96%B0%E7%89%B9%E6%80%A7--%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "http://example.com/2021/03/08/%E6%96%B0%E7%89%B9%E6%80%A7--%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/index.html",
+    "headline": "C++1x 新特性（一）语言可用性的强化",
+    "datePublished": "Mon Mar 08 2021 20:38:27 GMT+0800",
+    "dateModified": "Wed Mar 10 2021 23:20:24 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "Joy Chen",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/me.png"
+        },
+        "description": "永远怀着一颗学徒的心"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "进阶之路",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": "",
+    "description": "",
+}
+</script>
 
 
     
@@ -287,6 +323,39 @@
 
                     <!-- Post TOC -->
 
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#C-1x-%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%80%EF%BC%89%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96"><span class="post-toc-number">1.</span> <span class="post-toc-text">C++1x 新特性（一）语言可用性的强化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#nullptr"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">nullptr</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#constexpr"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">constexpr</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#decltype"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">decltype</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">默认参数模板</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%A7%94%E6%89%98%E6%9E%84%E9%80%A0"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">委托构造</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%98%BE%E7%A4%BA%E7%A6%81%E7%94%A8%E9%BB%98%E8%AE%A4%E5%87%BD%E6%95%B0"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">显示禁用默认函数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%BB%A7%E6%89%BF%E6%9E%84%E9%80%A0"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">继承构造</span></a></li></ol></li></ol>
+    </ul>
+    
+
+
+
 
 <!-- Layouts -->
 
@@ -313,7 +382,7 @@
         
     
             <p class="article-headline-p">
-                Git常用操作
+                C++1x 新特性（一）语言可用性的强化
             </p>
         </div>
 
@@ -332,7 +401,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Joy Chen</strong>
-        <span>3月 07, 2021</span>
+        <span>3月 08, 2021</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -367,7 +436,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Git常用操作&url=http://example.com/Git%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/index.html&via=Joy Chen" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=C++1x 新特性（一）语言可用性的强化&url=http://example.com/2021/03/08/%E6%96%B0%E7%89%B9%E6%80%A7--%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/index.html&via=Joy Chen" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -376,7 +445,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/Git%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/03/08/%E6%96%B0%E7%89%B9%E6%80%A7--%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -385,7 +454,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=http://example.com/Git%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://example.com/2021/03/08/%E6%96%B0%E7%89%B9%E6%80%A7--%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -394,7 +463,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://example.com/Git%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/index.html&title=Git常用操作" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://example.com/2021/03/08/%E6%96%B0%E7%89%B9%E6%80%A7--%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/index.html&title=C++1x 新特性（一）语言可用性的强化" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -403,7 +472,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=进阶之路&title=Git常用操作&summary=&pics=http://example.com/img/favicon.png&url=http://example.com/Git%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=进阶之路&title=C++1x 新特性（一）语言可用性的强化&summary=&pics=http://example.com/img/favicon.png&url=http://example.com/2021/03/08/%E6%96%B0%E7%89%B9%E6%80%A7--%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -422,7 +491,247 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        
+        <h1 id="C-1x-新特性（一）语言可用性的强化"><a href="#C-1x-新特性（一）语言可用性的强化" class="headerlink" title="C++1x 新特性（一）语言可用性的强化"></a>C++1x 新特性（一）语言可用性的强化</h1><blockquote>
+</blockquote>
+<h2 id="nullptr"><a href="#nullptr" class="headerlink" title="nullptr"></a><strong>nullptr</strong></h2><p>​    <strong><code>注： 不能推导数组类型。</code></strong></p>
+<blockquote>
+<pre><code class="cpp">#include &lt;iostream&gt;
+
+int main() &#123;
+
+ auto i = 5;
+ int arr[10] = &#123;0&#125;;
+
+ // &#39;auto&#39; type cannot appear in top-level array typeC/C++
+ // auto auto_arr_2[10] = arr;
+
+ return 0;
+&#125;
+</code></pre>
+</blockquote>
+<h2 id="constexpr"><a href="#constexpr" class="headerlink" title="constexpr"></a><strong>constexpr</strong></h2><p>**<code>(1) 拓宽「常量表达式」的范围。**</code></p>
+<p>**<code>(2)「显式『要求』表达式编译时求值」。告诉编译器 [我认为我是编译器常量]， 让编译器在需要编译器常量的语义处 [核实我说的是不是真的]。把它放到变量定义前，那么用来初始化这个变量的表达式「必须」是常量表达式，否则报错。**</code></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/274323507">https://www.zhihu.com/question/274323507</a></p>
+<blockquote>
+<pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;array&gt;
+#include &lt;algorithm&gt;
+
+#define LEN 10
+
+const int kLengh = 12;
+
+size_t length() &#123;
+    return 4 + 5;
+&#125;
+// 修饰常函数
+constexpr size_t constexpr_length() &#123;
+    return 4 + 5;
+&#125;
+
+constexpr unsigned long long fibonacci(const int n) &#123;
+
+    return n == 1 || n == 2 ? 1 : fibonacci(n - 1) + fibonacci(n - 2);
+&#125;
+
+int main() &#123;
+
+    std::vector&lt;char&gt; arr_1(100, &#39;Y&#39;);
+    std::vector&lt;char&gt; arr_2(LEN, &#39;Y&#39;);
+    std::vector&lt;char&gt; arr_3(kLengh, &#39;Y&#39;);
+
+   // expression must have a constant value -- cannot call non-constexpr
+   // std::array&lt;int, length()&gt; arr_4;
+    
+    std::array&lt;char, constexpr_length()&gt; arr_5&#123; &#39;Y&#39; &#125;;
+
+    return 0;
+&#125;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code class="c++">// 比如用来简化元函数template&lt;class U, class V&gt;
+constexpr bool is_same_v = std::is_same&lt;U, V&gt;::value;
+// 调用的时候可以直接
+auto x = is_same_v&lt;int, float&gt;;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code class="c++">// 用于元编程的常成员：template&lt;class U, class V&gt;
+struct is_same &#123;
+    static constexpr int value = false;
+&#125;
+
+template&lt;class T&gt;
+struct is_same&lt;T, T&gt; &#123;
+    static constexpr int value = true;
+&#125;
+
+// 这样就可以通过
+is_same&lt;X, X&gt;::value
+</code></pre>
+</blockquote>
+<h2 id="decltype"><a href="#decltype" class="headerlink" title="decltype"></a><strong>decltype</strong></h2><blockquote>
+<pre><code class="c++">#include &lt;iostream&gt;
+
+// 传统C++ 模板的错误写法
+// template &lt;typename R, typename T, typename U&gt;
+// R add(T t, U u) &#123;
+//     return t + u;
+// &#125;
+
+// C++11 称之为尾返回类型（trailing return type）,利用 auto 关键字将返回值后置
+template&lt;typename T, typename U&gt;
+auto add (T t, U u) /*-&gt; decltype(t + u) //C++14开始自动推导*/ &#123;
+    return t + u;
+&#125;
+
+
+int main() &#123;
+    auto result = add&lt;float, double&gt;(4.5, 5.6);
+
+    // d
+    // 10.1
+    std::cout &lt;&lt; typeid(result).name() &lt;&lt; std::endl;
+    std::cout &lt;&lt; result &lt;&lt; std::endl;
+    return 0;
+&#125;
+</code></pre>
+</blockquote>
+<h2 id="默认参数模板"><a href="#默认参数模板" class="headerlink" title="默认参数模板"></a><strong>默认参数模板</strong></h2><blockquote>
+<pre><code class="c++">template&lt;typename T = int, typename U = float&gt;
+auto Add(T t, U u) &#123;
+    return t + u;
+&#125;
+</code></pre>
+</blockquote>
+<h2 id="委托构造"><a href="#委托构造" class="headerlink" title="委托构造"></a><strong>委托构造</strong></h2><blockquote>
+<pre><code class="c++">#include &lt;iostream&gt;
+
+// 委托构造
+class Base &#123;
+public:
+    Base() &#123;
+        v1_ = 1;
+    &#125;
+    Base(int value) : Base() &#123;
+        v2_ = value;
+    &#125;
+
+    void tell() &#123;
+        std::cout &lt;&lt; &quot;v1: &quot; &lt;&lt; v1_ &lt;&lt; &quot;    v2: &quot;&lt;&lt; v2_ &lt;&lt; std::endl; 
+    &#125;
+private:
+    int v1_ = 0;
+    int v2_ = 0;
+&#125;;
+
+int main() &#123;
+    Base base(2);
+    base.tell(); 
+    return 0;
+&#125;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code class="bash">$ ./delegating_constructor 
+v1: 1    v2: 2
+</code></pre>
+</blockquote>
+<hr>
+<h2 id="显示禁用默认函数"><a href="#显示禁用默认函数" class="headerlink" title="显示禁用默认函数"></a><strong>显示禁用默认函数</strong></h2><blockquote>
+<pre><code class="c++">// 显示禁用默认函数
+#include &lt;iostream&gt;
+
+class Magic &#123;
+public:
+  Magic() = delete; // 禁用编译器生成的构造
+  Magic&amp; operator=(const Magic&amp;) = delete;
+  Magic(const Magic&amp; other) = delete;
+
+  Magic(int a) &#123;
+    std::cout &lt;&lt; &quot;Not default constructor.&quot; &lt;&lt; std::endl;
+    e_ = a;
+  &#125;
+  void tell() &#123; std::cout &lt;&lt; e_ &lt;&lt; std::endl; &#125;
+
+private:
+  int e_ = 0;
+&#125;;
+
+int main() &#123;
+// the default constructor of &quot;Inequality&quot; 
+// cannot be referenced
+// -- it is a deleted function
+//   Inequality m1;
+//   m1.tell();
+
+  Magic m2(2);
+  m2.tell();
+
+// function &quot;Magic::Magic(const Magic &amp;other)&quot; 
+// cannot be referenced
+//  -- it is a deleted function
+//   Magic m3 = m2;
+//   m3.tell();
+
+// function &quot;Magic::operator=(const Magic &amp;)&quot; 
+// cannot be referenced 
+// -- it is a deleted function
+//   Magic m4(4);
+//   m4 = m2;
+  return 0;
+&#125;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code class="bash">$ ./delete_default 
+Not default constructor.
+2
+</code></pre>
+</blockquote>
+<h2 id="继承构造"><a href="#继承构造" class="headerlink" title="继承构造"></a><strong>继承构造</strong></h2><blockquote>
+<pre><code class="c++">//继承构造
+#include &lt;iostream&gt;
+
+class Base &#123;
+public:
+    Base() &#123;
+        v1_ = 1;
+    &#125;
+    Base(int value) : Base() &#123;
+        v2_ = value;
+    &#125;
+
+    virtual void tell() &#123;
+        std::cout &lt;&lt; &quot;v1: &quot; &lt;&lt; v1_ &lt;&lt; &quot;    v2: &quot;&lt;&lt; v2_ &lt;&lt; std::endl; 
+    &#125;
+private:
+    int v1_ = 0;
+    int v2_ = 0;
+&#125;;
+
+// 构造函数如果需要继承是需要将参数一一传递的，这样会效率低下
+// using 引入继承构造
+class Derived : public Base &#123;
+public:
+    using Base::Base; // 继承构造
+&#125;;
+
+int main() &#123;
+    Derived derived(2222);
+    derived.tell();
+    return 0;
+&#125;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code class="bash">$ ./derive_constructor 
+v1: 1    v2: 2222
+</code></pre>
+</blockquote>
+
         
     
 
@@ -447,6 +756,14 @@
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
+    
+        <a href="/2021/03/07/hello-world/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
     
 </nav>
 
@@ -615,6 +932,14 @@ It will not impact the appearance and can give developers a lot of support :)
                     
 
                     
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
 
                     <!--Footer-->
 <footer class="mdl-mini-footer" id="bottom">
@@ -770,6 +1095,10 @@ It will not impact the appearance and can give developers a lot of support :)
 <!-- Import prettify js  -->
 
     
+        
+            <script>lsloader.load("prettify_js","/js/prettify.min.js?WN07fivHQSMKWy7BmHBB6w==", true)</script>
+        
+    
 
 
 
@@ -782,6 +1111,11 @@ It will not impact the appearance and can give developers a lot of support :)
     });
 
     
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
         
     
     
