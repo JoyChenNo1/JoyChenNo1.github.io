@@ -157,7 +157,7 @@ h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
   line-height: 1.35;
   letter-spacing: -.02em;
   opacity: .54;
-  font-size: .6em
+  font-size: 1.6em
 }
 
 h1 {
@@ -178,11 +178,11 @@ h2 {
 }
 
 h2, h3 {
-  margin: 24px 0
+  margin: 28px 0
 }
 
 h3 {
-  font-size: 34px;
+  font-size: 38px;
   line-height: 40px
 }
 
@@ -192,7 +192,7 @@ h3, h4 {
 }
 
 h4 {
-  font-size: 24px;
+  font-size: 28px;
   line-height: 32px;
   -moz-osx-font-smoothing: grayscale;
   margin: 24px 0 16px
@@ -211,7 +211,7 @@ h5, h6 {
 }
 
 h6 {
-  font-size: 16px;
+  font-size: 18px;
   letter-spacing: .04em
 }
 
@@ -221,7 +221,7 @@ h6, p {
 }
 
 p {
-  font-size: 14px;
+  font-size: 18px;
   letter-spacing: 0;
   margin: 0 0 16px
 }
