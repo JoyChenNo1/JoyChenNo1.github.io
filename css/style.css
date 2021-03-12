@@ -638,7 +638,7 @@ a {
     padding: 24px;
     background-size: cover
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 600px) {
     #scheme-Paradox .material-layout .something-else .something-else-logo {
         padding: 0
     }
@@ -734,7 +734,7 @@ a {
     background-color: #eee;
     display: flex;
     box-sizing: border-box;
-    padding: 2pc;
+    padding: 1pc;
     flex-direction: column;
     justify-content: flex-start;
     align-items: stretch;
