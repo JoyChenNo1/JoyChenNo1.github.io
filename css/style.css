@@ -504,7 +504,8 @@ a {
     margin: 0 auto;
     padding: 0;
     width: 100%;
-    max-width: 900px;
+    min-width: 1100px;
+    max-width: 1100px;
     flex-shrink: 0
 }
 #scheme-Paradox .material-layout .material-layout__content {
@@ -825,7 +826,9 @@ a {
     background-size: 50%
 }
 #scheme-Paradox .mdl-grid {
-    display: flex!important
+    /*display: flex!important*/
+    display: ruby-text;
+
 }
 #scheme-Paradox .social-btn {
     margin: 0 1pc;
@@ -859,7 +862,7 @@ a {
     width: 98%
 }
 #scheme-Paradox #post-content {
-    max-width: 90%;
+    max-width: 94%;
     margin: 1pc auto;
     padding-top: 0;
 }
@@ -1638,7 +1641,7 @@ a {
 #scheme-Isolation .material-layout .material-index>.material-nav,
 #scheme-Isolation .material-layout .material-post>.material-nav {
     display: flex;
-    margin: 10px 15px;
+    margin: 8px 10px;
     color: #fff;
     font-weight: 500;
     flex-direction: row;
@@ -2171,7 +2174,7 @@ a {
     box-shadow: 2px 0 15px rgba(0, 0, 0, .35);
     -webkit-box-shadow: 2px 0 15px rgba(0, 0, 0, .35)
 }
-@media (max-width: 840px) {
+@media (max-width: 1040px) {
     .sidebar.open {
         min-width: 240px;
         width: 240px

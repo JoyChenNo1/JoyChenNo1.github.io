@@ -44,7 +44,7 @@
     
     <title>
         
-            C++1x 新特性（一）语言可用性的强化 | 
+            C++1x 新特性（二）语言运行时的强化 | 
         
         进阶之路
     </title>
@@ -55,7 +55,7 @@
 
     <meta name="format-detection" content="telephone=no"/>
     <meta name="description" itemprop="description" content="">
-    <meta name="keywords" content="">
+    <meta name="keywords" content=",C++11 C++14 C++17">
     <meta name="theme-color" content="#0097A7">
 
     <!-- Disable Fucking Bloody Baidu Tranformation -->
@@ -79,7 +79,7 @@
     <!-- Import CSS -->
     
         <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
-        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?NKhlKQkXw/c66TR5p4wO+w==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?Dp7k2X9uh6CgQx67yceHxQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
 
         
             
@@ -97,7 +97,7 @@
 <!-- Other Styles -->
 <style>
   body, html {
-    font-family: Roboto, "Monaco", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif, monaco;
+    font-family: Roboto, "Monaco", Helvetica, "PingFang SC", "Hiragino Sans GB", Arial, sans-serif, monaco;
     overflow-x: hidden !important;
   }
   
@@ -219,7 +219,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="进阶之路">
-    <meta name="msapplication-starturl" content="http://example.com/2021/03/08/%E6%96%B0%E7%89%B9%E6%80%A7--%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/">
+    <meta name="msapplication-starturl" content="http://example.com/2021/03/13/%E6%96%B0%E7%89%B9%E6%80%A7(%E4%BA%8C)--%E8%AF%AD%E8%A8%80%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%BC%BA%E5%8C%96/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="进阶之路">
@@ -234,16 +234,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://example.com/2021/03/08/%E6%96%B0%E7%89%B9%E6%80%A7--%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/">
+    <meta property="og:url" content="http://example.com/2021/03/13/%E6%96%B0%E7%89%B9%E6%80%A7(%E4%BA%8C)--%E8%AF%AD%E8%A8%80%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%BC%BA%E5%8C%96/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="C++1x 新特性（一）语言可用性的强化 | 进阶之路">
+    <meta property="og:title" content="C++1x 新特性（二）语言运行时的强化 | 进阶之路">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="">
-    
+    <meta property="og:article:tag" content="C++11 C++14 C++17"> 
 
     
-        <meta property="article:published_time" content="Mon Mar 08 2021 20:38:27 GMT+0800">
-        <meta property="article:modified_time" content="Sat Mar 13 2021 00:35:05 GMT+0800">
+        <meta property="article:published_time" content="Sat Mar 13 2021 00:04:01 GMT+0800">
+        <meta property="article:modified_time" content="Mon Mar 15 2021 22:29:16 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -251,7 +251,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://example.com/2021/03/08/%E6%96%B0%E7%89%B9%E6%80%A7--%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/index.html" />
+        <link rel="canonical" href="http://example.com/2021/03/13/%E6%96%B0%E7%89%B9%E6%80%A7(%E4%BA%8C)--%E8%AF%AD%E8%A8%80%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%BC%BA%E5%8C%96/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -263,10 +263,10 @@
 {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "mainEntityOfPage": "http://example.com/2021/03/08/%E6%96%B0%E7%89%B9%E6%80%A7--%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/index.html",
-    "headline": "C++1x 新特性（一）语言可用性的强化",
-    "datePublished": "Mon Mar 08 2021 20:38:27 GMT+0800",
-    "dateModified": "Sat Mar 13 2021 00:35:05 GMT+0800",
+    "mainEntityOfPage": "http://example.com/2021/03/13/%E6%96%B0%E7%89%B9%E6%80%A7(%E4%BA%8C)--%E8%AF%AD%E8%A8%80%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%BC%BA%E5%8C%96/index.html",
+    "headline": "C++1x 新特性（二）语言运行时的强化",
+    "datePublished": "Sat Mar 13 2021 00:04:01 GMT+0800",
+    "dateModified": "Mon Mar 15 2021 22:29:16 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -284,7 +284,7 @@
             "url": "/img/favicon.png"
         }
     },
-    "keywords": "",
+    "keywords": ",C++11 C++14 C++17",
     "description": "",
 }
 </script>
@@ -350,7 +350,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#C-1x-%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%80%EF%BC%89%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96"><span class="post-toc-number">1.</span> <span class="post-toc-text">C++1x 新特性（一）语言可用性的强化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#nullptr"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">nullptr</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#auto"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">auto</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#constexpr"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">constexpr</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#decltype"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">decltype</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">默认参数模板</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%A7%94%E6%89%98%E6%9E%84%E9%80%A0"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">委托构造</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%98%BE%E7%A4%BA%E7%A6%81%E7%94%A8%E9%BB%98%E8%AE%A4%E5%87%BD%E6%95%B0"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">显示禁用默认函数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%BB%A7%E6%89%BF%E6%9E%84%E9%80%A0"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">继承构造</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%98%BE%E5%BC%8F%E8%99%9A%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD"><span class="post-toc-number">1.9.</span> <span class="post-toc-text">显式虚函数重载</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-initializer-list"><span class="post-toc-number">1.10.</span> <span class="post-toc-text">std::initializer_list</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#enum-class%EF%BC%88%E5%BC%BA%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B%EF%BC%89"><span class="post-toc-number">1.11.</span> <span class="post-toc-text">enum class（强枚举类型）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%A8%A1%E6%9D%BF%E5%A2%9E%E5%BC%BA"><span class="post-toc-number">1.12.</span> <span class="post-toc-text">模板增强</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Variadic-Template%EF%BC%88%E5%8F%AF%E5%8F%98%E9%95%BF%E6%A8%A1%E6%9D%BF%EF%BC%89"><span class="post-toc-number">1.13.</span> <span class="post-toc-text">Variadic Template（可变长模板）</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#C-1x-%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%BA%8C%EF%BC%89%E8%AF%AD%E8%A8%80%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%BC%BA%E5%8C%96"><span class="post-toc-number">1.</span> <span class="post-toc-text">C++1x 新特性（二）语言运行时的强化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#lambda"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">lambda</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#move-semantics%EF%BC%88%E7%A7%BB%E5%8A%A8%E8%AF%AD%E4%B9%89%EF%BC%89"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">move semantics（移动语义）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-bind"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">std::bind</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-forward"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">std::forward</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-function"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">std::function</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-move"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">std::move</span></a></li></ol></li></ol>
     </ul>
     
 
@@ -382,7 +382,7 @@
         
     
             <p class="article-headline-p">
-                C++1x 新特性（一）语言可用性的强化
+                C++1x 新特性（二）语言运行时的强化
             </p>
         </div>
 
@@ -401,7 +401,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Joy Chen</strong>
-        <span>3月 08, 2021</span>
+        <span>3月 13, 2021</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -418,6 +418,15 @@
     
 
     <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-none-link" href="/tags/C-11-C-14-C-17/" rel="tag">C++11 C++14 C++17</a>
+    </ul>
     
 
     <!-- Share -->
@@ -436,7 +445,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=C++1x 新特性（一）语言可用性的强化&url=http://example.com/2021/03/08/%E6%96%B0%E7%89%B9%E6%80%A7--%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/index.html&via=Joy Chen" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=C++1x 新特性（二）语言运行时的强化&url=http://example.com/2021/03/13/%E6%96%B0%E7%89%B9%E6%80%A7(%E4%BA%8C)--%E8%AF%AD%E8%A8%80%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%BC%BA%E5%8C%96/index.html&via=Joy Chen" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -445,7 +454,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/03/08/%E6%96%B0%E7%89%B9%E6%80%A7--%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/03/13/%E6%96%B0%E7%89%B9%E6%80%A7(%E4%BA%8C)--%E8%AF%AD%E8%A8%80%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%BC%BA%E5%8C%96/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -454,7 +463,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=http://example.com/2021/03/08/%E6%96%B0%E7%89%B9%E6%80%A7--%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://example.com/2021/03/13/%E6%96%B0%E7%89%B9%E6%80%A7(%E4%BA%8C)--%E8%AF%AD%E8%A8%80%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%BC%BA%E5%8C%96/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -463,7 +472,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://example.com/2021/03/08/%E6%96%B0%E7%89%B9%E6%80%A7--%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/index.html&title=C++1x 新特性（一）语言可用性的强化" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://example.com/2021/03/13/%E6%96%B0%E7%89%B9%E6%80%A7(%E4%BA%8C)--%E8%AF%AD%E8%A8%80%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%BC%BA%E5%8C%96/index.html&title=C++1x 新特性（二）语言运行时的强化" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -472,7 +481,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=进阶之路&title=C++1x 新特性（一）语言可用性的强化&summary=&pics=http://example.com/img/favicon.png&url=http://example.com/2021/03/08/%E6%96%B0%E7%89%B9%E6%80%A7--%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=进阶之路&title=C++1x 新特性（二）语言运行时的强化&summary=&pics=http://example.com/img/favicon.png&url=http://example.com/2021/03/13/%E6%96%B0%E7%89%B9%E6%80%A7(%E4%BA%8C)--%E8%AF%AD%E8%A8%80%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%BC%BA%E5%8C%96/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -491,570 +500,403 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="C-1x-新特性（一）语言可用性的强化"><a href="#C-1x-新特性（一）语言可用性的强化" class="headerlink" title="C++1x 新特性（一）语言可用性的强化"></a>C++1x 新特性（一）语言可用性的强化</h1><br/>
+        <h1 id="C-1x-新特性（二）语言运行时的强化"><a href="#C-1x-新特性（二）语言运行时的强化" class="headerlink" title="C++1x 新特性（二）语言运行时的强化"></a>C++1x 新特性（二）语言运行时的强化</h1><br/>
 
 <br/>
 
-<h2 id="nullptr"><a href="#nullptr" class="headerlink" title="nullptr"></a><strong>nullptr</strong></h2><blockquote>
+<h2 id="lambda"><a href="#lambda" class="headerlink" title="lambda"></a><strong>lambda</strong></h2><p><code>[捕获列表] (参数列表) mutable(可选) 异常属性 -&gt; 返回类型 &#123;       // 函数体 &#125;</code></p>
+<blockquote>
 <pre><code class="c++">#include &lt;iostream&gt;
 #include &lt;memory&gt;
 
-class MyTestClass &#123;
-public:
-  MyTestClass() &#123;&#125;
-  ~MyTestClass() &#123;&#125;
+void TestReferenceCapture() &#123;
 
-private:
-  int a = 1;
-  float b = 0;
-  bool c = false;
-&#125;;
+        int value = 1;
+        bool change = false;
 
-int main()
-&#123;
-    std::shared_ptr&lt;MyTestClass&gt; test_c = std::make_shared&lt;MyTestClass&gt;();
-    std::cout &lt;&lt; sizeof(nullptr) &lt;&lt; std::endl;
-    std::cout &lt;&lt; sizeof(decltype(test_c)) &lt;&lt; std::endl; 
-    std::cout &lt;&lt; typeid(test_c).name() &lt;&lt; std::endl;
-    std::cout &lt;&lt; typeid(std::nullptr_t).name() &lt;&lt; std::endl;
-    return 0;
-&#125;
-</code></pre>
-</blockquote>
-<blockquote>
-<pre><code class="bash">$ ./test_nullptr 
-8
-16
-St10shared_ptrI11MyTestClassE
-Dn
-</code></pre>
-</blockquote>
-<p><br/><br/></p>
-<h2 id="auto"><a href="#auto" class="headerlink" title="auto"></a><strong>auto</strong></h2><p>​    <strong><code>注： 不能推导数组类型。</code></strong></p>
-<blockquote>
-<pre><code class="cpp">#include &lt;iostream&gt;
+        auto value_capture = [=] () &#123;
+            std::cout &lt;&lt; &quot;改变？&quot;&lt;&lt; change &lt;&lt; &quot; 值捕获： &quot; &lt;&lt; value &lt;&lt; std::endl;
+        &#125;;
+        auto reference_capture = [&amp;] () &#123;
+            std::cout &lt;&lt; &quot;改变？&quot;&lt;&lt; change &lt;&lt; &quot; 引用捕获： &quot; &lt;&lt; value  &lt;&lt; std::endl;
+        &#125;;
 
-int main() &#123;
+        // 改变kvalue的值
+        value = 10000;
+        change = true;
 
- auto i = 5;
- int arr[10] = &#123;0&#125;;
-
- // &#39;auto&#39; type cannot appear in top-level array typeC/C++
- // auto auto_arr_2[10] = arr;
-
- return 0;
-&#125;
-</code></pre>
-</blockquote>
-<p><br/><br/></p>
-<h2 id="constexpr"><a href="#constexpr" class="headerlink" title="constexpr"></a><strong>constexpr</strong></h2><p><strong><code>(1) 拓宽「常量表达式」的范围。</code></strong></p>
-<p><strong><code>(2)「显式『要求』表达式编译时求值」。告诉编译器 [我认为我是编译器常量]， 让编译器在需要编译器常量的语义处 [核实我说的是不是真的]。把它放到变量定义前，那么用来初始化这个变量的表达式「必须」是常量表达式，否则报错。</code></strong></p>
-<p>参考：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/274323507">https://www.zhihu.com/question/274323507</a></p>
-<blockquote>
-<pre><code class="c++">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;array&gt;
-#include &lt;algorithm&gt;
-
-#define LEN 10
-
-const int kLengh = 12;
-
-size_t length() &#123;
-    return 4 + 5;
-&#125;
-// 修饰常函数
-constexpr size_t constexpr_length() &#123;
-    return 4 + 5;
+        value_capture();
+        reference_capture();
 &#125;
 
-constexpr unsigned long long fibonacci(const int n) &#123;
-
-    return n == 1 || n == 2 ? 1 : fibonacci(n - 1) + fibonacci(n - 2);
-&#125;
-
-int main() &#123;
-
-    std::vector&lt;char&gt; arr_1(100, &#39;Y&#39;);
-    std::vector&lt;char&gt; arr_2(LEN, &#39;Y&#39;);
-    std::vector&lt;char&gt; arr_3(kLengh, &#39;Y&#39;);
-
-   // expression must have a constant value -- cannot call non-constexpr
-   // std::array&lt;int, length()&gt; arr_4;
+// C++14 表达式捕获
+// 允许捕获的成员用任意的表达式进行初始化，允许右值捕获
+void TestRvalueCapture() &#123;
+        std::unique_ptr&lt;int&gt; important = std::make_unique&lt;int&gt;(10000);
     
-    std::array&lt;char, constexpr_length()&gt; arr_5&#123; &#39;Y&#39; &#125;;
+        // 泛型lambda since C++14, auto关键字产生意义上的泛型， 不需要 -&gt; 返回类型
+        auto add = [v1 = 1, v2 = std::move(important)] (int x, int y) /*-&gt; int*/ &#123;
+            return (*v2) + (x + y + v1);
+        &#125;;
 
-    return 0;
+        std::cout &lt;&lt; add(3, 4) &lt;&lt; std::endl;
 &#125;
-</code></pre>
-</blockquote>
-<blockquote>
-<pre><code class="c++">// 比如用来简化元函数template&lt;class U, class V&gt;
-constexpr bool is_same_v = std::is_same&lt;U, V&gt;::value;
-// 调用的时候可以直接
-auto x = is_same_v&lt;int, float&gt;;
-</code></pre>
-</blockquote>
-<blockquote>
-<pre><code class="c++">// 用于元编程的常成员：template&lt;class U, class V&gt;
-struct is_same &#123;
-    static constexpr int value = false;
-&#125;
-
-template&lt;class T&gt;
-struct is_same&lt;T, T&gt; &#123;
-    static constexpr int value = true;
-&#125;
-
-// 这样就可以通过
-is_same&lt;X, X&gt;::value
-</code></pre>
-</blockquote>
-<p><br/><br/></p>
-<h2 id="decltype"><a href="#decltype" class="headerlink" title="decltype"></a><strong>decltype</strong></h2><blockquote>
-<pre><code class="c++">#include &lt;iostream&gt;
-
-// 传统C++ 模板的错误写法
-// template &lt;typename R, typename T, typename U&gt;
-// R add(T t, U u) &#123;
-//     return t + u;
-// &#125;
-
-// C++11 称之为尾返回类型（trailing return type）,利用 auto 关键字将返回值后置
-template&lt;typename T, typename U&gt;
-auto add (T t, U u) /*-&gt; decltype(t + u) //C++14开始自动推导*/ &#123;
-    return t + u;
-&#125;
-
 
 int main() &#123;
-    auto result = add&lt;float, double&gt;(4.5, 5.6);
- std::cout &lt;&lt; typeid(result).name() &lt;&lt; std::endl;
-    std::cout &lt;&lt; result &lt;&lt; std::endl;
-    return 0;
-   &#125;
+        TestReferenceCapture();
+        TestRvalueCapture();
+        return 0;
+&#125;
 </code></pre>
 </blockquote>
 <blockquote>
-<pre><code class="bash">$ ./decltype 
-d
-10.1
-</code></pre>
-</blockquote>
-<p><br/><br/></p>
-<h2 id="默认参数模板"><a href="#默认参数模板" class="headerlink" title="默认参数模板"></a><strong>默认参数模板</strong></h2><blockquote>
-<pre><code class="c++">template&lt;typename T = int, typename U = float&gt;
-auto Add(T t, U u) &#123;
-    return t + u;
-&#125;
+<pre><code class="bash">$ ./lambda 
+改变？0 值捕获： 1
+改变？1 引用捕获： 10000
+10008
 </code></pre>
 </blockquote>
 <br/>
 
 <br/>
 
-<h2 id="委托构造"><a href="#委托构造" class="headerlink" title="委托构造"></a><strong>委托构造</strong></h2><blockquote>
-<pre><code class="c++">#include &lt;iostream&gt;
-
-// 委托构造
-class Base &#123;
-public:
-    Base() &#123;
-        v1_ = 1;
-    &#125;
-    Base(int value) : Base() &#123;
-        v2_ = value;
-    &#125;
-
-    void tell() &#123;
-        std::cout &lt;&lt; &quot;v1: &quot; &lt;&lt; v1_ &lt;&lt; &quot;    v2: &quot;&lt;&lt; v2_ &lt;&lt; std::endl; 
-    &#125;
-private:
-    int v1_ = 0;
-    int v2_ = 0;
-&#125;;
-
-int main() &#123;
-    Base base(2);
-    base.tell(); 
-    return 0;
-&#125;
-</code></pre>
-</blockquote>
+<h2 id="move-semantics（移动语义）"><a href="#move-semantics（移动语义）" class="headerlink" title="move semantics（移动语义）"></a><strong>move semantics（移动语义）</strong></h2><p><code>移动语义的出现解决了传统C++没有区分移动和拷贝而导致造成大量数据复制的问题。</code></p>
 <blockquote>
-<pre><code class="bash">$ ./delegating_constructor 
-v1: 1    v2: 2
-</code></pre>
-</blockquote>
-<p><br/><br/></p>
-<h2 id="显示禁用默认函数"><a href="#显示禁用默认函数" class="headerlink" title="显示禁用默认函数"></a><strong>显示禁用默认函数</strong></h2><blockquote>
-<pre><code class="c++">// 显示禁用默认函数
-#include &lt;iostream&gt;
-
-class Magic &#123;
-public:
-  Magic() = delete; // 禁用编译器生成的构造
-  Magic&amp; operator=(const Magic&amp;) = delete;
-  Magic(const Magic&amp; other) = delete;
-
-  Magic(int a) &#123;
-    std::cout &lt;&lt; &quot;Not default constructor.&quot; &lt;&lt; std::endl;
-    e_ = a;
-  &#125;
-  void tell() &#123; std::cout &lt;&lt; e_ &lt;&lt; std::endl; &#125;
-
-private:
-  int e_ = 0;
-&#125;;
-
-int main() &#123;
-// the default constructor of &quot;Inequality&quot; 
-// cannot be referenced
-// -- it is a deleted function
-//   Inequality m1;
-//   m1.tell();
-
-  Magic m2(2);
-  m2.tell();
-
-// function &quot;Magic::Magic(const Magic &amp;other)&quot; 
-// cannot be referenced
-//  -- it is a deleted function
-//   Magic m3 = m2;
-//   m3.tell();
-
-// function &quot;Magic::operator=(const Magic &amp;)&quot; 
-// cannot be referenced 
-// -- it is a deleted function
-//   Magic m4(4);
-//   m4 = m2;
-  return 0;
-&#125;
-</code></pre>
-</blockquote>
-<blockquote>
-<pre><code class="bash">$ ./delete_default 
-Not default constructor.
-2
-</code></pre>
-</blockquote>
-<p><br/><br/></p>
-<h2 id="继承构造"><a href="#继承构造" class="headerlink" title="继承构造"></a><strong>继承构造</strong></h2><blockquote>
-<pre><code class="c++">//继承构造
-#include &lt;iostream&gt;
-
-class Base &#123;
-public:
-    Base() &#123;
-        v1_ = 1;
-    &#125;
-    Base(int value) : Base() &#123;
-        v2_ = value;
-    &#125;
-
-    virtual void tell() &#123;
-        std::cout &lt;&lt; &quot;v1: &quot; &lt;&lt; v1_ &lt;&lt; &quot;    v2: &quot;&lt;&lt; v2_ &lt;&lt; std::endl; 
-    &#125;
-private:
-    int v1_ = 0;
-    int v2_ = 0;
-&#125;;
-
-// 构造函数如果需要继承是需要将参数一一传递的，这样会效率低下
-// using 引入继承构造
-class Derived : public Base &#123;
-public:
-    using Base::Base; // 继承构造
-&#125;;
-
-int main() &#123;
-    Derived derived(2222);
-    derived.tell();
-    return 0;
-&#125;
-</code></pre>
-</blockquote>
-<blockquote>
-<pre><code class="bash">$ ./derive_constructor 
-v1: 1    v2: 2222
-</code></pre>
-</blockquote>
-<p><br/><br/></p>
-<h2 id="显式虚函数重载"><a href="#显式虚函数重载" class="headerlink" title="显式虚函数重载"></a><strong>显式虚函数重载</strong></h2><blockquote>
-<pre><code class="c++">#include &lt;iostream&gt;
-
-struct Base &#123;
-    virtual void foo() final;
-    virtual void foo(float a) &#123;
-        std::cout &lt;&lt; a &lt;&lt; std::endl;
-    &#125;
-&#125;;
-
-struct Derived_1 final : public Base &#123;
-    virtual void foo(float a) override &#123; // 合法
-        std::cout &lt;&lt; &quot;override foo: &quot; &lt;&lt; a &lt;&lt; std::endl; 
-    &#125; 
-&#125;;
-
-// a &#39;final&#39; class type cannot be used as a base class
-// struct Derived_2 : Derived_1&#123;
-    
-// &#125;;
-
-struct Derived_3 : Base &#123;
-    // 非法
-    // virtual void fool() override &#123;
-
-    // &#125;
-&#125;;
-</code></pre>
-</blockquote>
-<p><br/><br/></p>
-<h2 id="std-initializer-list"><a href="#std-initializer-list" class="headerlink" title="std::initializer_list"></a><strong>std::initializer_list<T></strong></h2><blockquote>
-<pre><code class="c++">#include &lt;initializer_list&gt;
-#include &lt;vector&gt;
-#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
-
-class Magic &#123;
-public:
-    Magic(std::initializer_list&lt;int&gt; list) : list_(list) &#123;&#125;
-    void print() &#123; 
-        std::for_each(list_.begin(), list_.end(), [](int item)&#123;
-            std::cout &lt;&lt; item  &lt;&lt; std::endl;
-        &#125;);
-    &#125;
-private:
-    std::vector&lt;int&gt; list_;
-&#125;;
-
-int main() &#123;
-    Magic magic = &#123;1, 2, 3, 4, 5&#125;;
-    magic.print();
-    return 0;
-&#125;
-</code></pre>
-</blockquote>
-<blockquote>
-<pre><code class="bash">$ ./initializer_list 
-1
-2
-3
-4
-5
-</code></pre>
-</blockquote>
-<p><br/><br/></p>
-<h2 id="enum-class（强枚举类型）"><a href="#enum-class（强枚举类型）" class="headerlink" title="enum class（强枚举类型）"></a><strong>enum class（强枚举类型）</strong></h2><p>​        参考 <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/language/enum">https://en.cppreference.com/w/cpp/language/enum</a><br>​        参考 <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/types/underlying_type">https://en.cppreference.com/w/cpp/types/underlying_type</a></p>
-<blockquote>
-<pre><code class="c++">#include &lt;iostream&gt;
-
-// 重载 operator&lt;&lt; 用来输出强类型枚举
-template&lt;typename T&gt;
-std::ostream&amp; operator&lt;&lt;(typename std::enable_if&lt;std::is_enum&lt;T&gt;::value, 
-std::ostream&gt;::type&amp; stream, const T&amp; e) &#123;
-    return stream &lt;&lt; static_cast&lt;typename std::underlying_type&lt;T&gt;::type&gt;(e);
- &#125;
-
-enum class Param &#123;
-    kValue1, 
-    kValue2,
-    kValue3 = 100,
-    kValue4 = 100,
-&#125;;
-
-int main() &#123;
-    // no match for ‘operator==’ (operand types are ‘Param’ and ‘int’)
-    // if(Param::kValue1 == 0) &#123;
-    //     std::cout &lt;&lt; (int)Param::kValue1 &lt;&lt; std::endl;
-    // &#125;
-
-    if(Param::kValue3 == Param::kValue4) &#123;
-        std::cout &lt;&lt; &quot;Param::kValue3 : &quot; &lt;&lt; Param::kValue3 &lt;&lt; std::endl;
-        std::cout &lt;&lt; &quot;Param::kValue4 : &quot; &lt;&lt; Param::kValue4 &lt;&lt; std::endl;
-        std::cout &lt;&lt; &quot;It&#39;s really fucking Strong!&quot; &lt;&lt; std::endl;
-    &#125;
-    return 0;
-&#125;
-</code></pre>
-</blockquote>
-<blockquote>
-<pre><code class="bash">$./strong_enum 
-Param::kValue3 : 100
-Param::kValue4 : 100
-It&#39;s really fucking Strong!
-</code></pre>
-</blockquote>
-<p><br/><br/></p>
-<h2 id="模板增强"><a href="#模板增强" class="headerlink" title="模板增强"></a><strong>模板增强</strong></h2><blockquote>
-<pre><code class="c++">// template_out_file.hpp
-template&lt;typename T, typename U&gt;
-auto ImOutsideTemplateAdd(T t, U u) &#123;
-    return t + u;
-&#125;
-</code></pre>
-</blockquote>
-<blockquote>
-<pre><code class="c++">// template_emhance.cpp
-#include &lt;iostream&gt;
-#include &quot;template_out_file.hpp&quot;
-extern template auto ImOutsideTemplateAdd&lt;float, double&gt;(float, double);
-
-int main() &#123;
-    std::cout &lt;&lt; ImOutsideTemplateAdd(4.5, 5.6) &lt;&lt; std::endl;
-    return 0;
-&#125;
-</code></pre>
-</blockquote>
-<p><br/><br/></p>
-<h2 id="Variadic-Template（可变长模板）"><a href="#Variadic-Template（可变长模板）" class="headerlink" title="Variadic Template（可变长模板）"></a><strong>Variadic Template（可变长模板）</strong></h2><blockquote>
 <pre><code class="c++">#include &lt;iostream&gt;
 #include &lt;string&gt;
+#include &lt;vector&gt;
 
-// 参数可以为0
-template&lt;typename... Ts&gt;
-class Magic &#123;
+class A &#123;
+public:
+    int* ptr_ = nullptr;
+
+ A() : ptr_(new int(1))&#123;
+         std::cout &lt;&lt; &quot;默认构造&quot;  &lt;&lt; ptr_ &lt;&lt; std::endl;
+ &#125;
+
+ // 存在无意义的对象拷贝
+ A(A&amp; a) : ptr_(new int(*a.ptr_)) &#123;
+       std::cout &lt;&lt; &quot;拷贝构造&quot;  &lt;&lt; ptr_ &lt;&lt; std::endl;
+ &#125;
+
+ A(A&amp;&amp; a) : ptr_(a.ptr_) &#123;
+       a.ptr_ = nullptr;
+       std::cout &lt;&lt; &quot;移动构造&quot; &lt;&lt; ptr_ &lt;&lt; std::endl;
+ &#125;
+
+ ~A() &#123;
+       std::cout &lt;&lt; &quot;析构&quot; &lt;&lt; ptr_ &lt;&lt; std::endl;
+       delete ptr_;
+ &#125;
 
 &#125;;
 
- // 参数至少为1
-template&lt;typename Required, typename... Args&gt; 
- class Magic_1 &#123;
-
-&#125;;
-
-template&lt;typename T&gt;
-void log(T info) &#123;
-    std::cout &lt;&lt; info &lt;&lt; std::endl;
+// 这样定义能防止编译器优化
+// 函数返回后会产生一个将亡值，被A的移动构造 A(A&amp;&amp;) 引用，从而延长生命周期，
+// 并将这个右值中的指针拿到，保存到 A obj 中， 之后将亡值的指针会被置为 nullptr， 
+// 防止了这块内存域被销毁，
+// 从而别免了无意义的拷贝构造，增强性能。 
+A Get_A(bool test) &#123;
+     A a, b;
+     return test ? a : b;
 &#125;
-
- template&lt;typename... Args&gt;
- void printf(const std::string&amp; str, Args... args);
-
- template&lt;typename... Args&gt;
- void magic(Args... args) &#123;
-     log(sizeof...(args));
- &#125;
-
- 
-
- template&lt;typename T&gt;
- void printf(T value) &#123;
-     log(value);
- &#125;
-
- // 递归方式 解包
- // 至少有2个参数时会调用此模板，当只有2个参数时，最终会调用printf&lt;typename T&gt;模板函数
- template&lt;typename T, typename... Args&gt;
- void printf(T value, Args... args) &#123;
-     std::cout &lt;&lt; value &lt;&lt; std::endl;
-     printf(args...);
-&#125;
-
-// 初始化列表展开 解包
-// C++14 tricky
-// 没有C++17之前都是这么干的：(void)std::initializer_list&lt;int&gt;&#123; (func(u), 0)... &#125;;
-// 包展开语法：模式…，这里的模式是小括号中的部分。一个lambda表达式和value组成的逗号表达式
-
-template&lt;typename T&gt;
-void intializer_list_print(T value) &#123;
-    std::cout &lt;&lt; value &lt;&lt; std::endl;
-&#125;
-
-// (1)
-template&lt;typename T, typename... Args&gt;
-void intializer_list_print(T value, Args... args) &#123;
-    std::cout &lt;&lt; value &lt;&lt; std::endl;
-    (void)std::initializer_list&lt;int&gt;&#123; (intializer_list_print(args), 0)... &#125;;
-&#125;
-
- // (2) Brace-enclosed initializers
- // 参考 https://en.cppreference.com/w/cpp/language/parameter_pack
-template&lt;typename T, typename... Args&gt;
-void intializer_list_print_2(T value, Args... args) &#123;
-    std::cout &lt;&lt; value &lt;&lt; std::endl;
-
-    (void)std::initializer_list&lt;T&gt;&#123; (std::cout &lt;&lt; args &lt;&lt; std::endl, 0 )... &#125;;
-&#125;
-
-
-// C++17 fold expression
-// 参照libcxx的
-
-// template &lt;class ..._Tp&gt;
-// _LIBCPP_INLINE_VISIBILITY
-// void __swallow(_Tp&amp;&amp;...) _NOEXCEPT &#123;&#125; 
-
-// template &lt;class _Tuple&gt;
-//         _LIBCPP_INLINE_VISIBILITY
-//         typename enable_if
-//         &lt;
-//             __tuple_assignable&lt;_Tuple, tuple&lt;_Tp...&gt; &gt;::value,
-//             __tuple_impl&amp;
-//         &gt;::type
-//         operator=(_Tuple&amp;&amp; __t) _NOEXCEPT_((__all&lt;is_nothrow_assignable&lt;_Tp&amp;, typename tuple_element&lt;_Indx,
-//                                        typename __make_tuple_types&lt;_Tuple&gt;::type&gt;::type&gt;::value...&gt;::value))
-//         &#123;
-//             __swallow(__tuple_leaf&lt;_Indx, _Tp&gt;::operator=(_VSTD::forward&lt;typename tuple_element&lt;_Indx,
-//                                        typename __make_tuple_types&lt;_Tuple&gt;::type&gt;::type&gt;(_VSTD::get&lt;_Indx&gt;(__t)))...);
-//             return *this;
-//         &#125;
-
-
-// 所以可以类似：
-// C++17 fold exprssion 参考 https://en.cppreference.com/w/cpp/language/fold
-// __swallow(func(u)...);
-
-template&lt;typename T&gt;
-void cxx17_print(T value) &#123;
-    std::cout &lt;&lt; value &lt;&lt; std::endl;
-&#125;
-
-template&lt;typename T, typename... Args&gt;
-void cxx17_print(T value, Args... args) &#123;
-    std::cout &lt;&lt; value &lt;&lt; std::endl;
-    cxx17_print(args...);
-&#125;
-
 
 int main() &#123;
-     log(&quot;递归方式：&quot;);
-     printf(1, 2, &quot;123&quot;, 1.1);
 
-     log(&quot;初始化列表展开方式1：&quot;);
-     intializer_list_print(1, 2, &quot;123&quot;, 1.1f);
+     A obj = Get_A(false);
+     std::cout &lt;&lt; obj.ptr_ &lt;&lt; std::endl;
+     std::cout &lt;&lt; *obj.ptr_ &lt;&lt; std::endl;
 
-     log(&quot;初始化列表展开方式2：&quot;);
-     intializer_list_print_2(1, 2, &quot;123&quot;, 1.1f);
+     // std::vector 例子
+     std::string str = &quot;xxx&quot;;
+     std::vector&lt;std::string&gt; v;
 
-     log(&quot;C++17 fold expression:&quot;);
-     cxx17_print(1, 2, &quot;123&quot;, 1.1f);
+     v.push_back(str);
+     // str 为 &quot;xxx&quot;
+     std::cout &lt;&lt; &quot;拷贝传参后的str: &quot;&lt;&lt; str &lt;&lt; std::endl;
+     // 如果使用如下，str将被置为空。
+     v.push_back(std::move(str));
+     // str 为 &quot;&quot;
+     std::cout &lt;&lt; &quot;移动传参后的str: &quot;&lt;&lt; str &lt;&lt; std::endl;
+
      return 0;
 &#125;
 </code></pre>
 </blockquote>
 <blockquote>
-<pre><code class="bash">$ ./variadic_template 
-递归方式：
+<pre><code class="bash">$ ./move_semantics 
+默认构造0x5578c3559eb0
+默认构造0x5578c355a2e0
+拷贝构造0x5578c355a300
+析构0x5578c355a2e0
+析构0x5578c3559eb0
+0x5578c355a300
 1
-2
-123
-1.1
-初始化列表展开方式1：
-1
-2
-123
-1.1
-初始化列表展开方式2：
-1
-2
-123
-1.1
-C++17 fold expression:
-1
-2
-123
-1.1
+拷贝传参后的str: xxx
+移动传参后的str: 
+析构0x5578c355a300
+</code></pre>
+</blockquote>
+<br/>
+
+<br/>
+
+<h2 id="std-bind"><a href="#std-bind" class="headerlink" title="std::bind"></a><strong>std::bind</strong></h2><blockquote>
+<pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;functional&gt;
+
+int Calculate(int x, int y, bool is_add) &#123;
+        return is_add ? x + y : x * y;
+&#125;
+
+// 将部分调用参数提前提前绑定到函数身上，成为一个新的对象，
+// 然后在参数齐全后完成调用、
+// 使用std::placeholders::_1对第3位参数进行占位，如果多个占位，依次为_1, _2, _3, ...
+
+int main() &#123;
+        auto bind_calculate = std::bind(Calculate, 3, 4, std::placeholders::_1);
+        std::cout &lt;&lt; bind_calculate(false) &lt;&lt; std::endl;
+        return 0;
+&#125;
+</code></pre>
+</blockquote>
+<br/>
+
+<br/>
+
+<h2 id="std-forward"><a href="#std-forward" class="headerlink" title="std::forward"></a><strong>std::forward</strong></h2><p><strong><code>完美转发, 为了在传递参数的时候保持原来的参数类型（左引用保持左引用，右引用保持右引用）</code></strong></p>
+<br/>
+
+<p><em><strong>坍缩规则：</strong></em></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">数形参类型</th>
+<th align="center">实参参数类型</th>
+<th align="center">推导后的函数形参类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">T&amp;</td>
+<td align="center">左引用</td>
+<td align="center">T&amp;</td>
+</tr>
+<tr>
+<td align="center">T&amp;</td>
+<td align="center">右引用</td>
+<td align="center">T&amp;</td>
+</tr>
+<tr>
+<td align="center">T&amp;&amp;</td>
+<td align="center">左引用</td>
+<td align="center">T&amp;</td>
+</tr>
+<tr>
+<td align="center">T&amp;&amp;</td>
+<td align="center">右引用</td>
+<td align="center">T&amp;&amp;</td>
+</tr>
+</tbody></table>
+</blockquote>
+<br/>
+
+<blockquote>
+<pre><code class="c++">// 前面提到，声明一个右值引用其实是一个左值 std::string&amp;&amp; rs = &quot;xx&quot; + &quot;yy&quot;;
+
+#include &lt;iostream&gt;
+#include &lt;utility&gt;
+
+void log(int&amp; v) &#123;
+        std::cout &lt;&lt; &quot;      左值引用&quot; &lt;&lt; std::endl;
+&#125;
+
+void log(int&amp;&amp; v) &#123;
+        std::cout &lt;&lt; &quot;      右值引用&quot; &lt;&lt; std::endl;
+&#125;
+
+
+template &lt;typename T&gt;
+void pass(T&amp;&amp; v) &#123;
+       std::cout &lt;&lt; &quot;    --普通传参&quot;  &lt;&lt; std::endl;
+       log(v);
+&#125;
+
+template &lt;typename T&gt;
+void forward_pass(T&amp;&amp; v) &#123;
+       std::cout &lt;&lt; &quot;    --普通传参&quot;  &lt;&lt; std::endl;
+       log(v);
+
+       // 单纯的将左值转化为右值。
+       std::cout &lt;&lt; &quot;    --move 传参。&quot;  &lt;&lt; std::endl;
+       log(std::move(v));
+
+       // 单纯将参数做了类型转换, 由std::forward的实现得知。
+       /* 
+        template&lt;typename _Tp&gt;
+            constexpr _Tp&amp;&amp;
+            forward(typename std::remove_reference&lt;_Tp&gt;::type&amp; __t) noexcept
+            &#123; return static_cast&lt;_Tp&amp;&amp;&gt;(__t); &#125;
+        */
+       std::cout &lt;&lt; &quot;    --forward 传参。&quot;  &lt;&lt; std::endl;
+       log(std::forward&lt;T&gt;(v));
+&#125;
+
+int main() &#123;
+        std::cout &lt;&lt; &quot;传递右值:&quot; &lt;&lt; std::endl;
+        pass(1); // 虽然传递右值1，但是对于pass(v)的参数v来说，v是一个（右值）引用，同时也是左值
+
+        std::cout &lt;&lt; &quot;传递左值:&quot; &lt;&lt; std::endl;
+        int value = 100;
+        pass(value); // value是左引用，为什么能调用到pass(T&amp;&amp; v) ？ 如上表格坍缩规则。
+
+        std::cout &lt;&lt; &quot;=================================&quot; &lt;&lt; std::endl;
+
+        // 无论传递 左值（2）, 还是右值（f_value），普通传参都会将参数作为左值进行转发。
+        // 所以std::move总会接到一个左值，从而转发调用 log(int&amp;&amp; )输出右值引用。
+        // std::forward 没有造成多余的拷贝， 同时完美转发（传递）了函数实参给了内部调用的其他函数。
+        std::cout &lt;&lt; &quot;传递右值:&quot; &lt;&lt; std::endl;
+        forward_pass(2);
+
+        std::cout &lt;&lt; &quot;传递左值:&quot; &lt;&lt; std::endl;
+        int f_value = 200;
+        forward_pass(f_value);
+
+        return 0;
+&#125;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code class="bash">$ ./std_forward 
+传递右值:
+    --普通传参
+      左值引用
+传递左值:
+    --普通传参
+      左值引用
+=================================
+传递右值:
+    --普通传参
+      左值引用
+    --move 传参。
+      右值引用
+    --forward 传参。
+      右值引用
+传递左值:
+    --普通传参
+      左值引用
+    --move 传参。
+      右值引用
+    --forward 传参。
+      左值引用
+</code></pre>
+</blockquote>
+<br/>
+
+<br/>
+
+<h2 id="std-function"><a href="#std-function" class="headerlink" title="std::function"></a><strong>std::function</strong></h2><blockquote>
+<pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;functional&gt;
+
+// old
+using foo = void(int);
+// 函数指针的调用是非类型安全的
+void excecute_f(foo f) &#123;
+       f(3);
+&#125;
+void Oldman() &#123;
+       auto f = [](int value) &#123;
+           std::cout &lt;&lt; value &lt;&lt; std::endl;
+       &#125;;
+       excecute_f(f);
+&#125;
+
+
+//new
+int print(int para) &#123;
+       return para;
+&#125;
+// 函数容器 将函数、函数指针作为对象处理，是一种通用、多态的函数封装，类型安全
+void Coolman() &#123;
+
+       std::function&lt;int(int)&gt; func_1 = print;
+       std::function&lt;int(int)&gt; func_2 = [&amp;](int value) &#123;
+           return func_1(value) + value;
+       &#125;;
+       std::cout &lt;&lt; func_2(100) &lt;&lt; std::endl;
+&#125;
+
+int main() &#123;
+       Oldman();
+       Coolman();
+       return 0;
+&#125;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code class="bash">$ ./std_function 
+3
+200
+</code></pre>
+</blockquote>
+<br/>
+
+<br/>
+
+<h2 id="std-move"><a href="#std-move" class="headerlink" title="std::move"></a><strong>std::move</strong></h2><p><strong><code>左值: 符号左边的值，是表达式（不一定是赋值表达式）后依然存在的持久对象。</code></strong></p>
+<p><strong><code>右值: 表达式结束后就不存在的临时对象。</code></strong></p>
+<p><strong><code>纯右值: 纯粹的字面量，如 10, true, 1+2, ..</code></strong></p>
+<p><strong><code>将亡值: 即将被销毁、却能够被移动的值。</code></strong></p>
+<blockquote>
+<pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;utility&gt; // std::move()
+
+std::vector&lt;int&gt; foo() &#123;
+        std::vector&lt;int&gt; tmp &#123;1, 2, 3, 4&#125;;
+        return tmp;
+&#125;
+
+    // v是左值， foo()就是右值，也是纯右值
+    // 对于foo()产生的返回值作为一个临时值，一旦被v复制后，就无法获取和修改
+    std::vector&lt;int&gt; v = foo();
+
+// std::move() 将左值参数无条件的转换成右值
+void log(const std::string&amp; str) &#123;
+        std::cout &lt;&lt; &quot;左值： &quot; &lt;&lt; str &lt;&lt; std::endl;
+&#125;
+
+void log(const std::string&amp;&amp; str) &#123;
+        std::cout &lt;&lt; &quot;右值： &quot; &lt;&lt; str &lt;&lt; std::endl;
+&#125;
+
+int main() &#123;
+        std::string ls1 = &quot;xxx&quot;;
+        // an rvalue reference cannot be bound to an lvalue
+        // std::string&amp;&amp; rs2 = ls1;
+
+        std::string&amp;&amp; rs2 = std::move(ls1);
+
+        // 常量左值引用延长临时变量的生命周期， 但是ls3不可修改
+        // initial value of reference to non-const must be an lvalue
+        const std::string&amp; ls3 = ls1 + ls1; 
+        // ls3 += &quot;yyy&quot;;
+
+        // 右值引用延长生命周期，可以定义为非常量引用，可修改。
+        std::string&amp;&amp; rs4 = ls1 + rs2;
+        rs4 += &quot;yyy&quot;;
+
+        // rs4虽然引用了一个右值，但是由于它是一个引用，所以它依然是一个左值。
+        log(rs4);
+        return 0;
+&#125;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code class="bash">$ ./std_move 
+左值： xxxxxxyyy
 </code></pre>
 </blockquote>
 
@@ -1077,7 +919,7 @@ C++17 fold expression:
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2021/03/13/%E6%96%B0%E7%89%B9%E6%80%A7--%E8%AF%AD%E8%A8%80%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%BC%BA%E5%8C%96/" id="post_nav-newer" class="prev-content">
+        <a href="/2021/03/15/%E6%96%B0%E7%89%B9%E6%80%A7(%E4%B8%89)--%E5%AF%B9%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E6%89%A9%E5%85%85/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -1091,7 +933,7 @@ C++17 fold expression:
 
     <!-- Next Nav -->
     
-        <a href="/2021/03/07/hello-world/" id="post_nav-older" class="next-content">
+        <a href="/2021/03/08/%E6%96%B0%E7%89%B9%E6%80%A7(%E4%B8%80)--%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
@@ -1183,7 +1025,7 @@ C++17 fold expression:
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2021/03/">三月 2021<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/archives/2021/03/">三月 2021<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         
@@ -1201,7 +1043,7 @@ C++17 fold expression:
             </a>
             <ul class="dropdown-menu">
                 <li>
-                
+                <a class="sidebar_archives-link" href="/categories/C-%E6%96%B0%E7%89%B9%E6%80%A7/">C++新特性<span class="sidebar_archives-count">3</span></a>
             </ul>
         </li>
         
@@ -1400,10 +1242,6 @@ It will not impact the appearance and can give developers a lot of support :)
 </script>
 
 
-
-    
-        <script>lsloader.load("sm_js","/js/smoothscroll.js?lOy/ACj5suSNi7ZVFVbpFQ==", true)</script>
-    
 
 
 
