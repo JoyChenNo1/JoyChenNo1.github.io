@@ -44,7 +44,7 @@
     
     <title>
         
-            C++1x 新特性（三）对标准库的扩充 | 
+            C++1x 新特性（四）智能指针 | 
         
         进阶之路
     </title>
@@ -219,7 +219,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="进阶之路">
-    <meta name="msapplication-starturl" content="http://example.com/2021/03/15/%E6%96%B0%E7%89%B9%E6%80%A7(%E4%B8%89)--%E5%AF%B9%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E6%89%A9%E5%85%85/">
+    <meta name="msapplication-starturl" content="http://example.com/2021/03/21/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E5%9B%9B%20%EF%BC%89%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="进阶之路">
@@ -234,16 +234,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://example.com/2021/03/15/%E6%96%B0%E7%89%B9%E6%80%A7(%E4%B8%89)--%E5%AF%B9%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E6%89%A9%E5%85%85/">
+    <meta property="og:url" content="http://example.com/2021/03/21/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E5%9B%9B%20%EF%BC%89%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="C++1x 新特性（三）对标准库的扩充 | 进阶之路">
+    <meta property="og:title" content="C++1x 新特性（四）智能指针 | 进阶之路">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="">
     <meta property="og:article:tag" content="C++11 C++14 C++17"> 
 
     
-        <meta property="article:published_time" content="Mon Mar 15 2021 00:09:53 GMT+0800">
-        <meta property="article:modified_time" content="Mon Mar 15 2021 23:17:28 GMT+0800">
+        <meta property="article:published_time" content="Sun Mar 21 2021 23:37:48 GMT+0800">
+        <meta property="article:modified_time" content="Mon Mar 22 2021 00:34:39 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -251,7 +251,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://example.com/2021/03/15/%E6%96%B0%E7%89%B9%E6%80%A7(%E4%B8%89)--%E5%AF%B9%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E6%89%A9%E5%85%85/index.html" />
+        <link rel="canonical" href="http://example.com/2021/03/21/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E5%9B%9B%20%EF%BC%89%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -263,10 +263,10 @@
 {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "mainEntityOfPage": "http://example.com/2021/03/15/%E6%96%B0%E7%89%B9%E6%80%A7(%E4%B8%89)--%E5%AF%B9%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E6%89%A9%E5%85%85/index.html",
-    "headline": "C++1x 新特性（三）对标准库的扩充",
-    "datePublished": "Mon Mar 15 2021 00:09:53 GMT+0800",
-    "dateModified": "Mon Mar 15 2021 23:17:28 GMT+0800",
+    "mainEntityOfPage": "http://example.com/2021/03/21/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E5%9B%9B%20%EF%BC%89%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/index.html",
+    "headline": "C++1x 新特性（四）智能指针",
+    "datePublished": "Sun Mar 21 2021 23:37:48 GMT+0800",
+    "dateModified": "Mon Mar 22 2021 00:34:39 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -350,7 +350,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#C-1x-%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%89%EF%BC%89%E5%AF%B9%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E6%89%A9%E5%85%85"><span class="post-toc-number">1.</span> <span class="post-toc-text">C++1x 新特性（三）对标准库的扩充</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-array"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">std::array</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-forward-list"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">std::forward_list</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-tuple"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">std::tuple</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-unordered-map"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">std::unordered_map</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-unordered-set"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">std::unordered_set</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#C-1x-%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E5%9B%9B%EF%BC%89%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="post-toc-number">1.</span> <span class="post-toc-text">C++1x 新特性（四）智能指针</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#RAII-%EF%BC%88%E8%B5%84%E6%BA%90%E8%8E%B7%E5%8F%96%E5%8D%B3%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%89"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">RAII （资源获取即初始化）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-shared-ptr"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">std::shared_ptr</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-unique-ptr"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">std_unique_ptr</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-weak-ptr"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">std::weak_ptr</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#a-%E3%80%81b-%E8%A2%AB%E9%94%80%E6%AF%81%E5%90%8E%EF%BC%8CA%EF%BC%8CB%E4%BE%9D%E7%84%B6%E8%A2%AB%E5%BC%BA%E5%BC%95%E7%94%A8%E6%97%A0%E6%B3%95%E9%87%8A%E6%94%BE"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">a 、b 被销毁后，A，B依然被强引用无法释放</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BD%BF%E7%94%A8%E5%BC%B1%E5%BC%95%E7%94%A8%E6%8C%87%E9%92%88-std-weak-ptr%EF%BC%8C-%E4%B8%8D%E4%BC%9A%E5%BC%95%E8%B5%B7%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E7%9A%84%E5%A2%9E%E5%8A%A0%E3%80%82"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">使用弱引用指针 std::weak_ptr， 不会引起引用计数的增加。</span></a></li></ol></li></ol></li></ol>
     </ul>
     
 
@@ -382,7 +382,7 @@
         
     
             <p class="article-headline-p">
-                C++1x 新特性（三）对标准库的扩充
+                C++1x 新特性（四）智能指针
             </p>
         </div>
 
@@ -401,7 +401,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Joy Chen</strong>
-        <span>3月 15, 2021</span>
+        <span>3月 21, 2021</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -445,7 +445,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=C++1x 新特性（三）对标准库的扩充&url=http://example.com/2021/03/15/%E6%96%B0%E7%89%B9%E6%80%A7(%E4%B8%89)--%E5%AF%B9%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E6%89%A9%E5%85%85/index.html&via=Joy Chen" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=C++1x 新特性（四）智能指针&url=http://example.com/2021/03/21/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E5%9B%9B%20%EF%BC%89%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/index.html&via=Joy Chen" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -454,7 +454,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/03/15/%E6%96%B0%E7%89%B9%E6%80%A7(%E4%B8%89)--%E5%AF%B9%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E6%89%A9%E5%85%85/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/03/21/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E5%9B%9B%20%EF%BC%89%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -463,7 +463,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=http://example.com/2021/03/15/%E6%96%B0%E7%89%B9%E6%80%A7(%E4%B8%89)--%E5%AF%B9%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E6%89%A9%E5%85%85/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://example.com/2021/03/21/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E5%9B%9B%20%EF%BC%89%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -472,7 +472,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://example.com/2021/03/15/%E6%96%B0%E7%89%B9%E6%80%A7(%E4%B8%89)--%E5%AF%B9%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E6%89%A9%E5%85%85/index.html&title=C++1x 新特性（三）对标准库的扩充" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://example.com/2021/03/21/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E5%9B%9B%20%EF%BC%89%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/index.html&title=C++1x 新特性（四）智能指针" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -481,7 +481,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=进阶之路&title=C++1x 新特性（三）对标准库的扩充&summary=&pics=http://example.com/img/favicon.png&url=http://example.com/2021/03/15/%E6%96%B0%E7%89%B9%E6%80%A7(%E4%B8%89)--%E5%AF%B9%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E6%89%A9%E5%85%85/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=进阶之路&title=C++1x 新特性（四）智能指针&summary=&pics=http://example.com/img/favicon.png&url=http://example.com/2021/03/21/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E5%9B%9B%20%EF%BC%89%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -500,231 +500,170 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="C-1x-新特性（三）对标准库的扩充"><a href="#C-1x-新特性（三）对标准库的扩充" class="headerlink" title="C++1x 新特性（三）对标准库的扩充"></a>C++1x 新特性（三）对标准库的扩充</h1><br/>
+        <h1 id="C-1x-新特性（四）智能指针"><a href="#C-1x-新特性（四）智能指针" class="headerlink" title="C++1x 新特性（四）智能指针"></a>C++1x 新特性（四）智能指针</h1><br/>
 
 <br/>
 
-<h2 id="std-array"><a href="#std-array" class="headerlink" title="std::array"></a><strong>std::array</strong></h2><br/>
-
-<p><em><strong>std::array 和 std::vector 的区别</strong></em></p>
-<table>
-<thead>
-<tr>
-<th align="center">std::array</th>
-<th align="center">std::vector</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">栈内存</td>
-<td align="center">堆内存</td>
-</tr>
-<tr>
-<td align="center">灵活访问，更高性能</td>
-<td align="center">有时候需要手动释放资源</td>
-</tr>
-<tr>
-<td align="center">更现代</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">编译时会创建一个固定的数组</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">不能够隐式转成指针（注意！！！）</td>
-<td align="center"></td>
-</tr>
-</tbody></table>
-<p>​                                                                  </p>
-<pre><code class="c++">#include &lt;iostream&gt;
-#include &lt;cstdio&gt;
-#include &lt;array&gt;
-#include &lt;algorithm&gt;
-
-// C风格的接口
-void c_test (int* p, size_t len) &#123;
-    printf(&quot;%d, %d&quot;, *p, len);
-&#125;
-
-int main() &#123;
-    std::array&lt;int, 5&gt; arr_1 = &#123;1, 2, 3, 4, 5&#125;;
-    
-    // 无法转换成 C 风格指针传递！
-    // no suitable conversion function from &quot;std::array&lt;int, 5UL&gt;&quot; to &quot;int *&quot; exists
-    // c_test(arr_1, arr_1.size());
-
-    // struct std::array&lt;int, &lt;error-constant&gt;&gt;
-    // int len = 5;
-    constexpr int len = 5;
-    std::array&lt;int, len&gt; arr_2 = &#123; 1, 3, 2, 5, 4 &#125;;
-    std::sort(arr_2.begin(), arr_2.end());
-    return 0;
-&#125;
-</code></pre>
+<h2 id="RAII-（资源获取即初始化）"><a href="#RAII-（资源获取即初始化）" class="headerlink" title="RAII （资源获取即初始化）"></a><strong>RAII （资源获取即初始化）</strong></h2><p><strong><code>存在的问题：存在中途抛出异常等情况导致 new 和 delete 带来的的内存泄露问题。 </code></strong></p>
 <br/>
 
 <br/>
 
-<h2 id="std-forward-list"><a href="#std-forward-list" class="headerlink" title="std::forward_list"></a><strong>std::forward_list</strong></h2><table>
-<thead>
-<tr>
-<th align="center">std::list</th>
-<th align="center">std::forward_list</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">双向链表</td>
-<td align="center">单链表</td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center">不支持随机访问， O(1)复杂度插入</td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center">唯一一个不提供size()的容器</td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center">不需要双向迭代时，更高的空间利用率</td>
-</tr>
-</tbody></table>
-<br/>
-
-<br/>                                                                                                                                                   
-
-<h2 id="std-tuple"><a href="#std-tuple" class="headerlink" title="std::tuple"></a><strong>std::tuple</strong></h2><pre><code class="c++">#include &lt;iostream&gt;
-#include &lt;tuple&gt;
-#include &lt;boost/variant.hpp&gt;
-#include &lt;variant&gt;
-
-// 用于求取 tuple size
-
-template &lt;typename T&gt;
-auto tuple_size(const T&amp; tpl) &#123;
-    return std::tuple_size&lt;T&gt;::value;
-&#125;
-
-// 借助 boost::variant 实现 
-// 参考 https://www.boost.org/doc/libs/1_75_0/doc/html/variant.html
-template &lt;size_t n, typename... Args&gt;
-boost::variant&lt;Args...&gt; _tuple_index(size_t i, const std::tuple&lt;Args...&gt;&amp; tpl) &#123;
-    if (i == n) &#123;
-        return std::get&lt;n&gt;(tpl);
-    &#125; else if (n == sizeof...(Args) - 1) &#123;
-        throw std::out_of_range(&quot;越界！&quot;);
-    &#125;else &#123;
-        return _tuple_index&lt;(n &lt; sizeof...(Args) - 1 ? n + 1 : 0)&gt;(i, tpl);
-    &#125;
-&#125;
-
-// 用于获取指定索引的 tuple 元素值
-template &lt;typename... Args&gt;
-boost::variant&lt;Args...&gt; tuple_index(size_t i, const std::tuple&lt;Args...&gt;&amp; tpl) &#123;
-    return _tuple_index&lt;0&gt;(i, tpl);
-&#125;
-
-int main() &#123;
-
-    auto student = std::make_tuple(&quot;Liming&quot;, 18, &#39;B&#39;);
-
-    constexpr int i_0 = 0, i_1 = 1, i_2 = 2;
-
-    // std::get&lt;&gt; 依赖的是编译期的常量
-    std::cout &lt;&lt; &quot;姓名： &quot; &lt;&lt; std::get&lt;i_0&gt;(student)  &lt;&lt; std::endl;
-    std::cout &lt;&lt; &quot;年龄： &quot; &lt;&lt; std::get&lt;i_1&gt;(student)  &lt;&lt; std::endl;
-    std::cout &lt;&lt; &quot;成绩： &quot; &lt;&lt; std::get&lt;i_2&gt;(student)  &lt;&lt; std::endl;
-
-    std::string name;
-    char grade;
-
-    // 利用std::tie 进行元组拆包， std::ignore忽略某个元素
-    std::tie(name, std::ignore, grade) = student;
-    std::cout &lt;&lt; &quot;姓名： &quot; &lt;&lt; name  &lt;&lt; std::endl;
-    std::cout &lt;&lt; &quot;成绩： &quot; &lt;&lt; grade  &lt;&lt; std::endl;
-
-    // 元组合并
-    auto teacher = std::make_tuple(&quot;Miss Li&quot;, 25, &#39;A&#39;);
-    auto concat = std::tuple_cat(std::move(student), std::move(teacher));
-
-    // 元组遍历
-    for (size_t i = 0; i != tuple_size(concat); ++i) &#123;
-        std::cout &lt;&lt; tuple_index(i, concat) &lt;&lt; std::endl;
-    &#125;
-
-    return 0;
-&#125;
-</code></pre>
-<pre><code class="bash">$ ./std_tuple 
-姓名： Liming
-年龄： 18
-成绩： B
-姓名： Liming
-成绩： B
-Liming
-18
-B
-Miss Li
-25
-A
-</code></pre>
-<br/>
-
-<br/>
-
-<h2 id="std-unordered-map"><a href="#std-unordered-map" class="headerlink" title="std::unordered_map"></a><strong>std::unordered_map</strong></h2><pre><code class="cpp">#include &lt;iostream&gt;
+<h2 id="std-shared-ptr"><a href="#std-shared-ptr" class="headerlink" title="std::shared_ptr"></a><strong>std::shared_ptr</strong></h2><p><strong><code>std::shared_ptr 通过 get() 获取原始指针， reset() 减少一个引用计数， get_count()查看一个对象当前的引用计数。 </code></strong></p>
+<pre><code class="c++">// 记录有多少个share_ptr共同指向一个对象
+#include &lt;memory&gt;
+#include &lt;iostream&gt;
 #include &lt;string&gt;
-#include &lt;unordered_map&gt;
-#include &lt;map&gt;
-#include &lt;algorithm&gt;
 
 template &lt;typename T&gt;
-void log(const T&amp; t) &#123;
-    std::cout &lt;&lt; &quot;容器类型： &quot; &lt;&lt; typeid(T).name() &lt;&lt; std::endl;
-    std::for_each(t.begin(), t.end(), [](const auto&amp; item)&#123;
-        std::cout &lt;&lt; &quot;Key: &quot;&lt;&lt; item.first &lt;&lt; &quot;  Value: &quot;&lt;&lt; item.second &lt;&lt; std::endl;
-    &#125;);
+void print_use_count(const T&amp; p, std::string name) &#123;
+    std::cout &lt;&lt; name &lt;&lt; &quot;.use_count() = &quot; &lt;&lt; p.use_count() &lt;&lt; std::endl;
 &#125;
 
 int main() &#123;
-    // 无序
-    std::unordered_map&lt;int, std::string&gt; unordered = &#123;
-        &#123;1, &quot;one&quot;&#125;,
-        &#123;4, &quot;four&quot;&#125;,
-        &#123;3, &quot;three&quot;&#125;, 
-        &#123;2, &quot;two&quot;&#125;
-    &#125;;
-    // 有序
-    std::map&lt;int, std::string&gt; ordered = &#123;
-        &#123;1, &quot;one&quot;&#125;,
-        &#123;4, &quot;four&quot;&#125;,
-        &#123;3, &quot;three&quot;&#125;, 
-        &#123;2, &quot;two&quot;&#125;
+
+    auto p1 = std::make_shared&lt;int&gt;(100);
+    auto p2 = p1;
+    auto p3 = p1;
+    int *q = p1.get(); // 不会增加引用计数
+
+    auto print_all = [&amp;]() &#123; 
+        print_use_count(p1, &quot;p1&quot;);
+        print_use_count(p2, &quot;p2&quot;);
+        print_use_count(p3, &quot;p3&quot;);
     &#125;;
 
-    log(unordered);
-    log(ordered);
-    
+    print_all();
+    std::cout &lt;&lt; &quot;reset p2 之后： &quot; &lt;&lt; std::endl;
+    p2.reset();
+    print_all();
+
+    std::cout &lt;&lt; &quot;reset p3 之后： &quot; &lt;&lt; std::endl;
+    p3.reset();
+    print_all();
+
     return 0;
 &#125;
 </code></pre>
-<pre><code class="bash">$ ./std_unordered_map 
-容器类型： St13unordered_mapIiNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4hashIiESt8equal_toIiESaISt4pairIKiS5_EEE
-Key: 2  Value: two
-Key: 3  Value: three
-Key: 4  Value: four
-Key: 1  Value: one
-容器类型： St3mapIiNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4lessIiESaISt4pairIKiS5_EEE
-Key: 1  Value: one
-Key: 2  Value: two
-Key: 3  Value: three
-Key: 4  Value: four
+<pre><code class="bash">$ ./share_ptr 
+p1.use_count() = 3
+p2.use_count() = 3
+p3.use_count() = 3
+reset p2 之后： 
+p1.use_count() = 2
+p2.use_count() = 0
+p3.use_count() = 2
+reset p3 之后： 
+p1.use_count() = 1
+p2.use_count() = 0
+p3.use_count() = 0
 </code></pre>
 <br/>
 
 <br/>
 
-<h2 id="std-unordered-set"><a href="#std-unordered-set" class="headerlink" title="std::unordered_set"></a><strong>std::unordered_set</strong></h2><p><img src="/set-1615821442600.png" alt="set 与 unordered_set 的区别"></p>
+<h2 id="std-unique-ptr"><a href="#std-unique-ptr" class="headerlink" title="std_unique_ptr"></a><strong>std_unique_ptr</strong></h2><p><strong><code>是一种独占指针，禁止其他智能指针与其共享同一个对象，从而保证代码安全。</code></strong></p>
+<p><strong><code>独占，意味着，不可复制。但是，我们可以利用 std::move() 移交给其他 unique_ptr。</code></strong></p>
+<pre><code class="c++">#include &lt;memory&gt;
+#include &lt;iostream&gt;
+
+int main() &#123;
+
+    std::unique_ptr&lt;int&gt; p1 = std::make_unique&lt;int&gt;(100);
+
+    // auto p2 = p1; // 非法
+
+    // 利用std::move转移独占权
+    auto p3 = std::move(p1);
+    if (!p1) &#123;
+        std::cout &lt;&lt; &quot;p1 移交独占权后，为空！&quot; &lt;&lt; std::endl;
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+<pre><code class="bash">$ ./unique_ptr 
+p1移交独占权后，为空！
+</code></pre>
+<br/>
+
+<br/>
+
+<h2 id="std-weak-ptr"><a href="#std-weak-ptr" class="headerlink" title="std::weak_ptr"></a><strong>std::weak_ptr</strong></h2><p><strong><code>std::weak_ptr 要解决的是 std::shared_ptr存在的强引用带来的的资源无法释放的问题。 </code></strong></p>
+<p><strong><code>没有 * 和 -&gt; 运算符，所以不能够对资源进行操作，expired() 在资源未被释放时返回 true。</code></strong></p>
+<br/>
+
+<h3 id="a-、b-被销毁后，A，B依然被强引用无法释放"><a href="#a-、b-被销毁后，A，B依然被强引用无法释放" class="headerlink" title="a 、b 被销毁后，A，B依然被强引用无法释放"></a><strong>a 、b 被销毁后，A，B依然被强引用无法释放</strong></h3><p><img src="img/pointers1_en.png" alt="img"></p>
+<br/>
+
+<h3 id="使用弱引用指针-std-weak-ptr，-不会引起引用计数的增加。"><a href="#使用弱引用指针-std-weak-ptr，-不会引起引用计数的增加。" class="headerlink" title="使用弱引用指针 std::weak_ptr， 不会引起引用计数的增加。"></a><strong>使用弱引用指针 std::weak_ptr， 不会引起引用计数的增加。</strong></h3><p><img src="img/pointers2.png" alt="img"></p>
+<pre><code class="cpp">// 解决 std::share_ptr带来的强引用无法释放的问题。
+
+#include &lt;iostream&gt;
+#include &lt;memory&gt;
+
+
+class A;
+class B;
+
+class A &#123;
+public:
+    std::shared_ptr&lt;B&gt; ptr_b;
+    ~A() &#123;
+        std::cout &lt;&lt; &quot;A 被销毁。&quot; &lt;&lt; std::endl;
+    &#125;
+&#125;;
+
+class B &#123;
+public:
+    std::shared_ptr&lt;A&gt; ptr_a;
+    ~B() &#123;
+        std::cout &lt;&lt; &quot;B 被销毁。&quot; &lt;&lt; std::endl;
+    &#125;
+&#125;;
+
+void strong_referrence() &#123;
+    auto a = std::make_shared&lt;A&gt;();
+    auto b = std::make_shared&lt;B&gt;();
+    
+    // 存在循环引用，不会调用各自的析构函数
+    a-&gt;ptr_b = b;
+    b-&gt;ptr_a = a;
+&#125;
+
+int main() &#123;
+    strong_referrence(); // 强引用存在的情况
+
+    std::weak_ptr&lt;int&gt; weak_p;
+    
+    // std::weak_ptr 没有 * 运算符 和 -&gt; 运算符，不能够对资源进行操作
+    // expired() 方法 用于判断资源是否被释放
+    auto observer = [&amp;] () &#123;
+        if (auto ptr = weak_p.lock()) &#123;
+            std::cout &lt;&lt; *ptr &lt;&lt; std::endl;
+        &#125; else &#123;
+            std::cout &lt;&lt; &quot;资源被释放!&quot; &lt;&lt; std::endl;
+        &#125;
+    &#125;;
+
+    &#123;
+        std::cout &lt;&lt; &quot;进入某个作用域赋值。&quot; &lt;&lt; std::endl;
+        auto p1 = std::make_shared&lt;int&gt;(100);
+        weak_p = p1;
+        observer();
+        std::cout &lt;&lt; &quot;离开某个作用域。&quot; &lt;&lt; std::endl;
+    &#125;
+
+    observer();
+
+    return 0;
+&#125;
+</code></pre>
+<pre><code class="bash">$ ./weak_ptr 
+进入某个作用域赋值。
+100
+离开某个作用域。
+资源被释放!
+</code></pre>
 
         
     
@@ -751,7 +690,7 @@ Key: 4  Value: four
 
     <!-- Next Nav -->
     
-        <a href="/2021/03/13/%E6%96%B0%E7%89%B9%E6%80%A7(%E4%BA%8C)--%E8%AF%AD%E8%A8%80%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%BC%BA%E5%8C%96/" id="post_nav-older" class="next-content">
+        <a href="/2021/03/15/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%89%EF%BC%89%E5%AF%B9%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E6%89%A9%E5%85%85/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
@@ -843,7 +782,7 @@ Key: 4  Value: four
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2021/03/">三月 2021<span class="sidebar_archives-count">4</span></a>
+                <a class="sidebar_archives-link" href="/archives/2021/03/">三月 2021<span class="sidebar_archives-count">5</span></a>
             </ul>
         </li>
         
@@ -861,7 +800,7 @@ Key: 4  Value: four
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/C-%E6%96%B0%E7%89%B9%E6%80%A7/">C++新特性<span class="sidebar_archives-count">3</span></a>
+                <a class="sidebar_archives-link" href="/categories/C-%E6%96%B0%E7%89%B9%E6%80%A7/">C++新特性<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         
