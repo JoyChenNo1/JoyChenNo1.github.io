@@ -243,7 +243,7 @@
 
     
         <meta property="article:published_time" content="Tue Mar 23 2021 23:55:22 GMT+0800">
-        <meta property="article:modified_time" content="Wed Mar 24 2021 00:10:20 GMT+0800">
+        <meta property="article:modified_time" content="Mon Mar 29 2021 23:30:27 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -266,7 +266,7 @@
     "mainEntityOfPage": "http://example.com/2021/03/23/C++17%20%E6%96%B0%E7%89%B9%E6%80%A7/index.html",
     "headline": "C++17 新特性",
     "datePublished": "Tue Mar 23 2021 23:55:22 GMT+0800",
-    "dateModified": "Wed Mar 24 2021 00:10:20 GMT+0800",
+    "dateModified": "Mon Mar 29 2021 23:30:27 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -350,7 +350,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#C-17-%E6%96%B0%E7%89%B9%E6%80%A7"><span class="post-toc-number">1.</span> <span class="post-toc-text">C++17 新特性</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%BB%93%E6%9E%84%E5%8C%96%E7%BB%91%E5%AE%9A"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">结构化绑定</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#C-17-%E6%96%B0%E7%89%B9%E6%80%A7"><span class="post-toc-number">1.</span> <span class="post-toc-text">C++17 新特性</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Class-template-argument-deduction%EF%BC%88%E7%B1%BB%E6%A8%A1%E6%9D%BF%E5%8F%82%E6%95%B0%E6%8E%A8%E5%AF%BC%EF%BC%89"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Class template argument deduction（类模板参数推导）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Structured-bindings-%EF%BC%88%E7%BB%93%E6%9E%84%E5%8C%96%E7%BB%91%E5%AE%9A%EF%BC%89"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Structured bindings （结构化绑定）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%B0%86%E5%8F%98%E9%87%8F%E4%BD%9C%E7%94%A8%E4%BA%8E%E9%99%90%E5%88%B6%E5%9C%A8-if-%E5%92%8C-switch-%E5%86%85"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">将变量作用于限制在 if 和 switch 内</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%B9%B3%E6%97%B6%E8%BF%98%E5%8F%AF%E4%BB%A5%E8%BF%99%E4%B9%88%E7%94%A8%EF%BC%9A"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">平时还可以这么用：</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#variant"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">variant</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#optional"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">optional</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#any"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">any</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E8%A7%84%E5%88%99"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">{} 的初始化规则</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AF%B9%E4%BA%8E%E5%8F%AA%E6%94%AF%E6%8C%81-C-11%E3%80%81C-14-%E7%9A%84%E7%BC%96%E8%AF%91%E5%99%A8%EF%BC%8Cauto-x-123-%E7%9A%84%E7%B1%BB%E5%9E%8B%E5%8F%AF%E8%83%BD%E4%BC%9A%E6%8E%A8%E5%AF%BC%E6%88%90%E6%95%B4%E5%9E%8B%EF%BC%8C%E4%B9%9F%E5%8F%AF%E8%83%BD%E4%BC%9A%E6%8E%A8%E5%AF%BC%E6%88%90std-initializer-list-lt-int-gt"><span class="post-toc-number">1.7.1.</span> <span class="post-toc-text">对于只支持 C++11、C++14 的编译器，auto x&amp;#123;123&amp;#125; 的类型可能会推导成整型，也可能会推导成std::initializer_list&lt;int&gt;.</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%89%80%E4%BB%A5%E4%BC%9A%E5%AD%98%E5%9C%A8%E5%8F%AF%E7%A7%BB%E6%A4%8D%E6%80%A7%E7%9A%84%E9%97%AE%E9%A2%98%E3%80%82"><span class="post-toc-number">1.7.2.</span> <span class="post-toc-text">所以会存在可移植性的问题。</span></a></li></ol></li></ol></li></ol>
     </ul>
     
 
@@ -504,7 +504,20 @@
 
 <br/>
 
-<h2 id="结构化绑定"><a href="#结构化绑定" class="headerlink" title="结构化绑定"></a><strong>结构化绑定</strong></h2><p><strong><code>auto [var1, var2, ...] = &lt; pair, tuple, struct, 固定长度数组&gt;</code></strong></p>
+<h2 id="Class-template-argument-deduction（类模板参数推导）"><a href="#Class-template-argument-deduction（类模板参数推导）" class="headerlink" title="Class template argument deduction（类模板参数推导）"></a><strong>Class template argument deduction（类模板参数推导）</strong></h2><p><strong><code>C++17 能让 [编译器] 自动的从锁调用的构造函数，推导出模板类型。</code></strong></p>
+<p><strong><code>std::make_shared 、std::make_unique、std::make_pair、std::make_tuple 这些工厂函数在 C++17中过时了。</code></strong></p>
+<pre><code class="cpp">// C++17 之前
+std::pair &lt;int, char&gt; my_pair(1, &#39;1&#39;);
+std::tuple&lt;int, double, const char*&gt; my_tuple(123, 12.3, &quot;abc&quot;);
+// C++17
+std::pair my_pair(1, &#39;1&#39;);
+std::tuple my_tuple(123, 12.3, &quot;abc&quot;);
+</code></pre>
+<br/>
+
+<br/>
+
+<h2 id="Structured-bindings-（结构化绑定）"><a href="#Structured-bindings-（结构化绑定）" class="headerlink" title="Structured bindings （结构化绑定）"></a><strong>Structured bindings （结构化绑定）</strong></h2><p><strong><code>auto [var1, var2, ...] = &lt; pair, tuple, struct, 固定长度数组&gt;</code></strong></p>
 <p><strong><code>注意个数要匹配。</code></strong></p>
 <p><strong><code>和 std::tie 相比，std::tie 进行赋值的时候，所有变量需要提前定义，但是可以使用 std::ignore 作为虚拟变量。所以，要根据实际需求选择使用。</code></strong></p>
 <blockquote>
@@ -594,6 +607,228 @@ DaWei
 B
 </code></pre>
 </blockquote>
+<br/>
+
+<br/>
+
+<h2 id="将变量作用于限制在-if-和-switch-内"><a href="#将变量作用于限制在-if-和-switch-内" class="headerlink" title="将变量作用于限制在 if 和 switch 内"></a><strong>将变量作用于限制在 if 和 switch 内</strong></h2><blockquote>
+<pre><code class="cpp">#include &lt;iostream&gt;
+#include &lt;map&gt;
+#include &lt;algorithm&gt;
+
+int main (void) &#123;
+    std::map&lt;int, char&gt; mapper = &#123;
+        &#123;1, &#39;1&#39;&#125;,
+        &#123;2, &#39;2&#39;&#125;,
+        &#123;3, &#39;3&#39;&#125;
+    &#125;;
+
+    if(auto result(mapper.find(3)); result != mapper.end()) &#123;
+        std::cout &lt;&lt; &quot;map 存在 key (3).&quot; &lt;&lt; std::endl;
+    &#125;
+
+
+    switch (auto ch = getchar(); ch) &#123;
+        case &#39;a&#39;: 
+            std::cout &lt;&lt; &quot;左转&quot; &lt;&lt; std::endl;
+            break;
+        case &#39;d&#39;: 
+            std::cout &lt;&lt; &quot;右转&quot; &lt;&lt; std::endl;
+            break;
+        case &#39;w&#39;: 
+            std::cout &lt;&lt; &quot;前进&quot; &lt;&lt; std::endl;
+            break;
+        case &#39;s&#39;: 
+            std::cout &lt;&lt; &quot;后退&quot; &lt;&lt; std::endl;
+            break;
+    &#125;
+&#125;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code class="bash">$ ./condition_in_if 
+map 存在 key (3).
+w
+前进
+</code></pre>
+</blockquote>
+<h3 id="平时还可以这么用："><a href="#平时还可以这么用：" class="headerlink" title="平时还可以这么用："></a><strong>平时还可以这么用：</strong></h3><blockquote>
+<pre><code class="cpp">if (std::lock_guard locker(my_mutex); &quot;符合条件&quot;) &#123;
+    // do ...
+&#125;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code class="cpp">if (auto share_p (weak_p.lock()); !share_p) &#123;
+    // share 对象依然存在， do...
+&#125; else &#123;
+    // 对象不存在，share_p 为 nullptr
+&#125;
+</code></pre>
+</blockquote>
+<br/>
+
+<br/>
+
+<h2 id="variant"><a href="#variant" class="headerlink" title="variant"></a><strong>variant</strong></h2><p><strong><code>variant&lt;T, U&gt; :  holds a T or a U</code></strong></p>
+<blockquote>
+<pre><code class="cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;variant&gt;
+
+// 定义具有3个重载operator() 的 functor
+struct SOutput &#123;
+    void operator()(const int&amp; i)
+    &#123;
+        std::cout &lt;&lt; i &lt;&lt; std::endl;
+    &#125;
+ 
+    void operator()(const double&amp; d)
+    &#123;
+        std::cout &lt;&lt; d &lt;&lt; std::endl;
+    &#125;
+ 
+    void operator()(const std::string&amp; s)
+    &#123;
+        std::cout &lt;&lt; s &lt;&lt; std::endl;
+    &#125;
+&#125;;
+
+
+int main() &#123;
+
+    // 第一可以是int/double/string的 vriant y
+    std::variant&lt;int, double, std::string&gt; y;
+    
+    // 赋值为 int
+    y = 1;
+    std::visit(SOutput(), y);
+
+    // 赋值为 double
+    y = 23.0;
+    std::visit(SOutput(), y);
+
+    // 赋值为 string
+    y = &quot;hello&quot;;
+    std::visit(SOutput(), y);
+
+    // 可以使用 std::get获取值，但是要对应上，比如现在y是string
+    // 类型不对会抛出异常 std::bad_variant_access e
+    std::string str = std::get&lt;std::string&gt;(y);
+
+    std::cout &lt;&lt; str &lt;&lt; std::endl;
+
+    // 也可以用 std::get_if
+    int* value = std::get_if&lt;int&gt;(&amp;y);
+    if (!value) &#123;
+        std::cout &lt;&lt; &quot;类型不匹配！&quot; &lt;&lt; std::endl;
+    &#125; else &#123;
+        std::cout &lt;&lt; &quot;正确取值：&quot; &lt;&lt; *value &lt;&lt; std::endl;
+    &#125;
+
+    return 0;
+&#125;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code class="bash">$ ./2_variant 
+1
+23
+hello
+hello
+类型不匹配！
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code class="cpp">
+#include &lt;variant&gt;
+#include &lt;string&gt;
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+template&lt;class ... Ts&gt; 
+struct CustomOutput : Ts ... &#123; 
+    using Ts::operator()...; 
+&#125;;
+
+template&lt;class ... Ts&gt; 
+CustomOutput( Ts ...) -&gt; CustomOutput &lt; Ts ... &gt;;
+
+
+void Use() &#123;
+    //  定义 variant 类型的 vector
+    using var_t = std::variant &lt; int, long, double, std::string &gt;;
+    std::vector&lt;var_t&gt; vec = &#123;10, 20L, 30.40, &quot;hello&quot;&#125;;
+
+    CustomOutput out_put = &#123;
+        // 输出 int, long
+        [](auto arg) &#123; std::cout &lt;&lt; arg &lt;&lt; std::endl; &#125;,
+        // 输出 double
+        [](double arg) &#123; std::cout &lt;&lt; arg &lt;&lt; std::endl; &#125;,
+        // 输出 string
+        [](const std::string&amp; arg) &#123; std::cout &lt;&lt; arg &lt;&lt; std::endl; &#125;,
+    &#125;;
+
+    // 遍历
+    for ( auto &amp; var : vec ) &#123;
+        std :: visit (out_put, var );
+    &#125;
+&#125;
+
+int main() &#123;
+    Use();
+    return 0;
+&#125;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code class="bash">$ ./variant 
+10
+20
+30.4
+hello
+</code></pre>
+</blockquote>
+<br/>
+
+<br/>
+
+<h2 id="optional"><a href="#optional" class="headerlink" title="optional"></a><strong>optional</strong></h2><p><strong><code>optional&lt;T&gt; : holds a T or nothing</code></strong></p>
+<blockquote>
+<pre><code class="Cpp">optional &lt; int &gt; var1 = 7;
+auto x1 = * var1 ;       // 取值
+</code></pre>
+</blockquote>
+<br/>
+
+<br/>
+
+<h2 id="any"><a href="#any" class="headerlink" title="any"></a><strong>any</strong></h2><p><strong><code>any : holds any type</code></strong></p>
+<blockquote>
+<pre><code class="cpp">any var3 = 7;
+auto x3 = any_cast &lt; int &gt;( var3 ); // 转型
+</code></pre>
+</blockquote>
+<br/>
+
+<br/>
+
+<h2 id="的初始化规则"><a href="#的初始化规则" class="headerlink" title="{} 的初始化规则"></a><strong>{} 的初始化规则</strong></h2><p><strong><code>不允许使用：auto var &#123;v1, v2, v3, ...&#125;</code></strong></p>
+<p><strong><code>相比另一种合法使用的方式：auto var = &#123;v1, v2, v3, ...&#125; 因为这会调用std::initializer_list&lt;T&gt;进行初始化。</code></strong></p>
+<p><strong><code>其中，v1, v2, v3, ... 必须是同等类型 T。</code></strong></p>
+<blockquote>
+<pre><code class="cpp">// 对于初始化，&#123;&#125; 与 () 调用构造函数初始化的方式，
+// 不同点在于 &#123;&#125; 没有类型的隐式转换
+auto var1(3.00f);
+auto var2&#123;3.0f&#125;;
+std::cout &lt;&lt;  typeid(var1).name()  &lt;&lt; std::enndl; // i
+std::cout &lt;&lt; typeid(var2).name() &lt;&lt; std::enndl;; // f
+</code></pre>
+</blockquote>
+<h3 id="对于只支持-C-11、C-14-的编译器，auto-x-123-的类型可能会推导成整型，也可能会推导成std-initializer-list-lt-int-gt"><a href="#对于只支持-C-11、C-14-的编译器，auto-x-123-的类型可能会推导成整型，也可能会推导成std-initializer-list-lt-int-gt" class="headerlink" title="对于只支持 C++11、C++14 的编译器，auto x{123} 的类型可能会推导成整型，也可能会推导成std::initializer_list&lt;int&gt;."></a><strong><code>对于只支持 C++11、C++14 的编译器，auto x&#123;123&#125; 的类型可能会推导成整型，也可能会推导成std::initializer_list&lt;int&gt;.</code></strong></h3><h3 id="所以会存在可移植性的问题。"><a href="#所以会存在可移植性的问题。" class="headerlink" title="所以会存在可移植性的问题。"></a><strong><code>所以会存在可移植性的问题。</code></strong></h3><br/>
+
+<br/>
+
 
         
     
