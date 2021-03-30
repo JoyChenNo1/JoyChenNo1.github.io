@@ -243,7 +243,7 @@
 
     
         <meta property="article:published_time" content="Tue Mar 23 2021 23:55:22 GMT+0800">
-        <meta property="article:modified_time" content="Mon Mar 29 2021 23:31:57 GMT+0800">
+        <meta property="article:modified_time" content="Wed Mar 31 2021 00:17:09 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -266,7 +266,7 @@
     "mainEntityOfPage": "http://example.com/2021/03/23/C++17%20%E6%96%B0%E7%89%B9%E6%80%A7/index.html",
     "headline": "C++17 新特性",
     "datePublished": "Tue Mar 23 2021 23:55:22 GMT+0800",
-    "dateModified": "Mon Mar 29 2021 23:31:57 GMT+0800",
+    "dateModified": "Wed Mar 31 2021 00:17:09 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -513,6 +513,52 @@ std::tuple&lt;int, double, const char*&gt; my_tuple(123, 12.3, &quot;abc&quot;);
 std::pair my_pair(1, &#39;1&#39;);
 std::tuple my_tuple(123, 12.3, &quot;abc&quot;);
 </code></pre>
+<p><strong><code>当然，还存在一些不能依赖类型推导的情况，比如：</code></strong></p>
+<blockquote>
+<pre><code class="cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+#define LOG(x) std::cout &lt;&lt; x &lt;&lt; std::endl;
+
+template &lt;typename T&gt;
+
+class Sum &#123;
+
+public:
+    // 实例化模板的时候，不显式指定，由编译器推导
+    T value_;
+
+    // 构造函数接受任意数量参数，并想加起来赋给 成员 value_
+    template &lt;typename ... Ts&gt;
+    Sum(Ts&amp;&amp;... values) : value_ &#123; (values + ...) &#125; &#123;
+
+    &#125;
+&#125;;
+
+// 指导性显式推导，告诉编译器用 std::common_type_t 的特性，
+// 能找到适合所有值的共同类型
+template &lt;typename ... Ts&gt;
+Sum(Ts&amp;&amp; ... ts) -&gt; Sum&lt;std::common_type_t&lt;Ts...&gt;&gt;;
+
+int main() &#123;
+    // 不同类型参数
+    Sum value &#123; 1u, 2.0, 3, 4.0f &#125;;
+    LOG(value.value_);
+
+    // std::string 和C 风格字符串
+    Sum str &#123; std::string(&quot;Hello &quot;), &quot;World!&quot;&#125;;
+    LOG(str.value_);
+
+    return 0;
+&#125;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code class="bash">$ ./default_deduction 
+10
+Hello World!
+</code></pre>
+</blockquote>
 <br/>
 
 <br/>
