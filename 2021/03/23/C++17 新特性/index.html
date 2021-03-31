@@ -243,7 +243,7 @@
 
     
         <meta property="article:published_time" content="Tue Mar 23 2021 23:55:22 GMT+0800">
-        <meta property="article:modified_time" content="Wed Mar 31 2021 00:17:09 GMT+0800">
+        <meta property="article:modified_time" content="Wed Mar 31 2021 23:49:27 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -266,7 +266,7 @@
     "mainEntityOfPage": "http://example.com/2021/03/23/C++17%20%E6%96%B0%E7%89%B9%E6%80%A7/index.html",
     "headline": "C++17 新特性",
     "datePublished": "Tue Mar 23 2021 23:55:22 GMT+0800",
-    "dateModified": "Wed Mar 31 2021 00:17:09 GMT+0800",
+    "dateModified": "Wed Mar 31 2021 23:49:27 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -513,7 +513,27 @@ std::tuple&lt;int, double, const char*&gt; my_tuple(123, 12.3, &quot;abc&quot;);
 std::pair my_pair(1, &#39;1&#39;);
 std::tuple my_tuple(123, 12.3, &quot;abc&quot;);
 </code></pre>
-<p><strong><code>当然，还存在一些不能依赖类型推导的情况，比如：</code></strong></p>
+<p><strong><code>当然，还存在一些不能依赖类型推导的情况，在此例子开始之前，先引入模板中推导指引的概念。</code></strong></p>
+<p><strong><code>[注]：下面涉及到的 推导指引（Deduction Guides）的内容，详情可参考《C++ Template snd Edition》--David Vandevoorde, Nocolai M, Josuttis, Douglas Gregor.第二章模板类型推到关于Deduction Guides的介绍。</code></strong></p>
+<p><strong><code>推导指引：提供额外的模板参数推断规则，或者修正已有的模板参数推断规则。</code></strong></p>
+<p><strong><code>比如，你可以定义，当传入一个C风格字符串时，用std::string实例化Stack模板类：</code></strong></p>
+<blockquote>
+<pre><code class="cpp">namespace pdfCore &#123;
+template &lt;typename T&gt;
+class Stack &#123;
+private:
+    std::vecotr&lt;T&gt; elements_;
+public:
+    Stack(T es) : elements_(es) &#123;...&#125;
+    ...
+&#125;;
+// 指引语句必须出现在和模板类定义的同一个作用域或者 namespace 里
+Stack( const char* ) -&gt; Stack&lt;std::string&gt;; // -&gt;后面的类型被称为 &quot;guided type&quot;
+
+&#125; // namespace pdfCore
+</code></pre>
+</blockquote>
+<p><strong><code>不能依赖类型推导的情况：</code></strong></p>
 <blockquote>
 <pre><code class="cpp">#include &lt;iostream&gt;
 #include &lt;string&gt;
@@ -535,7 +555,7 @@ public:
     &#125;
 &#125;;
 
-// 指导性显式推导，告诉编译器用 std::common_type_t 的特性，
+// 推导指引（Deduction Guides），告诉编译器用 std::common_type_t 的特性，
 // 能找到适合所有值的共同类型
 template &lt;typename ... Ts&gt;
 Sum(Ts&amp;&amp; ... ts) -&gt; Sum&lt;std::common_type_t&lt;Ts...&gt;&gt;;
