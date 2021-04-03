@@ -44,7 +44,7 @@
     
     <title>
         
-            C++1x 新特性（三）对标准库的扩充 | 
+            C++1x 新特性（一）语言可用性的强化 | 
         
         进阶之路
     </title>
@@ -219,7 +219,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="进阶之路">
-    <meta name="msapplication-starturl" content="http://example.com/2021/03/15/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%89%EF%BC%89%E5%AF%B9%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E6%89%A9%E5%85%85/">
+    <meta name="msapplication-starturl" content="http://example.com/2021/03/08/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%80%EF%BC%89%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="进阶之路">
@@ -234,16 +234,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://example.com/2021/03/15/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%89%EF%BC%89%E5%AF%B9%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E6%89%A9%E5%85%85/">
+    <meta property="og:url" content="http://example.com/2021/03/08/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%80%EF%BC%89%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="C++1x 新特性（三）对标准库的扩充 | 进阶之路">
+    <meta property="og:title" content="C++1x 新特性（一）语言可用性的强化 | 进阶之路">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="">
     <meta property="og:article:tag" content="C++11 C++14 C++17"> 
 
     
-        <meta property="article:published_time" content="Mon Mar 15 2021 00:09:53 GMT+0800">
-        <meta property="article:modified_time" content="Tue Mar 23 2021 23:59:03 GMT+0800">
+        <meta property="article:published_time" content="Mon Mar 08 2021 20:38:27 GMT+0800">
+        <meta property="article:modified_time" content="Sat Apr 03 2021 17:33:49 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -251,7 +251,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://example.com/2021/03/15/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%89%EF%BC%89%E5%AF%B9%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E6%89%A9%E5%85%85/index.html" />
+        <link rel="canonical" href="http://example.com/2021/03/08/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%80%EF%BC%89%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -263,10 +263,10 @@
 {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "mainEntityOfPage": "http://example.com/2021/03/15/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%89%EF%BC%89%E5%AF%B9%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E6%89%A9%E5%85%85/index.html",
-    "headline": "C++1x 新特性（三）对标准库的扩充",
-    "datePublished": "Mon Mar 15 2021 00:09:53 GMT+0800",
-    "dateModified": "Tue Mar 23 2021 23:59:03 GMT+0800",
+    "mainEntityOfPage": "http://example.com/2021/03/08/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%80%EF%BC%89%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/index.html",
+    "headline": "C++1x 新特性（一）语言可用性的强化",
+    "datePublished": "Mon Mar 08 2021 20:38:27 GMT+0800",
+    "dateModified": "Sat Apr 03 2021 17:33:49 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -350,7 +350,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#C-1x-%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%89%EF%BC%89%E5%AF%B9%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E6%89%A9%E5%85%85"><span class="post-toc-number">1.</span> <span class="post-toc-text">C++1x 新特性（三）对标准库的扩充</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-array"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">std::array</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-forward-list"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">std::forward_list</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-tuple"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">std::tuple</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-unordered-map"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">std::unordered_map</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-unordered-set"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">std::unordered_set</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#C-1x-%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%80%EF%BC%89%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96"><span class="post-toc-number">1.</span> <span class="post-toc-text">C++1x 新特性（一）语言可用性的强化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#nullptr"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">nullptr</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#auto"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">auto</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#constexpr"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">constexpr</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#decltype"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">decltype</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">默认参数模板</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%A7%94%E6%89%98%E6%9E%84%E9%80%A0"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">委托构造</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%98%BE%E7%A4%BA%E7%A6%81%E7%94%A8%E9%BB%98%E8%AE%A4%E5%87%BD%E6%95%B0"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">显示禁用默认函数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%BB%A7%E6%89%BF%E6%9E%84%E9%80%A0"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">继承构造</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%98%BE%E5%BC%8F%E8%99%9A%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD"><span class="post-toc-number">1.9.</span> <span class="post-toc-text">显式虚函数重载</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-initializer-list"><span class="post-toc-number">1.10.</span> <span class="post-toc-text">std::initializer_list</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#enum-class%EF%BC%88%E5%BC%BA%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B%EF%BC%89"><span class="post-toc-number">1.11.</span> <span class="post-toc-text">enum class（强枚举类型）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%A8%A1%E6%9D%BF%E5%A2%9E%E5%BC%BA"><span class="post-toc-number">1.12.</span> <span class="post-toc-text">模板增强</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Variadic-Template%EF%BC%88%E5%8F%AF%E5%8F%98%E9%95%BF%E6%A8%A1%E6%9D%BF%EF%BC%89"><span class="post-toc-number">1.13.</span> <span class="post-toc-text">Variadic Template（可变长模板）</span></a></li></ol></li></ol>
     </ul>
     
 
@@ -382,7 +382,7 @@
         
     
             <p class="article-headline-p">
-                C++1x 新特性（三）对标准库的扩充
+                C++1x 新特性（一）语言可用性的强化
             </p>
         </div>
 
@@ -401,7 +401,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Joy Chen</strong>
-        <span>3月 15, 2021</span>
+        <span>3月 08, 2021</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -445,7 +445,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=C++1x 新特性（三）对标准库的扩充&url=http://example.com/2021/03/15/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%89%EF%BC%89%E5%AF%B9%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E6%89%A9%E5%85%85/index.html&via=Joy Chen" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=C++1x 新特性（一）语言可用性的强化&url=http://example.com/2021/03/08/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%80%EF%BC%89%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/index.html&via=Joy Chen" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -454,7 +454,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/03/15/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%89%EF%BC%89%E5%AF%B9%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E6%89%A9%E5%85%85/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/03/08/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%80%EF%BC%89%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -463,7 +463,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=http://example.com/2021/03/15/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%89%EF%BC%89%E5%AF%B9%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E6%89%A9%E5%85%85/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://example.com/2021/03/08/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%80%EF%BC%89%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -472,7 +472,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://example.com/2021/03/15/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%89%EF%BC%89%E5%AF%B9%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E6%89%A9%E5%85%85/index.html&title=C++1x 新特性（三）对标准库的扩充" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://example.com/2021/03/08/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%80%EF%BC%89%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/index.html&title=C++1x 新特性（一）语言可用性的强化" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -481,7 +481,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=进阶之路&title=C++1x 新特性（三）对标准库的扩充&summary=&pics=http://example.com/img/favicon.png&url=http://example.com/2021/03/15/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%89%EF%BC%89%E5%AF%B9%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E6%89%A9%E5%85%85/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=进阶之路&title=C++1x 新特性（一）语言可用性的强化&summary=&pics=http://example.com/img/favicon.png&url=http://example.com/2021/03/08/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%80%EF%BC%89%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -500,66 +500,162 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="C-1x-新特性（三）对标准库的扩充"><a href="#C-1x-新特性（三）对标准库的扩充" class="headerlink" title="C++1x 新特性（三）对标准库的扩充"></a>C++1x 新特性（三）对标准库的扩充</h1><br/>
+        <h1 id="C-1x-新特性（一）语言可用性的强化"><a href="#C-1x-新特性（一）语言可用性的强化" class="headerlink" title="C++1x 新特性（一）语言可用性的强化"></a>C++1x 新特性（一）语言可用性的强化</h1><p><code>本系列主要阐述依据：</code></p>
+<p>[<a target="_blank" rel="noopener" href="https://github.com/changkun/modern-cpp-tutorial]">https://github.com/changkun/modern-cpp-tutorial]</a>: 《Modern C++ Tutorial: C++11/14/17/20 On the Fly》</p>
+<br/>
 
 <br/>
 
-<h2 id="std-array"><a href="#std-array" class="headerlink" title="std::array"></a><strong>std::array</strong></h2><br/>
+<h2 id="nullptr"><a href="#nullptr" class="headerlink" title="nullptr"></a><strong>nullptr</strong></h2><blockquote>
+<pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;memory&gt;
 
-<p><em><strong>std::array 和 std::vector 的区别</strong></em></p>
-<table>
-<thead>
-<tr>
-<th align="center">std::array</th>
-<th align="center">std::vector</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">栈内存</td>
-<td align="center">堆内存</td>
-</tr>
-<tr>
-<td align="center">灵活访问，更高性能</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">更现代</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">编译时会创建一个固定的数组</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">不能够隐式转成指针（注意！！！）</td>
-<td align="center"></td>
-</tr>
-</tbody></table>
-<p>​                                                                  </p>
+class MyTestClass &#123;
+public:
+  MyTestClass() &#123;&#125;
+  ~MyTestClass() &#123;&#125;
+
+private:
+  int a = 1;
+  float b = 0;
+  bool c = false;
+&#125;;
+
+int main()
+&#123;
+    std::shared_ptr&lt;MyTestClass&gt; test_c = std::make_shared&lt;MyTestClass&gt;();
+    std::cout &lt;&lt; sizeof(nullptr) &lt;&lt; std::endl;
+    std::cout &lt;&lt; sizeof(decltype(test_c)) &lt;&lt; std::endl; 
+    std::cout &lt;&lt; typeid(test_c).name() &lt;&lt; std::endl;
+    std::cout &lt;&lt; typeid(std::nullptr_t).name() &lt;&lt; std::endl;
+    return 0;
+&#125;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code class="bash">$ ./test_nullptr 
+8
+16
+St10shared_ptrI11MyTestClassE
+Dn
+</code></pre>
+</blockquote>
+<p><br/><br/></p>
+<h2 id="auto"><a href="#auto" class="headerlink" title="auto"></a><strong>auto</strong></h2><p>​    <strong><code>注： 不能推导数组类型。</code></strong></p>
+<blockquote>
+<pre><code class="cpp">#include &lt;iostream&gt;
+
+int main() &#123;
+
+     auto i = 5;
+     int arr[10] = &#123;0&#125;;
+
+     // &#39;auto&#39; type cannot appear in top-level array typeC/C++
+     // auto auto_arr_2[10] = arr;
+
+     return 0;
+&#125;
+</code></pre>
+</blockquote>
+<p><br/><br/></p>
+<h2 id="constexpr"><a href="#constexpr" class="headerlink" title="constexpr"></a><strong>constexpr</strong></h2><p><code>(1) 拓宽「常量表达式」的范围。</code></p>
+<p><code>(2)「显式『要求』表达式编译时求值」。告诉编译器 [我认为我是编译器常量]， 让编译器在需要编译器常量的语义处 [核实我说的是不是真的]。把它放到变量定义前，那么用来初始化这个变量的表达式「必须」是常量表达式，否则报错。</code></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/274323507">https://www.zhihu.com/question/274323507</a></p>
 <blockquote>
 <pre><code class="c++">#include &lt;iostream&gt;
-#include &lt;cstdio&gt;
+#include &lt;vector&gt;
 #include &lt;array&gt;
 #include &lt;algorithm&gt;
 
-// C风格的接口
-void c_test (int* p, size_t len) &#123;
-    printf(&quot;%d, %d&quot;, *p, len);
+#define LEN 10
+
+const int kLengh = 12;
+
+size_t length() &#123;
+       return 4 + 5;
+&#125;
+// 修饰常函数
+constexpr size_t constexpr_length() &#123;
+       return 4 + 5;
 &#125;
 
-int main() &#123;
-    std::array&lt;int, 5&gt; arr_1 = &#123;1, 2, 3, 4, 5&#125;;
-    
-    // 无法转换成 C 风格指针传递！
-    // no suitable conversion function from &quot;std::array&lt;int, 5UL&gt;&quot; to &quot;int *&quot; exists
-    // c_test(arr_1, arr_1.size());
+constexpr unsigned long long fibonacci(const int n) &#123;
+    return n == 1 || n == 2 ? 1 : fibonacci(n - 1) + fibonacci(n - 2);
+   &#125;
 
-    // struct std::array&lt;int, &lt;error-constant&gt;&gt;
-    // int len = 5;
-    constexpr int len = 5;
-    std::array&lt;int, len&gt; arr_2 = &#123; 1, 3, 2, 5, 4 &#125;;
-    std::sort(arr_2.begin(), arr_2.end());
-    return 0;
+int main() &#123;
+
+ std::vector&lt;char&gt; arr_1(100, &#39;Y&#39;);
+    std::vector&lt;char&gt; arr_2(LEN, &#39;Y&#39;);
+    std::vector&lt;char&gt; arr_3(kLengh, &#39;Y&#39;);
+   
+// expression must have a constant value -- cannot call non-constexpr
+   // std::array&lt;int, length()&gt; arr_4;
+   
+     std::array&lt;char, constexpr_length()&gt; arr_5&#123; &#39;Y&#39; &#125;;
+   
+ return 0;
+   &#125;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code class="c++">// 比如用来简化元函数template&lt;class U, class V&gt;
+constexpr bool is_same_v = std::is_same&lt;U, V&gt;::value;
+// 调用的时候可以直接
+auto x = is_same_v&lt;int, float&gt;;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code class="c++">// 用于元编程的常成员：template&lt;class U, class V&gt;
+struct is_same &#123;
+       static constexpr int value = false;
+&#125;
+
+template&lt;class T&gt;
+struct is_same&lt;T, T&gt; &#123;
+       static constexpr int value = true;
+&#125;
+
+// 这样就可以通过
+is_same&lt;X, X&gt;::value
+</code></pre>
+</blockquote>
+<p><br/><br/></p>
+<h2 id="decltype"><a href="#decltype" class="headerlink" title="decltype"></a><strong>decltype</strong></h2><blockquote>
+<pre><code class="c++">#include &lt;iostream&gt;
+
+// 传统C++ 模板的错误写法
+// template &lt;typename R, typename T, typename U&gt;
+// R add(T t, U u) &#123;
+//     return t + u;
+// &#125;
+
+// C++11 称之为尾返回类型（trailing return type）,利用 auto 关键字将返回值后置
+template&lt;typename T, typename U&gt;
+auto add (T t, U u) /*-&gt; decltype(t + u) //C++14开始自动推导*/ &#123;
+       return t + u;
+&#125;
+
+
+int main() &#123;
+        auto result = add&lt;float, double&gt;(4.5, 5.6);
+     std::cout &lt;&lt; typeid(result).name() &lt;&lt; std::endl;
+        std::cout &lt;&lt; result &lt;&lt; std::endl;
+        return 0;
+   &#125;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code class="bash">$ ./decltype 
+d
+10.1
+</code></pre>
+</blockquote>
+<p><br/><br/></p>
+<h2 id="默认参数模板"><a href="#默认参数模板" class="headerlink" title="默认参数模板"></a><strong>默认参数模板</strong></h2><blockquote>
+<pre><code class="c++">template&lt;typename T = int, typename U = float&gt;
+auto Add(T t, U u) &#123;
+        return t + u;
 &#125;
 </code></pre>
 </blockquote>
@@ -567,208 +663,410 @@ int main() &#123;
 
 <br/>
 
-<h2 id="std-forward-list"><a href="#std-forward-list" class="headerlink" title="std::forward_list"></a><strong>std::forward_list</strong></h2><table>
-<thead>
-<tr>
-<th align="center">std::list</th>
-<th align="center">std::forward_list</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">双向链表</td>
-<td align="center">单链表</td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center">不支持随机访问， O(1)复杂度插入</td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center">唯一一个不提供size()的容器</td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center">不需要双向迭代时，更高的空间利用率</td>
-</tr>
-</tbody></table>
-<br/>
-
-<br/>                                                                                                                                                   
-
-<h2 id="std-tuple"><a href="#std-tuple" class="headerlink" title="std::tuple"></a><strong>std::tuple</strong></h2><blockquote>
+<h2 id="委托构造"><a href="#委托构造" class="headerlink" title="委托构造"></a><strong>委托构造</strong></h2><blockquote>
 <pre><code class="c++">#include &lt;iostream&gt;
-#include &lt;tuple&gt;
-#include &lt;boost/variant.hpp&gt;
-#include &lt;variant&gt;
 
-// 用于求取 tuple size
-
-template &lt;typename T&gt;
-auto tuple_size(const T&amp; tpl) &#123;
-    return std::tuple_size&lt;T&gt;::value;
-&#125;
-
-// 借助 boost::variant 实现 
-// 参考 https://www.boost.org/doc/libs/1_75_0/doc/html/variant.html
-template &lt;size_t n, typename... Args&gt;
-boost::variant&lt;Args...&gt; _tuple_index(size_t i, const std::tuple&lt;Args...&gt;&amp; tpl) &#123;
-    if (i == n) &#123;
-        return std::get&lt;n&gt;(tpl);
-    &#125; else if (n == sizeof...(Args) - 1) &#123;
-        throw std::out_of_range(&quot;越界！&quot;);
-    &#125;else &#123;
-        return _tuple_index&lt;(n &lt; sizeof...(Args) - 1 ? n + 1 : 0)&gt;(i, tpl);
+// 委托构造
+class Base &#123;
+public:
+    Base() &#123;
+        v1_ = 1;
     &#125;
-&#125;
+    Base(int value) : Base() &#123;
+        v2_ = value;
+    &#125;
 
-// 用于获取指定索引的 tuple 元素值
-template &lt;typename... Args&gt;
-boost::variant&lt;Args...&gt; tuple_index(size_t i, const std::tuple&lt;Args...&gt;&amp; tpl) &#123;
-    return _tuple_index&lt;0&gt;(i, tpl);
-&#125;
+    void tell() &#123;
+        std::cout &lt;&lt; &quot;v1: &quot; &lt;&lt; v1_ &lt;&lt; &quot;    v2: &quot;&lt;&lt; v2_ &lt;&lt; std::endl; 
+    &#125;
+private:
+        int v1_ = 0;
+        int v2_ = 0;
+&#125;;
 
 int main() &#123;
-
-    auto student = std::make_tuple(&quot;Liming&quot;, 18, &#39;B&#39;);
-
-    constexpr int i_0 = 0, i_1 = 1, i_2 = 2;
-
-    // std::get&lt;&gt; 依赖的是编译期的常量
-    std::cout &lt;&lt; &quot;姓名： &quot; &lt;&lt; std::get&lt;i_0&gt;(student)  &lt;&lt; std::endl;
-    std::cout &lt;&lt; &quot;年龄： &quot; &lt;&lt; std::get&lt;i_1&gt;(student)  &lt;&lt; std::endl;
-    std::cout &lt;&lt; &quot;成绩： &quot; &lt;&lt; std::get&lt;i_2&gt;(student)  &lt;&lt; std::endl;
-
-    std::string name;
-    char grade;
-
-    // 利用std::tie 进行元组拆包， std::ignore忽略某个元素
-    std::tie(name, std::ignore, grade) = student;
-    std::cout &lt;&lt; &quot;姓名： &quot; &lt;&lt; name  &lt;&lt; std::endl;
-    std::cout &lt;&lt; &quot;成绩： &quot; &lt;&lt; grade  &lt;&lt; std::endl;
-
-    // 元组合并
-    auto teacher = std::make_tuple(&quot;Miss Li&quot;, 25, &#39;A&#39;);
-    auto concat = std::tuple_cat(std::move(student), std::move(teacher));
-
-    // 元组遍历
-    for (size_t i = 0; i != tuple_size(concat); ++i) &#123;
-        std::cout &lt;&lt; tuple_index(i, concat) &lt;&lt; std::endl;
-    &#125;
-
-    return 0;
+        Base base(2);
+        base.tell(); 
+        return 0;
 &#125;
 </code></pre>
 </blockquote>
 <blockquote>
-<pre><code class="bash">$ ./std_tuple 
-姓名： Liming
-年龄： 18
-成绩： B
-姓名： Liming
-成绩： B
-Liming
-18
-B
-Miss Li
-25
-A
+<pre><code class="bash">$ ./delegating_constructor 
+v1: 1    v2: 2
 </code></pre>
 </blockquote>
-<br/>
+<p><br/><br/></p>
+<h2 id="显示禁用默认函数"><a href="#显示禁用默认函数" class="headerlink" title="显示禁用默认函数"></a><strong>显示禁用默认函数</strong></h2><blockquote>
+<pre><code class="c++">// 显示禁用默认函数
+#include &lt;iostream&gt;
 
-<br/>
+class Magic &#123;
+public:
+  Magic() = delete; // 禁用编译器生成的构造
+  Magic&amp; operator=(const Magic&amp;) = delete;
+  Magic(const Magic&amp; other) = delete;
 
-<h2 id="std-unordered-map"><a href="#std-unordered-map" class="headerlink" title="std::unordered_map"></a><strong>std::unordered_map</strong></h2><blockquote>
-<pre><code class="cpp">#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;unordered_map&gt;
-#include &lt;map&gt;
+  Magic(int a) &#123;
+        std::cout &lt;&lt; &quot;Not default constructor.&quot; &lt;&lt; std::endl;
+        e_ = a;
+  &#125;
+  void tell() &#123; std::cout &lt;&lt; e_ &lt;&lt; std::endl; &#125;
+
+private:
+  int e_ = 0;
+&#125;;
+
+int main() &#123;
+// the default constructor of &quot;Inequality&quot; 
+// cannot be referenced
+// -- it is a deleted function
+//   Inequality m1;
+//   m1.tell();
+
+  Magic m2(2);
+  m2.tell();
+
+// function &quot;Magic::Magic(const Magic &amp;other)&quot; 
+// cannot be referenced
+//  -- it is a deleted function
+//   Magic m3 = m2;
+//   m3.tell();
+
+// function &quot;Magic::operator=(const Magic &amp;)&quot; 
+// cannot be referenced 
+// -- it is a deleted function
+//   Magic m4(4);
+//   m4 = m2;
+  return 0;
+&#125;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code class="bash">$ ./delete_default 
+Not default constructor.
+2
+</code></pre>
+</blockquote>
+<p><br/><br/></p>
+<h2 id="继承构造"><a href="#继承构造" class="headerlink" title="继承构造"></a><strong>继承构造</strong></h2><blockquote>
+<pre><code class="c++">//继承构造
+#include &lt;iostream&gt;
+
+class Base &#123;
+public:
+    Base() &#123;
+        v1_ = 1;
+    &#125;
+    Base(int value) : Base() &#123;
+        v2_ = value;
+    &#125;
+
+    virtual void tell() &#123;
+        std::cout &lt;&lt; &quot;v1: &quot; &lt;&lt; v1_ &lt;&lt; &quot;    v2: &quot;&lt;&lt; v2_ &lt;&lt; std::endl; 
+    &#125;
+private:
+        int v1_ = 0;
+        int v2_ = 0;
+&#125;;
+
+// 构造函数如果需要继承是需要将参数一一传递的，这样会效率低下
+// using 引入继承构造
+class Derived : public Base &#123;
+public:
+        using Base::Base; // 继承构造
+&#125;;
+
+int main() &#123;
+       Derived derived(2222);
+       derived.tell();
+       return 0;
+&#125;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code class="bash">$ ./derive_constructor 
+v1: 1    v2: 2222
+</code></pre>
+</blockquote>
+<p><br/><br/></p>
+<h2 id="显式虚函数重载"><a href="#显式虚函数重载" class="headerlink" title="显式虚函数重载"></a><strong>显式虚函数重载</strong></h2><blockquote>
+<pre><code class="c++">#include &lt;iostream&gt;
+
+struct Base &#123;
+    virtual void foo() final;
+    virtual void foo(float a) &#123;
+        std::cout &lt;&lt; a &lt;&lt; std::endl;
+    &#125;
+&#125;;
+
+struct Derived_1 final : public Base &#123;
+    virtual void foo(float a) override &#123; // 合法
+        std::cout &lt;&lt; &quot;override foo: &quot; &lt;&lt; a &lt;&lt; std::endl; 
+    &#125; 
+&#125;;
+
+// a &#39;final&#39; class type cannot be used as a base class
+// struct Derived_2 : Derived_1&#123;
+    
+// &#125;;
+
+struct Derived_3 : Base &#123;
+    // 非法
+    // virtual void fool() override &#123;
+
+    // &#125;
+&#125;;
+</code></pre>
+</blockquote>
+<p><br/><br/></p>
+<h2 id="std-initializer-list"><a href="#std-initializer-list" class="headerlink" title="std::initializer_list"></a><strong>std::initializer_list<T></strong></h2><blockquote>
+<pre><code class="c++">#include &lt;initializer_list&gt;
+#include &lt;vector&gt;
+#include &lt;iostream&gt;
 #include &lt;algorithm&gt;
 
-template &lt;typename T&gt;
-void log(const T&amp; t) &#123;
-    std::cout &lt;&lt; &quot;容器类型： &quot; &lt;&lt; typeid(T).name() &lt;&lt; std::endl;
-    std::for_each(t.begin(), t.end(), [](const auto&amp; item)&#123;
-        std::cout &lt;&lt; &quot;Key: &quot;&lt;&lt; item.first &lt;&lt; &quot;  Value: &quot;&lt;&lt; item.second &lt;&lt; std::endl;
-    &#125;);
-&#125;
+class Magic &#123;
+public:
+    Magic(std::initializer_list&lt;int&gt; list) : list_(list) &#123;&#125;
+    void print() &#123; 
+        std::for_each(list_.begin(), list_.end(), [](int item)&#123;
+            std::cout &lt;&lt; item  &lt;&lt; std::endl;
+        &#125;);
+    &#125;
+private:
+    std::vector&lt;int&gt; list_;
+&#125;;
 
 int main() &#123;
-    // 无序
-    std::unordered_map&lt;int, std::string&gt; unordered = &#123;
-        &#123;1, &quot;one&quot;&#125;,
-        &#123;4, &quot;four&quot;&#125;,
-        &#123;3, &quot;three&quot;&#125;, 
-        &#123;2, &quot;two&quot;&#125;
-    &#125;;
-    // 有序
-    std::map&lt;int, std::string&gt; ordered = &#123;
-        &#123;1, &quot;one&quot;&#125;,
-        &#123;4, &quot;four&quot;&#125;,
-        &#123;3, &quot;three&quot;&#125;, 
-        &#123;2, &quot;two&quot;&#125;
-    &#125;;
+        Magic magic = &#123;1, 2, 3, 4, 5&#125;;
+        magic.print();
+        return 0;
+&#125;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code class="bash">$ ./initializer_list 
+1
+2
+3
+4
+5
+</code></pre>
+</blockquote>
+<p><br/><br/></p>
+<h2 id="enum-class（强枚举类型）"><a href="#enum-class（强枚举类型）" class="headerlink" title="enum class（强枚举类型）"></a><strong>enum class（强枚举类型）</strong></h2><p>​        <code>参考 https://en.cppreference.com/w/cpp/language/enum</code><br>​        <code>参考 https://en.cppreference.com/w/cpp/types/underlying_type</code></p>
+<blockquote>
+<pre><code class="c++">#include &lt;iostream&gt;
 
-    log(unordered);
-    log(ordered);
-    
+// 重载 operator&lt;&lt; 用来输出强类型枚举
+template&lt;typename T&gt;
+std::ostream&amp; operator&lt;&lt;(typename std::enable_if&lt;std::is_enum&lt;T&gt;::value, 
+std::ostream&gt;::type&amp; stream, const T&amp; e) &#123;
+    return stream &lt;&lt; static_cast&lt;typename std::underlying_type&lt;T&gt;::type&gt;(e);
+ &#125;
+
+enum class Param &#123;
+        kValue1, 
+        kValue2,
+        kValue3 = 100,
+        kValue4 = 100,
+&#125;;
+
+int main() &#123;
+    // no match for ‘operator==’ (operand types are ‘Param’ and ‘int’)
+    // if(Param::kValue1 == 0) &#123;
+    //     std::cout &lt;&lt; (int)Param::kValue1 &lt;&lt; std::endl;
+    // &#125;
+
+    if(Param::kValue3 == Param::kValue4) &#123;
+        std::cout &lt;&lt; &quot;Param::kValue3 : &quot; &lt;&lt; Param::kValue3 &lt;&lt; std::endl;
+        std::cout &lt;&lt; &quot;Param::kValue4 : &quot; &lt;&lt; Param::kValue4 &lt;&lt; std::endl;
+        std::cout &lt;&lt; &quot;It&#39;s really fucking Strong!&quot; &lt;&lt; std::endl;
+    &#125;
     return 0;
 &#125;
 </code></pre>
 </blockquote>
 <blockquote>
-<pre><code class="bash">$ ./std_unordered_map 
-容器类型： St13unordered_mapIiNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4hashIiESt8equal_toIiESaISt4pairIKiS5_EEE
-Key: 2  Value: two
-Key: 3  Value: three
-Key: 4  Value: four
-Key: 1  Value: one
-容器类型： St3mapIiNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4lessIiESaISt4pairIKiS5_EEE
-Key: 1  Value: one
-Key: 2  Value: two
-Key: 3  Value: three
-Key: 4  Value: four
+<pre><code class="bash">$./strong_enum 
+Param::kValue3 : 100
+Param::kValue4 : 100
+It&#39;s really fucking Strong!
 </code></pre>
 </blockquote>
-<br/>
+<p><br/><br/></p>
+<h2 id="模板增强"><a href="#模板增强" class="headerlink" title="模板增强"></a><strong>模板增强</strong></h2><blockquote>
+<pre><code class="c++">// template_out_file.hpp
+template&lt;typename T, typename U&gt;
+auto ImOutsideTemplateAdd(T t, U u) &#123;
+        return t + u;
+&#125;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code class="c++">// template_emhance.cpp
+#include &lt;iostream&gt;
+#include &quot;template_out_file.hpp&quot;
+extern template auto ImOutsideTemplateAdd&lt;float, double&gt;(float, double);
 
-<br/>
+int main() &#123;
+        std::cout &lt;&lt; ImOutsideTemplateAdd(4.5, 5.6) &lt;&lt; std::endl;
+        return 0;
+&#125;
+</code></pre>
+</blockquote>
+<p><br/><br/></p>
+<h2 id="Variadic-Template（可变长模板）"><a href="#Variadic-Template（可变长模板）" class="headerlink" title="Variadic Template（可变长模板）"></a><strong>Variadic Template（可变长模板）</strong></h2><blockquote>
+<pre><code class="cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
 
-<h2 id="std-unordered-set"><a href="#std-unordered-set" class="headerlink" title="std::unordered_set"></a><strong>std::unordered_set</strong></h2><table>
-<thead>
-<tr>
-<th align="center"></th>
-<th align="center">set</th>
-<th align="center">unordered_set</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"></td>
-<td align="center">升序（默认）</td>
-<td align="center">无序</td>
-</tr>
-<tr>
-<td align="center">实现</td>
-<td align="center">RB Tree</td>
-<td align="center">Hash Table</td>
-</tr>
-<tr>
-<td align="center">查找时间复杂度</td>
-<td align="center">log(n)</td>
-<td align="center">best O(1) -&gt; O(n)  worst</td>
-</tr>
-<tr>
-<td align="center">插入时间复杂度</td>
-<td align="center">log(n) + Rebalance</td>
-<td align="center">同上</td>
-</tr>
-<tr>
-<td align="center">删除时间复杂度</td>
-<td align="center">log(n) + Rebalance</td>
-<td align="center">同上</td>
-</tr>
-</tbody></table>
-<p><img src="/set-1615821442600.png" alt="set 与 unordered_set 的区别"></p>
+// 参数可以为0
+template&lt;typename... Ts&gt;
+class Magic &#123;
+
+&#125;;
+
+ // 参数至少为1
+template&lt;typename Required, typename... Args&gt; 
+ class Magic_1 &#123;
+
+&#125;;
+
+template&lt;typename T&gt;
+void log(T info) &#123;
+    std::cout &lt;&lt; info &lt;&lt; std::endl;
+&#125;
+
+ template&lt;typename... Args&gt;
+ void printf(const std::string&amp; str, Args... args);
+
+ template&lt;typename... Args&gt;
+ void magic(Args... args) &#123;
+     log(sizeof...(args));
+ &#125;
+
+ 
+
+ template&lt;typename T&gt;
+ void printf(T value) &#123;
+         log(value);
+ &#125;
+
+ // 递归方式 解包
+ // 至少有2个参数时会调用此模板，当只有2个参数时，最终会调用printf&lt;typename T&gt;模板函数
+ template&lt;typename T, typename... Args&gt;
+ void printf(T value, Args... args) &#123;
+         std::cout &lt;&lt; value &lt;&lt; std::endl;
+         printf(args...);
+&#125;
+
+// 初始化列表展开 解包
+// C++14 tricky
+// 没有C++17之前都是这么干的：(void)std::initializer_list&lt;int&gt;&#123; (func(u), 0)... &#125;;
+// 包展开语法：模式…，这里的模式是小括号中的部分。一个lambda表达式和value组成的逗号表达式
+
+template&lt;typename T&gt;
+void intializer_list_print(T value) &#123;
+        std::cout &lt;&lt; value &lt;&lt; std::endl;
+&#125;
+
+// (1)
+template&lt;typename T, typename... Args&gt;
+void intializer_list_print(T value, Args... args) &#123;
+        std::cout &lt;&lt; value &lt;&lt; std::endl;
+        (void)std::initializer_list&lt;int&gt;&#123; (intializer_list_print(args), 0)... &#125;;
+&#125;
+
+ // (2) Brace-enclosed initializers
+ // 参考 https://en.cppreference.com/w/cpp/language/parameter_pack
+template&lt;typename T, typename... Args&gt;
+void intializer_list_print_2(T value, Args... args) &#123;
+        std::cout &lt;&lt; value &lt;&lt; std::endl;
+
+        (void)std::initializer_list&lt;T&gt;&#123; (std::cout &lt;&lt; args &lt;&lt; std::endl, 0 )... &#125;;
+&#125;
+
+
+// C++17 fold expression
+// 参照libcxx的
+
+// template &lt;class ..._Tp&gt;
+// _LIBCPP_INLINE_VISIBILITY
+// void __swallow(_Tp&amp;&amp;...) _NOEXCEPT &#123;&#125; 
+
+// template &lt;class _Tuple&gt;
+//         _LIBCPP_INLINE_VISIBILITY
+//         typename enable_if
+//         &lt;
+//             __tuple_assignable&lt;_Tuple, tuple&lt;_Tp...&gt; &gt;::value,
+//             __tuple_impl&amp;
+//         &gt;::type
+//         operator=(_Tuple&amp;&amp; __t) _NOEXCEPT_((__all&lt;is_nothrow_assignable&lt;_Tp&amp;, typename tuple_element&lt;_Indx,
+//                                        typename __make_tuple_types&lt;_Tuple&gt;::type&gt;::type&gt;::value...&gt;::value))
+//         &#123;
+//             __swallow(__tuple_leaf&lt;_Indx, _Tp&gt;::operator=(_VSTD::forward&lt;typename tuple_element&lt;_Indx,
+//                                        typename __make_tuple_types&lt;_Tuple&gt;::type&gt;::type&gt;(_VSTD::get&lt;_Indx&gt;(__t)))...);
+//             return *this;
+//         &#125;
+
+
+// 所以可以类似：
+// C++17 fold exprssion 参考 https://en.cppreference.com/w/cpp/language/fold
+// __swallow(func(u)...);
+
+template&lt;typename T&gt;
+void cxx17_print(T value) &#123;
+        std::cout &lt;&lt; value &lt;&lt; std::endl;
+&#125;
+
+template&lt;typename T, typename... Args&gt;
+void cxx17_print(T value, Args... args) &#123;
+        std::cout &lt;&lt; value &lt;&lt; std::endl;
+        cxx17_print(args...);
+&#125;
+
+
+int main() &#123;
+         log(&quot;递归方式：&quot;);
+         printf(1, 2, &quot;123&quot;, 1.1);
+
+         log(&quot;初始化列表展开方式1：&quot;);
+         intializer_list_print(1, 2, &quot;123&quot;, 1.1f);
+
+         log(&quot;初始化列表展开方式2：&quot;);
+         intializer_list_print_2(1, 2, &quot;123&quot;, 1.1f);
+
+         log(&quot;C++17 fold expression:&quot;);
+         cxx17_print(1, 2, &quot;123&quot;, 1.1f);
+         return 0;
+&#125;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code class="bash">$ ./variadic_template 
+递归方式：
+1
+2
+123
+1.1
+初始化列表展开方式1：
+1
+2
+123
+1.1
+初始化列表展开方式2：
+1
+2
+123
+1.1
+C++17 fold expression:
+1
+2
+123
+1.1
+</code></pre>
+</blockquote>
 
         
     
@@ -789,7 +1087,7 @@ Key: 4  Value: four
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2021/03/21/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E5%9B%9B%20%EF%BC%89%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/" id="post_nav-newer" class="prev-content">
+        <a href="/2021/03/13/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%BA%8C%EF%BC%89%E8%AF%AD%E8%A8%80%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%BC%BA%E5%8C%96/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -802,14 +1100,6 @@ Key: 4  Value: four
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
-    
-        <a href="/2021/03/13/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%BA%8C%EF%BC%89%E8%AF%AD%E8%A8%80%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%BC%BA%E5%8C%96/" id="post_nav-older" class="next-content">
-            旧篇
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_forward</i>
-            </button>
-        </a>
     
 </nav>
 
@@ -895,7 +1185,7 @@ Key: 4  Value: four
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2021/03/">三月 2021<span class="sidebar_archives-count">6</span></a>
+                <a class="sidebar_archives-link" href="/archives/2021/03/">三月 2021<span class="sidebar_archives-count">5</span></a>
             </ul>
         </li>
         
