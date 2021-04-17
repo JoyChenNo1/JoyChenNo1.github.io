@@ -243,7 +243,7 @@
 
     
         <meta property="article:published_time" content="Tue Mar 23 2021 23:55:22 GMT+0800">
-        <meta property="article:modified_time" content="Sat Apr 03 2021 17:49:31 GMT+0800">
+        <meta property="article:modified_time" content="Sun Apr 18 2021 01:19:14 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -266,7 +266,7 @@
     "mainEntityOfPage": "http://example.com/2021/03/23/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/C++17%20%E6%96%B0%E7%89%B9%E6%80%A7/index.html",
     "headline": "C++17 新特性",
     "datePublished": "Tue Mar 23 2021 23:55:22 GMT+0800",
-    "dateModified": "Sat Apr 03 2021 17:49:31 GMT+0800",
+    "dateModified": "Sun Apr 18 2021 01:19:14 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -523,10 +523,10 @@ std::tuple my_tuple(123, 12.3, &quot;abc&quot;);
 template &lt;typename T&gt;
 class Stack &#123;
 private:
-    std::vecotr&lt;T&gt; elements_;
+       std::vecotr&lt;T&gt; elements_;
 public:
-    Stack(T es) : elements_(es) &#123;...&#125;
-    ...
+       Stack(T es) : elements_(es) &#123;...&#125;
+       ...
 &#125;;
 // 指引语句必须出现在和模板类定义的同一个作用域或者 namespace 里
 Stack( const char* ) -&gt; Stack&lt;std::string&gt;; // -&gt;后面的类型被称为 &quot;guided type&quot;
@@ -546,14 +546,14 @@ template &lt;typename T&gt;
 class Sum &#123;
 
 public:
-    // 实例化模板的时候，不显式指定，由编译器推导
-    T value_;
+       // 实例化模板的时候，不显式指定，由编译器推导
+       T value_;
 
-    // 构造函数接受任意数量参数，并想加起来赋给 成员 value_
-    template &lt;typename ... Ts&gt;
-    Sum(Ts&amp;&amp;... values) : value_ &#123; (values + ...) &#125; &#123;
+       // 构造函数接受任意数量参数，并想加起来赋给 成员 value_
+       template &lt;typename ... Ts&gt;
+       Sum(Ts&amp;&amp;... values) : value_ &#123; (values + ...) &#125; &#123;
 
-    &#125;
+       &#125;
 &#125;;
 
 // 推导指引（Deduction Guides），告诉编译器用 std::common_type_t 的特性，
@@ -562,15 +562,15 @@ template &lt;typename ... Ts&gt;
 Sum(Ts&amp;&amp; ... ts) -&gt; Sum&lt;std::common_type_t&lt;Ts...&gt;&gt;;
 
 int main() &#123;
-    // 不同类型参数
-    Sum value &#123; 1u, 2.0, 3, 4.0f &#125;;
-    LOG(value.value_);
+       // 不同类型参数
+       Sum value &#123; 1u, 2.0, 3, 4.0f &#125;;
+       LOG(value.value_);
 
-    // std::string 和C 风格字符串
-    Sum str &#123; std::string(&quot;Hello &quot;), &quot;World!&quot;&#125;;
-    LOG(str.value_);
+       // std::string 和C 风格字符串
+       Sum str &#123; std::string(&quot;Hello &quot;), &quot;World!&quot;&#125;;
+       LOG(str.value_);
 
-    return 0;
+       return 0;
 &#125;
 </code></pre>
 </blockquote>
@@ -634,23 +634,19 @@ Hello World!
 #include &lt;string&gt;
 
 #define LOG(x) std::cout &lt;&lt; x &lt;&lt; std::endl
-
 #define STR(str) std::string &#123;str&#125;
 
 template &lt;typename ... Ts&gt;
 auto Add(Ts ... ts) &#123;
     return (ts + ... );
-&#125;
-
+   &#125;
 
 int main() &#123;
-
     int add_int = Add(1, 2, 3, 4, 5);
     LOG(add_int);
-
     std::string result = Add( STR(&quot;how &quot;), STR(&quot;are &quot;), STR(&quot;you &quot;));
-    LOG(result);
-    return 0;
+       LOG(result);
+       return 0;
 &#125;
 </code></pre>
 </blockquote>
@@ -673,7 +669,7 @@ how  are you
 // 包含某些元素的个数情况
 template &lt;typename R, typename ... Ts&gt;
 auto CountContains(const R&amp; container, Ts ... ts) &#123;
-    return (std::count(std::begin(container), std::end(container), ts) + ...);
+       return (std::count(std::begin(container), std::end(container), ts) + ...);
 &#125;
 
 // 对 set 实现批量插入功能
@@ -681,30 +677,29 @@ auto CountContains(const R&amp; container, Ts ... ts) &#123;
 // 会总之插入剩余元素
 template &lt;typename R, typename ... Ts&gt;
 bool InsertAll(R &amp;set, Ts ... ts) &#123;
-    return (set.insert(ts).second &amp;&amp; ...);
+       return (set.insert(ts).second &amp;&amp; ...);
 &#125;
 
 // 检查给定的多个变量是否在某个范围内
 template &lt;typename R, typename ... Ts&gt;
 bool IsAllWithin(R min, R max, Ts ... ts) &#123;
-    return ( (min &lt;= ts &amp;&amp; ts &lt;= max) &amp;&amp; ... );
+       return ( (min &lt;= ts &amp;&amp; ts &lt;= max) &amp;&amp; ... );
 &#125;
 
 int main() &#123;
-
     std::string str &#123;&quot;aabbccddeeffgg&quot;&#125;;
-    int count_abc = CountContains(str, &#39;a&#39;, &#39;b&#39;, &#39;c&#39;);
-    LOG(count_abc);
-
+       int count_abc = CountContains(str, &#39;a&#39;, &#39;b&#39;, &#39;c&#39;);
+       LOG(count_abc);
+   
     std::set&lt;int&gt; my_set = &#123; 1, 2, 3 &#125;;
-    InsertAll(my_set, 4, 5, 6);
-    LOG(&quot;set 批量插入元素后 ： &quot;);
-    std::for_each(my_set.begin(), my_set.end(), [](const auto&amp; item)&#123;
-        LOG(item);
-    &#125;);
-
+       InsertAll(my_set, 4, 5, 6);
+       LOG(&quot;set 批量插入元素后 ： &quot;);
+       std::for_each(my_set.begin(), my_set.end(), [](const auto&amp; item)&#123;
+           LOG(item);
+       &#125;);
+   
     return 0;
-&#125;
+   &#125;
 </code></pre>
 </blockquote>
 <blockquote>
@@ -723,6 +718,10 @@ set 批量插入元素后 ：
 
 <br/>
 
+<br/>
+
+<br/>
+
 <h2 id="Structured-bindings-（结构化绑定）"><a href="#Structured-bindings-（结构化绑定）" class="headerlink" title="Structured bindings （结构化绑定）"></a><strong>Structured bindings （结构化绑定）</strong></h2><p><code>auto [var1, var2, ...] = &lt; pair, tuple, struct, 固定长度数组&gt;</code></p>
 <p><strong><code>注意个数要匹配。</code></strong></p>
 <p><code>和 std::tie 相比，std::tie 进行赋值的时候，所有变量需要提前定义，但是可以使用 std::ignore 作为虚拟变量。所以，要根据实际需求选择使用。</code></p>
@@ -733,17 +732,17 @@ set 批量插入元素后 ：
 #include &lt;vector&gt;
 
 std::pair&lt;int, int&gt; Float2Int(float a, float b) &#123;
-    return std::make_pair&lt;int, int&gt;(int(a), int(b));
+       return std::make_pair&lt;int, int&gt;(int(a), int(b));
 &#125;
 
 std::tuple &lt;std::string, int, char&gt; Info() &#123;
-    return std::make_tuple&lt;std::string, int, char&gt;(&quot;李丽&quot;, 18, &#39;S&#39;);
+       return std::make_tuple&lt;std::string, int, char&gt;(&quot;李丽&quot;, 18, &#39;S&#39;);
 &#125;
 
 //打印信息
 template&lt;typename T&gt;
 void log(T t) &#123;
-    std::cout &lt;&lt; t &lt;&lt; std::endl;
+       std::cout &lt;&lt; t &lt;&lt; std::endl;
 &#125;
 
 template&lt;typename T, typename... Args&gt;
@@ -885,19 +884,16 @@ w
 
 // 定义具有3个重载operator() 的 functor
 struct SOutput &#123;
-    void operator()(const int&amp; i)
-    &#123;
+    void operator()(const int&amp; i) &#123;
         std::cout &lt;&lt; i &lt;&lt; std::endl;
     &#125;
- 
-    void operator()(const double&amp; d)
-    &#123;
+
+     void operator()(const double&amp; d) &#123;
         std::cout &lt;&lt; d &lt;&lt; std::endl;
     &#125;
- 
-    void operator()(const std::string&amp; s)
-    &#123;
-        std::cout &lt;&lt; s &lt;&lt; std::endl;
+
+    void operator()(const std::string&amp; s) &#123;
+         std::cout &lt;&lt; s &lt;&lt; std::endl;
     &#125;
 &#125;;
 
@@ -906,35 +902,35 @@ int main() &#123;
 
     // 第一可以是int/double/string的 vriant y
     std::variant&lt;int, double, std::string&gt; y;
-    
-    // 赋值为 int
-    y = 1;
-    std::visit(SOutput(), y);
 
-    // 赋值为 double
-    y = 23.0;
+       // 赋值为 int
+       y = 1;
+        std::visit(SOutput(), y);
+   
+       // 赋值为 double
+       y = 23.0;
     std::visit(SOutput(), y);
-
-    // 赋值为 string
-    y = &quot;hello&quot;;
+   
+       // 赋值为 string
+       y = &quot;hello&quot;;
     std::visit(SOutput(), y);
-
-    // 可以使用 std::get获取值，但是要对应上，比如现在y是string
-    // 类型不对会抛出异常 std::bad_variant_access e
+   
+       // 可以使用 std::get获取值，但是要对应上，比如现在y是string
+       // 类型不对会抛出异常 std::bad_variant_access e
     std::string str = std::get&lt;std::string&gt;(y);
-
-    std::cout &lt;&lt; str &lt;&lt; std::endl;
-
+   
+       std::cout &lt;&lt; str &lt;&lt; std::endl;
+   
     // 也可以用 std::get_if
-    int* value = std::get_if&lt;int&gt;(&amp;y);
+       int* value = std::get_if&lt;int&gt;(&amp;y);
     if (!value) &#123;
-        std::cout &lt;&lt; &quot;类型不匹配！&quot; &lt;&lt; std::endl;
-    &#125; else &#123;
-        std::cout &lt;&lt; &quot;正确取值：&quot; &lt;&lt; *value &lt;&lt; std::endl;
-    &#125;
-
-    return 0;
-&#125;
+           std::cout &lt;&lt; &quot;类型不匹配！&quot; &lt;&lt; std::endl;
+       &#125; else &#123;
+           std::cout &lt;&lt; &quot;正确取值：&quot; &lt;&lt; *value &lt;&lt; std::endl;
+       &#125;
+   
+       return 0;
+   &#125;
 </code></pre>
 </blockquote>
 <blockquote>
@@ -963,28 +959,28 @@ CustomOutput( Ts ...) -&gt; CustomOutput &lt; Ts ... &gt;;
 
 
 void Use() &#123;
-    //  定义 variant 类型的 vector
-    using var_t = std::variant &lt; int, long, double, std::string &gt;;
-    std::vector&lt;var_t&gt; vec = &#123;10, 20L, 30.40, &quot;hello&quot;&#125;;
+       //  定义 variant 类型的 vector
+       using var_t = std::variant &lt; int, long, double, std::string &gt;;
+       std::vector&lt;var_t&gt; vec = &#123;10, 20L, 30.40, &quot;hello&quot;&#125;;
 
-    CustomOutput out_put = &#123;
-        // 输出 int, long
-        [](auto arg) &#123; std::cout &lt;&lt; arg &lt;&lt; std::endl; &#125;,
-        // 输出 double
-        [](double arg) &#123; std::cout &lt;&lt; arg &lt;&lt; std::endl; &#125;,
-        // 输出 string
-        [](const std::string&amp; arg) &#123; std::cout &lt;&lt; arg &lt;&lt; std::endl; &#125;,
-    &#125;;
+       CustomOutput out_put = &#123;
+           // 输出 int, long
+           [](auto arg) &#123; std::cout &lt;&lt; arg &lt;&lt; std::endl; &#125;,
+           // 输出 double
+           [](double arg) &#123; std::cout &lt;&lt; arg &lt;&lt; std::endl; &#125;,
+           // 输出 string
+           [](const std::string&amp; arg) &#123; std::cout &lt;&lt; arg &lt;&lt; std::endl; &#125;,
+       &#125;;
 
-    // 遍历
-    for ( auto &amp; var : vec ) &#123;
-        std :: visit (out_put, var );
-    &#125;
+       // 遍历
+       for ( auto &amp; var : vec ) &#123;
+           std :: visit(out_put, var );
+       &#125;
 &#125;
 
 int main() &#123;
-    Use();
-    return 0;
+       Use();
+       return 0;
 &#125;
 </code></pre>
 </blockquote>
@@ -1081,7 +1077,7 @@ public:
 <p><code>使用 constexpr-if 的代码编译完成后，程序的这一部分代码不会有分支存在，这种方式其实类似于 #if-#else的预编译方式进行宏替换，但是，constexpr-if 更优雅。</code></p>
 <p><strong><code>正如 《C++17 in Detail》里所说，All the complicated syntax of std::enable_if went away..., if constexpr evaluates the condition and only one block will be compiled.</code></strong></p>
 <blockquote>
-<pre><code class="cpp">#include &lt;iostream&gt;
+<pre><code class="c++">#include &lt;iostream&gt;
 #include &lt;vector&gt;
 
 #define LOG(x); std :: cout &lt;&lt; x &lt;&lt; std::endl;
@@ -1090,38 +1086,38 @@ template &lt;typename T&gt;
 class Addable &#123;
 
 private:
-    T val_;
+       T val_;
 
 public:
-    Addable(T v) : val_(v) &#123; &#125;
+       Addable(T v) : val_(v) &#123; &#125;
 
-    const auto&amp; value() &#123; return val_; &#125;
+       const auto&amp; value() &#123; return val_; &#125;
 
-    template &lt;typename U&gt;
-    T add(U x) &#123;
-        if  constexpr(std::is_same&lt;T, std::vector&lt;U&gt;&gt;::value) &#123; 
-            auto copy &#123;val_&#125;;
-            for (auto&amp; item : copy) &#123;
-                item += x;
-            &#125;
-            return copy;
-        &#125; else &#123;
-            return val_ + x;
-        &#125;
-    &#125;
+       template &lt;typename U&gt;
+       T add(U x) &#123;
+           if  constexpr(std::is_same&lt;T, std::vector&lt;U&gt;&gt;::value) &#123; 
+               auto copy &#123;val_&#125;;
+               for (auto&amp; item : copy) &#123;
+                   item += x;
+               &#125;
+               return copy;
+           &#125; else &#123;
+               return val_ + x;
+           &#125;
+       &#125;
 
 &#125;;
 
 int main() &#123;
-    // 实例化不同类型的 Addable 对象，调用加法函数。
-    LOG(Addable&lt;int&gt; &#123;1&#125;.add&lt;int&gt;(2));
+       // 实例化不同类型的 Addable 对象，调用加法函数。
+       LOG(Addable&lt;int&gt; &#123;1&#125;.add&lt;int&gt;(2));
 
-    Addable&lt;std::vector&lt;int&gt;&gt; iv &#123;&#123;1, 2&#125;&#125;;
-    iv.add&lt;int&gt;(3);
-    for(const auto&amp; item : iv.value()) &#123;
-        LOG(item);
-    &#125;
-    return 0;
+       Addable&lt;std::vector&lt;int&gt;&gt; iv &#123;&#123;1, 2&#125;&#125;;
+       iv.add&lt;int&gt;(3);
+       for(const auto&amp; item : iv.value()) &#123;
+           LOG(item);
+       &#125;
+       return 0;
 &#125;
 </code></pre>
 </blockquote>
@@ -1153,6 +1149,14 @@ int main() &#123;
             <!-- Post Prev & Next Nav -->
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
+    
+        <a href="/2021/04/03/C++%20%E5%B9%B6%E5%8F%91/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8AC++%20Concurrency%20in%20Action%E3%80%8B%EF%BC%88%E4%B8%80%EF%BC%89/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
     
 
     <!-- Section Spacer -->
@@ -1252,7 +1256,7 @@ int main() &#123;
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2021/03/">三月 2021<span class="sidebar_archives-count">5</span></a>
+                <a class="sidebar_archives-link" href="/archives/2021/04/">四月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/03/">三月 2021<span class="sidebar_archives-count">5</span></a>
             </ul>
         </li>
         

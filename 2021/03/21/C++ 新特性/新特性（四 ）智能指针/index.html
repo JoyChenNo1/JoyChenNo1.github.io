@@ -243,7 +243,7 @@
 
     
         <meta property="article:published_time" content="Sun Mar 21 2021 23:37:48 GMT+0800">
-        <meta property="article:modified_time" content="Sat Apr 03 2021 17:39:35 GMT+0800">
+        <meta property="article:modified_time" content="Sun Apr 18 2021 01:03:25 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -266,7 +266,7 @@
     "mainEntityOfPage": "http://example.com/2021/03/21/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E5%9B%9B%20%EF%BC%89%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/index.html",
     "headline": "C++1x 新特性（四）智能指针",
     "datePublished": "Sun Mar 21 2021 23:37:48 GMT+0800",
-    "dateModified": "Sat Apr 03 2021 17:39:35 GMT+0800",
+    "dateModified": "Sun Apr 18 2021 01:03:25 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -518,34 +518,36 @@
 #include &lt;iostream&gt;
 #include &lt;string&gt;
 
+#define LOG(x) std::cout &lt;&lt; x &lt;&lt; std::endl
+
 template &lt;typename T&gt;
 void print_use_count(const T&amp; p, std::string name) &#123;
-    std::cout &lt;&lt; name &lt;&lt; &quot;.use_count() = &quot; &lt;&lt; p.use_count() &lt;&lt; std::endl;
+     LOG(name + &quot;.use_count() = &quot; + p.use_count());
 &#125;
 
 int main() &#123;
 
-    auto p1 = std::make_shared&lt;int&gt;(100);
-    auto p2 = p1;
-    auto p3 = p1;
-    int *q = p1.get(); // 不会增加引用计数
+ auto p1 = std::make_shared&lt;int&gt;(100);
+ auto p2 = p1;
+ auto p3 = p1;
+ int *q = p1.get(); // 不会增加引用计数
 
-    auto print_all = [&amp;]() &#123; 
-        print_use_count(p1, &quot;p1&quot;);
-        print_use_count(p2, &quot;p2&quot;);
-        print_use_count(p3, &quot;p3&quot;);
-    &#125;;
+ auto print_all = [&amp;]() &#123; 
+     print_use_count(p1, &quot;p1&quot;);
+     print_use_count(p2, &quot;p2&quot;);
+     print_use_count(p3, &quot;p3&quot;);
+ &#125;;
 
-    print_all();
-    std::cout &lt;&lt; &quot;reset p2 之后： &quot; &lt;&lt; std::endl;
-    p2.reset();
-    print_all();
+ print_all();
+ LOG(&quot;reset p2 之后:&quot;);
+ p2.reset();
+ print_all();
 
-    std::cout &lt;&lt; &quot;reset p3 之后： &quot; &lt;&lt; std::endl;
-    p3.reset();
-    print_all();
+ LOG(&quot;reset p3 之后:&quot;);
+ p3.reset();
+ print_all();
 
-    return 0;
+ return 0;
 &#125;
 </code></pre>
 </blockquote>
@@ -614,61 +616,62 @@ p1移交独占权后，为空！
 #include &lt;iostream&gt;
 #include &lt;memory&gt;
 
+#define LOG(x) std::cout &lt;&lt; x &lt;&lt; std::endl
 
 class A;
 class B;
 
 class A &#123;
 public:
-    std::shared_ptr&lt;B&gt; ptr_b;
-    ~A() &#123;
-        std::cout &lt;&lt; &quot;A 被销毁。&quot; &lt;&lt; std::endl;
-    &#125;
+     std::shared_ptr&lt;B&gt; ptr_b;
+     ~A() &#123;
+           LOG(&quot;A 被销毁。&quot;);
+     &#125;
 &#125;;
 
 class B &#123;
 public:
-    std::shared_ptr&lt;A&gt; ptr_a;
-    ~B() &#123;
-        std::cout &lt;&lt; &quot;B 被销毁。&quot; &lt;&lt; std::endl;
-    &#125;
+     std::shared_ptr&lt;A&gt; ptr_a;
+     ~B() &#123;
+           LOG(&quot;B 被销毁。&quot;);
+     &#125;
 &#125;;
 
 void strong_referrence() &#123;
-    auto a = std::make_shared&lt;A&gt;();
-    auto b = std::make_shared&lt;B&gt;();
-    
-    // 存在循环引用，不会调用各自的析构函数
-    a-&gt;ptr_b = b;
-    b-&gt;ptr_a = a;
+     auto a = std::make_shared&lt;A&gt;();
+     auto b = std::make_shared&lt;B&gt;();
+
+     // 存在循环引用，不会调用各自的析构函数
+     a-&gt;ptr_b = b;
+     b-&gt;ptr_a = a;
 &#125;
 
 int main() &#123;
-    strong_referrence(); // 强引用存在的情况
+     strong_referrence(); // 强引用存在的情况
 
-    std::weak_ptr&lt;int&gt; weak_p;
-    
-    // std::weak_ptr 没有 * 运算符 和 -&gt; 运算符，不能够对资源进行操作
-    // expired() 方法 用于判断资源是否被释放
-    auto observer = [&amp;] () &#123;
-        if (auto ptr = weak_p.lock()) &#123;
-            std::cout &lt;&lt; *ptr &lt;&lt; std::endl;
-        &#125; else &#123;
-            std::cout &lt;&lt; &quot;资源被释放!&quot; &lt;&lt; std::endl;
-        &#125;
-    &#125;;
+     std::weak_ptr&lt;int&gt; weak_p;
 
-    &#123;
-        std::cout &lt;&lt; &quot;进入某个作用域赋值。&quot; &lt;&lt; std::endl;
-        auto p1 = std::make_shared&lt;int&gt;(100);
-        weak_p = p1;
-        observer();
-        std::cout &lt;&lt; &quot;离开某个作用域。&quot; &lt;&lt; std::endl;
-    &#125;
+     // std::weak_ptr 没有 * 运算符 和 -&gt; 运算符，不能够对资源进行操作
+     // expired() 方法 用于判断资源是否被释放
+     auto observer = [&amp;] () &#123;
+           if (auto ptr = weak_p.lock()) &#123;
+               LOG(*ptr);
+           &#125; else &#123;
+               LOG(&quot;资源被释放!&quot;);
+           &#125;
+     &#125;;
 
-    observer();
+     &#123;
+           LOG(&quot;进入某个作用域赋值。&quot;);
+           auto p1 = std::make_shared&lt;int&gt;(100);
+           weak_p = p1;
+           observer();
+           LOG(&quot;离开某个作用域。&quot;);
+     &#125;
 
-    return 0;
+     observer();
+
+     return 0;
 &#125;
 </code></pre>
 </blockquote>
@@ -806,7 +809,7 @@ int main() &#123;
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2021/03/">三月 2021<span class="sidebar_archives-count">5</span></a>
+                <a class="sidebar_archives-link" href="/archives/2021/04/">四月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/03/">三月 2021<span class="sidebar_archives-count">5</span></a>
             </ul>
         </li>
         

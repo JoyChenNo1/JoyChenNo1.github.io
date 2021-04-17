@@ -243,7 +243,7 @@
 
     
         <meta property="article:published_time" content="Mon Mar 15 2021 00:09:53 GMT+0800">
-        <meta property="article:modified_time" content="Sat Apr 03 2021 17:37:59 GMT+0800">
+        <meta property="article:modified_time" content="Sun Apr 18 2021 01:10:07 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -266,7 +266,7 @@
     "mainEntityOfPage": "http://example.com/2021/03/15/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%89%EF%BC%89%E5%AF%B9%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E6%89%A9%E5%85%85/index.html",
     "headline": "C++1x 新特性（三）对标准库的扩充",
     "datePublished": "Mon Mar 15 2021 00:09:53 GMT+0800",
-    "dateModified": "Sat Apr 03 2021 17:37:59 GMT+0800",
+    "dateModified": "Sun Apr 18 2021 01:10:07 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -550,18 +550,18 @@ void c_test (int* p, size_t len) &#123;
 &#125;
 
 int main() &#123;
-    std::array&lt;int, 5&gt; arr_1 = &#123;1, 2, 3, 4, 5&#125;;
+       std::array&lt;int, 5&gt; arr_1 = &#123;1, 2, 3, 4, 5&#125;;
     
-    // 无法转换成 C 风格指针传递！
-    // no suitable conversion function from &quot;std::array&lt;int, 5UL&gt;&quot; to &quot;int *&quot; exists
-    // c_test(arr_1, arr_1.size());
+       // 无法转换成 C 风格指针传递！
+       // no suitable conversion function from &quot;std::array&lt;int, 5UL&gt;&quot; to &quot;int *&quot; exists
+       // c_test(arr_1, arr_1.size());
 
-    // struct std::array&lt;int, &lt;error-constant&gt;&gt;
-    // int len = 5;
-    constexpr int len = 5;
-    std::array&lt;int, len&gt; arr_2 = &#123; 1, 3, 2, 5, 4 &#125;;
-    std::sort(arr_2.begin(), arr_2.end());
-    return 0;
+       // struct std::array&lt;int, &lt;error-constant&gt;&gt;
+       // int len = 5;
+       constexpr int len = 5;
+       std::array&lt;int, len&gt; arr_2 = &#123; 1, 3, 2, 5, 4 &#125;;
+       std::sort(arr_2.begin(), arr_2.end());
+       return 0;
 &#125;
 </code></pre>
 </blockquote>
@@ -603,61 +603,63 @@ int main() &#123;
 #include &lt;boost/variant.hpp&gt;
 #include &lt;variant&gt;
 
+#define LOG(x) std::cout &lt;&lt; x &lt;&lt; std::endl
+
 // 用于求取 tuple size
 
 template &lt;typename T&gt;
 auto tuple_size(const T&amp; tpl) &#123;
-    return std::tuple_size&lt;T&gt;::value;
+ return std::tuple_size&lt;T&gt;::value;
 &#125;
 
 // 借助 boost::variant 实现 
 // 参考 https://www.boost.org/doc/libs/1_75_0/doc/html/variant.html
 template &lt;size_t n, typename... Args&gt;
 boost::variant&lt;Args...&gt; _tuple_index(size_t i, const std::tuple&lt;Args...&gt;&amp; tpl) &#123;
-    if (i == n) &#123;
-        return std::get&lt;n&gt;(tpl);
-    &#125; else if (n == sizeof...(Args) - 1) &#123;
-        throw std::out_of_range(&quot;越界！&quot;);
-    &#125;else &#123;
-        return _tuple_index&lt;(n &lt; sizeof...(Args) - 1 ? n + 1 : 0)&gt;(i, tpl);
-    &#125;
+ if (i == n) &#123;
+     return std::get&lt;n&gt;(tpl);
+ &#125; else if (n == sizeof...(Args) - 1) &#123;
+     throw std::out_of_range(&quot;越界！&quot;);
+ &#125;else &#123;
+     return _tuple_index&lt;(n &lt; sizeof...(Args) - 1 ? n + 1 : 0)&gt;(i, tpl);
+ &#125;
 &#125;
 
 // 用于获取指定索引的 tuple 元素值
 template &lt;typename... Args&gt;
 boost::variant&lt;Args...&gt; tuple_index(size_t i, const std::tuple&lt;Args...&gt;&amp; tpl) &#123;
-    return _tuple_index&lt;0&gt;(i, tpl);
+ return _tuple_index&lt;0&gt;(i, tpl);
 &#125;
 
 int main() &#123;
 
-    auto student = std::make_tuple(&quot;Liming&quot;, 18, &#39;B&#39;);
+ auto student = std::make_tuple(&quot;Liming&quot;, 18, &#39;B&#39;);
 
-    constexpr int i_0 = 0, i_1 = 1, i_2 = 2;
+ constexpr int i_0 = 0, i_1 = 1, i_2 = 2;
 
-    // std::get&lt;&gt; 依赖的是编译期的常量
-    std::cout &lt;&lt; &quot;姓名： &quot; &lt;&lt; std::get&lt;i_0&gt;(student)  &lt;&lt; std::endl;
-    std::cout &lt;&lt; &quot;年龄： &quot; &lt;&lt; std::get&lt;i_1&gt;(student)  &lt;&lt; std::endl;
-    std::cout &lt;&lt; &quot;成绩： &quot; &lt;&lt; std::get&lt;i_2&gt;(student)  &lt;&lt; std::endl;
+ // std::get&lt;&gt; 依赖的是编译期的常量
+ LOG(&quot;姓名： &quot; + std::get&lt;i_0&gt;(student));
+ LOG(&quot;年龄： &quot; + std::get&lt;i_1&gt;(student));
+ LOG(&quot;成绩： &quot; + std::get&lt;i_2&gt;(student));
 
-    std::string name;
-    char grade;
+ std::string name;
+ char grade;
 
-    // 利用std::tie 进行元组拆包， std::ignore忽略某个元素
-    std::tie(name, std::ignore, grade) = student;
-    std::cout &lt;&lt; &quot;姓名： &quot; &lt;&lt; name  &lt;&lt; std::endl;
-    std::cout &lt;&lt; &quot;成绩： &quot; &lt;&lt; grade  &lt;&lt; std::endl;
+ // 利用std::tie 进行元组拆包， std::ignore忽略某个元素
+ std::tie(name, std::ignore, grade) = student;
+ LOG(&quot;姓名： &quot; + name);
+ LOG(&quot;成绩： &quot; + grade);
 
-    // 元组合并
-    auto teacher = std::make_tuple(&quot;Miss Li&quot;, 25, &#39;A&#39;);
-    auto concat = std::tuple_cat(std::move(student), std::move(teacher));
+ // 元组合并
+ auto teacher = std::make_tuple(&quot;Miss Li&quot;, 25, &#39;A&#39;);
+ auto concat = std::tuple_cat(std::move(student), std::move(teacher));
 
-    // 元组遍历
-    for (size_t i = 0; i != tuple_size(concat); ++i) &#123;
-        std::cout &lt;&lt; tuple_index(i, concat) &lt;&lt; std::endl;
-    &#125;
+ // 元组遍历
+ for (size_t i = 0; i != tuple_size(concat); ++i) &#123;
+     LOG(tuple_index(i, concat));
+ &#125;
 
-    return 0;
+ return 0;
 &#125;
 </code></pre>
 </blockquote>
@@ -687,34 +689,36 @@ A
 #include &lt;map&gt;
 #include &lt;algorithm&gt;
 
+#define LOG(x) std::cout &lt;&lt; x &lt;&lt; std::endl
+
 template &lt;typename T&gt;
 void log(const T&amp; t) &#123;
-    std::cout &lt;&lt; &quot;容器类型： &quot; &lt;&lt; typeid(T).name() &lt;&lt; std::endl;
-    std::for_each(t.begin(), t.end(), [](const auto&amp; item)&#123;
-        std::cout &lt;&lt; &quot;Key: &quot;&lt;&lt; item.first &lt;&lt; &quot;  Value: &quot;&lt;&lt; item.second &lt;&lt; std::endl;
-    &#125;);
+ LOG(&quot;容器类型： &quot; + typeid(T).name());
+ std::for_each(t.begin(), t.end(), [](const auto&amp; item)&#123;
+     LOG(&quot;Key: &quot; + item.first + &quot;  Value: &quot; + item.second);
+ &#125;);
 &#125;
 
 int main() &#123;
-    // 无序
-    std::unordered_map&lt;int, std::string&gt; unordered = &#123;
-        &#123;1, &quot;one&quot;&#125;,
-        &#123;4, &quot;four&quot;&#125;,
-        &#123;3, &quot;three&quot;&#125;, 
-        &#123;2, &quot;two&quot;&#125;
-    &#125;;
-    // 有序
-    std::map&lt;int, std::string&gt; ordered = &#123;
-        &#123;1, &quot;one&quot;&#125;,
-        &#123;4, &quot;four&quot;&#125;,
-        &#123;3, &quot;three&quot;&#125;, 
-        &#123;2, &quot;two&quot;&#125;
-    &#125;;
+ // 无序
+ std::unordered_map&lt;int, std::string&gt; unordered = &#123;
+     &#123;1, &quot;one&quot;&#125;,
+     &#123;4, &quot;four&quot;&#125;,
+     &#123;3, &quot;three&quot;&#125;, 
+     &#123;2, &quot;two&quot;&#125;
+ &#125;;
+ // 有序
+ std::map&lt;int, std::string&gt; ordered = &#123;
+     &#123;1, &quot;one&quot;&#125;,
+     &#123;4, &quot;four&quot;&#125;,
+     &#123;3, &quot;three&quot;&#125;, 
+     &#123;2, &quot;two&quot;&#125;
+ &#125;;
 
-    log(unordered);
-    log(ordered);
-    
-    return 0;
+ log(unordered);
+ log(ordered);
+
+ return 0;
 &#125;
 </code></pre>
 </blockquote>
@@ -897,7 +901,7 @@ Key: 4  Value: four
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2021/03/">三月 2021<span class="sidebar_archives-count">5</span></a>
+                <a class="sidebar_archives-link" href="/archives/2021/04/">四月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/03/">三月 2021<span class="sidebar_archives-count">5</span></a>
             </ul>
         </li>
         
