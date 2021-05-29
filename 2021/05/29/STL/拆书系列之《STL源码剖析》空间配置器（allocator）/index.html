@@ -44,7 +44,7 @@
     
     <title>
         
-            拆书系列之《C++ Concurrency in Action》（一） | 
+            拆书系列之《STL源码剖析》空间配置器（allocator） | 
         
         进阶之路
     </title>
@@ -55,7 +55,7 @@
 
     <meta name="format-detection" content="telephone=no"/>
     <meta name="description" itemprop="description" content="">
-    <meta name="keywords" content=",C++ 并发">
+    <meta name="keywords" content=",STL 迭代器">
     <meta name="theme-color" content="#0097A7">
 
     <!-- Disable Fucking Bloody Baidu Tranformation -->
@@ -219,7 +219,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="进阶之路">
-    <meta name="msapplication-starturl" content="http://example.com/2021/04/03/C++%20%E5%B9%B6%E5%8F%91/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8AC++%20Concurrency%20in%20Action%E3%80%8B%EF%BC%88%E4%B8%80%EF%BC%89/">
+    <meta name="msapplication-starturl" content="http://example.com/2021/05/29/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="进阶之路">
@@ -234,16 +234,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://example.com/2021/04/03/C++%20%E5%B9%B6%E5%8F%91/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8AC++%20Concurrency%20in%20Action%E3%80%8B%EF%BC%88%E4%B8%80%EF%BC%89/">
+    <meta property="og:url" content="http://example.com/2021/05/29/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="拆书系列之《C++ Concurrency in Action》（一） | 进阶之路">
+    <meta property="og:title" content="拆书系列之《STL源码剖析》空间配置器（allocator） | 进阶之路">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="">
-    <meta property="og:article:tag" content="C++ 并发"> 
+    <meta property="og:article:tag" content="STL 迭代器"> 
 
     
-        <meta property="article:published_time" content="Sat Apr 03 2021 17:54:43 GMT+0800">
-        <meta property="article:modified_time" content="Sat May 29 2021 12:36:58 GMT+0800">
+        <meta property="article:published_time" content="Sat May 29 2021 12:06:17 GMT+0800">
+        <meta property="article:modified_time" content="Sat May 29 2021 14:57:31 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -251,7 +251,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://example.com/2021/04/03/C++%20%E5%B9%B6%E5%8F%91/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8AC++%20Concurrency%20in%20Action%E3%80%8B%EF%BC%88%E4%B8%80%EF%BC%89/index.html" />
+        <link rel="canonical" href="http://example.com/2021/05/29/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -263,10 +263,10 @@
 {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "mainEntityOfPage": "http://example.com/2021/04/03/C++%20%E5%B9%B6%E5%8F%91/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8AC++%20Concurrency%20in%20Action%E3%80%8B%EF%BC%88%E4%B8%80%EF%BC%89/index.html",
-    "headline": "拆书系列之《C++ Concurrency in Action》（一）",
-    "datePublished": "Sat Apr 03 2021 17:54:43 GMT+0800",
-    "dateModified": "Sat May 29 2021 12:36:58 GMT+0800",
+    "mainEntityOfPage": "http://example.com/2021/05/29/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89/index.html",
+    "headline": "拆书系列之《STL源码剖析》空间配置器（allocator）",
+    "datePublished": "Sat May 29 2021 12:06:17 GMT+0800",
+    "dateModified": "Sat May 29 2021 14:57:31 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -284,7 +284,7 @@
             "url": "/img/favicon.png"
         }
     },
-    "keywords": ",C++ 并发",
+    "keywords": ",STL 迭代器",
     "description": "",
 }
 </script>
@@ -344,6 +344,15 @@
     <!-- Left aligned menu below button -->
     
     
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89"><span class="post-toc-number">1.</span> <span class="post-toc-text">《STL源码剖析》空间配置器（allocator）</span></a></li></ol>
+    </ul>
+    
 
 
 
@@ -373,7 +382,7 @@
         
     
             <p class="article-headline-p">
-                拆书系列之《C++ Concurrency in Action》（一）
+                拆书系列之《STL源码剖析》空间配置器（allocator）
             </p>
         </div>
 
@@ -392,7 +401,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Joy Chen</strong>
-        <span>4月 03, 2021</span>
+        <span>5月 29, 2021</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -416,7 +425,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        <a class="post_tag-none-link" href="/tags/C-%E5%B9%B6%E5%8F%91/" rel="tag">C++ 并发</a>
+        <a class="post_tag-none-link" href="/tags/STL-%E8%BF%AD%E4%BB%A3%E5%99%A8/" rel="tag">STL 迭代器</a>
     </ul>
     
 
@@ -436,7 +445,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=拆书系列之《C++ Concurrency in Action》（一）&url=http://example.com/2021/04/03/C++%20%E5%B9%B6%E5%8F%91/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8AC++%20Concurrency%20in%20Action%E3%80%8B%EF%BC%88%E4%B8%80%EF%BC%89/index.html&via=Joy Chen" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=拆书系列之《STL源码剖析》空间配置器（allocator）&url=http://example.com/2021/05/29/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89/index.html&via=Joy Chen" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -445,7 +454,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/04/03/C++%20%E5%B9%B6%E5%8F%91/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8AC++%20Concurrency%20in%20Action%E3%80%8B%EF%BC%88%E4%B8%80%EF%BC%89/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2021/05/29/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -454,7 +463,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=http://example.com/2021/04/03/C++%20%E5%B9%B6%E5%8F%91/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8AC++%20Concurrency%20in%20Action%E3%80%8B%EF%BC%88%E4%B8%80%EF%BC%89/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://example.com/2021/05/29/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -463,7 +472,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://example.com/2021/04/03/C++%20%E5%B9%B6%E5%8F%91/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8AC++%20Concurrency%20in%20Action%E3%80%8B%EF%BC%88%E4%B8%80%EF%BC%89/index.html&title=拆书系列之《C++ Concurrency in Action》（一）" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://example.com/2021/05/29/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89/index.html&title=拆书系列之《STL源码剖析》空间配置器（allocator）" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -472,7 +481,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=进阶之路&title=拆书系列之《C++ Concurrency in Action》（一）&summary=&pics=http://example.com/img/favicon.png&url=http://example.com/2021/04/03/C++%20%E5%B9%B6%E5%8F%91/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8AC++%20Concurrency%20in%20Action%E3%80%8B%EF%BC%88%E4%B8%80%EF%BC%89/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=进阶之路&title=拆书系列之《STL源码剖析》空间配置器（allocator）&summary=&pics=http://example.com/img/favicon.png&url=http://example.com/2021/05/29/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -491,7 +500,8 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        
+        <h1 id="《STL源码剖析》空间配置器（allocator）"><a href="#《STL源码剖析》空间配置器（allocator）" class="headerlink" title="《STL源码剖析》空间配置器（allocator）"></a>《STL源码剖析》空间配置器（allocator）</h1><p><code>参考自《STL源码剖析》-侯捷著。</code></p>
+
         
     
 
@@ -511,7 +521,7 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2021/05/29/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89/" id="post_nav-newer" class="prev-content">
+        <a href="/2021/05/29/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E6%A6%82%E8%BF%B0/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -525,7 +535,7 @@
 
     <!-- Next Nav -->
     
-        <a href="/2021/03/23/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/C++17%20%E6%96%B0%E7%89%B9%E6%80%A7/" id="post_nav-older" class="next-content">
+        <a href="/2021/04/03/C++%20%E5%B9%B6%E5%8F%91/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8AC++%20Concurrency%20in%20Action%E3%80%8B%EF%BC%88%E4%B8%80%EF%BC%89/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
