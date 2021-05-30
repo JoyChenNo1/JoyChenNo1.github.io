@@ -44,7 +44,7 @@
     
     <title>
         
-            拆书系列之《STL源码剖析》空间配置器（allocator） | 
+            拆书系列之《STL 源码剖析》空间配置器（allocator） | 
         
         进阶之路
     </title>
@@ -236,14 +236,14 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://example.com/2021/05/29/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="拆书系列之《STL源码剖析》空间配置器（allocator） | 进阶之路">
+    <meta property="og:title" content="拆书系列之《STL 源码剖析》空间配置器（allocator） | 进阶之路">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="">
     <meta property="og:article:tag" content="STL 迭代器"> 
 
     
         <meta property="article:published_time" content="Sat May 29 2021 12:06:17 GMT+0800">
-        <meta property="article:modified_time" content="Sat May 29 2021 14:57:31 GMT+0800">
+        <meta property="article:modified_time" content="Sun May 30 2021 20:37:17 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -264,9 +264,9 @@
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "mainEntityOfPage": "http://example.com/2021/05/29/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89/index.html",
-    "headline": "拆书系列之《STL源码剖析》空间配置器（allocator）",
+    "headline": "拆书系列之《STL 源码剖析》空间配置器（allocator）",
     "datePublished": "Sat May 29 2021 12:06:17 GMT+0800",
-    "dateModified": "Sat May 29 2021 14:57:31 GMT+0800",
+    "dateModified": "Sun May 30 2021 20:37:17 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -350,7 +350,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89"><span class="post-toc-number">1.</span> <span class="post-toc-text">《STL源码剖析》空间配置器（allocator）</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E3%80%8ASTL-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89"><span class="post-toc-number">1.</span> <span class="post-toc-text">《STL 源码剖析》空间配置器（allocator）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#STL-%E4%B8%AD%EF%BC%8Callocator-%E7%9A%84%E5%BF%85%E8%A6%81%E6%8E%A5%E5%8F%A3%EF%BC%9A"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">STL 中，allocator 的必要接口：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SGI-%E7%9A%84%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8-std-alloc%EF%BC%88polymorphic-allocator-GCC9%E7%89%88%E6%9C%AC-%EF%BC%89"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">SGI 的空间配置器 std::alloc（polymorphic_allocator [GCC9版本]）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AF%B9%E4%BA%8E-%E6%88%91%E4%BB%AC%E4%B9%A0%E6%83%AF%E7%9A%84-C-%E5%86%85%E5%AD%98%E9%85%8D%E7%BD%AE%E5%92%8C%E9%87%8A%E6%94%BE%E6%93%8D%E4%BD%9C%EF%BC%9A"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">对于 我们习惯的 C++ 内存配置和释放操作：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AF%B9%E4%BA%8E-SGI-%E7%89%88%E6%9C%AC%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%93%B2%E5%AD%A6%EF%BC%9A"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">对于 SGI 版本的设计哲学：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%A7%A3%E5%86%B3%E5%B0%8F%E5%9E%8B%E5%8C%BA%E5%9D%97%E5%8F%AF%E8%83%BD%E9%80%A0%E6%88%90%E7%9A%84%E5%86%85%E5%AD%98%E7%A0%B4%E7%A2%8E%E9%97%AE%E9%A2%98%EF%BC%88%E5%8F%8C%E5%B1%82%E7%BA%A7%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%89"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">解决小型区块可能造成的内存破碎问题（双层级配置器）</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AF%B9%E4%BA%8E-lt-stl-construct-h-gt-%E4%B8%AD%E7%9A%84-construct-%E5%92%8C-destroy"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">对于  &lt;stl_construct.h&gt; 中的 construct() 和 destroy()</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1%E3%80%81construct"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">1、construct()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2%E3%80%81destroy"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">2、destroy()</span></a></li></ol></li></ol></li></ol>
     </ul>
     
 
@@ -382,7 +382,7 @@
         
     
             <p class="article-headline-p">
-                拆书系列之《STL源码剖析》空间配置器（allocator）
+                拆书系列之《STL 源码剖析》空间配置器（allocator）
             </p>
         </div>
 
@@ -445,7 +445,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=拆书系列之《STL源码剖析》空间配置器（allocator）&url=http://example.com/2021/05/29/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89/index.html&via=Joy Chen" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=拆书系列之《STL 源码剖析》空间配置器（allocator）&url=http://example.com/2021/05/29/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89/index.html&via=Joy Chen" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -472,7 +472,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://example.com/2021/05/29/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89/index.html&title=拆书系列之《STL源码剖析》空间配置器（allocator）" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://example.com/2021/05/29/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89/index.html&title=拆书系列之《STL 源码剖析》空间配置器（allocator）" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -481,7 +481,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=进阶之路&title=拆书系列之《STL源码剖析》空间配置器（allocator）&summary=&pics=http://example.com/img/favicon.png&url=http://example.com/2021/05/29/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=进阶之路&title=拆书系列之《STL 源码剖析》空间配置器（allocator）&summary=&pics=http://example.com/img/favicon.png&url=http://example.com/2021/05/29/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -500,7 +500,606 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="《STL源码剖析》空间配置器（allocator）"><a href="#《STL源码剖析》空间配置器（allocator）" class="headerlink" title="《STL源码剖析》空间配置器（allocator）"></a>《STL源码剖析》空间配置器（allocator）</h1><p><code>参考自《STL源码剖析》-侯捷著。</code></p>
+        <h1 id="《STL-源码剖析》空间配置器（allocator）"><a href="#《STL-源码剖析》空间配置器（allocator）" class="headerlink" title="《STL 源码剖析》空间配置器（allocator）"></a>《STL 源码剖析》空间配置器（allocator）</h1><p><code>参考自《STL 源码剖析》-侯捷著。</code></p>
+<h2 id="STL-中，allocator-的必要接口："><a href="#STL-中，allocator-的必要接口：" class="headerlink" title="STL 中，allocator 的必要接口："></a>STL 中，allocator 的必要接口：</h2><blockquote>
+<pre><code class="cpp">// /usr/include/c++/9/bits/allocator.h
+
+
+
+template&lt;typename _Tp&gt;
+using __allocator_base = __gnu_cxx::new_allocator&lt;_Tp&gt;;
+
+template&lt;typename _Tp&gt;
+class new_allocator &#123;
+public:
+  typedef size_t     size_type;
+  typedef ptrdiff_t  difference_type;
+  typedef _Tp*       pointer;
+  typedef const _Tp* const_pointer;
+  typedef _Tp&amp;       reference;
+  typedef const _Tp&amp; const_reference;
+  typedef _Tp        value_type;
+
+  template&lt;typename _Tp1&gt;
+    struct rebind &#123; typedef new_allocator&lt;_Tp1&gt; other; &#125;;
+    // ...
+  
+// 默认构造
+  _GLIBCXX20_CONSTEXPR
+    new_allocator() _GLIBCXX_USE_NOEXCEPT &#123; &#125;
+  // 拷贝构造
+  _GLIBCXX20_CONSTEXPR
+    new_allocator(const new_allocator&amp;) _GLIBCXX_USE_NOEXCEPT &#123; &#125;
+// 泛化的拷贝构造
+  template&lt;typename _Tp1&gt;
+  _GLIBCXX20_CONSTEXPR
+  new_allocator(const new_allocator&lt;_Tp1&gt;&amp;) _GLIBCXX_USE_NOEXCEPT &#123; &#125;
+//析构
+  ~new_allocator() _GLIBCXX_USE_NOEXCEPT &#123; &#125;
+  
+// 返回某个对象的地址
+  pointer
+    address(reference __x) const _GLIBCXX_NOEXCEPT
+  &#123; return std::__addressof(__x); &#125;
+
+  const_pointer
+    address(const_reference __x) const _GLIBCXX_NOEXCEPT
+  &#123; return std::__addressof(__x); &#125;
+  
+  // 配置空间 足以存储 n 个 T 对象
+_GLIBCXX_NODISCARD pointer
+allocate(size_type __n, const void* = static_cast&lt;const void*&gt;(0)) &#123;
+    if (__n &gt; this-&gt;max_size())
+      std::__throw_bad_alloc();
+
+#if __cpp_aligned_new
+    if (alignof(_Tp) &gt; __STDCPP_DEFAULT_NEW_ALIGNMENT__) &#123;
+      std::align_val_t __al = std::align_val_t(alignof(_Tp));
+      return static_cast&lt;_Tp*&gt;(::operator new(__n * sizeof(_Tp), __al));
+    &#125;
+#endif
+    return static_cast&lt;_Tp*&gt;(::operator new(__n * sizeof(_Tp)));
+&#125;
+
+// 归还先前配置空间
+void deallocate(pointer __p, size_type) &#123;
+    #if __cpp_aligned_new
+    if (alignof(_Tp) &gt; __STDCPP_DEFAULT_NEW_ALIGNMENT__)
+    &#123;
+      ::operator delete(__p, std::align_val_t(alignof(_Tp)));
+      return;
+    &#125;
+    #endif
+    ::operator delete(__p);
+&#125;
+  
+template&lt;typename _Up, typename... _Args&gt;
+void construct(_Up* __p, _Args&amp;&amp;... __args)
+    noexcept(noexcept(::new((void *)__p)
+                _Up(std::forward&lt;_Args&gt;(__args)...)))
+    &#123; ::new((void *)__p) _Up(std::forward&lt;_Args&gt;(__args)...); &#125;
+
+template&lt;typename _Up&gt;
+void destroy(_Up* __p)
+    noexcept(noexcept( __p-&gt;~_Up()))
+    &#123; __p-&gt;~_Up(); &#125;
+&#125;; // class new_allocator  
+</code></pre>
+</blockquote>
+<br/>
+
+<h2 id="SGI-的空间配置器-std-alloc（polymorphic-allocator-GCC9版本-）"><a href="#SGI-的空间配置器-std-alloc（polymorphic-allocator-GCC9版本-）" class="headerlink" title="SGI 的空间配置器 std::alloc（polymorphic_allocator [GCC9版本]）"></a>SGI 的空间配置器 std::alloc（polymorphic_allocator [GCC9版本]）</h2><h3 id="对于-我们习惯的-C-内存配置和释放操作："><a href="#对于-我们习惯的-C-内存配置和释放操作：" class="headerlink" title="对于 我们习惯的 C++ 内存配置和释放操作："></a>对于 我们习惯的 C++ 内存配置和释放操作：</h3><img src ="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/public/img/STL/NewDelete%E5%AF%B9%E8%B1%A1%E6%97%B6.png">
+
+
+
+<p>内存空间的配置/释放与对象内容的构造和析构，分在在 <code>stl_construct.h</code> 和<code>allcator.h [stl_alloc.h(SGI版本)]</code>。</p>
+<img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/public/img/STL/STLConstructAllocator.png">
+
+<h3 id="对于-SGI-版本的设计哲学："><a href="#对于-SGI-版本的设计哲学：" class="headerlink" title="对于 SGI 版本的设计哲学："></a>对于 SGI 版本的设计哲学：</h3><ol>
+<li>向 system heap 要求空间。</li>
+<li>考虑多线程的状态。</li>
+<li>考虑内存不足时的应变措施。</li>
+<li>考虑过多“小型区块”可能造成的内存碎片（fragment）问题。</li>
+</ol>
+<br/>
+
+<h3 id="解决小型区块可能造成的内存破碎问题（双层级配置器）"><a href="#解决小型区块可能造成的内存破碎问题（双层级配置器）" class="headerlink" title="解决小型区块可能造成的内存破碎问题（双层级配置器）"></a>解决小型区块可能造成的内存破碎问题（双层级配置器）</h3><p><code>配置区块 &gt; 128bytes 时，视为足够大，调用</code><strong>第一级配置器</strong>。</p>
+<p><code>配置区块 &lt;= 128bytes 时，视为过小，为了降低额外负担，采用复杂的 memory pool 的整理方式，开放</code><strong>第二级配置器</strong>。</p>
+<blockquote>
+<pre><code class="cpp">// 一级配置器
+template&lt;typename _Tp&gt;
+class malloc_allocator &#123;
+    ...
+allocate(size_type __n, const void* = 0) &#123;
+    if (__n &gt; this-&gt;max_size())
+        std::__throw_bad_alloc();
+
+    pointer __ret = 0;
+#if __cpp_aligned_new
+#if __cplusplus &gt; 201402L &amp;&amp; _GLIBCXX_HAVE_ALIGNED_ALLOC
+    if (alignof(_Tp) &gt; alignof(std::max_align_t)) &#123;
+      __ret = static_cast&lt;_Tp*&gt;(::aligned_alloc(alignof(_Tp),
+                                                __n * sizeof(_Tp)));
+    &#125;
+#else
+# define _GLIBCXX_CHECK_MALLOC_RESULT
+#endif
+#endif
+    // 直接使用 malloc()
+    if (!__ret)
+      __ret = static_cast&lt;_Tp*&gt;(std::malloc(__n * sizeof(_Tp)));
+    if (!__ret)
+      std::__throw_bad_alloc();
+#ifdef _GLIBCXX_CHECK_MALLOC_RESULT
+#undef _GLIBCXX_CHECK_MALLOC_RESULT
+    if (reinterpret_cast&lt;std::size_t&gt;(__ret) % alignof(_Tp))
+    &#123;
+      // Memory returned by malloc is not suitably aligned for _Tp.
+      deallocate(__ret, __n);
+      std::__throw_bad_alloc();
+    &#125;
+#endif
+    return __ret;
+&#125;
+// 直接调用 free()
+void deallocate(pointer __p, size_type) &#123; 
+  std::free(static_cast&lt;void*&gt;(__p)); 
+&#125;
+&#125;；// class malloc_allocator
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code class="cpp">// 二级配置器
+class __pool_alloc_base &#123;
+protected:
+  enum &#123; _S_align = 8 &#125;;
+  enum &#123; _S_max_bytes = 128 &#125;;
+  enum &#123; _S_free_list_size = (size_t)_S_max_bytes / (size_t)_S_align &#125;;
+
+  union _Obj &#123;
+    union _Obj* _M_free_list_link;
+    char        _M_client_data[1];    // The client sees this.
+  &#125;;
+
+  static _Obj* volatile         _S_free_list[_S_free_list_size];
+
+  // Chunk allocation state.
+  static char*                  _S_start_free;
+  static char*                  _S_end_free;
+  static size_t                 _S_heap_size;   
+...
+&#125;
+</code></pre>
+</blockquote>
+<img src="">
+
+<p>无论是第一级还是第二级配置器，STL 没有直接调用，而是封装了多层。在 GCC9 版本中，提供了 <code>polymorphic_allocator</code>。</p>
+<blockquote>
+<pre><code class="cpp">// vector
+template&lt;typename _Tp&gt; class polymorphic_allocator;
+// 使用复杂的 polymorphic_allocator
+using vector = std::vector&lt;_Tp, polymorphic_allocator&lt;_Tp&gt;&gt;;
+
+// std::vector 默认用的简单的 std::allocator
+template&lt;typename _Tp, typename _Alloc = std::allocator&lt;_Tp&gt; &gt;
+class vector : protected _Vector_base&lt;_Tp, _Alloc&gt; &#123;
+&#125;
+//...
+
+template&lt;typename _Tp&gt;
+class polymorphic_allocator &#123;
+
+template &lt;typename _Tp1, typename... _Args&gt; // used here
+void construct(_Tp1* __p, _Args&amp;&amp;... __args) &#123;
+    std::__uses_allocator_construct(this-&gt;resource(), __p,
+                                    std::forward&lt;_Args&gt;(__args)...);
+&#125;
+  
+void deallocate(_Tp* __p, size_t __n) &#123; 
+    _M_resource-&gt;deallocate(__p, __n * sizeof(_Tp), alignof(_Tp)); 
+&#125;
+&#125;; // polymorphic_allocator
+</code></pre>
+</blockquote>
+<p>参考 <a target="_blank" rel="noopener" href="http://cs.brown.edu/~jwicks/libstdc++/html/20_util/allocator.html">http://cs.brown.edu/~jwicks/libstdc++/html/20_util/allocator.html</a> 可知在 GCC 中，</p>
+<p><code>For GCC releases, defining </code>__USE_MALLOC<code>on the gcc command line would change the default allocation strategy to instead use</code>malloc<code>and</code>free`.</p>
+<table>
+<thead>
+<tr>
+<th>Allocator</th>
+<th>Header</th>
+<th>Allocator</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>_gnu_cxx::new_allocator<T></td>
+<td>&lt;ext/new_allocator.h&gt;</td>
+<td>std::__new_alloc</td>
+</tr>
+<tr>
+<td>__gnu_cxx::malloc_allocator<T></td>
+<td>&lt;ext/malloc_allocator.h&gt;</td>
+<td>std::__malloc_alloc_template<int></td>
+</tr>
+<tr>
+<td>__gnu_cxx::debug_allocator<T></td>
+<td>&lt;ext/debug_allocator.h&gt;</td>
+<td>std::debug_alloc<T></td>
+</tr>
+</tbody></table>
+<ul>
+<li><p><strong>new_allocator</strong></p>
+<p>  Simply wraps <code>::operator new</code> and <code>::operator delete</code>.</p>
+</li>
+<li><p><strong>malloc_allocator</strong></p>
+<p>  Simply wraps <code>malloc</code> and <code>free</code>. There is also a hook for an out-of-memory handler (for new/delete this is taken care of elsewhere).</p>
+</li>
+<li><p><strong>debug_allocator</strong></p>
+<p>  A wrapper around an arbitrary allocator A. It passes on slightly increased size requests to A, and uses the extra memory to store size information. When a pointer is passed to <code>deallocate()</code>, the stored size is checked, and assert() is used to guarantee they match.</p>
+</li>
+<li><p><strong>__pool_alloc</strong></p>
+<p>  A high-performance, single pool allocator. The reusable memory is shared among identical instantiations of this type. It calls through <code>::operator new</code> to obtain new memory when its lists run out. If a client container requests a block larger than a certain threshold size, then the pool is bypassed, and the allocate/deallocate request is passed to <code>::operator new</code> directly.</p>
+<p>  This class take a boolean template parameter, called <code>thr</code>, and an integer template parameter, called <code>inst</code>.</p>
+<p>  The <code>inst</code> number is used to track additional memory pools. The point of the number is to allow multiple instantiations of the classes without changing the semantics at all. All three of</p>
+<blockquote>
+<pre><code class="cpp">typedef  __pool_alloc&lt;true,0&gt;    normal;
+typedef  __pool_alloc&lt;true,1&gt;    private;
+typedef  __pool_alloc&lt;true,42&gt;   also_private;
+</code></pre>
+</blockquote>
+<p>  behave exactly the same way. However, the memory pool for each type (and remember that different instantiations result in different types) remains separate.</p>
+<p>  The library uses <strong>0</strong> in all its instantiations. If you wish to keep separate free lists for a particular purpose, use a different number.</p>
+<p>  The <code>thr</code> boolean determines whether the pool should be manipulated atomically or not. When thr=true, the allocator is is threadsafe, while thr=false, and is slightly faster but unsafe for multiple threads.</p>
+<p>  (Note that the GCC thread abstraction layer allows us to provide safe zero-overhead stubs for the threading routines, if threads were disabled at configuration time.)</p>
+</li>
+<li><p><strong>__mt_alloc</strong></p>
+<p>  A high-performance fixed-size allocator. It has its own documentation, found <a target="_blank" rel="noopener" href="http://cs.brown.edu/~jwicks/libstdc++/html/ext/mt_allocator.html">here</a>.</p>
+</li>
+<li><p><strong>bitmap_allocator</strong></p>
+<p>  A high-performance allocator that uses a bit-map to keep track of the used and unused memory locations. It has its own documentation, found <a target="_blank" rel="noopener" href="http://cs.brown.edu/~jwicks/libstdc++/html/ext/ballocator_doc.txt">here</a>.</p>
+<blockquote>
+<pre><code class="cpp">// specify that only malloc/free should be used instead of the default node allocator
+std::list &lt;int, __gnu_cxx::malloc_allocator&lt;int&gt; &gt;  malloc_list;
+</code></pre>
+</blockquote>
+</li>
+</ul>
+<p>如果想自行实现 allocator，可参照 <code>new_allocator</code>。</p>
+<p>**剖析第一级配置器 **</p>
+<p><code>SGI 版本和目前 GCC 版本差别较大，可对比新版代码和下面整理的 SGI 版本。 </code></p>
+<p>代码参考： <a target="_blank" rel="noopener" href="https://github.com/steveLauwh/SGI-STL">https://github.com/steveLauwh/SGI-STL</a></p>
+<blockquote>
+<pre><code class="cpp">template &lt;int __inst&gt;
+class __malloc_alloc_template &#123;
+
+private:
+  // oom: out of memory
+  // 以下函数用来处理内存不足的情况
+  static void* _S_oom_malloc(size_t);
+  static void* _S_oom_realloc(void*, size_t);
+
+#ifndef __STL_STATIC_TEMPLATE_MEMBER_BUG
+  static void (* __malloc_alloc_oom_handler)();
+#endif
+
+public:
+  static void* allocate(size_t __n) &#123;
+    void* __result = malloc(__n);
+    // 无法满足需求时， 改用_S_oom_malloc()
+    if (0 == __result) __result = _S_oom_malloc(__n);
+    return __result;
+  &#125;
+
+  static void deallocate(void* __p, size_t /* __n */) &#123;
+    free(__p);
+  &#125;
+
+  static void* reallocate(void* __p, size_t /* old_sz */, size_t __new_sz) &#123;
+    void* __result = realloc(__p, __new_sz);
+    // 无法满足需求时， _S_oom_realloc()
+    if (0 == __result) __result = _S_oom_realloc(__p, __new_sz);
+    return __result;
+  &#125;
+
+  static void (* __set_malloc_handler(void (*__f)()))() &#123;
+    void (* __old)() = __malloc_alloc_oom_handler;
+    __malloc_alloc_oom_handler = __f;
+    return(__old);
+  &#125;
+&#125;; // class __malloc_alloc_template
+
+template &lt;int __inst&gt;
+void* __malloc_alloc_template&lt;__inst&gt;::_S_oom_malloc(size_t __n) &#123;
+    void (* __my_malloc_handler)();
+    void* __result;
+
+    // 不断尝试释放、配置
+    for (;;) &#123;
+        __my_malloc_handler = __malloc_alloc_oom_handler;
+        if (0 == __my_malloc_handler) &#123; __THROW_BAD_ALLOC; &#125;
+        (*__my_malloc_handler)();  // 调用处理例程，企图释放内存
+        __result = malloc(__n);   // 再次尝试配置内存
+        if (__result) return(__result);
+    &#125;
+&#125;
+
+template &lt;int __inst&gt;
+void* __malloc_alloc_template&lt;__inst&gt;::_S_oom_realloc(void* __p, size_t __n) &#123;
+    void (* __my_malloc_handler)();
+    void* __result;
+
+    //  给一个已经分配了地址的指针重新分配空间，参数 __p 为原有的空间地址，__n 是重新申请的地址长度
+    for (;;) &#123;
+                // 当 &quot;内存不足处理例程&quot; 并未被客户设定，便调用 __THROW_BAD_ALLOC，丢出 bad_alloc 异常信息
+        __my_malloc_handler = __malloc_alloc_oom_handler;
+        if (0 == __my_malloc_handler) &#123; __THROW_BAD_ALLOC; &#125;
+        (*__my_malloc_handler)();   // 调用处理例程，企图释放内存
+        __result = realloc(__p, __n);  // 再次尝试配置内存，扩大内存大小
+        if (__result) return(__result);
+    &#125;
+&#125;
+</code></pre>
+</blockquote>
+<p><strong>剖析第二级配置器</strong></p>
+<p><code>为了避免结点需要额外的指针造成额外的开销，设计结点类型为 union 类型。</code></p>
+<blockquote>
+<pre><code class="cpp">// 一物二用，避免了为了维护链表所必须的指针而造成内存的浪费
+union _Obj &#123;
+    union _Obj* _M_free_list_link;    // 指向同一形式的 obj 结点
+    char        _M_client_data[1];    // 可视为一个指针，指向实际区块
+&#125;;
+</code></pre>
+</blockquote>
+<img src="">
+
+<blockquote>
+<pre><code class="cpp">   /*  Important implementation properties:
+   *  0. If globally mandated, then allocate objects from new
+   *  1. If the clients request an object of size &gt; _S_max_bytes, the resulting
+   *     object will be obtained directly from new
+   *  2. In all other cases, we allocate an object of size exactly
+   *     _S_round_up(requested_size).  Thus the client has enough size
+   *     information that we can return the object to the proper free list
+   *     without permanently losing part of the object.
+   */
+class __pool_alloc_base &#123;
+protected:
+  enum &#123; _S_align = 8 &#125;; // 小型区块的上调边界
+  enum &#123; _S_max_bytes = 128 &#125;; // 小区块的上限
+  enum &#123; _S_free_list_size = (size_t)_S_max_bytes / (size_t)_S_align &#125;;
+  union _Obj &#123; 
+    //... 
+  &#125;;
+  // 将bytes 上调至 8 的倍数，方便管理
+  // 16个free-list分别为 8,16,24,32,40,48,56,64,72,80,88,96,104,112,120,128 bytes
+  size_t _M_round_up(size_t __bytes) &#123; 
+    return ((__bytes + (size_t)_S_align - 1) &amp; ~((size_t)_S_align - 1)); 
+  &#125;
+  
+  // Returns an object of size __n, and optionally adds to size __n
+  // free list.
+  void* _M_refill(size_t __n);
+
+  // Allocates a chunk for nobjs of size size.  nobjs may be reduced
+  // if it is inconvenient to allocate the requested number.
+  char* _M_allocate_chunk(size_t __n, int&amp; __nobjs);
+&#125;; // __pool_alloc_base
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code class="cpp">template&lt;typename _Tp&gt;
+class __pool_alloc : private __pool_alloc_base &#123;
+//...
+
+// 空间配置函数 allocate()
+template&lt;typename _Tp&gt;
+_GLIBCXX_NODISCARD _Tp* __pool_alloc&lt;_Tp&gt;::allocate(size_type __n, const void*) &#123;
+  pointer __ret = 0;
+  if (__builtin_expect(__n != 0, true)) &#123;
+    if (__n &gt; this-&gt;max_size())
+      std::__throw_bad_alloc();
+
+    const size_t __bytes = __n * sizeof(_Tp);
+
+    #if __cpp_aligned_new
+    if (alignof(_Tp) &gt; __STDCPP_DEFAULT_NEW_ALIGNMENT__)
+    &#123;
+      std::align_val_t __al = std::align_val_t(alignof(_Tp));
+      return static_cast&lt;_Tp*&gt;(::operator new(__bytes, __al));
+    &#125;
+    #endif
+
+    // If there is a race through here, assume answer from getenv
+    // will resolve in same direction.  Inspired by techniques
+    // to efficiently support threading found in basic_string.h.
+    if (_S_force_new == 0) &#123;
+      if (std::getenv(&quot;GLIBCXX_FORCE_NEW&quot;))
+        __atomic_add_dispatch(&amp;_S_force_new, 1);
+      else
+        __atomic_add_dispatch(&amp;_S_force_new, -1);
+    &#125;
+        // &gt; 128bytes 的情况
+    if (__bytes &gt; size_t(_S_max_bytes) || _S_force_new &gt; 0)
+      __ret = static_cast&lt;_Tp*&gt;(::operator new(__bytes));
+    else &#123;
+    // 寻找16个 free lists中适当的一个
+      _Obj* volatile* __free_list = _M_get_free_list(__bytes);
+
+      __scoped_lock sentry(_M_get_mutex());
+      _Obj* __restrict__ __result = *__free_list;
+      // 没有找到可用的 free list，准备重新填充free list
+      if (__builtin_expect(__result == 0, 0))
+        __ret = static_cast&lt;_Tp*&gt;(_M_refill(_M_round_up(__bytes)));
+      else &#123;
+      // 调整 free list
+        *__free_list = __result-&gt;_M_free_list_link;
+        __ret = reinterpret_cast&lt;_Tp*&gt;(__result);
+      &#125;
+      if (__ret == 0)
+        std::__throw_bad_alloc();
+    &#125;
+  &#125;
+  return __ret;
+&#125;
+  
+  
+// 空间释放函数 deallocate()
+template&lt;typename _Tp&gt;
+void __pool_alloc&lt;_Tp&gt;::deallocate(pointer __p, size_type __n) &#123;
+  if (__builtin_expect(__n != 0 &amp;&amp; __p != 0, true)) &#123;
+#if __cpp_aligned_new
+    if (alignof(_Tp) &gt; __STDCPP_DEFAULT_NEW_ALIGNMENT__) &#123;
+      ::operator delete(__p, std::align_val_t(alignof(_Tp)));
+      return;
+    &#125;
+#endif
+    const size_t __bytes = __n * sizeof(_Tp);
+    // &gt; 128bytes 的情况
+    if (__bytes &gt; static_cast&lt;size_t&gt;(_S_max_bytes) || _S_force_new &gt; 0)
+      ::operator delete(__p);
+    else &#123;
+    // 寻找对应的 free list
+      _Obj* volatile* __free_list = _M_get_free_list(__bytes);
+      _Obj* __q = reinterpret_cast&lt;_Obj*&gt;(__p);
+        // 调整 free list 回收区块
+      __scoped_lock sentry(_M_get_mutex());
+      __q -&gt;_M_free_list_link = *__free_list;
+      *__free_list = __q;
+    &#125;
+  &#125;
+&#125;
+&#125;；// class __pool_alloc
+</code></pre>
+</blockquote>
+<img src="">
+
+<img src="">
+
+<p>基于SGI版本分析内存池（memory pool）</p>
+<blockquote>
+<pre><code class="cpp">// 从内存池中取空间
+template &lt;bool __threads, int __inst&gt;
+char*
+__default_alloc_template&lt;__threads, __inst&gt;::_S_chunk_alloc(size_t __size, 
+                                                            int&amp; __nobjs)
+&#123;
+    char* __result;
+    size_t __total_bytes = __size * __nobjs;  // 需要申请空间的大小 
+    size_t __bytes_left = _S_end_free - _S_start_free;  // 计算内存池剩余空间
+
+    if (__bytes_left &gt;= __total_bytes) &#123;  // 内存池剩余空间完全满足申请
+        __result = _S_start_free;
+        _S_start_free += __total_bytes;
+        return(__result);
+    &#125; else if (__bytes_left &gt;= __size) &#123;  // 内存池剩余空间不能满足申请，提供一个以上的区块
+        __nobjs = (int)(__bytes_left/__size);
+        __total_bytes = __size * __nobjs;
+        __result = _S_start_free;
+        _S_start_free += __total_bytes;
+        return(__result);
+    &#125; else &#123;                             // 内存池剩余空间连一个区块的大小都无法提供                      
+        size_t __bytes_to_get = 
+      2 * __total_bytes + _S_round_up(_S_heap_size &gt;&gt; 4);
+        // Try to make use of the left-over piece.
+    // 内存池的剩余空间分给合适的空闲链表
+        if (__bytes_left &gt; 0) &#123;
+            _Obj* __STL_VOLATILE* __my_free_list =
+                        _S_free_list + _S_freelist_index(__bytes_left);
+
+            ((_Obj*)_S_start_free) -&gt; _M_free_list_link = *__my_free_list;
+            *__my_free_list = (_Obj*)_S_start_free;
+        &#125;
+        _S_start_free = (char*)malloc(__bytes_to_get);  // 配置 heap 空间，用来补充内存池
+        if (0 == _S_start_free) &#123;  // heap 空间不足，malloc() 失败
+            size_t __i;
+            _Obj* __STL_VOLATILE* __my_free_list;
+        _Obj* __p;
+            // Try to make do with what we have.  That can&#39;t
+            // hurt.  We do not try smaller requests, since that tends
+            // to result in disaster on multi-process machines.
+            for (__i = __size;
+                 __i &lt;= (size_t) _MAX_BYTES;
+                 __i += (size_t) _ALIGN) &#123;
+                __my_free_list = _S_free_list + _S_freelist_index(__i);
+                __p = *__my_free_list;
+                if (0 != __p) &#123;
+                    *__my_free_list = __p -&gt; _M_free_list_link;
+                    _S_start_free = (char*)__p;
+                    _S_end_free = _S_start_free + __i;
+                    return(_S_chunk_alloc(__size, __nobjs));
+                    // Any leftover piece will eventually make it to the
+                    // right free list.
+                &#125;
+            &#125;
+        _S_end_free = 0;    // In case of exception.
+            _S_start_free = (char*)malloc_alloc::allocate(__bytes_to_get);  // 调用第一级配置器
+            // This should either throw an
+            // exception or remedy the situation.  Thus we assume it
+            // succeeded.
+        &#125;
+        _S_heap_size += __bytes_to_get;
+        _S_end_free = _S_start_free + __bytes_to_get;
+        return(_S_chunk_alloc(__size, __nobjs));  // 递归调用自己
+    &#125;
+&#125;
+</code></pre>
+</blockquote>
+<igm src="">
+
+
+
+<br/>
+
+<h2 id="对于-lt-stl-construct-h-gt-中的-construct-和-destroy"><a href="#对于-lt-stl-construct-h-gt-中的-construct-和-destroy" class="headerlink" title="对于  &lt;stl_construct.h&gt; 中的 construct() 和 destroy()"></a>对于  &lt;stl_construct.h&gt; 中的 construct() 和 destroy()</h2><h3 id="1、construct"><a href="#1、construct" class="headerlink" title="1、construct()"></a>1、construct()</h3><blockquote>
+<pre><code class="cpp">// construct() 
+// 调用 _T1::_T1(__args)
+template&lt;typename _T1, typename... _Args&gt;
+inline void _Construct(_T1* __p, _Args&amp;&amp;... __args)
+&#123; ::new(static_cast&lt;void*&gt;(__p)) _T1(std::forward&lt;_Args&gt;(__args)...); &#125;
+</code></pre>
+</blockquote>
+<h3 id="2、destroy"><a href="#2、destroy" class="headerlink" title="2、destroy()"></a>2、destroy()</h3><p>（1）直接调用对象的析构。</p>
+<blockquote>
+<pre><code class="cpp">// 版本一
+template&lt;typename _Tp&gt;
+inline void _Destroy(_Tp* __pointer)
+&#123; __pointer-&gt;~_Tp(); &#125;
+</code></pre>
+</blockquote>
+<p>（2）接受迭代器 first 和 last，为了解决迭代范围很大的情况，如果都直接调用对象析构，影响效率，所以要根据元素value type 来感知是否为 trivival destructor。</p>
+<blockquote>
+<pre><code class="cpp">// 版本二
+template&lt;typename _ForwardIterator&gt;
+inline void _Destroy(_ForwardIterator __first, _ForwardIterator __last) &#123;
+  typedef typename iterator_traits&lt;_ForwardIterator&gt;::value_type _Value_type;
+#if __cplusplus &gt;= 201103L
+  // A deleted destructor is trivial, this ensures we reject such types:
+  static_assert(is_destructible&lt;_Value_type&gt;::value, &quot;value type is destructible&quot;);
+#endif
+  std::_Destroy_aux&lt;__has_trivial_destructor(_Value_type)&gt;::
+  __destroy(__first, __last);
+&#125;
+
+// std::_Destroy_aux
+
+// 元素的 value type，有 non-trivival destructor
+template&lt;bool&gt;
+struct _Destroy_aux &#123;
+  template&lt;typename _ForwardIterator&gt;
+  static void __destroy(_ForwardIterator __first, _ForwardIterator __last) &#123;
+    for (; __first != __last; ++__first)
+      std::_Destroy(std::__addressof(*__first));
+  &#125;
+&#125;;
+
+// 元素的 value type，有 trivival destructor
+template&lt;&gt;
+struct _Destroy_aux&lt;true&gt; &#123;
+  template&lt;typename _ForwardIterator&gt;
+  static void __destroy(_ForwardIterator, _ForwardIterator) &#123; &#125;
+&#125;;
+</code></pre>
+</blockquote>
 
         
     
