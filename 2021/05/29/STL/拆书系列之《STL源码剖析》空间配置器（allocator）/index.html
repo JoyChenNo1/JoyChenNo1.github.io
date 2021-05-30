@@ -243,7 +243,7 @@
 
     
         <meta property="article:published_time" content="Sat May 29 2021 12:06:17 GMT+0800">
-        <meta property="article:modified_time" content="Sun May 30 2021 22:16:04 GMT+0800">
+        <meta property="article:modified_time" content="Sun May 30 2021 22:40:08 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -266,7 +266,7 @@
     "mainEntityOfPage": "http://example.com/2021/05/29/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89/index.html",
     "headline": "拆书系列之《STL 源码剖析》空间配置器（allocator）",
     "datePublished": "Sat May 29 2021 12:06:17 GMT+0800",
-    "dateModified": "Sun May 30 2021 22:16:04 GMT+0800",
+    "dateModified": "Sun May 30 2021 22:40:08 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -350,7 +350,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E3%80%8ASTL-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89"><span class="post-toc-number">1.</span> <span class="post-toc-text">《STL 源码剖析》空间配置器（allocator）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#STL-%E4%B8%AD%EF%BC%8Callocator-%E7%9A%84%E5%BF%85%E8%A6%81%E6%8E%A5%E5%8F%A3%EF%BC%9A"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">STL 中，allocator 的必要接口：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SGI-%E7%9A%84%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8-std-alloc%EF%BC%88polymorphic-allocator-GCC9%E7%89%88%E6%9C%AC-%EF%BC%89"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">SGI 的空间配置器 std::alloc（polymorphic_allocator [GCC9版本]）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AF%B9%E4%BA%8E-%E6%88%91%E4%BB%AC%E4%B9%A0%E6%83%AF%E7%9A%84-C-%E5%86%85%E5%AD%98%E9%85%8D%E7%BD%AE%E5%92%8C%E9%87%8A%E6%94%BE%E6%93%8D%E4%BD%9C%EF%BC%9A"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">对于 我们习惯的 C++ 内存配置和释放操作：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AF%B9%E4%BA%8E-SGI-%E7%89%88%E6%9C%AC%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%93%B2%E5%AD%A6%EF%BC%9A"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">对于 SGI 版本的设计哲学：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%A7%A3%E5%86%B3%E5%B0%8F%E5%9E%8B%E5%8C%BA%E5%9D%97%E5%8F%AF%E8%83%BD%E9%80%A0%E6%88%90%E7%9A%84%E5%86%85%E5%AD%98%E7%A0%B4%E7%A2%8E%E9%97%AE%E9%A2%98%EF%BC%88%E5%8F%8C%E5%B1%82%E7%BA%A7%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%89"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">解决小型区块可能造成的内存破碎问题（双层级配置器）</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AF%B9%E4%BA%8E-lt-stl-construct-h-gt-%E4%B8%AD%E7%9A%84-construct-%E5%92%8C-destroy"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">对于  &lt;stl_construct.h&gt; 中的 construct() 和 destroy()</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1%E3%80%81construct"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">1、construct()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2%E3%80%81destroy"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">2、destroy()</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%86%85%E5%AD%98%E5%9F%BA%E6%9C%AC%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">内存基本处理工具</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#uninitialized-copy"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">uninitialized_copy()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#uninitialized-fill"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">uninitialized_fill()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#uninitialized-fill-n"><span class="post-toc-number">1.4.3.</span> <span class="post-toc-text">uninitialized_fill_n()</span></a></li></ol></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E3%80%8ASTL-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89"><span class="post-toc-number">1.</span> <span class="post-toc-text">《STL 源码剖析》空间配置器（allocator）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#STL-%E4%B8%AD%EF%BC%8Callocator-%E7%9A%84%E5%BF%85%E8%A6%81%E6%8E%A5%E5%8F%A3"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">STL 中，allocator 的必要接口</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SGI-%E7%9A%84%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8-std-alloc%EF%BC%88GCC%E7%89%88%E6%9C%AC-malloc-allocator-pool-allocator%EF%BC%89"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">SGI 的空间配置器 std::alloc（GCC版本 malloc_allocator pool_allocator）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AF%B9%E4%BA%8E-%E6%88%91%E4%BB%AC%E4%B9%A0%E6%83%AF%E7%9A%84-C-%E5%86%85%E5%AD%98%E9%85%8D%E7%BD%AE%E5%92%8C%E9%87%8A%E6%94%BE%E6%93%8D%E4%BD%9C%EF%BC%9A"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">对于 我们习惯的 C++ 内存配置和释放操作：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AF%B9%E4%BA%8E-SGI-%E7%89%88%E6%9C%AC%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%93%B2%E5%AD%A6%EF%BC%9A"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">对于 SGI 版本的设计哲学：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%A7%A3%E5%86%B3%E5%B0%8F%E5%9E%8B%E5%8C%BA%E5%9D%97%E5%8F%AF%E8%83%BD%E9%80%A0%E6%88%90%E7%9A%84%E5%86%85%E5%AD%98%E7%A0%B4%E7%A2%8E%E9%97%AE%E9%A2%98%EF%BC%88%E5%8F%8C%E5%B1%82%E7%BA%A7%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%89"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">解决小型区块可能造成的内存破碎问题（双层级配置器）</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AF%B9%E4%BA%8E-lt-stl-construct-h-gt-%E4%B8%AD%E7%9A%84-construct-%E5%92%8C-destroy"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">对于  &lt;stl_construct.h&gt; 中的 construct() 和 destroy()</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1%E3%80%81construct"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">1、construct()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2%E3%80%81destroy"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">2、destroy()</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%86%85%E5%AD%98%E5%9F%BA%E6%9C%AC%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">内存基本处理工具</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#uninitialized-copy"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">uninitialized_copy()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#uninitialized-fill"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">uninitialized_fill()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#uninitialized-fill-n"><span class="post-toc-number">1.4.3.</span> <span class="post-toc-text">uninitialized_fill_n()</span></a></li></ol></li></ol></li></ol>
     </ul>
     
 
@@ -501,7 +501,7 @@
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
         <h1 id="《STL-源码剖析》空间配置器（allocator）"><a href="#《STL-源码剖析》空间配置器（allocator）" class="headerlink" title="《STL 源码剖析》空间配置器（allocator）"></a>《STL 源码剖析》空间配置器（allocator）</h1><p><code>参考自《STL 源码剖析》-侯捷著。</code></p>
-<h2 id="STL-中，allocator-的必要接口："><a href="#STL-中，allocator-的必要接口：" class="headerlink" title="STL 中，allocator 的必要接口："></a>STL 中，allocator 的必要接口：</h2><blockquote>
+<h2 id="STL-中，allocator-的必要接口"><a href="#STL-中，allocator-的必要接口" class="headerlink" title="STL 中，allocator 的必要接口"></a>STL 中，allocator 的必要接口</h2><blockquote>
 <pre><code class="cpp">// /usr/include/c++/9/bits/allocator.h
 
 
@@ -588,7 +588,11 @@ void destroy(_Up* __p)
 </blockquote>
 <br/>
 
-<h2 id="SGI-的空间配置器-std-alloc（polymorphic-allocator-GCC9版本-）"><a href="#SGI-的空间配置器-std-alloc（polymorphic-allocator-GCC9版本-）" class="headerlink" title="SGI 的空间配置器 std::alloc（polymorphic_allocator [GCC9版本]）"></a>SGI 的空间配置器 std::alloc（polymorphic_allocator [GCC9版本]）</h2><h3 id="对于-我们习惯的-C-内存配置和释放操作："><a href="#对于-我们习惯的-C-内存配置和释放操作：" class="headerlink" title="对于 我们习惯的 C++ 内存配置和释放操作："></a>对于 我们习惯的 C++ 内存配置和释放操作：</h3><img src ="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/public/img/STL/NewDelete%E5%AF%B9%E8%B1%A1%E6%97%B6.png">
+<br/>
+
+<h2 id="SGI-的空间配置器-std-alloc（GCC版本-malloc-allocator-pool-allocator）"><a href="#SGI-的空间配置器-std-alloc（GCC版本-malloc-allocator-pool-allocator）" class="headerlink" title="SGI 的空间配置器 std::alloc（GCC版本 malloc_allocator pool_allocator）"></a>SGI 的空间配置器 std::alloc（GCC版本 malloc_allocator pool_allocator）</h2><h3 id="对于-我们习惯的-C-内存配置和释放操作："><a href="#对于-我们习惯的-C-内存配置和释放操作：" class="headerlink" title="对于 我们习惯的 C++ 内存配置和释放操作："></a>对于 我们习惯的 C++ 内存配置和释放操作：</h3><img src ="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/public/img/STL/NewDelete%E5%AF%B9%E8%B1%A1%E6%97%B6.png">
+
+<br/>
 
 <br/>
 
@@ -601,6 +605,8 @@ void destroy(_Up* __p)
 <li>考虑内存不足时的应变措施。</li>
 <li>考虑过多“小型区块”可能造成的内存碎片（fragment）问题。</li>
 </ol>
+<br/>
+
 <br/>
 
 <h3 id="解决小型区块可能造成的内存破碎问题（双层级配置器）"><a href="#解决小型区块可能造成的内存破碎问题（双层级配置器）" class="headerlink" title="解决小型区块可能造成的内存破碎问题（双层级配置器）"></a>解决小型区块可能造成的内存破碎问题（双层级配置器）</h3><p><code>配置区块 &gt; 128bytes 时，视为足够大，调用</code><strong>第一级配置器</strong>。</p>
@@ -671,7 +677,7 @@ protected:
 &#125;
 </code></pre>
 </blockquote>
-<img src="">
+<img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/public/img/STL/%E4%B8%80%E7%BA%A7%E4%BA%8C%E7%BA%A7%E9%85%8D%E7%BD%AE%E5%99%A8%E5%85%B3%E7%B3%BB.png">
 
 <p>无论是第一级还是第二级配置器，STL 没有直接调用，而是封装了多层。在 GCC9 版本中，提供了 <code>polymorphic_allocator</code>。</p>
 <blockquote>
@@ -712,7 +718,7 @@ void deallocate(_Tp* __p, size_t __n) &#123;
 </tr>
 </thead>
 <tbody><tr>
-<td align="left">_gnu_cxx::new_allocator<T></td>
+<td align="left">__gnu_cxx::new_allocator<T></td>
 <td>&lt;ext/new_allocator.h&gt;</td>
 <td align="left">std::__new_alloc</td>
 </tr>
@@ -780,7 +786,7 @@ std::list &lt;int, __gnu_cxx::malloc_allocator&lt;int&gt; &gt;  malloc_list;
 </li>
 </ul>
 <p>如果想自行实现 allocator，可参照 <code>new_allocator</code>。</p>
-<p>**剖析第一级配置器 **</p>
+<p><strong>剖析第一级配置器</strong> </p>
 <p><code>SGI 版本和目前 GCC 版本差别较大，可对比新版代码和下面整理的 SGI 版本。 </code></p>
 <p>代码参考： <a target="_blank" rel="noopener" href="https://github.com/steveLauwh/SGI-STL">https://github.com/steveLauwh/SGI-STL</a></p>
 <blockquote>
@@ -855,6 +861,10 @@ void* __malloc_alloc_template&lt;__inst&gt;::_S_oom_realloc(void* __p, size_t __
 &#125;
 </code></pre>
 </blockquote>
+<br/>
+
+<br/>
+
 <p><strong>剖析第二级配置器</strong></p>
 <p><code>为了避免结点需要额外的指针造成额外的开销，设计结点类型为 union 类型。</code></p>
 <blockquote>
@@ -867,8 +877,11 @@ union _Obj &#123;
 </blockquote>
 <br/>
 
-<p>自由链表（free list）实现技巧</p>
-<img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/public/img/STL/freelist%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%8A%80%E5%B7%A7.png">
+<br/>
+
+<p><strong>自由链表（free list）实现技巧</strong></p>
+<p><img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/public/img/STL/freelist%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%8A%80%E5%B7%A7.png"><br/></p>
+<br/>
 
 <blockquote>
 <pre><code class="cpp">   /*  Important implementation properties:
@@ -991,18 +1004,22 @@ void __pool_alloc&lt;_Tp&gt;::deallocate(pointer __p, size_type __n) &#123;
 </blockquote>
 <br/>
 
-<p>​            区块拔出</p>
+<br/>
+
+<p>​            <strong>区块拔出</strong></p>
 <img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/public/img/STL/free-list%E6%8B%94%E5%87%BA%E5%8C%BA%E5%9D%97.png">
 
 
 
 <br/>
 
-<p>​            区块回收</p>
+<br/>
+
+<p>​            <strong>区块回收</strong></p>
 <img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/public/img/STL/free-list%E5%8C%BA%E5%9D%97%E5%9B%9E%E6%94%B6.png">
 
 <p>​                </p>
-<p>基于SGI版本分析内存池（memory pool）</p>
+<p><strong>基于SGI版本分析内存池（memory pool）</strong></p>
 <blockquote>
 <pre><code class="cpp">// 从内存池中取空间
 template &lt;bool __threads, int __inst&gt;
@@ -1071,12 +1088,16 @@ __default_alloc_template&lt;__threads, __inst&gt;::_S_chunk_alloc(size_t __size,
 &#125;
 </code></pre>
 </blockquote>
+<br/>
+
 <br/>    
 
-<p>内存池实际操练结果</p>
+<p><strong>内存池实际操练结果</strong></p>
 <img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/public/img/STL/%E5%86%85%E5%AD%98%E6%B1%A0%E5%AE%9E%E9%99%85%E6%93%8D%E7%BB%83%E7%BB%93%E6%9E%9C.png">
 
 
+
+<br/>
 
 <br/>
 
@@ -1130,6 +1151,7 @@ struct _Destroy_aux&lt;true&gt; &#123;
 &#125;;
 </code></pre>
 </blockquote>
+<p><br/><br/></p>
 <h2 id="内存基本处理工具"><a href="#内存基本处理工具" class="headerlink" title="内存基本处理工具"></a>内存基本处理工具</h2><p>STL 定义了5个全局函数作用于未初始化空间上，除了上面提及的construct()、destroy()，还有：</p>
 <h3 id="uninitialized-copy"><a href="#uninitialized-copy" class="headerlink" title="uninitialized_copy()"></a>uninitialized_copy()</h3><blockquote>
 <pre><code class="cpp">// POD 类型
@@ -1242,9 +1264,7 @@ struct __uninitialized_fill_n &#123;
 </blockquote>
 <br/>
 
-
-
-<p>SGI介绍的三个内存基本函数的泛型与特化版本</p>
+<p><strong>SGI介绍的三个内存基本函数的泛型与特化版本</strong></p>
 <img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/public/img/STL/%E4%B8%89%E4%B8%AA%E5%86%85%E5%AD%98%E5%9F%BA%E6%9C%AC%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7.png">
 
         
