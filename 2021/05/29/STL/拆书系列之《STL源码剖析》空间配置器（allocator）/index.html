@@ -243,7 +243,7 @@
 
     
         <meta property="article:published_time" content="Sat May 29 2021 12:06:17 GMT+0800">
-        <meta property="article:modified_time" content="Sun May 30 2021 21:16:54 GMT+0800">
+        <meta property="article:modified_time" content="Sun May 30 2021 22:16:04 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -266,7 +266,7 @@
     "mainEntityOfPage": "http://example.com/2021/05/29/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89/index.html",
     "headline": "拆书系列之《STL 源码剖析》空间配置器（allocator）",
     "datePublished": "Sat May 29 2021 12:06:17 GMT+0800",
-    "dateModified": "Sun May 30 2021 21:16:54 GMT+0800",
+    "dateModified": "Sun May 30 2021 22:16:04 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -706,25 +706,40 @@ void deallocate(_Tp* __p, size_t __n) &#123;
 <table>
 <thead>
 <tr>
-<th>Allocator</th>
+<th align="left">Allocator</th>
 <th>Header</th>
-<th>Allocator</th>
+<th align="left">Allocator</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>_gnu_cxx::new_allocator<T></td>
+<td align="left">_gnu_cxx::new_allocator<T></td>
 <td>&lt;ext/new_allocator.h&gt;</td>
-<td>std::__new_alloc</td>
+<td align="left">std::__new_alloc</td>
 </tr>
 <tr>
-<td>__gnu_cxx::malloc_allocator<T></td>
+<td align="left">__gnu_cxx::malloc_allocator<T></td>
 <td>&lt;ext/malloc_allocator.h&gt;</td>
-<td>std::__malloc_alloc_template<int></td>
+<td align="left">std::__malloc_alloc_template<int></td>
 </tr>
 <tr>
-<td>__gnu_cxx::debug_allocator<T></td>
+<td align="left">__gnu_cxx::debug_allocator<T></td>
 <td>&lt;ext/debug_allocator.h&gt;</td>
-<td>std::debug_alloc<T></td>
+<td align="left">std::debug_alloc<T></td>
+</tr>
+<tr>
+<td align="left">__gnu_cxx::__pool_alloc&lt;bool, int&gt;</td>
+<td>&lt;ext/pool_allocator.h&gt;</td>
+<td align="left">std::__default_alloc_template&lt;bool,int&gt;</td>
+</tr>
+<tr>
+<td align="left">__gnu_cxx::__mt_alloc<T></td>
+<td>&lt;ext/mt_allocator.h&gt;</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">__gnu_cxx::bitmap_allocator<T></td>
+<td>&lt;ext/bitmap_allocator.h&gt;</td>
+<td align="left"></td>
 </tr>
 </tbody></table>
 <ul>
@@ -1116,16 +1131,121 @@ struct _Destroy_aux&lt;true&gt; &#123;
 </code></pre>
 </blockquote>
 <h2 id="内存基本处理工具"><a href="#内存基本处理工具" class="headerlink" title="内存基本处理工具"></a>内存基本处理工具</h2><p>STL 定义了5个全局函数作用于未初始化空间上，除了上面提及的construct()、destroy()，还有：</p>
-<h3 id="uninitialized-copy"><a href="#uninitialized-copy" class="headerlink" title="uninitialized_copy()"></a>uninitialized_copy()</h3><br/>
+<h3 id="uninitialized-copy"><a href="#uninitialized-copy" class="headerlink" title="uninitialized_copy()"></a>uninitialized_copy()</h3><blockquote>
+<pre><code class="cpp">// POD 类型
+// POD 类型必然有 trivival ctor/dtor/copy/assignment 函数
+template&lt;&gt;
+struct __uninitialized_copy&lt;true&gt; &#123;
+  template&lt;typename _InputIterator, typename _ForwardIterator&gt;
+  static _ForwardIterator
+  __uninit_copy(_InputIterator __first, _InputIterator __last,
+                _ForwardIterator __result) &#123; 
+    // 调用 STL 算法 copy()
+    return std::copy(__first, __last, __result); 
+  &#125; 
+&#125;;
 
-<h3 id="uninitialized-fill"><a href="#uninitialized-fill" class="headerlink" title="uninitialized_fill()"></a>uninitialized_fill()</h3><br/>
+// non-POD 类型
+template&lt;bool _TrivialValueTypes&gt;
+struct __uninitialized_copy &#123;
+  template&lt;typename _InputIterator, typename _ForwardIterator&gt;
+  static _ForwardIterator
+  __uninit_copy(_InputIterator __first, _InputIterator __last,
+                _ForwardIterator __result) &#123;
+    _ForwardIterator __cur = __result;
+    __try &#123;
+      // 必须一个一个元素地构造，无法批量进行
+      for (; __first != __last; ++__first, (void)++__cur)
+        std::_Construct(std::__addressof(*__cur), *__first);
+      return __cur;
+    &#125;
+    __catch(...) &#123;
+      std::_Destroy(__result, __cur);
+      __throw_exception_again;
+    &#125;
+  &#125;
+&#125;;
+</code></pre>
+</blockquote>
+<br/>
 
-<h3 id="uninitialized-fill-n"><a href="#uninitialized-fill-n" class="headerlink" title="uninitialized_fill_n()"></a>uninitialized_fill_n()</h3><br/>
+<h3 id="uninitialized-fill"><a href="#uninitialized-fill" class="headerlink" title="uninitialized_fill()"></a>uninitialized_fill()</h3><blockquote>
+<pre><code class="cpp">// POD 类型
+template&lt;&gt;
+struct __uninitialized_fill&lt;true&gt; &#123;
+  template&lt;typename _ForwardIterator, typename _Tp&gt;
+  static void
+  __uninit_fill(_ForwardIterator __first, _ForwardIterator __last,
+                const _Tp&amp; __x) &#123; 
+    // 调用 STL 算法 fill()
+    std::fill(__first, __last, __x); 
+  &#125;
+&#125;;
+
+// non-POD 类型
+template&lt;bool _TrivialValueType&gt;
+struct __uninitialized_fill &#123;
+  template&lt;typename _ForwardIterator, typename _Tp&gt;
+  static void
+  __uninit_fill(_ForwardIterator __first, _ForwardIterator __last,
+                const _Tp&amp; __x) &#123;
+    _ForwardIterator __cur = __first;
+    __try &#123;
+      // 必须一个个构造，无法批量进行
+      for (; __cur != __last; ++__cur)
+        std::_Construct(std::__addressof(*__cur), __x);
+    &#125;
+    __catch(...) &#123;
+      std::_Destroy(__first, __cur);
+      __throw_exception_again;
+    &#125;
+  &#125;
+&#125;;
+</code></pre>
+</blockquote>
+<br/>
+
+<h3 id="uninitialized-fill-n"><a href="#uninitialized-fill-n" class="headerlink" title="uninitialized_fill_n()"></a>uninitialized_fill_n()</h3><blockquote>
+<pre><code class="cpp">// POD 类型
+template&lt;&gt;
+struct __uninitialized_fill_n&lt;true&gt; &#123;
+  template&lt;typename _ForwardIterator, typename _Size, typename _Tp&gt;
+  static _ForwardIterator
+  __uninit_fill_n(_ForwardIterator __first, _Size __n,
+                  const _Tp&amp; __x) &#123; 
+    // 调用 STL 算法 fill_n()
+    return std::fill_n(__first, __n, __x); 
+  &#125;
+&#125;;
+
+// non-POD 类型
+template&lt;bool _TrivialValueType&gt;
+struct __uninitialized_fill_n &#123;
+  template&lt;typename _ForwardIterator, typename _Size, typename _Tp&gt;
+  static _ForwardIterator
+  __uninit_fill_n(_ForwardIterator __first, _Size __n,
+                  const _Tp&amp; __x) &#123;
+    _ForwardIterator __cur = __first;
+    __try &#123;
+      // 必须一个一个元素地构造，无法批量进行
+      for (; __n &gt; 0; --__n, (void) ++__cur)
+        std::_Construct(std::__addressof(*__cur), __x);
+      return __cur;
+    &#125;
+    __catch(...) &#123;
+      std::_Destroy(__first, __cur);
+      __throw_exception_again;
+    &#125;
+  &#125;
+&#125;;
+</code></pre>
+</blockquote>
+<br/>
 
 
 
 <p>SGI介绍的三个内存基本函数的泛型与特化版本</p>
-<img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/public/img/STL/%E5%86%85%E5%AD%98%E5%9F%BA%E6%9C%AC%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7.png">
+<img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/public/img/STL/%E4%B8%89%E4%B8%AA%E5%86%85%E5%AD%98%E5%9F%BA%E6%9C%AC%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7.png">
 
         
     
