@@ -243,7 +243,7 @@
 
     
         <meta property="article:published_time" content="Mon May 31 2021 22:56:16 GMT+0800">
-        <meta property="article:modified_time" content="Sun Jun 06 2021 12:16:50 GMT+0800">
+        <meta property="article:modified_time" content="Sun Jun 06 2021 23:40:23 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -266,7 +266,7 @@
     "mainEntityOfPage": "http://example.com/2021/05/31/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%88iterators%EF%BC%89/index.html",
     "headline": "拆书系列之《STL 源码剖析》迭代器（iterators）",
     "datePublished": "Mon May 31 2021 22:56:16 GMT+0800",
-    "dateModified": "Sun Jun 06 2021 12:16:50 GMT+0800",
+    "dateModified": "Sun Jun 06 2021 23:40:23 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -350,7 +350,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E3%80%8ASTL-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%88iterators%EF%BC%89%E4%B8%8E-traits-%E7%BC%96%E7%A8%8B%E6%8A%80%E6%B3%95"><span class="post-toc-number">1.</span> <span class="post-toc-text">《STL 源码剖析》迭代器（iterators）与 traits 编程技法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Traits-%E7%BC%96%E7%A8%8B%E6%8A%80%E6%B3%95"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Traits 编程技法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#value-type"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">value type</span></a></li></ol></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E3%80%8ASTL-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%88iterators%EF%BC%89%E4%B8%8E-traits-%E7%BC%96%E7%A8%8B%E6%8A%80%E6%B3%95"><span class="post-toc-number">1.</span> <span class="post-toc-text">《STL 源码剖析》迭代器（iterators）与 traits 编程技法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Traits-%E7%BC%96%E7%A8%8B%E6%8A%80%E6%B3%95"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Traits 编程技法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#value-type"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">value type</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#difference-type"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">difference type</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#reference-type"><span class="post-toc-number">1.1.3.</span> <span class="post-toc-text">reference type</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#pointer-type"><span class="post-toc-number">1.1.4.</span> <span class="post-toc-text">pointer type</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#iterator-category"><span class="post-toc-number">1.1.5.</span> <span class="post-toc-text">iterator_category</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#std-iteratorw"><span class="post-toc-number">1.1.6.</span> <span class="post-toc-text">std::iteratorw</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#type-traits"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">__type_traits</span></a></li></ol></li></ol>
     </ul>
     
 
@@ -593,14 +593,379 @@ int main() &#123;
 </blockquote>
 <p><strong>上面的做法为了实现一个针对 List 的迭代器，暴露了太多关于 List 的实现细节。STL 为了避免这种问题，将迭代器交给了各个容器去实现，这就是为什么 STL 容器都有自己专属的迭代器。</strong></p>
 <h2 id="Traits-编程技法"><a href="#Traits-编程技法" class="headerlink" title="Traits 编程技法"></a>Traits 编程技法</h2><p>为了让迭代器和算法更好的结合，算法要用到迭代器的相应特性（traits），包括<code> value type、difference type、reference type、pointer type、iterator_category</code>。</p>
+<blockquote>
+<pre><code class="cpp">// _GLIBCXX_RESOLVE_LIB_DEFECTS
+// 2408. SFINAE-friendly common_type/iterator_traits is missing in C++14
+template&lt;typename _Iterator, typename = __void_t&lt;&gt;&gt;
+struct __iterator_traits &#123; &#125;;
+
+template&lt;typename _Iterator&gt;
+struct __iterator_traits&lt;_Iterator,
+__void_t&lt;typename _Iterator::iterator_category,
+typename _Iterator::value_type,
+typename _Iterator::difference_type,
+typename _Iterator::pointer,
+typename _Iterator::reference&gt;&gt;
+&#123;
+  typedef typename _Iterator::iterator_category iterator_category;
+  typedef typename _Iterator::value_type        value_type;
+  typedef typename _Iterator::difference_type   difference_type;
+  typedef typename _Iterator::pointer           pointer;
+  typedef typename _Iterator::reference         reference;
+&#125;;
+
+// 针对原生指针而设计的偏特化版本
+template&lt;typename _Tp&gt;
+struct iterator_traits&lt;_Tp*&gt;
+&#123;
+  typedef random_access_iterator_tag iterator_category;
+  typedef _Tp                         value_type;
+  typedef ptrdiff_t                   difference_type;
+  typedef _Tp*                        pointer;
+  typedef _Tp&amp;                        reference;
+&#125;;
+
+// 针对原生（pointer-to-const）指针而设计的偏特化版本
+template&lt;typename _Tp&gt;
+struct iterator_traits&lt;const _Tp*&gt;
+&#123;
+  typedef random_access_iterator_tag iterator_category;
+  typedef _Tp                         value_type;
+  typedef ptrdiff_t                   difference_type;
+  typedef const _Tp*                  pointer;
+  typedef const _Tp&amp;                  reference;
+&#125;;
+</code></pre>
+</blockquote>
 <br/>
 
 <p><strong>traits 特性萃取机</strong></p>
 <img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/public/img/STL/traits.png">
 
+
+
+<p><br/><br/></p>
+<h3 id="value-type"><a href="#value-type" class="headerlink" title="value type"></a>value type</h3><p>指的是迭代器所指对象的类别。</p>
 <br/>
 
-<h3 id="value-type"><a href="#value-type" class="headerlink" title="value type"></a>value type</h3>
+<h3 id="difference-type"><a href="#difference-type" class="headerlink" title="difference type"></a>difference type</h3><p>用来表示两个迭代器的距离，因此他也可以用来表示一个容器的容量。</p>
+<blockquote>
+<pre><code class="cpp">/**
+   *  @brief Count the number of copies of a value in a sequence.
+   *  @ingroup non_mutating_algorithms
+   *  @param  __first  An input iterator.
+   *  @param  __last   An input iterator.
+   *  @param  __value  The value to be counted.
+   *  @return   The number of iterators @c i in the range @p [__first,__last)
+   *  for which @c *i == @p __value
+  */
+template&lt;typename _InputIterator, typename _Tp&gt;
+inline typename iterator_traits&lt;_InputIterator&gt;::difference_type
+  count(_InputIterator __first, _InputIterator __last, const _Tp&amp; __value)
+&#123;
+  // concept requirements
+  __glibcxx_function_requires(_InputIteratorConcept&lt;_InputIterator&gt;)
+    __glibcxx_function_requires(_EqualOpConcept&lt;
+                                typename iterator_traits&lt;_InputIterator&gt;::value_type, _Tp&gt;)
+    __glibcxx_requires_valid_range(__first, __last);
+
+  return std::__count_if(__first, __last,
+                         __gnu_cxx::__ops::__iter_equals_val(__value));
+&#125;
+</code></pre>
+</blockquote>
+<p>当我们需要迭代器 I 的 difference type 时，可以这么写：</p>
+<blockquote>
+<pre><code class="cpp">typename iterator_traits&lt;I&gt;::difference_type
+</code></pre>
+</blockquote>
+<br/>
+
+<h3 id="reference-type"><a href="#reference-type" class="headerlink" title="reference type"></a>reference type</h3><p>从迭代器所指对象是否允许的角度观之，迭代器分两种，<code>const iterators（不允许改变）</code>和 <code>mutable iterators（允许改变）</code>。</p>
+<table>
+<thead>
+<tr>
+<th>iterator 类型</th>
+<th>value type</th>
+<th>reference type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>const iterators（记为 p）</td>
+<td>T</td>
+<td>const T&amp;</td>
+</tr>
+<tr>
+<td>mutable iterators（记为 p）</td>
+<td>T</td>
+<td>T&amp;</td>
+</tr>
+</tbody></table>
+<br/>
+
+<h3 id="pointer-type"><a href="#pointer-type" class="headerlink" title="pointer type"></a>pointer type</h3><p>形如 <strong>T</strong>* 便是 pointer type。</p>
+<blockquote>
+<pre><code class="cpp">template&lt;typename _Iterator&gt;
+struct __iterator_traits&lt;
+typename _Iterator::pointer,
+typename _Iterator::reference&gt;&gt; &#123;
+//...
+  typedef typename _Iterator::pointer           pointer;
+  typedef typename _Iterator::reference         reference;
+&#125;;
+
+// 针对原生指针而设计的偏特化版本
+template&lt;typename _Tp&gt;
+struct iterator_traits&lt;_Tp*&gt; &#123;
+//...
+  typedef ptrdiff_t                   difference_type;
+  typedef _Tp*                        pointer;
+&#125;;
+
+// 针对原生（pointer-to-const）指针而设计的偏特化版本
+template&lt;typename _Tp&gt;
+struct iterator_traits&lt;const _Tp*&gt; &#123;
+//...
+  typedef const _Tp*                  pointer;
+  typedef const _Tp&amp;                  reference;
+&#125;;
+</code></pre>
+</blockquote>
+  <br/>
+
+<h3 id="iterator-category"><a href="#iterator-category" class="headerlink" title="iterator_category"></a>iterator_category</h3><table>
+<thead>
+<tr>
+<th>迭代器类别</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Input Iterator</td>
+<td>只读</td>
+</tr>
+<tr>
+<td>Output Iterator</td>
+<td>只写</td>
+</tr>
+<tr>
+<td>Forward Iterator</td>
+<td>允许“写入型”算法如 （repalce()）在迭代区间进行读写操作</td>
+</tr>
+<tr>
+<td>Bidirectional Iterator</td>
+<td>可以双向移动，逆向访问迭代区间</td>
+</tr>
+<tr>
+<td>Random Access Iterator</td>
+<td>涵盖所有指针算术能力，包括 p+n, p-n, p[n], p1-p2, p1 &lt; p2.</td>
+</tr>
+</tbody></table>
+<br/>
+
+<p><strong>迭代器的分类与从属关系</strong></p>
+<img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/public/img/STL/%E8%BF%AD%E4%BB%A3%E5%99%A8%E7%9A%84%E5%88%86%E7%B1%BB%E4%B8%8E%E4%BB%8E%E5%B1%9E%E5%85%B3%E7%B3%BB.png">
+
+<br/>
+
+<p><code>箭头代表的是 concept 与 refinement 的关系</code></p>
+<table>
+<thead>
+<tr>
+<th>继承</th>
+<th>强化</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>所谓继承，是is-a的关系，但是它有个很重要的隐式约定：它表示的是一种具体类型与另一种具体类型的关系。所谓具体类型，是一个包括属性和给用户的方法的集合。</td>
+<td>所谓强化，代表的是：一个集合与另一个集合的关系。所谓集合：是指满足一组相同条件的集合，或者说是拥有一组相同操作行为的集合。因而如果说B是A的强化，那么B也拥有集合A的该组操作能力，并且可能还拥有其他的能力。因而它强调的是接口能力的继承，而不是将属性和行为都继承下来。</td>
+</tr>
+</tbody></table>
+<br/>
+
+<p>STL 为了提高效率，针对不同的迭代器类型提供不同的版本，例如 <code>distance()</code>:</p>
+<blockquote>
+<pre><code class="cpp">  /**
+   *  @brief A generalization of pointer arithmetic.
+   *  @param  __first  An input iterator.
+   *  @param  __last  An input iterator.
+   *  @return  The distance between them.
+   *
+   *  Returns @c n such that __first + n == __last.  This requires
+   *  that @p __last must be reachable from @p __first.  Note that @c
+   *  n may be negative.
+   *
+   *  For random access iterators, this uses their @c + and @c - operations
+   *  and are constant time.  For other %iterator classes they are linear time.
+  */
+template&lt;typename _InputIterator&gt;
+inline _GLIBCXX17_CONSTEXPR
+typename iterator_traits&lt;_InputIterator&gt;::difference_type
+  distance(_InputIterator __first, _InputIterator __last) &#123;
+  // concept requirements -- taken care of in __distance
+  return std::__distance(__first, __last,
+                         std::__iterator_category(__first));
+&#125;
+
+// 逐一累计距离
+template&lt;typename _InputIterator, typename _Distance&gt;
+inline _GLIBCXX14_CONSTEXPR void
+__advance(_InputIterator&amp; __i, _Distance __n, input_iterator_tag) &#123;
+  // concept requirements
+  __glibcxx_function_requires(_InputIteratorConcept&lt;_InputIterator&gt;)
+    __glibcxx_assert(__n &gt;= 0);
+  while (__n--)
+    ++__i;
+&#125;
+
+// 逐一累计距离 （可逆向）
+template&lt;typename _BidirectionalIterator, typename _Distance&gt;
+inline _GLIBCXX14_CONSTEXPR void
+__advance(_BidirectionalIterator&amp; __i, _Distance __n,
+          bidirectional_iterator_tag) &#123;
+  // concept requirements
+  __glibcxx_function_requires(_BidirectionalIteratorConcept&lt;
+                              _BidirectionalIterator&gt;)
+  if (__n &gt; 0)
+    while (__n--)
+      ++__i;
+  else
+    while (__n++)
+      --__i;
+&#125;
+
+// 直接计算差距
+template&lt;typename _RandomAccessIterator, typename _Distance&gt;
+inline _GLIBCXX14_CONSTEXPR void
+__advance(_RandomAccessIterator&amp; __i, _Distance __n,
+          random_access_iterator_tag) &#123;
+  // concept requirements
+  __glibcxx_function_requires(_RandomAccessIteratorConcept&lt;
+                              _RandomAccessIterator&gt;)
+    if (__builtin_constant_p(__n) &amp;&amp; __n == 1)
+      ++__i;
+  else if (__builtin_constant_p(__n) &amp;&amp; __n == -1)
+    --__i;
+  else
+    __i += __n;
+&#125;
+</code></pre>
+</blockquote>
+<br/>
+
+<h3 id="std-iteratorw"><a href="#std-iteratorw" class="headerlink" title="std::iteratorw"></a>std::iteratorw</h3><p>为了方便我们自定义迭代器类型，保证设计的迭代器符合 STL规范，提供了：</p>
+<blockquote>
+<pre><code class="cpp">  /**
+   *  @brief  Common %iterator class.
+   *
+   *  This class does nothing but define nested typedefs.  %Iterator classes
+   *  can inherit from this class to save some work.  The typedefs are then
+   *  used in specializations and overloading.
+   *
+   *  In particular, there are no default implementations of requirements
+   *  such as @c operator++ and the like.  (How could there be?)
+  */
+template&lt;typename _Category, typename _Tp, typename _Distance = ptrdiff_t,
+typename _Pointer = _Tp*, typename _Reference = _Tp&amp;&gt;
+  struct iterator &#123;
+    /// One of the @link iterator_tags tag types@endlink.
+    typedef _Category  iterator_category;
+    /// The type &quot;pointed to&quot; by the iterator.
+    typedef _Tp        value_type;
+    /// Distance between iterators is represented as this type.
+    typedef _Distance  difference_type;
+    /// This type represents a pointer-to-value_type.
+    typedef _Pointer   pointer;
+    /// This type represents a reference-to-value_type.
+    typedef _Reference reference;
+&#125;;
+</code></pre>
+</blockquote>
+<br/>
+
+<br/>
+
+<h2 id="type-traits"><a href="#type-traits" class="headerlink" title="__type_traits"></a>__type_traits</h2><p><strong>iterator_traits</strong> 负责的是萃取<strong>迭代器的特性</strong>，为了进一步扩大到迭代器以外的世界，提供了**__type_traits** 负责萃取 <strong>type的特性</strong>。 </p>
+<p><strong>SGI 版本</strong></p>
+<blockquote>
+<pre><code class="cpp">template &lt;class _Tp&gt;
+struct __type_traits &#123; 
+   typedef __true_type     this_dummy_member_must_be_first;
+   typedef __false_type    has_trivial_default_constructor;
+   typedef __false_type    has_trivial_copy_constructor;
+   typedef __false_type    has_trivial_assignment_operator;
+   typedef __false_type    has_trivial_destructor;
+   typedef __false_type    is_POD_type;
+&#125;;
+
+// 针对 C++ 基本类别提供的特化版本
+// 每个成员的值都是 __true_type，表示这些类型可以
+// 采用最快速的方式（如 memcpy）进行拷贝和赋值
+__STL_TEMPLATE_NULL struct __type_traits&lt;char&gt; &#123;
+   typedef __true_type    has_trivial_default_constructor;
+   typedef __true_type    has_trivial_copy_constructor;
+   typedef __true_type    has_trivial_assignment_operator;
+   typedef __true_type    has_trivial_destructor;
+   typedef __true_type    is_POD_type;
+&#125;;
+
+__STL_TEMPLATE_NULL struct __type_traits&lt;unsigned int&gt; &#123;
+   typedef __true_type    has_trivial_default_constructor;
+   typedef __true_type    has_trivial_copy_constructor;
+   typedef __true_type    has_trivial_assignment_operator;
+   typedef __true_type    has_trivial_destructor;
+   typedef __true_type    is_POD_type;
+&#125;;
+//...
+</code></pre>
+</blockquote>
+<br/>
+
+<p><strong>GCC 版本</strong></p>
+<blockquote>
+<pre><code class="cpp">// include/c++/9/type_traits
+
+/// is_trivial
+template&lt;typename _Tp&gt;
+struct is_trivial
+: public integral_constant&lt;bool, __is_trivial(_Tp)&gt;
+&#123; &#125;;
+
+// is_trivially_copyable
+template&lt;typename _Tp&gt;
+struct is_trivially_copyable
+: public integral_constant&lt;bool, __is_trivially_copyable(_Tp)&gt;
+&#123; &#125;;
+
+/// is_pod
+// Could use is_standard_layout &amp;&amp; is_trivial instead of the builtin.
+template&lt;typename _Tp&gt;
+struct is_pod
+: public integral_constant&lt;bool, __is_pod(_Tp)&gt;
+&#123; &#125;;
+
+template&lt;typename _Tp&gt;
+struct is_trivially_move_assignable
+  : public __is_trivially_move_assignable_impl&lt;_Tp&gt;
+  &#123; &#125;;
+
+/// is_trivially_destructible
+template&lt;typename _Tp&gt;
+struct is_trivially_destructible
+  : public __and_&lt;is_destructible&lt;_Tp&gt;,
+__bool_constant&lt;__has_trivial_destructor(_Tp)&gt;&gt;
+&#123; &#125;;
+
+
+/// has_virtual_destructor
+template&lt;typename _Tp&gt;
+struct has_virtual_destructor
+  : public integral_constant&lt;bool, __has_virtual_destructor(_Tp)&gt;
+  &#123; &#125;;
+</code></pre>
+</blockquote>
+<p><code>__type_trait</code> 在 STL 中应用，如之前提到的<code>uninitialized_fill_n()</code>，会根据是否为 POD类别，选择调用高阶函数<code>std::fill_n()</code> 还是 <code>逐一调用对象的construct()</code>。</p>
+
         
     
 
