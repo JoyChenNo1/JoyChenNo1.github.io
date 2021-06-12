@@ -243,7 +243,7 @@
 
     
         <meta property="article:published_time" content="Sun Jun 06 2021 23:43:09 GMT+0800">
-        <meta property="article:modified_time" content="Wed Jun 09 2021 23:36:12 GMT+0800">
+        <meta property="article:modified_time" content="Sat Jun 12 2021 19:17:16 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -266,7 +266,7 @@
     "mainEntityOfPage": "http://example.com/2021/06/06/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E5%BA%8F%E5%88%97%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88sequence%20containers%EF%BC%89/index.html",
     "headline": "拆书系列之《STL源码剖析》序列式容器（sequence containers）",
     "datePublished": "Sun Jun 06 2021 23:43:09 GMT+0800",
-    "dateModified": "Wed Jun 09 2021 23:36:12 GMT+0800",
+    "dateModified": "Sat Jun 12 2021 19:17:16 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -509,18 +509,18 @@
 <pre><code class="cpp">template&lt;typename _Tp, typename _Alloc = std::allocator&lt;_Tp&gt; &gt;
 class vector : protected _Vector_base&lt;_Tp, _Alloc&gt; &#123;
 public:
-  typedef _Tp                                                                            value_type;
-  typedef typename _Base::pointer                                    pointer;
-  typedef typename _Alloc_traits::const_pointer        const_pointer;
-  typedef typename _Alloc_traits::reference                reference;
-  typedef typename _Alloc_traits::const_reference    const_reference;
-  typedef __gnu_cxx::__normal_iterator&lt;pointer, vector&gt; iterator;
-  typedef __gnu_cxx::__normal_iterator&lt;const_pointer, vector&gt; const_iterator;
-  typedef std::reverse_iterator&lt;const_iterator&gt;        const_reverse_iterator;
-  typedef std::reverse_iterator&lt;iterator&gt;                reverse_iterator;
-  typedef size_t                                                                    size_type;
-  typedef ptrdiff_t                                                                difference_type;
-  typedef _Alloc                                                                    allocator_type;
+    typedef _Tp                                                                            value_type;
+    typedef typename _Base::pointer                                    pointer;
+    typedef typename _Alloc_traits::const_pointer        const_pointer;
+    typedef typename _Alloc_traits::reference                reference;
+    typedef typename _Alloc_traits::const_reference    const_reference;
+    typedef __gnu_cxx::__normal_iterator&lt;pointer, vector&gt; iterator;
+    typedef __gnu_cxx::__normal_iterator&lt;const_pointer, vector&gt; const_iterator;
+    typedef std::reverse_iterator&lt;const_iterator&gt;        const_reverse_iterator;
+    typedef std::reverse_iterator&lt;iterator&gt;                reverse_iterator;
+    typedef size_t                                                                    size_type;
+    typedef ptrdiff_t                                                                difference_type;
+    typedef _Alloc                                                                    allocator_type;
   // ...
 &#125;;
 </code></pre>
@@ -562,10 +562,171 @@ struct _Vector_base &#123;
 
 <br/>
 
-
-
+<p><strong>vector 初始化</strong></p>
 <blockquote>
-<pre><code class="cpp">/** @file bits/vector.tcc
+<pre><code class="cpp"> // Called by the first initialize_dispatch above and by the
+// vector(n,value,a) constructor.
+// 填充并予以初始化
+void _M_fill_initialize(size_type __n, const value_type&amp; __value) &#123;
+    this-&gt;_M_impl._M_finish =
+      std::__uninitialized_fill_n_a(this-&gt;_M_impl._M_start, __n, __value,
+                                    _M_get_Tp_allocator());
+&#125;
+
+template&lt;typename _ForwardIterator, typename _Size, typename _Tp&gt;
+inline _ForwardIterator
+uninitialized_fill_n(_ForwardIterator __first, _Size __n, const _Tp&amp; __x) &#123;
+  typedef typename iterator_traits&lt;_ForwardIterator&gt;::value_type
+     _ValueType;
+     // Trivial types can have deleted assignment, so using std::fill
+    // would be ill-formed. Require assignability before using std::fill:
+    const bool __assignable = is_copy_assignable&lt;_ValueType&gt;::value;
+    // 配置后填充
+    return __uninitialized_fill_n&lt;__is_trivial(_ValueType) &amp;&amp; __assignable&gt;::
+    __uninit_fill_n(__first, __n, __x);
+  &#125;
+
+//针对 trivial constructor 的特化版本，调用 std::fill_n
+template&lt;&gt;
+struct __uninitialized_fill_n&lt;true&gt; &#123;
+  template&lt;typename _ForwardIterator, typename _Size, typename _Tp&gt;
+    static _ForwardIterator
+    __uninit_fill_n(_ForwardIterator __first, _Size __n, const _Tp&amp; __x) &#123; 
+      return std::fill_n(__first, __n, __x); &#125;
+   &#125;;
+  
+//针对 non trivial constructor 的特化版本，调用 ::new
+template&lt;bool _TrivialValueType&gt;
+struct __uninitialized_fill_n &#123;
+  template&lt;typename _ForwardIterator, typename _Size, typename _Tp&gt;
+  static _ForwardIterator
+    __uninit_fill_n(_ForwardIterator __first, _Size __n,
+                   const _Tp&amp; __x) &#123;
+       _ForwardIterator __cur = __first;
+        __try &#123;
+          for (; __n &gt; 0; --__n, (void) ++__cur)
+            std::_Construct(std::__addressof(*__cur), __x);
+          return __cur;
+        &#125;
+        __catch(...) &#123;
+          std::_Destroy(__first, __cur);
+          __throw_exception_again;
+        &#125;
+     &#125;
+   &#125;;
+</code></pre>
+</blockquote>
+<p><strong>vector 插入</strong></p>
+<blockquote>
+<pre><code class="cpp">void push_back(const value_type&amp; __x) &#123;
+  // 还有备用空间
+  if (this-&gt;_M_impl._M_finish != this-&gt;_M_impl._M_end_of_storage) &#123;
+   _GLIBCXX_ASAN_ANNOTATE_GROW(1);
+   _Alloc_traits::construct(this-&gt;_M_impl, this-&gt;_M_impl._M_finish,
+                            __x);
+   ++this-&gt;_M_impl._M_finish;
+   _GLIBCXX_ASAN_ANNOTATE_GREW(1);
+  &#125;
+  // 无备用空间
+  else
+   _M_realloc_insert(end(), __x);
+&#125;
+
+// _M_realloc_insert
+template&lt;typename _Tp, typename _Alloc&gt;
+template&lt;typename... _Args&gt;
+void vector&lt;_Tp, _Alloc&gt;:: _M_realloc_insert(iterator __position, _Args&amp;&amp;... __args)
+&#123;
+  const size_type __len = _M_check_len(size_type(1), &quot;vector::_M_realloc_insert&quot;);
+  pointer __old_start = this-&gt;_M_impl._M_start;
+  pointer __old_finish = this-&gt;_M_impl._M_finish;
+  const size_type __elems_before = __position - begin();
+  pointer __new_start(this-&gt;_M_allocate(__len));
+  pointer __new_finish(__new_start);
+  __try &#123;
+    // 配置大小为原来的2倍
+    _Alloc_traits::construct(this-&gt;_M_impl,
+                             __new_start + __elems_before,
+                             std::forward&lt;_Args&gt;(__args)...);
+    __new_finish = pointer();
+
+    if _GLIBCXX17_CONSTEXPR (_S_use_relocate()) &#123;
+      __new_finish = _S_relocate(__old_start, __position.base(),
+                                 __new_start, _M_get_Tp_allocator());
+
+      ++__new_finish;
+
+      __new_finish = _S_relocate(__position.base(), __old_finish,
+                                 __new_finish, _M_get_Tp_allocator());
+    &#125; else &#123;
+      // 将原来 vector 的内容拷到新的 vector
+      // std::__uninitialized_move_if_noexcept_a() 最终会调用到
+      // std::uninitialized_copy()
+      __new_finish = std::__uninitialized_move_if_noexcept_a (__old_start,                                                        __position.base(), __new_start, _M_get_Tp_allocator());
+
+      ++__new_finish;
+            
+      __new_finish = std::__uninitialized_move_if_noexcept_a(__position.base(),                                     __old_finish,  __new_finish, _M_get_Tp_allocator());
+    &#125;
+  &#125;
+  __catch(...) &#123;
+    if (!__new_finish)
+      _Alloc_traits::destroy(this-&gt;_M_impl,  __new_start + __elems_before);
+    else
+      std::_Destroy(__new_start, __new_finish, _M_get_Tp_allocator());
+    _M_deallocate(__new_start, __len);
+    __throw_exception_again;
+  &#125;
+  // 析构并释放原 vector
+  if _GLIBCXX17_CONSTEXPR (!_S_use_relocate())
+    std::_Destroy(__old_start, __old_finish, _M_get_Tp_allocator());
+  _GLIBCXX_ASAN_ANNOTATE_REINIT;
+  _M_deallocate(__old_start, this-&gt;_M_impl._M_end_of_storage - __old_start);
+  // 调整迭代器，指向新的 vector
+  this-&gt;_M_impl._M_start = __new_start;
+  this-&gt;_M_impl._M_finish = __new_finish;
+  this-&gt;_M_impl._M_end_of_storage = __new_start + __len;
+&#125;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code class="cpp">/**
+*  @brief  Inserts given rvalue into %vector before specified iterator.
+*  @param  __position  A const_iterator into the %vector.
+*  @param  __x  Data to be inserted.
+*  @return  An iterator that points to the inserted data.
+*
+*  This function will insert a copy of the given rvalue before
+*  the specified location.  Note that this kind of operation
+*  could be expensive for a %vector and if it is frequently
+*  used the user should consider using std::list.
+*/
+iterator insert(const_iterator __position, value_type&amp;&amp; __x) &#123; 
+  return _M_insert_rval(__position, std::move(__x)); 
+&#125;
+
+template&lt;typename _Tp, typename _Alloc&gt;
+auto vector&lt;_Tp, _Alloc&gt;::
+    _M_insert_rval(const_iterator __position, value_type&amp;&amp; __v) -&gt; iterator &#123;
+      const auto __n = __position - cbegin();
+      if (this-&gt;_M_impl._M_finish != this-&gt;_M_impl._M_end_of_storage)
+        if (__position == cend()) &#123;
+            _GLIBCXX_ASAN_ANNOTATE_GROW(1);
+            _Alloc_traits::construct(this-&gt;_M_impl, this-&gt;_M_impl._M_finish,
+                   std::move(__v));
+            ++this-&gt;_M_impl._M_finish;
+            _GLIBCXX_ASAN_ANNOTATE_GREW(1);
+          &#125;
+        else
+          _M_insert_aux(begin() + __n, std::move(__v));
+      else
+        _M_realloc_insert(begin() + __n, std::move(__v));
+
+      return iterator(this-&gt;_M_impl._M_start + __n);
+ &#125;
+
+
+/** @file bits/vector.tcc
  *  This is an internal header file, included by other library headers.
  *  Do not attempt to use it directly. @headername&#123;vector&#125;
  */
@@ -593,6 +754,231 @@ void vector&lt;bool, _Alloc&gt;::_M_insert_aux(iterator __position, bool __x) &#
 &#125;
 </code></pre>
 </blockquote>
+<blockquote>
+<pre><code class="cpp">iterator insert(const_iterator __position, initializer_list&lt;value_type&gt; __l) &#123;
+  auto __offset = __position - cbegin();
+  _M_range_insert(begin() + __offset, __l.begin(), __l.end(),
+                  std::random_access_iterator_tag());
+  return begin() + __offset;
+&#125;
+
+
+template&lt;typename _Tp, typename _Alloc&gt;
+template&lt;typename _ForwardIterator&gt;
+void vector&lt;_Tp, _Alloc&gt;::_M_range_insert(iterator __position, 
+                                          _ForwardIterator __first,
+                                                                                 _ForwardIterator __last, 
+                                          std::forward_iterator_tag) &#123;
+    if (__first != __last) &#123;
+    const size_type __n = std::distance(__first, __last);
+    // 备用空间 &gt;= 新增元素个数
+    if (size_type(this-&gt;_M_impl._M_end_of_storage
+                  - this-&gt;_M_impl._M_finish) &gt;= __n) &#123;
+      // 计算插入点之后的现有元素个数
+      const size_type __elems_after = end() - __position;
+      pointer __old_finish(this-&gt;_M_impl._M_finish);
+      // 插入点之后现有的元素个数 &gt; 新增元素个数
+      if (__elems_after &gt; __n) &#123;
+        _GLIBCXX_ASAN_ANNOTATE_GROW(__n);
+        std::__uninitialized_move_a(this-&gt;_M_impl._M_finish - __n,
+                                    this-&gt;_M_impl._M_finish,
+                                    this-&gt;_M_impl._M_finish,
+                                    _M_get_Tp_allocator());
+        this-&gt;_M_impl._M_finish += __n; // 将 vector 尾端标记后移
+        _GLIBCXX_ASAN_ANNOTATE_GREW(__n);
+        _GLIBCXX_MOVE_BACKWARD3(__position.base(),
+                                __old_finish - __n, __old_finish);
+        std::copy(__first, __last, __position); // 插入点开始插入新值
+      &#125; else &#123;
+        // 插入点之后现有的元素个数 &lt;= 新增元素个数
+        _ForwardIterator __mid = __first;
+        std::advance(__mid, __elems_after);
+        _GLIBCXX_ASAN_ANNOTATE_GROW(__n);
+        std::__uninitialized_copy_a(__mid, __last,
+                                    this-&gt;_M_impl._M_finish,
+                                    _M_get_Tp_allocator());
+        this-&gt;_M_impl._M_finish += __n - __elems_after;
+        _GLIBCXX_ASAN_ANNOTATE_GREW(__n - __elems_after);
+        std::__uninitialized_move_a(__position.base(),
+                                    __old_finish,
+                                    this-&gt;_M_impl._M_finish,
+                                    _M_get_Tp_allocator());
+        this-&gt;_M_impl._M_finish += __elems_after;
+        _GLIBCXX_ASAN_ANNOTATE_GREW(__elems_after);
+        std::copy(__first, __mid, __position);
+      &#125;
+     &#125; else &#123;
+      // 配置新的 vector 空间
+      const size_type __len = _M_check_len(__n, &quot;vector::_M_range_insert&quot;);
+      pointer __new_start(this-&gt;_M_allocate(__len));
+      pointer __new_finish(__new_start);
+      __try &#123;
+          // 1、先将旧 vector 的插入点之前的元素 copy 到新空间
+          __new_finish = std::__uninitialized_move_if_noexcept_a
+            (this-&gt;_M_impl._M_start, __position.base(),
+             __new_start, _M_get_Tp_allocator());
+        
+            // 2、将新增元素 copy 到新空间
+          __new_finish = std::__uninitialized_copy_a(__first, __last,
+                  __new_finish,
+                  _M_get_Tp_allocator());
+          // 3、将旧 vector 的插入点之后的元素 copy 到新空间
+          __new_finish = std::__uninitialized_move_if_noexcept_a(__position.base(),                                                                                             this-&gt;_M_impl._M_finish,
+                                              __new_finish, _M_get_Tp_allocator());
+      &#125;
+      __catch(...) &#123;
+          std::_Destroy(__new_start, __new_finish,
+            _M_get_Tp_allocator());
+          _M_deallocate(__new_start, __len);
+          __throw_exception_again;
+      &#125;
+      // 清除释放旧的 vector
+      std::_Destroy(this-&gt;_M_impl._M_start, this-&gt;_M_impl._M_finish,
+              _M_get_Tp_allocator());
+      _GLIBCXX_ASAN_ANNOTATE_REINIT;
+      _M_deallocate(this-&gt;_M_impl._M_start,
+              this-&gt;_M_impl._M_end_of_storage
+              - this-&gt;_M_impl._M_start);
+      // 调整迭代器，指向新的 vector
+      this-&gt;_M_impl._M_start = __new_start;
+      this-&gt;_M_impl._M_finish = __new_finish;
+      this-&gt;_M_impl._M_end_of_storage = __new_start + __len;
+      &#125;
+    &#125;
+&#125;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code class="cpp">template&lt;typename _Tp, typename _Alloc&gt;
+void vector&lt;_Tp, _Alloc&gt;::
+    _M_fill_insert(iterator __position, size_type __n, const value_type&amp; __x) &#123;
+  if (__n != 0) &#123;
+    // 备用空间 &gt;= 新增元素个数
+      if (size_type(this-&gt;_M_impl._M_end_of_storage - this-&gt;_M_impl._M_finish) 
+        &gt;= __n) &#123;
+      _Temporary_value __tmp(this, __x);
+      value_type&amp; __x_copy = __tmp._M_val();
+      const size_type __elems_after = end() - __position;
+      pointer __old_finish(this-&gt;_M_impl._M_finish);
+      if (__elems_after &gt; __n) &#123;
+        // 插入点之后现有的元素个数 &gt; 新增元素个数
+        _GLIBCXX_ASAN_ANNOTATE_GROW(__n);
+        std::__uninitialized_move_a(this-&gt;_M_impl._M_finish - __n,
+                                    this-&gt;_M_impl._M_finish,
+                                    this-&gt;_M_impl._M_finish,
+                                    _M_get_Tp_allocator());
+        this-&gt;_M_impl._M_finish += __n;
+        _GLIBCXX_ASAN_ANNOTATE_GREW(__n);
+        _GLIBCXX_MOVE_BACKWARD3(__position.base(),
+                                __old_finish - __n, __old_finish);
+        std::fill(__position.base(), __position.base() + __n, __x_copy);
+            &#125; else &#123;
+        // 插入点之后现有的元素个数 &lt;= 新增元素个数
+          _GLIBCXX_ASAN_ANNOTATE_GROW(__n);
+          this-&gt;_M_impl._M_finish =
+            std::__uninitialized_fill_n_a(this-&gt;_M_impl._M_finish,
+                  __n - __elems_after,
+                  __x_copy,
+                  _M_get_Tp_allocator());
+          _GLIBCXX_ASAN_ANNOTATE_GREW(__n - __elems_after);
+          std::__uninitialized_move_a(__position.base(), __old_finish,
+                    this-&gt;_M_impl._M_finish,
+                    _M_get_Tp_allocator());
+          this-&gt;_M_impl._M_finish += __elems_after;
+          _GLIBCXX_ASAN_ANNOTATE_GREW(__elems_after);
+          std::fill(__position.base(), __old_finish, __x_copy);
+            &#125;
+      &#125; else &#123;
+      // 配置新的 vector 空间
+          const size_type __len =
+                _M_check_len(__n, &quot;vector::_M_fill_insert&quot;);
+          const size_type __elems_before = __position - begin();
+          pointer __new_start(this-&gt;_M_allocate(__len));
+          pointer __new_finish(__new_start);
+          __try &#123;
+          // 1、将新增元素以初值为__n, fill 到新空间
+          std::__uninitialized_fill_n_a(__new_start + __elems_before,
+                __n, __x,
+                _M_get_Tp_allocator());
+          
+          __new_finish = pointer();
+                    // 2、将旧 vector 的插入点之前的元素 copy 到新空间
+          __new_finish
+            = std::__uninitialized_move_if_noexcept_a
+            (this-&gt;_M_impl._M_start, __position.base(),
+             __new_start, _M_get_Tp_allocator());
+
+          __new_finish += __n;
+                    // 3、将旧 vector 的插入点之后的元素 copy 到新空间
+          __new_finish = std::__uninitialized_move_if_noexcept_a(__position.base(), 
+                                                 this-&gt;_M_impl._M_finish,
+                                                 __new_finish, _M_get_Tp_allocator());
+                &#125;
+          __catch(...) &#123;
+          if (!__new_finish)
+            std::_Destroy(__new_start + __elems_before,
+              __new_start + __elems_before + __n,
+              _M_get_Tp_allocator());
+          else
+            std::_Destroy(__new_start, __new_finish, _M_get_Tp_allocator());
+          _M_deallocate(__new_start, __len);
+          __throw_exception_again;
+        &#125;
+      
+        // 清除释放旧的 vector
+          std::_Destroy(this-&gt;_M_impl._M_start, this-&gt;_M_impl._M_finish,
+                _M_get_Tp_allocator());
+          _GLIBCXX_ASAN_ANNOTATE_REINIT;
+          _M_deallocate(this-&gt;_M_impl._M_start,
+                this-&gt;_M_impl._M_end_of_storage - this-&gt;_M_impl._M_start);
+        
+        // 调整迭代器，指向新的 vector
+          this-&gt;_M_impl._M_start = __new_start;
+          this-&gt;_M_impl._M_finish = __new_finish;
+          this-&gt;_M_impl._M_end_of_storage = __new_start + __len;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+</blockquote>
+<br/>
+
+<img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/public/img/STL/vector-insert.png">
+
+<br/>
+
+<p><strong>vector 擦除</strong></p>
+<blockquote>
+<pre><code class="cpp">// 清除某个位置的元素
+template&lt;typename _Tp, typename _Alloc&gt;
+typename vector&lt;_Tp, _Alloc&gt;::iterator
+  vector&lt;_Tp, _Alloc&gt;::_M_erase(iterator __position) &#123;
+  if (__position + 1 != end())
+    _GLIBCXX_MOVE3(__position + 1, end(), __position);
+  --this-&gt;_M_impl._M_finish;
+  _Alloc_traits::destroy(this-&gt;_M_impl, this-&gt;_M_impl._M_finish);
+  _GLIBCXX_ASAN_ANNOTATE_SHRINK(1);
+  return __position;
+&#125;
+
+// 清除 [first, last) 中的所有元素
+template&lt;typename _Tp, typename _Alloc&gt;
+typename vector&lt;_Tp, _Alloc&gt;::iterator
+  vector&lt;_Tp, _Alloc&gt;::_M_erase(iterator __first, iterator __last) &#123;
+  if (__first != __last) &#123;
+    if (__last != end())
+      _GLIBCXX_MOVE3(__last, end(), __first);
+    _M_erase_at_end(__first.base() + (end() - __last));
+  &#125;
+  return __first;
+&#125;
+</code></pre>
+</blockquote>
+<p>​    <br/></p>
+<img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/public/img/STL/vector-erase.png">
+
+<br/>
+
 <br/>
 
 <h2 id="list"><a href="#list" class="headerlink" title="list"></a>list</h2><br/>
