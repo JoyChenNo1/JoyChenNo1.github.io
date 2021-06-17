@@ -243,7 +243,7 @@
 
     
         <meta property="article:published_time" content="Sat May 29 2021 12:06:17 GMT+0800">
-        <meta property="article:modified_time" content="Sat Jun 12 2021 23:55:03 GMT+0800">
+        <meta property="article:modified_time" content="Sun Jun 13 2021 00:02:26 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -266,7 +266,7 @@
     "mainEntityOfPage": "http://example.com/2021/05/29/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89/index.html",
     "headline": "拆书系列之《STL 源码剖析》空间配置器（allocator）",
     "datePublished": "Sat May 29 2021 12:06:17 GMT+0800",
-    "dateModified": "Sat Jun 12 2021 23:55:03 GMT+0800",
+    "dateModified": "Sun Jun 13 2021 00:02:26 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -648,7 +648,7 @@ allocate(size_type __n, const void* = 0) &#123;
    &#125;
 // 直接调用 free()
 void deallocate(pointer __p, size_type) &#123; 
-std::free(static_cast&lt;void*&gt;(__p)); 
+    std::free(static_cast&lt;void*&gt;(__p)); 
   &#125;
 &#125;；// class malloc_allocator
 </code></pre>
@@ -830,33 +830,33 @@ public:
 
 template &lt;int __inst&gt;
 void* __malloc_alloc_template&lt;__inst&gt;::_S_oom_malloc(size_t __n) &#123;
-    void (* __my_malloc_handler)();
-    void* __result;
+     void (* __my_malloc_handler)();
+     void* __result;
 
-    // 不断尝试释放、配置
-    for (;;) &#123;
-        __my_malloc_handler = __malloc_alloc_oom_handler;
-        if (0 == __my_malloc_handler) &#123; __THROW_BAD_ALLOC; &#125;
-        (*__my_malloc_handler)();  // 调用处理例程，企图释放内存
-        __result = malloc(__n);   // 再次尝试配置内存
-        if (__result) return(__result);
-    &#125;
+     // 不断尝试释放、配置
+     for (;;) &#123;
+       __my_malloc_handler = __malloc_alloc_oom_handler;
+       if (0 == __my_malloc_handler) &#123; __THROW_BAD_ALLOC; &#125;
+       (*__my_malloc_handler)();  // 调用处理例程，企图释放内存
+       __result = malloc(__n);   // 再次尝试配置内存
+       if (__result) return(__result);
+     &#125;
 &#125;
 
 template &lt;int __inst&gt;
 void* __malloc_alloc_template&lt;__inst&gt;::_S_oom_realloc(void* __p, size_t __n) &#123;
-    void (* __my_malloc_handler)();
-    void* __result;
+     void (* __my_malloc_handler)();
+     void* __result;
 
-    //  给一个已经分配了地址的指针重新分配空间，参数 __p 为原有的空间地址，__n 是重新申请的地址长度
-    for (;;) &#123;
-                // 当 &quot;内存不足处理例程&quot; 并未被客户设定，便调用 __THROW_BAD_ALLOC，丢出 bad_alloc 异常信息
-        __my_malloc_handler = __malloc_alloc_oom_handler;
-        if (0 == __my_malloc_handler) &#123; __THROW_BAD_ALLOC; &#125;
-        (*__my_malloc_handler)();   // 调用处理例程，企图释放内存
-        __result = realloc(__p, __n);  // 再次尝试配置内存，扩大内存大小
-        if (__result) return(__result);
-    &#125;
+     //  给一个已经分配了地址的指针重新分配空间，参数 __p 为原有的空间地址，__n 是重新申请的地址长度
+     for (;;) &#123;
+    // 当 &quot;内存不足处理例程&quot; 并未被客户设定，便调用 __THROW_BAD_ALLOC，丢出 bad_alloc 异常信息
+       __my_malloc_handler = __malloc_alloc_oom_handler;
+       if (0 == __my_malloc_handler) &#123; __THROW_BAD_ALLOC; &#125;
+       (*__my_malloc_handler)();   // 调用处理例程，企图释放内存
+       __result = realloc(__p, __n);  // 再次尝试配置内存，扩大内存大小
+       if (__result) return(__result);
+     &#125;
 &#125;
 </code></pre>
 </blockquote>
@@ -1024,13 +1024,12 @@ void __pool_alloc&lt;_Tp&gt;::deallocate(pointer __p, size_type __n) &#123;
 template &lt;bool __threads, int __inst&gt;
 char*
 __default_alloc_template&lt;__threads, __inst&gt;::_S_chunk_alloc(size_t __size, 
-                                                            int&amp; __nobjs)
-&#123;
-    char* __result;
+                                                            int&amp; __nobjs) &#123;
+ char* __result;
     size_t __total_bytes = __size * __nobjs;  // 需要申请空间的大小 
     size_t __bytes_left = _S_end_free - _S_start_free;  // 计算内存池剩余空间
-
-    if (__bytes_left &gt;= __total_bytes) &#123;  // 内存池剩余空间完全满足申请
+   
+ if (__bytes_left &gt;= __total_bytes) &#123;  // 内存池剩余空间完全满足申请
         __result = _S_start_free;
         _S_start_free += __total_bytes;
         return(__result);
@@ -1042,22 +1041,22 @@ __default_alloc_template&lt;__threads, __inst&gt;::_S_chunk_alloc(size_t __size,
         return(__result);
     &#125; else &#123;                             // 内存池剩余空间连一个区块的大小都无法提供                      
         size_t __bytes_to_get = 
-      2 * __total_bytes + _S_round_up(_S_heap_size &gt;&gt; 4);
-        // Try to make use of the left-over piece.
-    // 内存池的剩余空间分给合适的空闲链表
-        if (__bytes_left &gt; 0) &#123;
+         2 * __total_bytes + _S_round_up(_S_heap_size &gt;&gt; 4);
+     // Try to make use of the left-over piece.
+       // 内存池的剩余空间分给合适的空闲链表
+     if (__bytes_left &gt; 0) &#123;
             _Obj* __STL_VOLATILE* __my_free_list =
                         _S_free_list + _S_freelist_index(__bytes_left);
-
-            ((_Obj*)_S_start_free) -&gt; _M_free_list_link = *__my_free_list;
+   
+         ((_Obj*)_S_start_free) -&gt; _M_free_list_link = *__my_free_list;
             *__my_free_list = (_Obj*)_S_start_free;
         &#125;
         _S_start_free = (char*)malloc(__bytes_to_get);  // 配置 heap 空间，用来补充内存池
         if (0 == _S_start_free) &#123;  // heap 空间不足，malloc() 失败
             size_t __i;
             _Obj* __STL_VOLATILE* __my_free_list;
-        _Obj* __p;
-            // Try to make do with what we have.  That can&#39;t
+           _Obj* __p;
+         // Try to make do with what we have.  That can&#39;t
             // hurt.  We do not try smaller requests, since that tends
             // to result in disaster on multi-process machines.
             for (__i = __size;
@@ -1074,8 +1073,8 @@ __default_alloc_template&lt;__threads, __inst&gt;::_S_chunk_alloc(size_t __size,
                     // right free list.
                 &#125;
             &#125;
-        _S_end_free = 0;    // In case of exception.
-            _S_start_free = (char*)malloc_alloc::allocate(__bytes_to_get);  // 调用第一级配置器
+           _S_end_free = 0;    // In case of exception.
+         _S_start_free = (char*)malloc_alloc::allocate(__bytes_to_get);  // 调用第一级配置器
             // This should either throw an
             // exception or remedy the situation.  Thus we assume it
             // succeeded.
@@ -1084,7 +1083,7 @@ __default_alloc_template&lt;__threads, __inst&gt;::_S_chunk_alloc(size_t __size,
         _S_end_free = _S_start_free + __bytes_to_get;
         return(_S_chunk_alloc(__size, __nobjs));  // 递归调用自己
     &#125;
-&#125;
+   &#125;
 </code></pre>
 </blockquote>
 <br/>
@@ -1145,8 +1144,8 @@ struct _Destroy_aux &#123;
 // 元素的 value type，有 trivival destructor
 template&lt;&gt;
 struct _Destroy_aux&lt;true&gt; &#123;
-  template&lt;typename _ForwardIterator&gt;
-  static void __destroy(_ForwardIterator, _ForwardIterator) &#123; &#125;
+      template&lt;typename _ForwardIterator&gt;
+      static void __destroy(_ForwardIterator, _ForwardIterator) &#123; &#125;
 &#125;;
 </code></pre>
 </blockquote>
@@ -1206,21 +1205,21 @@ struct __uninitialized_fill&lt;true&gt; &#123;
 // non-POD 类型
 template&lt;bool _TrivialValueType&gt;
 struct __uninitialized_fill &#123;
-    template&lt;typename _ForwardIterator, typename _Tp&gt;
-    static void
-    __uninit_fill(_ForwardIterator __first, _ForwardIterator __last,
-                  const _Tp&amp; __x) &#123;
-      _ForwardIterator __cur = __first;
-      __try &#123;
-        // 必须一个个构造，无法批量进行
-        for (; __cur != __last; ++__cur)
-          std::_Construct(std::__addressof(*__cur), __x);
-      &#125;
-      __catch(...) &#123;
-        std::_Destroy(__first, __cur);
-        __throw_exception_again;
-      &#125;
-    &#125;
+     template&lt;typename _ForwardIterator, typename _Tp&gt;
+     static void
+     __uninit_fill(_ForwardIterator __first, _ForwardIterator __last,
+                   const _Tp&amp; __x) &#123;
+       _ForwardIterator __cur = __first;
+       __try &#123;
+         // 必须一个个构造，无法批量进行
+         for (; __cur != __last; ++__cur)
+           std::_Construct(std::__addressof(*__cur), __x);
+       &#125;
+       __catch(...) &#123;
+         std::_Destroy(__first, __cur);
+         __throw_exception_again;
+       &#125;
+     &#125;
 &#125;;
 </code></pre>
 </blockquote>
