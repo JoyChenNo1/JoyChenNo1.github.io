@@ -243,7 +243,7 @@
 
     
         <meta property="article:published_time" content="Sun Jun 06 2021 23:43:09 GMT+0800">
-        <meta property="article:modified_time" content="Fri Jun 18 2021 23:45:55 GMT+0800">
+        <meta property="article:modified_time" content="Sat Jun 19 2021 00:12:00 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -266,7 +266,7 @@
     "mainEntityOfPage": "http://example.com/2021/06/06/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E5%BA%8F%E5%88%97%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88sequence%20containers%EF%BC%89/index.html",
     "headline": "拆书系列之《STL源码剖析》序列式容器（sequence containers）",
     "datePublished": "Sun Jun 06 2021 23:43:09 GMT+0800",
-    "dateModified": "Fri Jun 18 2021 23:45:55 GMT+0800",
+    "dateModified": "Sat Jun 19 2021 00:12:00 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -1392,7 +1392,48 @@ required from here
 </code></pre>
 </blockquote>
 <p><br/><br/></p>
-<h2 id="deque"><a href="#deque" class="headerlink" title="deque"></a>deque</h2><br/>
+<h2 id="deque"><a href="#deque" class="headerlink" title="deque"></a>deque</h2><hr>
+<table>
+<thead>
+<tr>
+<th align="center">deque</th>
+<th align="center">vector</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>（支持头尾两端插入删除）双向</strong>、开口</td>
+<td align="center"><strong>（头部操作效率极差）单向</strong>、开口</td>
+</tr>
+<tr>
+<td align="center">允许<strong>常数时间</strong>内对起头端进行元素的插入/移出</td>
+<td align="center">尾端成长</td>
+</tr>
+<tr>
+<td align="center"><strong>没有capacity()</strong> 概念</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">动态地以分段连续空间组合而成、随时增加一段新空间并链接起来</td>
+<td align="center">空间不足时，存在 <strong>reallocate()</strong> 新空间，<strong>destroy()</strong> 旧空间</td>
+</tr>
+<tr>
+<td align="center"><strong>没必要提供 reserve()</strong> 功能</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">Ramdon Access Iterator 复杂度比 vector 高</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">对 deque 排序，可以先复制到 vector 排序后再 copy 回来</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<br/>
+
+
+
+<br/>
 
 <h3 id="stack"><a href="#stack" class="headerlink" title="stack"></a>stack</h3><br/>
 

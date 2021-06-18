@@ -243,7 +243,7 @@
 
     
         <meta property="article:published_time" content="Sun Mar 21 2021 23:37:48 GMT+0800">
-        <meta property="article:modified_time" content="Fri Jun 18 2021 23:47:29 GMT+0800">
+        <meta property="article:modified_time" content="Fri Jun 18 2021 23:52:44 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -266,7 +266,7 @@
     "mainEntityOfPage": "http://example.com/2021/03/21/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E5%9B%9B%20%EF%BC%89%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/index.html",
     "headline": "C++1x 新特性（四）智能指针",
     "datePublished": "Sun Mar 21 2021 23:37:48 GMT+0800",
-    "dateModified": "Fri Jun 18 2021 23:47:29 GMT+0800",
+    "dateModified": "Fri Jun 18 2021 23:52:44 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -605,11 +605,15 @@ p1移交独占权后，为空！
 <br/>
 
 <p><strong>a 、b 被销毁后，A，B依然被强引用无法释放</strong></p>
-<p><img src="img/pointers1_en.png" alt="img"></p>
+<img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/BlogImages/C%2B%2B%E6%96%B0%E7%89%B9%E6%80%A7/pointers1_en.png">
+
 <br/>
 
 <p><strong>使用弱引用指针 std::weak_ptr， 不会引起引用计数的增加。</strong></p>
-<p><img src="img/pointers2.png" alt="img"></p>
+<img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/BlogImages/C%2B%2B%E6%96%B0%E7%89%B9%E6%80%A7/pointers2.png">
+
+<br/>
+
 <blockquote>
 <pre><code class="cpp">// 解决 std::share_ptr带来的强引用无法释放的问题。
 
