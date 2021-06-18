@@ -1,0 +1,88 @@
+<mxfile>
+    <diagram id="rWknKSRP7QFHUEX7Fyz6" name="Page-1">
+        <mxGraphModel dx="846" dy="596" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="1" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="&lt;font face=&quot;Courier New&quot; style=&quot;font-size: 14px&quot;&gt;iterator_traits&lt;br&gt;&lt;br&gt;&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;shadow=0;strokeWidth=3;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+                    <mxGeometry x="200" y="130" width="240" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="" style="shape=flexArrow;endArrow=classic;html=1;width=40;strokeWidth=2;fillColor=#CCCCCC;endWidth=73;endSize=9.67;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="470" y="250" as="sourcePoint"/>
+                        <mxPoint x="320" y="360" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="320" y="250"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="4" value="&lt;font style=&quot;font-size: 14px&quot; face=&quot;Courier New&quot;&gt;特&lt;br&gt;性&lt;br&gt;萃&lt;br&gt;取&lt;br&gt;机&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;direction=east;" vertex="1" parent="1">
+                    <mxGeometry x="160" y="170" width="30" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="&lt;font style=&quot;font-size: 18px&quot; face=&quot;Courier New&quot;&gt;int*&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fillColor=#ffe6cc;strokeColor=#d79b00;strokeWidth=3;" vertex="1" parent="1">
+                    <mxGeometry x="545" y="120" width="60" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="&lt;font style=&quot;font-size: 18px&quot; face=&quot;Courier New&quot;&gt;const int*&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fillColor=#ffe6cc;strokeColor=#d79b00;strokeWidth=3;" vertex="1" parent="1">
+                    <mxGeometry x="545" y="190" width="120" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="&lt;font style=&quot;font-size: 18px&quot; face=&quot;Courier New&quot;&gt;list&amp;lt;int&amp;gt;::iterator&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fillColor=#ffe6cc;strokeColor=#d79b00;strokeWidth=3;" vertex="1" parent="1">
+                    <mxGeometry x="545" y="240" width="220" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="&lt;font style=&quot;font-size: 18px&quot; face=&quot;Courier New&quot;&gt;deque&amp;lt;int&amp;gt;::iterator&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fillColor=#ffe6cc;strokeColor=#d79b00;strokeWidth=3;" vertex="1" parent="1">
+                    <mxGeometry x="545" y="300" width="230" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="&lt;font style=&quot;font-size: 18px&quot; face=&quot;Courier New&quot;&gt;vector&amp;lt;int&amp;gt;::iterator&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fillColor=#ffe6cc;strokeColor=#d79b00;strokeWidth=3;" vertex="1" parent="1">
+                    <mxGeometry x="545" y="370" width="240" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="&lt;font face=&quot;Courier New&quot; style=&quot;font-size: 18px&quot;&gt;MyIter&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fillColor=#ffe6cc;strokeColor=#d79b00;strokeWidth=3;" vertex="1" parent="1">
+                    <mxGeometry x="545" y="440" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="" style="endArrow=classic;html=1;strokeWidth=3;fillColor=#CCCCCC;strokeColor=#999999;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="540" y="130" as="sourcePoint"/>
+                        <mxPoint x="475" y="160" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="12" value="" style="endArrow=classic;html=1;strokeWidth=3;fillColor=#CCCCCC;strokeColor=#999999;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="540" y="200" as="sourcePoint"/>
+                        <mxPoint x="480" y="220" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="13" value="" style="endArrow=classic;html=1;strokeWidth=3;fillColor=#CCCCCC;strokeColor=#999999;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="541" y="250" as="sourcePoint"/>
+                        <mxPoint x="480" y="250" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="14" value="" style="endArrow=classic;html=1;strokeWidth=3;fillColor=#CCCCCC;strokeColor=#999999;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="540" y="380" as="sourcePoint"/>
+                        <mxPoint x="480" y="320" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="15" value="" style="endArrow=classic;html=1;strokeWidth=3;fillColor=#CCCCCC;strokeColor=#999999;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="540" y="310" as="sourcePoint"/>
+                        <mxPoint x="480" y="280" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="16" value="" style="endArrow=classic;html=1;strokeWidth=3;fillColor=#CCCCCC;strokeColor=#999999;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="540" y="450" as="sourcePoint"/>
+                        <mxPoint x="480" y="390" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="19" value="&lt;font style=&quot;font-size: 14px&quot; color=&quot;#1a1a1a&quot;&gt;凡是 class-type iterators， &lt;br&gt;都有能力和应该定义自己的相应特性&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="1">
+                    <mxGeometry x="540" y="475" width="240" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="&lt;font face=&quot;Courier New&quot; style=&quot;font-size: 14px&quot; color=&quot;#1a1a1a&quot;&gt;通过 class template partial specialization 的作用，&lt;br&gt;不论是原生指针或是 class-type iterators，都可以让外界&lt;br&gt;方便的取其相应类别（特性）&amp;nbsp;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="370" width="430" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="&lt;p style=&quot;line-height: 150%&quot;&gt;&lt;/p&gt;&lt;div style=&quot;text-align: left&quot;&gt;&lt;b style=&quot;font-family: &amp;#34;courier new&amp;#34; ; font-size: medium&quot;&gt;value type&lt;/b&gt;&lt;/div&gt;&lt;font face=&quot;Courier New&quot; size=&quot;3&quot;&gt;&lt;div style=&quot;text-align: left&quot;&gt;&lt;b&gt;difference type&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left&quot;&gt;&lt;b&gt;pointer type&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left&quot;&gt;&lt;b&gt;reference type&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left&quot;&gt;&lt;b&gt;iterator_category&lt;/b&gt;&lt;/div&gt;&lt;/font&gt;&lt;p&gt;&lt;/p&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;shadow=0;strokeWidth=3;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+                    <mxGeometry x="240" y="430" width="180" height="170" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
