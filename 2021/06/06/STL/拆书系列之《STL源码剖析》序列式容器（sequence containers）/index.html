@@ -243,7 +243,7 @@
 
     
         <meta property="article:published_time" content="Sun Jun 06 2021 23:43:09 GMT+0800">
-        <meta property="article:modified_time" content="Sat Jun 19 2021 01:28:44 GMT+0800">
+        <meta property="article:modified_time" content="Sat Jun 19 2021 23:55:43 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -266,7 +266,7 @@
     "mainEntityOfPage": "http://example.com/2021/06/06/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E5%BA%8F%E5%88%97%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88sequence%20containers%EF%BC%89/index.html",
     "headline": "拆书系列之《STL源码剖析》序列式容器（sequence containers）",
     "datePublished": "Sun Jun 06 2021 23:43:09 GMT+0800",
-    "dateModified": "Sat Jun 19 2021 01:28:44 GMT+0800",
+    "dateModified": "Sat Jun 19 2021 23:55:43 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -649,55 +649,55 @@ template&lt;typename _Tp, typename _Alloc&gt;
 template&lt;typename... _Args&gt;
 void vector&lt;_Tp, _Alloc&gt;:: _M_realloc_insert(iterator __position, _Args&amp;&amp;... __args)
 &#123;
-    const size_type __len = _M_check_len(size_type(1), &quot;vector::_M_realloc_insert&quot;);
-    pointer __old_start = this-&gt;_M_impl._M_start;
-    pointer __old_finish = this-&gt;_M_impl._M_finish;
-    const size_type __elems_before = __position - begin();
-    pointer __new_start(this-&gt;_M_allocate(__len));
-    pointer __new_finish(__new_start);
-    __try &#123;
-      // 配置大小为原来的2倍
-      _Alloc_traits::construct(this-&gt;_M_impl,
-                               __new_start + __elems_before,
-                               std::forward&lt;_Args&gt;(__args)...);
-      __new_finish = pointer();
+      const size_type __len = _M_check_len(size_type(1), &quot;vector::_M_realloc_insert&quot;);
+      pointer __old_start = this-&gt;_M_impl._M_start;
+      pointer __old_finish = this-&gt;_M_impl._M_finish;
+      const size_type __elems_before = __position - begin();
+      pointer __new_start(this-&gt;_M_allocate(__len));
+      pointer __new_finish(__new_start);
+      __try &#123;
+        // 配置大小为原来的2倍
+        _Alloc_traits::construct(this-&gt;_M_impl,
+                                 __new_start + __elems_before,
+                                 std::forward&lt;_Args&gt;(__args)...);
+        __new_finish = pointer();
 
-      if _GLIBCXX17_CONSTEXPR (_S_use_relocate()) &#123;
-        __new_finish = _S_relocate(__old_start, __position.base(),
-                                   __new_start, _M_get_Tp_allocator());
+        if _GLIBCXX17_CONSTEXPR (_S_use_relocate()) &#123;
+          __new_finish = _S_relocate(__old_start, __position.base(),
+                                     __new_start, _M_get_Tp_allocator());
 
-        ++__new_finish;
+          ++__new_finish;
 
-        __new_finish = _S_relocate(__position.base(), __old_finish,
-                                   __new_finish, _M_get_Tp_allocator());
-      &#125; else &#123;
-        // 将原来 vector 的内容拷到新的 vector
-        // std::__uninitialized_move_if_noexcept_a() 最终会调用到
-        // std::uninitialized_copy()
-        __new_finish = std::__uninitialized_move_if_noexcept_a (__old_start,                                                        __position.base(), __new_start, _M_get_Tp_allocator());
+          __new_finish = _S_relocate(__position.base(), __old_finish,
+                                     __new_finish, _M_get_Tp_allocator());
+        &#125; else &#123;
+          // 将原来 vector 的内容拷到新的 vector
+          // std::__uninitialized_move_if_noexcept_a() 最终会调用到
+          // std::uninitialized_copy()
+          __new_finish = std::__uninitialized_move_if_noexcept_a (__old_start,                                                        __position.base(), __new_start, _M_get_Tp_allocator());
 
-        ++__new_finish;
+          ++__new_finish;
             
-        __new_finish = std::__uninitialized_move_if_noexcept_a(__position.base(),                                     __old_finish,  __new_finish, _M_get_Tp_allocator());
+          __new_finish = std::__uninitialized_move_if_noexcept_a(__position.base(),                                     __old_finish,  __new_finish, _M_get_Tp_allocator());
+        &#125;
       &#125;
-    &#125;
-    __catch(...) &#123;
-      if (!__new_finish)
-        _Alloc_traits::destroy(this-&gt;_M_impl,  __new_start + __elems_before);
-      else
-        std::_Destroy(__new_start, __new_finish, _M_get_Tp_allocator());
-      _M_deallocate(__new_start, __len);
-      __throw_exception_again;
-    &#125;
-    // 析构并释放原 vector
-    if _GLIBCXX17_CONSTEXPR (!_S_use_relocate())
-      std::_Destroy(__old_start, __old_finish, _M_get_Tp_allocator());
-    _GLIBCXX_ASAN_ANNOTATE_REINIT;
-    _M_deallocate(__old_start, this-&gt;_M_impl._M_end_of_storage - __old_start);
-    // 调整迭代器，指向新的 vector
-    this-&gt;_M_impl._M_start = __new_start;
-    this-&gt;_M_impl._M_finish = __new_finish;
-    this-&gt;_M_impl._M_end_of_storage = __new_start + __len;
+      __catch(...) &#123;
+        if (!__new_finish)
+          _Alloc_traits::destroy(this-&gt;_M_impl,  __new_start + __elems_before);
+        else
+          std::_Destroy(__new_start, __new_finish, _M_get_Tp_allocator());
+        _M_deallocate(__new_start, __len);
+        __throw_exception_again;
+      &#125;
+      // 析构并释放原 vector
+      if _GLIBCXX17_CONSTEXPR (!_S_use_relocate())
+        std::_Destroy(__old_start, __old_finish, _M_get_Tp_allocator());
+      _GLIBCXX_ASAN_ANNOTATE_REINIT;
+      _M_deallocate(__old_start, this-&gt;_M_impl._M_end_of_storage - __old_start);
+      // 调整迭代器，指向新的 vector
+      this-&gt;_M_impl._M_start = __new_start;
+      this-&gt;_M_impl._M_finish = __new_finish;
+      this-&gt;_M_impl._M_end_of_storage = __new_start + __len;
 &#125;
 </code></pre>
 </blockquote>
@@ -768,10 +768,10 @@ void vector&lt;bool, _Alloc&gt;::_M_insert_aux(iterator __position, bool __x) &#
 </blockquote>
 <blockquote>
 <pre><code class="cpp">iterator insert(const_iterator __position, initializer_list&lt;value_type&gt; __l) &#123;
-    auto __offset = __position - cbegin();
-    _M_range_insert(begin() + __offset, __l.begin(), __l.end(),
-                    std::random_access_iterator_tag());
-    return begin() + __offset;
+      auto __offset = __position - cbegin();
+      _M_range_insert(begin() + __offset, __l.begin(), __l.end(),
+                      std::random_access_iterator_tag());
+      return begin() + __offset;
 &#125;
 
 
@@ -865,7 +865,7 @@ void vector&lt;_Tp, _Alloc&gt;::_M_range_insert(iterator __position,
 void vector&lt;_Tp, _Alloc&gt;::
     _M_fill_insert(iterator __position, size_type __n, const value_type&amp; __x) &#123;
   if (__n != 0) &#123;
-    // 备用空间 &gt;= 新增元素个数
+       // 备用空间 &gt;= 新增元素个数
       if (size_type(this-&gt;_M_impl._M_end_of_storage - this-&gt;_M_impl._M_finish) 
         &gt;= __n) &#123;
       _Temporary_value __tmp(this, __x);
@@ -969,24 +969,24 @@ void vector&lt;_Tp, _Alloc&gt;::
 template&lt;typename _Tp, typename _Alloc&gt;
 typename vector&lt;_Tp, _Alloc&gt;::iterator
   vector&lt;_Tp, _Alloc&gt;::_M_erase(iterator __position) &#123;
-    if (__position + 1 != end())
-      _GLIBCXX_MOVE3(__position + 1, end(), __position);
-    --this-&gt;_M_impl._M_finish;
-    _Alloc_traits::destroy(this-&gt;_M_impl, this-&gt;_M_impl._M_finish);
-    _GLIBCXX_ASAN_ANNOTATE_SHRINK(1);
-    return __position;
+      if (__position + 1 != end())
+        _GLIBCXX_MOVE3(__position + 1, end(), __position);
+      --this-&gt;_M_impl._M_finish;
+      _Alloc_traits::destroy(this-&gt;_M_impl, this-&gt;_M_impl._M_finish);
+      _GLIBCXX_ASAN_ANNOTATE_SHRINK(1);
+      return __position;
 &#125;
 
 // 清除 [first, last) 中的所有元素
 template&lt;typename _Tp, typename _Alloc&gt;
 typename vector&lt;_Tp, _Alloc&gt;::iterator
   vector&lt;_Tp, _Alloc&gt;::_M_erase(iterator __first, iterator __last) &#123;
-    if (__first != __last) &#123;
-      if (__last != end())
-        _GLIBCXX_MOVE3(__last, end(), __first);
-      _M_erase_at_end(__first.base() + (end() - __last));
-    &#125;
-    return __first;
+      if (__first != __last) &#123;
+        if (__last != end())
+          _GLIBCXX_MOVE3(__last, end(), __first);
+        _M_erase_at_end(__first.base() + (end() - __last));
+      &#125;
+      return __first;
 &#125;
 </code></pre>
 </blockquote>
@@ -1031,14 +1031,14 @@ struct _List_node_base &#123;
 <blockquote>
 <pre><code class="cpp">template&lt;typename _Tp&gt;
 struct _List_iterator &#123;
-  typedef _List_iterator&lt;_Tp&gt;        _Self;
-  typedef _List_node&lt;_Tp&gt;            _Node;
+    typedef _List_iterator&lt;_Tp&gt;        _Self;
+    typedef _List_node&lt;_Tp&gt;            _Node;
 
-  typedef ptrdiff_t                difference_type;
-  typedef std::bidirectional_iterator_tag    iterator_category;
-  typedef _Tp                value_type;
-  typedef _Tp*                pointer;
-  typedef _Tp&amp;                reference;
+    typedef ptrdiff_t                difference_type;
+    typedef std::bidirectional_iterator_tag    iterator_category;
+    typedef _Tp                value_type;
+    typedef _Tp*                pointer;
+    typedef _Tp&amp;                reference;
 
   _List_iterator() _GLIBCXX_NOEXCEPT
    : _M_node() &#123; &#125;
@@ -1047,53 +1047,53 @@ struct _List_iterator &#123;
    _List_iterator(__detail::_List_node_base* __x) _GLIBCXX_NOEXCEPT
    : _M_node(__x) &#123; &#125;
 
-  _Self _M_const_cast() const _GLIBCXX_NOEXCEPT &#123; 
-     return *this; 
-  &#125;
+    _Self _M_const_cast() const _GLIBCXX_NOEXCEPT &#123; 
+       return *this; 
+    &#125;
 
-  // Must downcast from _List_node_base to _List_node to get to value.
-  reference operator*() const _GLIBCXX_NOEXCEPT &#123; 
-     return *static_cast&lt;_Node*&gt;(_M_node)-&gt;_M_valptr(); 
-  &#125;
+    // Must downcast from _List_node_base to _List_node to get to value.
+    reference operator*() const _GLIBCXX_NOEXCEPT &#123; 
+       return *static_cast&lt;_Node*&gt;(_M_node)-&gt;_M_valptr(); 
+    &#125;
 
-  pointer operator-&gt;() const _GLIBCXX_NOEXCEPT &#123; 
-     return static_cast&lt;_Node*&gt;(_M_node)-&gt;_M_valptr(); 
-  &#125;
+    pointer operator-&gt;() const _GLIBCXX_NOEXCEPT &#123; 
+       return static_cast&lt;_Node*&gt;(_M_node)-&gt;_M_valptr(); 
+    &#125;
 
-  _Self&amp;  operator++() _GLIBCXX_NOEXCEPT &#123;
-     _M_node = _M_node-&gt;_M_next;
-     return *this;
-  &#125;
+    _Self&amp;  operator++() _GLIBCXX_NOEXCEPT &#123;
+       _M_node = _M_node-&gt;_M_next;
+       return *this;
+    &#125;
 
-  _Self operator++(int) _GLIBCXX_NOEXCEPT &#123;
-     _Self __tmp = *this;
-     _M_node = _M_node-&gt;_M_next;
-     return __tmp;
-  &#125;
+    _Self operator++(int) _GLIBCXX_NOEXCEPT &#123;
+       _Self __tmp = *this;
+       _M_node = _M_node-&gt;_M_next;
+       return __tmp;
+    &#125;
 
-  _Self&amp; operator--() _GLIBCXX_NOEXCEPT &#123;
-     _M_node = _M_node-&gt;_M_prev;
-     return *this;
-  &#125;
+    _Self&amp; operator--() _GLIBCXX_NOEXCEPT &#123;
+       _M_node = _M_node-&gt;_M_prev;
+       return *this;
+    &#125;
 
-  _Self operator--(int) _GLIBCXX_NOEXCEPT &#123;
-     _Self __tmp = *this;
-     _M_node = _M_node-&gt;_M_prev;
-     return __tmp;
-  &#125;
+    _Self operator--(int) _GLIBCXX_NOEXCEPT &#123;
+       _Self __tmp = *this;
+       _M_node = _M_node-&gt;_M_prev;
+       return __tmp;
+    &#125;
 
-  friend bool
-   operator==(const _Self&amp; __x, const _Self&amp; __y) _GLIBCXX_NOEXCEPT &#123; 
-     return __x._M_node == __y._M_node; 
-  &#125;
+    friend bool
+     operator==(const _Self&amp; __x, const _Self&amp; __y) _GLIBCXX_NOEXCEPT &#123; 
+       return __x._M_node == __y._M_node; 
+    &#125;
 
-  friend bool
-   operator!=(const _Self&amp; __x, const _Self&amp; __y) _GLIBCXX_NOEXCEPT &#123; 
-     return __x._M_node != __y._M_node; 
-  &#125;
+    friend bool
+     operator!=(const _Self&amp; __x, const _Self&amp; __y) _GLIBCXX_NOEXCEPT &#123; 
+       return __x._M_node != __y._M_node; 
+    &#125;
 
-  // The only member points to the %list element.
-  __detail::_List_node_base* _M_node;
+    // The only member points to the %list element.
+    __detail::_List_node_base* _M_node;
 &#125;;
 </code></pre>
 </blockquote>
@@ -1101,83 +1101,83 @@ struct _List_iterator &#123;
 <blockquote>
 <pre><code class="cpp">template&lt;typename _Tp, typename _Alloc = std::allocator&lt;_Tp&gt; &gt;
 class list : protected _List_base&lt;_Tp, _Alloc&gt; &#123;
-  #ifdef _GLIBCXX_CONCEPT_CHECKS
-   // concept requirements
-   typedef typename _Alloc::value_type        _Alloc_value_type;
-  # if __cplusplus &lt; 201103L
-   __glibcxx_class_requires(_Tp, _SGIAssignableConcept)
-  # endif
-     __glibcxx_class_requires2(_Tp, _Alloc_value_type, _SameTypeConcept)
-  #endif
+    #ifdef _GLIBCXX_CONCEPT_CHECKS
+     // concept requirements
+     typedef typename _Alloc::value_type        _Alloc_value_type;
+    # if __cplusplus &lt; 201103L
+     __glibcxx_class_requires(_Tp, _SGIAssignableConcept)
+    # endif
+       __glibcxx_class_requires2(_Tp, _Alloc_value_type, _SameTypeConcept)
+    #endif
 
-  #if __cplusplus &gt;= 201103L
-     static_assert(is_same&lt;typename remove_cv&lt;_Tp&gt;::type, _Tp&gt;::value,
-                   &quot;std::list must have a non-const, non-volatile value_type&quot;);
-  # ifdef __STRICT_ANSI__
-   static_assert(is_same&lt;typename _Alloc::value_type, _Tp&gt;::value,
-                 &quot;std::list must have the same value_type as its allocator&quot;);
-  # endif
-  #endif
+    #if __cplusplus &gt;= 201103L
+       static_assert(is_same&lt;typename remove_cv&lt;_Tp&gt;::type, _Tp&gt;::value,
+                     &quot;std::list must have a non-const, non-volatile value_type&quot;);
+    # ifdef __STRICT_ANSI__
+     static_assert(is_same&lt;typename _Alloc::value_type, _Tp&gt;::value,
+                   &quot;std::list must have the same value_type as its allocator&quot;);
+    # endif
+    #endif
 
-   typedef _List_base&lt;_Tp, _Alloc&gt;            _Base;
-   typedef typename _Base::_Tp_alloc_type        _Tp_alloc_type;
-   typedef typename _Base::_Tp_alloc_traits        _Tp_alloc_traits;
-   typedef typename _Base::_Node_alloc_type        _Node_alloc_type;
-   typedef typename _Base::_Node_alloc_traits    _Node_alloc_traits;
+     typedef _List_base&lt;_Tp, _Alloc&gt;            _Base;
+     typedef typename _Base::_Tp_alloc_type        _Tp_alloc_type;
+     typedef typename _Base::_Tp_alloc_traits        _Tp_alloc_traits;
+     typedef typename _Base::_Node_alloc_type        _Node_alloc_type;
+     typedef typename _Base::_Node_alloc_traits    _Node_alloc_traits;
 
 public:
-   typedef _Tp                     value_type;
-   typedef typename _Tp_alloc_traits::pointer     pointer;
-   typedef typename _Tp_alloc_traits::const_pointer     const_pointer;
-   typedef typename _Tp_alloc_traits::reference     reference;
-   typedef typename _Tp_alloc_traits::const_reference const_reference;
-   typedef _List_iterator&lt;_Tp&gt;             iterator;
-   typedef _List_const_iterator&lt;_Tp&gt;             const_iterator;
-   typedef std::reverse_iterator&lt;const_iterator&gt;     const_reverse_iterator;
-   typedef std::reverse_iterator&lt;iterator&gt;         reverse_iterator;
-   typedef size_t                     size_type;
-   typedef ptrdiff_t                     difference_type;
-   typedef _Alloc                     allocator_type;
+     typedef _Tp                     value_type;
+     typedef typename _Tp_alloc_traits::pointer     pointer;
+     typedef typename _Tp_alloc_traits::const_pointer     const_pointer;
+     typedef typename _Tp_alloc_traits::reference     reference;
+     typedef typename _Tp_alloc_traits::const_reference const_reference;
+     typedef _List_iterator&lt;_Tp&gt;             iterator;
+     typedef _List_const_iterator&lt;_Tp&gt;             const_iterator;
+     typedef std::reverse_iterator&lt;const_iterator&gt;     const_reverse_iterator;
+     typedef std::reverse_iterator&lt;iterator&gt;         reverse_iterator;
+     typedef size_t                     size_type;
+     typedef ptrdiff_t                     difference_type;
+     typedef _Alloc                     allocator_type;
 
 protected:
      // Note that pointers-to-_Node&#39;s can be ctor-converted to
      // iterator types.
-    // 环形双向链表，只需要一个指针便可以表示整个链表
+     // 环形双向链表，只需要一个指针便可以表示整个链表
      typedef _List_node&lt;_Tp&gt;                 _Node;
-  // ...
+    // ...
 
-  iterator begin() _GLIBCXX_NOEXCEPT &#123; 
-     return iterator(this-&gt;_M_impl._M_node._M_next); 
-  &#125;
-
-  _GLIBCXX_NODISCARD bool empty() const _GLIBCXX_NOEXCEPT &#123; 
-     return this-&gt;_M_impl._M_node._M_next == &amp;this-&gt;_M_impl._M_node; 
-  &#125;
-
-  const_reference front() const _GLIBCXX_NOEXCEPT &#123; 
-     return *begin(); 
-  &#125;
-
-  reference back() _GLIBCXX_NOEXCEPT &#123;
-     iterator __tmp = end();
-     --__tmp;
-     return *__tmp;
-  &#125;
-  // 配置一个节点并传回
-  typename _Node_alloc_traits::pointer _M_get_node() &#123; 
-    return _Node_alloc_traits::allocate(_M_impl, 1); 
-  &#125;
-  // 产生一个节点，带元素值
-  template&lt;typename... _Args&gt;
-    _Node* _M_create_node(_Args&amp;&amp;... __args) &#123;
-      auto __p = this-&gt;_M_get_node();
-      auto&amp; __alloc = _M_get_Node_allocator();
-      __allocated_ptr&lt;_Node_alloc_type&gt; __guard&#123;__alloc, __p&#125;;
-      _Node_alloc_traits::construct(__alloc, __p-&gt;_M_valptr(),
-                    std::forward&lt;_Args&gt;(__args)...);
-      __guard = nullptr;
-      return __p;
+    iterator begin() _GLIBCXX_NOEXCEPT &#123; 
+       return iterator(this-&gt;_M_impl._M_node._M_next); 
     &#125;
+
+    _GLIBCXX_NODISCARD bool empty() const _GLIBCXX_NOEXCEPT &#123; 
+       return this-&gt;_M_impl._M_node._M_next == &amp;this-&gt;_M_impl._M_node; 
+    &#125;
+
+    const_reference front() const _GLIBCXX_NOEXCEPT &#123; 
+       return *begin(); 
+    &#125;
+
+    reference back() _GLIBCXX_NOEXCEPT &#123;
+       iterator __tmp = end();
+       --__tmp;
+       return *__tmp;
+    &#125;
+    // 配置一个节点并传回
+    typename _Node_alloc_traits::pointer _M_get_node() &#123; 
+       return _Node_alloc_traits::allocate(_M_impl, 1); 
+    &#125;
+    // 产生一个节点，带元素值
+    template&lt;typename... _Args&gt;
+  _Node* _M_create_node(_Args&amp;&amp;... __args) &#123;
+    auto __p = this-&gt;_M_get_node();
+    auto&amp; __alloc = _M_get_Node_allocator();
+    __allocated_ptr&lt;_Node_alloc_type&gt; __guard&#123;__alloc, __p&#125;;
+    _Node_alloc_traits::construct(__alloc, __p-&gt;_M_valptr(),
+                                  std::forward&lt;_Args&gt;(__args)...);
+    __guard = nullptr;
+    return __p;
+  &#125;
 &#125;;
 </code></pre>
 </blockquote>
@@ -1194,23 +1194,23 @@ protected:
 <pre><code class="cpp">template&lt;typename _Tp, typename _Alloc&gt;
 typename list&lt;_Tp, _Alloc&gt;::__remove_return_type
   list&lt;_Tp, _Alloc&gt;::unique() &#123;
-    iterator __first = begin();
-    iterator __last = end();
-    // 空链表 直接返回
-    if (__first == __last) 
-      return _GLIBCXX20_ONLY( 0 );
-    size_type __removed __attribute__((__unused__)) = 0;
-    iterator __next = __first;
-    while (++__next != __last) &#123;
-      if (*__first == *__next) &#123;
-        _M_erase(__next);
-        _GLIBCXX20_ONLY( __removed++ );
-      &#125;
-      else
-        __first = __next;
-      __next = __first;
-    &#125;
-    return _GLIBCXX20_ONLY( __removed );
+     iterator __first = begin();
+     iterator __last = end();
+     // 空链表 直接返回
+     if (__first == __last) 
+       return _GLIBCXX20_ONLY( 0 );
+     size_type __removed __attribute__((__unused__)) = 0;
+     iterator __next = __first;
+     while (++__next != __last) &#123;
+       if (*__first == *__next) &#123;
+         _M_erase(__next);
+         _GLIBCXX20_ONLY( __removed++ );
+       &#125;
+       else
+         __first = __next;
+       __next = __first;
+     &#125;
+     return _GLIBCXX20_ONLY( __removed );
 &#125;
 </code></pre>
 </blockquote>
@@ -1221,14 +1221,14 @@ typename list&lt;_Tp, _Alloc&gt;::__remove_return_type
 <p><strong>list 擦除元素</strong></p>
 <blockquote>
 <pre><code class="cpp">iterator erase(iterator __position) &#123;
-    _List_node_base* __next_node = __position._M_node-&gt;_M_next;
-    _List_node_base* __prev_node = __position._M_node-&gt;_M_prev;
-    _Node* __n = (_Node*) __position._M_node;
-    __prev_node-&gt;_M_next = __next_node;
-    __next_node-&gt;_M_prev = __prev_node;
-    _Destroy(&amp;__n-&gt;_M_data);
-    _M_put_node(__n);
-    return iterator((_Node*) __next_node);
+       _List_node_base* __next_node = __position._M_node-&gt;_M_next;
+       _List_node_base* __prev_node = __position._M_node-&gt;_M_prev;
+       _Node* __n = (_Node*) __position._M_node;
+       __prev_node-&gt;_M_next = __next_node;
+       __next_node-&gt;_M_prev = __prev_node;
+       _Destroy(&amp;__n-&gt;_M_data);
+       _M_put_node(__n);
+       return iterator((_Node*) __next_node);
 &#125;
 </code></pre>
 </blockquote>
@@ -1266,20 +1266,20 @@ void transfer(iterator __position, iterator __first, iterator __last) &#123;
 <p><strong>transfer() 是非公开接口，STL 为 list 提供了splice()。</strong></p>
 <blockquote>
 <pre><code class="cpp">void splice(iterator __position, list&amp; __x) &#123;
-    if (!__x.empty()) 
-      this-&gt;transfer(__position, __x.begin(), __x.end());
+     if (!__x.empty()) 
+       this-&gt;transfer(__position, __x.begin(), __x.end());
 &#125;
 
 void splice(iterator __position, list&amp;, iterator __i) &#123;
-    iterator __j = __i;
-    ++__j;
-    if (__position == __i || __position == __j) return;
-    this-&gt;transfer(__position, __i, __j);
+     iterator __j = __i;
+     ++__j;
+     if (__position == __i || __position == __j) return;
+     this-&gt;transfer(__position, __i, __j);
 &#125;
 
 void splice(iterator __position, list&amp;, iterator __first, iterator __last) &#123;
-    if (__first != __last) 
-      this-&gt;transfer(__position, __first, __last);
+     if (__first != __last) 
+       this-&gt;transfer(__position, __first, __last);
 &#125;
 </code></pre>
 </blockquote>
@@ -1311,20 +1311,20 @@ int main() &#123;
 <blockquote>
 <pre><code class="cpp">template &lt;class _Tp, class _Alloc&gt;
 void list&lt;_Tp, _Alloc&gt;::merge(list&lt;_Tp, _Alloc&gt;&amp; __x) &#123;
-    iterator __first1 = begin();
-    iterator __last1 = end();
-    iterator __first2 = __x.begin();
-    iterator __last2 = __x.end();
-    // 两个 list 都已经递增排序
-    while (__first1 != __last1 &amp;&amp; __first2 != __last2)
-      if (*__first2 &lt; *__first1) &#123;
-        iterator __next = __first2;
-        transfer(__first1, __first2, ++__next);
-        __first2 = __next;
-      &#125;
-      else
-       ++__first1;
-    if (__first2 != __last2) transfer(__last1, __first2, __last2);
+      iterator __first1 = begin();
+      iterator __last1 = end();
+      iterator __first2 = __x.begin();
+      iterator __last2 = __x.end();
+      // 两个 list 都已经递增排序
+      while (__first1 != __last1 &amp;&amp; __first2 != __last2)
+        if (*__first2 &lt; *__first1) &#123;
+          iterator __next = __first2;
+          transfer(__first1, __first2, ++__next);
+          __first2 = __next;
+        &#125;
+        else
+         ++__first1;
+      if (__first2 != __last2) transfer(__last1, __first2, __last2);
 &#125;
 </code></pre>
 </blockquote>
@@ -1332,19 +1332,17 @@ void list&lt;_Tp, _Alloc&gt;::merge(list&lt;_Tp, _Alloc&gt;&amp; __x) &#123;
 
 <p><strong>list 之 reverse()</strong></p>
 <blockquote>
-<pre><code class="cpp">inline void __List_base_reverse(_List_node_base* __p)
-&#123;
-    _List_node_base* __tmp = __p;
-    do &#123;
-      __STD::swap(__tmp-&gt;_M_next, __tmp-&gt;_M_prev);
-      __tmp = __tmp-&gt;_M_prev;     // Old next node is now prev.
-    &#125; while (__tmp != __p);
-&#125;
+<pre><code class="cpp">inline void __List_base_reverse(_List_node_base* __p) &#123;
+   _List_node_base* __tmp = __p;
+      do &#123;
+        __STD::swap(__tmp-&gt;_M_next, __tmp-&gt;_M_prev);
+        __tmp = __tmp-&gt;_M_prev;     // Old next node is now prev.
+      &#125; while (__tmp != __p);
+   &#125;
 
 template &lt;class _Tp, class _Alloc&gt;
-inline void list&lt;_Tp, _Alloc&gt;::reverse() 
-&#123;
-    __List_base_reverse(this-&gt;_M_node);
+inline void list&lt;_Tp, _Alloc&gt;::reverse() &#123;
+      __List_base_reverse(this-&gt;_M_node);
 &#125; 
 </code></pre>
 </blockquote>
@@ -1433,19 +1431,26 @@ required from here
 <br/>
 
 <blockquote>
-<pre><code class="cpp">template&lt;typename _Tp, typename _Alloc&gt;
+<pre><code class="cpp">// map 是一个 T**
+template&lt;typename _Tp, typename _Alloc&gt;
 class _Deque_base &#123;
 protected:
-  struct _Deque_impl : public _Tp_alloc_type &#123;
-    _Map_pointer _M_map;
-    size_t _M_map_size;
-    iterator _M_start;
-    iterator _M_finish;
-    // ...
-  &#125;;
   typedef typename iterator::_Map_pointer _Map_pointer;
+  struct _Deque_impl : public _Tp_alloc_type &#123;
+   _Map_pointer _M_map;
+   size_t _M_map_size;
+   iterator _M_start;
+   iterator _M_finish;
+   _Deque_impl() 
+     : _Tp_alloc_type(), 
+     _M_map(), 
+     _M_map_size(0),
+       _M_start(), 
+     _M_finish() &#123; &#125;
+   // ...
+  &#125;;
   _Deque_impl _M_impl;
-  // ...
+// ...
 &#125;;
 </code></pre>
 </blockquote>
@@ -1454,6 +1459,210 @@ protected:
 
 
 <br/>
+
+<p><strong>deque 迭代器</strong></p>
+<ul>
+<li>能够指出分段连续空间（buffer）的位置</li>
+<li>能够判断当前所处的 buffer 的边缘</li>
+<li>能够控制 map 跳跃到上一个/下一个buffer</li>
+</ul>
+<blockquote>
+<pre><code class="c++">template&lt;typename _Tp, typename _Ref, typename _Ptr&gt;
+struct _Deque_iterator &#123;  // 未继承 std::iterator
+  #if __cplusplus &lt; 201103L
+  typedef _Deque_iterator&lt;_Tp, _Tp&amp;, _Tp*&gt;         iterator;
+  typedef _Deque_iterator&lt;_Tp, const _Tp&amp;, const _Tp*&gt; const_iterator;
+  typedef _Tp*                     _Elt_pointer;
+  typedef _Tp**                    _Map_pointer;
+  #else
+private:
+  template&lt;typename _Up&gt;
+  using __ptr_to = typename pointer_traits&lt;_Ptr&gt;::template rebind&lt;_Up&gt;;
+  template&lt;typename _CvTp&gt;
+  using __iter = _Deque_iterator&lt;_Tp, _CvTp&amp;, __ptr_to&lt;_CvTp&gt;&gt;;
+public:
+  typedef __iter&lt;_Tp&gt;        iterator;
+  typedef __iter&lt;const _Tp&gt;        const_iterator;
+  typedef __ptr_to&lt;_Tp&gt;        _Elt_pointer;
+  typedef __ptr_to&lt;_Elt_pointer&gt;    _Map_pointer;
+  #endif
+  
+  /**
+   *  @brief This function controls the size of memory nodes.
+   *  @param  __size  The size of an element.
+   *  @return   The number (not byte size) of elements per node.
+   */
+  // 决定 buffer 大小的函数
+  // buffer size 默认值 _GLIBCXX_DEQUE_BUF_SIZE 512
+  // 如果元素大小 __size &lt; 512 传回 512/__size; 否则传回 1
+  _GLIBCXX_CONSTEXPR inline size_t __deque_buf_size(size_t __size) &#123; 
+    return (__size &lt; _GLIBCXX_DEQUE_BUF_SIZE
+        ? size_t(_GLIBCXX_DEQUE_BUF_SIZE / __size) : size_t(1)); 
+  &#125;
+  static size_t _S_buffer_size() _GLIBCXX_NOEXCEPT &#123; 
+    return __deque_buf_size(sizeof(_Tp)); 
+  &#125;
+
+  // 未继承 std::iterator 所以必须自行撰写5个必要的迭代器相应类型
+  typedef std::random_access_iterator_tag    iterator_category;
+  typedef _Tp                value_type;
+  typedef _Ptr                pointer;
+  typedef _Ref                reference;
+  typedef size_t                size_type;
+  typedef ptrdiff_t                difference_type;
+  typedef _Deque_iterator            _Self;
+
+  _Elt_pointer _M_cur;    // 指向某个 buffer 的当前元素
+  _Elt_pointer _M_first;  // 指向某个 buffer 的头
+  _Elt_pointer _M_last;   // 指向某个 buffer 的尾（含备用空间）
+  _Map_pointer _M_node;   // 指向管控中心
+  // ...
+&#125;;
+</code></pre>
+</blockquote>
+<img title="deque 中控器、缓存区、迭代器的关系" src="">
+
+<br/>
+
+<p><strong>deque 创建</strong></p>
+<blockquote>
+<pre><code class="c++">/**
+*  @brief  Creates a %deque with copies of an exemplar element.
+*  @param  __n  The number of elements to initially create.
+*  @param  __value  An element to copy.
+*  @param  __a  An allocator.
+*
+*  This constructor fills the %deque with @a __n copies of @a __value.
+*/
+deque(size_type __n, const value_type&amp; __value,
+      const allocator_type&amp; __a = allocator_type())
+: _Base(__a, _S_check_init_len(__n, __a)) &#123; 
+    _M_fill_initialize(__value); 
+&#125;
+
+_Deque_base(const allocator_type&amp; __a, size_t __num_elements)
+  : _M_impl(__a) &#123; 
+    _M_initialize_map(__num_elements); 
+&#125;
+</code></pre>
+</blockquote>
+<br/>
+
+<blockquote>
+<pre><code class="cpp">template &lt;typename _Tp, typename _Alloc&gt;
+void deque&lt;_Tp, _Alloc&gt;:: _M_fill_initialize(const value_type&amp; __value) &#123;
+  _Map_pointer __cur;
+  __try &#123;
+    // 为每个节点的 buffer 设定初值
+    for (__cur = this-&gt;_M_impl._M_start._M_node;
+         __cur &lt; this-&gt;_M_impl._M_finish._M_node;
+         ++__cur)
+      std::__uninitialized_fill_a(*__cur, *__cur + _S_buffer_size(),
+                                  __value, _M_get_Tp_allocator());
+    // 最后节点的设定稍有不同，考虑尾端可能有备用空间，不必设初值
+    std::__uninitialized_fill_a(this-&gt;_M_impl._M_finish._M_first,
+                                this-&gt;_M_impl._M_finish._M_cur,
+                                __value, _M_get_Tp_allocator());
+  &#125;
+  __catch(...) &#123;
+        // ...
+  &#125;
+&#125;
+</code></pre>
+</blockquote>
+<br/>
+
+<p><strong>_M_create_nodes</strong></p>
+<blockquote>
+<pre><code class="c++">template&lt;typename _Tp, typename _Alloc&gt;
+void
+_Deque_base&lt;_Tp, _Alloc&gt;::
+_M_create_nodes(_Map_pointer __nstart, _Map_pointer __nfinish) &#123;
+  _Map_pointer __cur;
+  __try &#123;
+    for (__cur = __nstart; __cur &lt; __nfinish; ++__cur)
+      *__cur = this-&gt;_M_allocate_node();
+  &#125;
+  __catch(...) &#123;
+        // ...
+  &#125;
+&#125;
+
+_Ptr _M_allocate_node() &#123;
+  typedef __gnu_cxx::__alloc_traits&lt;_Tp_alloc_type&gt; _Traits;
+  return _Traits::allocate(_M_impl, __deque_buf_size(sizeof(_Tp)));
+&#125;
+
+// 决定 buffer 大小的函数
+// buffer size 默认值 _GLIBCXX_DEQUE_BUF_SIZE 512
+// 如果元素大小 __size &lt; 512 传回 512/__size; 否则传回 1
+_GLIBCXX_CONSTEXPR inline size_t __deque_buf_size(size_t __size) &#123; 
+  return (__size &lt; _GLIBCXX_DEQUE_BUF_SIZE
+          ? size_t(_GLIBCXX_DEQUE_BUF_SIZE / __size) : size_t(1)); 
+&#125;
+</code></pre>
+</blockquote>
+<br/>
+
+<p><strong>_M_initialize_map</strong></p>
+<blockquote>
+<pre><code class="c++">/**
+*  @brief Layout storage.
+*  @param  __num_elements  The count of T&#39;s for which to allocate space
+*                          at first.
+*  @return   Nothing.
+*  The initial underlying memory layout is a bit complicated...
+*/
+template&lt;typename _Tp, typename _Alloc&gt;
+void _Deque_base&lt;_Tp, _Alloc&gt;:: _M_initialize_map(size_t __num_elements) &#123;
+  // 需要 map_pointer 节点数 = （元素个数 / 每个缓冲区可容纳的元素个数）+ 1
+  // 如果刚好整除，就分配多一个节点
+  const size_t __num_nodes = (__num_elements/ __deque_buf_size(sizeof(_Tp))
+                              + 1);
+  // 一个中控器需要管理几个节点，
+  // 至少： _S_initial_map_size = 8 个
+  // 最多： 所需 map_pointer 节点数 + 2（前后各自预备一个，方便扩充）
+  this-&gt;_M_impl._M_map_size = std::max((size_t) _S_initial_map_size,
+                                       size_t(__num_nodes + 2));
+  this-&gt;_M_impl._M_map = _M_allocate_map(this-&gt;_M_impl._M_map_size);
+    // 以上就配置出了 一个 具有 _M_map_size 个节点的中控器
+
+
+  // 令 nstart 和 nfinish 指向 map 所拥有全部节点的最中央区段
+  // 保持最中央可以保证 deque 两端生长的能力一样大
+  _Map_pointer __nstart = (this-&gt;_M_impl._M_map
+                           + (this-&gt;_M_impl._M_map_size - __num_nodes) / 2);
+  _Map_pointer __nfinish = __nstart + __num_nodes;
+
+  __try &#123;
+    _M_create_nodes(__nstart, __nfinish); 
+  &#125;
+  __catch(...) &#123;
+        // ...
+  &#125;
+  // 为 deque 内的两个迭代器 start 和 finish 设定正确的内容
+  this-&gt;_M_impl._M_start._M_set_node(__nstart);
+  this-&gt;_M_impl._M_finish._M_set_node(__nfinish - 1);
+  this-&gt;_M_impl._M_start._M_cur = _M_impl._M_start._M_first;
+  // 因为刚好整除会多配置一个节点，
+  // 此时，cur 指向这个多配置的一个节点
+  this-&gt;_M_impl._M_finish._M_cur = (this-&gt;_M_impl._M_finish._M_first
+                                    + __num_elements
+                                    % __deque_buf_size(sizeof(_Tp)));
+&#125;
+</code></pre>
+</blockquote>
+<br/>
+
+<p><strong>std::deque<int> ideq(32, 0)</strong></p>
+<ul>
+<li><code>int</code>类型的 <code>deque</code> 决定了 <code>__deque_buf_size（一块 buffer 的大小）为 512 / sizeof(int) = 128</code>。</li>
+<li><code>32</code>个元素决定了中控器需要 <code>__num_nodes（buffer 个数）为 (32 / 128) + 1) = 1</code>。</li>
+<li><code>_M_map_size（中控器大小） 为 std::max(8, (buffer 个数 + 2)) = 8</code>。</li>
+</ul>
+<br/>
+
+
 
 <br/>
 
