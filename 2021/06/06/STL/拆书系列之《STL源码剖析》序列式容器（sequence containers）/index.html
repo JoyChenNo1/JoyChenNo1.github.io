@@ -243,7 +243,7 @@
 
     
         <meta property="article:published_time" content="Sun Jun 06 2021 23:43:09 GMT+0800">
-        <meta property="article:modified_time" content="Sun Jun 20 2021 01:57:38 GMT+0800">
+        <meta property="article:modified_time" content="Sun Jun 20 2021 17:12:58 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -266,7 +266,7 @@
     "mainEntityOfPage": "http://example.com/2021/06/06/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E5%BA%8F%E5%88%97%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88sequence%20containers%EF%BC%89/index.html",
     "headline": "拆书系列之《STL源码剖析》序列式容器（sequence containers）",
     "datePublished": "Sun Jun 06 2021 23:43:09 GMT+0800",
-    "dateModified": "Sun Jun 20 2021 01:57:38 GMT+0800",
+    "dateModified": "Sun Jun 20 2021 17:12:58 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -558,11 +558,11 @@ struct _Vector_impl : public _Tp_alloc_type, public _Vector_impl_data &#123;
 public:
     _Vector_impl _M_impl;
 protected:
-  void _M_create_storage(size_t __n) &#123;
-    this-&gt;_M_impl._M_start = this-&gt;_M_allocate(__n);
-    this-&gt;_M_impl._M_finish = this-&gt;_M_impl._M_start;
-    this-&gt;_M_impl._M_end_of_storage = this-&gt;_M_impl._M_start + __n;
-  &#125;
+    void _M_create_storage(size_t __n) &#123;
+      this-&gt;_M_impl._M_start = this-&gt;_M_allocate(__n);
+      this-&gt;_M_impl._M_finish = this-&gt;_M_impl._M_start;
+      this-&gt;_M_impl._M_end_of_storage = this-&gt;_M_impl._M_start + __n;
+    &#125;
 &#125;;
 </code></pre>
 </blockquote>
@@ -602,7 +602,7 @@ struct __uninitialized_fill_n&lt;true&gt; &#123;
     __uninit_fill_n(_ForwardIterator __first, _Size __n, const _Tp&amp; __x) &#123; 
       return std::fill_n(__first, __n, __x); &#125;
    &#125;;
-  
+
 //针对 non trivial constructor 的特化版本，调用 ::new
 template&lt;bool _TrivialValueType&gt;
 struct __uninitialized_fill_n &#123;
@@ -677,7 +677,7 @@ void vector&lt;_Tp, _Alloc&gt;:: _M_realloc_insert(iterator __position, _Args&am
           __new_finish = std::__uninitialized_move_if_noexcept_a (__old_start,                                                        __position.base(), __new_start, _M_get_Tp_allocator());
 
           ++__new_finish;
-            
+
           __new_finish = std::__uninitialized_move_if_noexcept_a(__position.base(),                                     __old_finish,  __new_finish, _M_get_Tp_allocator());
         &#125;
       &#125;
@@ -829,7 +829,7 @@ void vector&lt;_Tp, _Alloc&gt;::_M_range_insert(iterator __position,
           __new_finish = std::__uninitialized_move_if_noexcept_a
             (this-&gt;_M_impl._M_start, __position.base(),
              __new_start, _M_get_Tp_allocator());
-        
+
             // 2、将新增元素 copy 到新空间
           __new_finish = std::__uninitialized_copy_a(__first, __last,
                   __new_finish,
@@ -912,7 +912,7 @@ void vector&lt;_Tp, _Alloc&gt;::
           std::__uninitialized_fill_n_a(__new_start + __elems_before,
                 __n, __x,
                 _M_get_Tp_allocator());
-          
+
           __new_finish = pointer();
                     // 2、将旧 vector 的插入点之前的元素 copy 到新空间
           __new_finish
@@ -936,14 +936,14 @@ void vector&lt;_Tp, _Alloc&gt;::
           _M_deallocate(__new_start, __len);
           __throw_exception_again;
         &#125;
-      
+
         // 清除释放旧的 vector
           std::_Destroy(this-&gt;_M_impl._M_start, this-&gt;_M_impl._M_finish,
                 _M_get_Tp_allocator());
           _GLIBCXX_ASAN_ANNOTATE_REINIT;
           _M_deallocate(this-&gt;_M_impl._M_start,
                 this-&gt;_M_impl._M_end_of_storage - this-&gt;_M_impl._M_start);
-        
+
         // 调整迭代器，指向新的 vector
           this-&gt;_M_impl._M_start = __new_start;
           this-&gt;_M_impl._M_finish = __new_finish;
@@ -1195,7 +1195,9 @@ protected:
 typename list&lt;_Tp, _Alloc&gt;::__remove_return_type
   list&lt;_Tp, _Alloc&gt;::unique() &#123;
      iterator __first = begin();
-     iterator __last = end();
+     iterator __l
+
+ast = end();
      // 空链表 直接返回
      if (__first == __last) 
        return _GLIBCXX20_ONLY( 0 );
@@ -1292,7 +1294,7 @@ void splice(iterator __position, list&amp;, iterator __first, iterator __last) &
 int main() &#123;
       std::list&lt;int&gt; list1 &#123; 1, 2, 3, 4, 100 &#125;;
       std::list&lt;int&gt; list2 &#123; 5, 6, 7, 8, 9 &#125;;
-    
+
       auto iter = std::find(list1.begin(), list1.end(), 100);
       list1.splice(iter, list2);  // 1, 2, 3, 4, [5, 6, 7, 8, 9] 100
       list1.reverse();            //100, 9, 8, 7, 6, 5, 4, 3, 2, 1
@@ -1437,10 +1439,10 @@ class _Deque_base &#123;
 protected:
   typedef typename iterator::_Map_pointer _Map_pointer;
   struct _Deque_impl : public _Tp_alloc_type &#123;
-   _Map_pointer _M_map;
-   size_t _M_map_size;
-   iterator _M_start;
-   iterator _M_finish;
+   _Map_pointer _M_map;        // 指向 map, 存储 T** 类型的连续空间
+   size_t _M_map_size;         // buffer 块数
+   iterator _M_start;            // 指向第一个 buffer
+   iterator _M_finish;            // 指向最后一个 buffer
    _Deque_impl() 
      : _Tp_alloc_type(), 
      _M_map(), 
@@ -1456,8 +1458,6 @@ protected:
 </blockquote>
 <img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/BlogImages/STL/deque-map-node-buffer.png">
 
-
-
 <br/>
 
 <p><strong>deque 迭代器</strong></p>
@@ -1467,7 +1467,7 @@ protected:
 <li>能够控制 map 跳跃到上一个/下一个buffer</li>
 </ul>
 <blockquote>
-<pre><code class="c++">template&lt;typename _Tp, typename _Ref, typename _Ptr&gt;
+<pre><code class="cpp">template&lt;typename _Tp, typename _Ref, typename _Ptr&gt;
 struct _Deque_iterator &#123;  // 未继承 std::iterator
   #if __cplusplus &lt; 201103L
   typedef _Deque_iterator&lt;_Tp, _Tp&amp;, _Tp*&gt;         iterator;
@@ -1486,7 +1486,7 @@ public:
   typedef __ptr_to&lt;_Tp&gt;        _Elt_pointer;
   typedef __ptr_to&lt;_Elt_pointer&gt;    _Map_pointer;
   #endif
-  
+
   /**
    *  @brief This function controls the size of memory nodes.
    *  @param  __size  The size of an element.
@@ -1520,13 +1520,81 @@ public:
 &#125;;
 </code></pre>
 </blockquote>
+<br/>
+
+<p><strong>deque 迭代器关键行为</strong></p>
+<blockquote>
+<pre><code class="cpp">// 一旦遇到 buffer 边缘，就要调用 _M_set_node
+// 跳一个 buffer
+void _M_set_node(_Map_pointer __new_node) _GLIBCXX_NOEXCEPT &#123;
+  _M_node = __new_node;
+  _M_first = *__new_node;
+  _M_last = _M_first + difference_type(_S_buffer_size());
+&#125;
+
+_Self&amp; operator++() _GLIBCXX_NOEXCEPT &#123;
+  ++_M_cur;                                      // 切到下一个元素
+  if (_M_cur == _M_last) &#123;        // 如果到达 buffer 尾端
+    _M_set_node(_M_node + 1); // 切到下一个节点（即下一块 buffer）
+    _M_cur = _M_first;                // 的第一个元素
+  &#125;
+  return *this;
+&#125;
+
+
+_Self&amp; operator--() _GLIBCXX_NOEXCEPT &#123;
+  if (_M_cur == _M_first) &#123;        // 如果到达 buffer 头端
+    _M_set_node(_M_node - 1); // 切到上一个节点（即上一块 buffer）
+    _M_cur = _M_last;                    // 的最后一个元素
+  &#125;
+  --_M_cur;
+  return *this;
+&#125;
+
+// 随机存取 迭代器可以直接跳跃 n 个距离
+_Self&amp; operator+=(difference_type __n) _GLIBCXX_NOEXCEPT &#123;
+  const difference_type __offset = __n + (_M_cur - _M_first);
+  // 目标位置在 同一个 buffer 内
+  if (__offset &gt;= 0 &amp;&amp; __offset &lt; difference_type(_S_buffer_size()))
+    _M_cur += __n;
+  else &#123;
+    // 目标位置不在 同一个 buffer 内
+    const difference_type __node_offset =
+      __offset &gt; 0 ? __offset / difference_type(_S_buffer_size())
+      : -difference_type((-__offset - 1)
+                         / _S_buffer_size()) - 1;
+    // 切换到正确的 buffer
+    _M_set_node(_M_node + __node_offset);
+    // 切换正确的元素
+    _M_cur = _M_first + (__offset - __node_offset
+                         * difference_type(_S_buffer_size()));
+  &#125;
+  return *this;
+&#125;
+
+// 利用 operator+=
+_Self&amp; operator-=(difference_type __n) _GLIBCXX_NOEXCEPT &#123; 
+  return *this += -__n; 
+&#125;
+
+iterator begin() _GLIBCXX_NOEXCEPT &#123; 
+  return this-&gt;_M_impl._M_start; 
+&#125;
+
+iterator end() _GLIBCXX_NOEXCEPT &#123; 
+  return this-&gt;_M_impl._M_finish; 
+&#125;
+</code></pre>
+</blockquote>
+<br/>
+
 <img title="deque 中控器、缓存区、迭代器的关系" src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/BlogImages/STL/deque-map-buffer-iterator.png">
 
 <br/>
 
 <p><strong>deque 创建</strong></p>
 <blockquote>
-<pre><code class="c++">/**
+<pre><code class="cpp">/**
 *  @brief  Creates a %deque with copies of an exemplar element.
 *  @param  __n  The number of elements to initially create.
 *  @param  __value  An element to copy.
@@ -1574,7 +1642,7 @@ void deque&lt;_Tp, _Alloc&gt;:: _M_fill_initialize(const value_type&amp; __value
 
 <p><strong>_M_create_nodes</strong></p>
 <blockquote>
-<pre><code class="c++">template&lt;typename _Tp, typename _Alloc&gt;
+<pre><code class="cpp">template&lt;typename _Tp, typename _Alloc&gt;
 void
 _Deque_base&lt;_Tp, _Alloc&gt;::
 _M_create_nodes(_Map_pointer __nstart, _Map_pointer __nfinish) &#123;
@@ -1606,7 +1674,7 @@ _GLIBCXX_CONSTEXPR inline size_t __deque_buf_size(size_t __size) &#123;
 
 <p><strong>_M_initialize_map</strong></p>
 <blockquote>
-<pre><code class="c++">/**
+<pre><code class="cpp">/**
 *  @brief Layout storage.
 *  @param  __num_elements  The count of T&#39;s for which to allocate space
 *                          at first.
@@ -1616,7 +1684,7 @@ _GLIBCXX_CONSTEXPR inline size_t __deque_buf_size(size_t __size) &#123;
 template&lt;typename _Tp, typename _Alloc&gt;
 void _Deque_base&lt;_Tp, _Alloc&gt;:: _M_initialize_map(size_t __num_elements) &#123;
   // 需要 map_pointer 节点数 = （元素个数 / 每个缓冲区可容纳的元素个数）+ 1
-  // 如果刚好整除，就分配多一个节点
+  // 因为 deque::end() 返回的是 finish 迭代器，所以分配多一个节点
   const size_t __num_nodes = (__num_elements / __deque_buf_size(sizeof(_Tp))
                               + 1);
   // 一个中控器需要管理几个节点，
@@ -1655,16 +1723,107 @@ void _Deque_base&lt;_Tp, _Alloc&gt;:: _M_initialize_map(size_t __num_elements) &
 <br/>
 
 <p><strong>std::deque<int> ideq(512, 1)</strong></p>
-<ul>
-<li><code>int</code>类型的 <code>deque</code> 决定了 <code>__deque_buf_size（一块 buffer 的大小）为 512 / sizeof(int) = 128</code>。</li>
-<li><code>512</code>个元素决定了中控器需要 <code>__num_nodes（buffer 块数）为 (512 / 128) + 1) = 5</code>。</li>
-<li>中控器大小 <code>_M_map_size 为 std::max(8, (buffer 个数 + 2)) = 8</code>。</li>
-</ul>
+<p><code>int 类型的 deque 决定了 __deque_buf_size（一块 buffer 的大小）为 512 / sizeof(int) = 128</code>。</p>
+<p><code>512 个元素决定了中控器需要 __num_nodes（buffer 块数）为 (512 / 128) + 1) = 5</code>。</p>
+<p><code>中控器大小 _M_map_size 为 std::max(8, (buffer 个数 + 2)) = 8</code>。</p>
+<br/>
+
 <img title="deque 构造示例" src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/BlogImages/STL/deque-construct.png">
 
 <br/>
 
+<p><strong>deque 之 push_back</strong></p>
+<blockquote>
+<pre><code class="cpp">void push_back(const value_type&amp; __x) &#123;
+    // 最后 buffer 还有2个及以上的元素备用空间
+  if (this-&gt;_M_impl._M_finish._M_cur != this-&gt;_M_impl._M_finish._M_last - 1) &#123;
+    _Alloc_traits::construct(this-&gt;_M_impl,
+                             this-&gt;_M_impl._M_finish._M_cur, __x);
+    ++this-&gt;_M_impl._M_finish._M_cur;
+  &#125;
+  else
+    _M_push_back_aux(__x); // 最后 buffer 只剩1个元素备用空间
+&#125;
 
+template&lt;typename _Tp, typename _Alloc&gt;
+template&lt;typename... _Args&gt;
+void deque&lt;_Tp, _Alloc&gt;::
+_M_push_back_aux(_Args&amp;&amp;... __args) &#123;
+  if (size() == max_size())
+    __throw_length_error(
+    __N(&quot;cannot create std::deque larger than max_size()&quot;));
+
+  _M_reserve_map_at_back();            // 如果符合某种条件，必须重换一个 map
+  // 配置一个新的节点（新 buffer 块）
+  *(this-&gt;_M_impl._M_finish._M_node + 1) = this-&gt;_M_allocate_node();
+  __try &#123;
+    // 针对标的元素设值
+    _Alloc_traits::construct(this-&gt;_M_impl,
+                             this-&gt;_M_impl._M_finish._M_cur,
+                             std::forward&lt;_Args&gt;(__args)...);
+    // 改变 finish，指向新节点（新 buffer 块）
+    this-&gt;_M_impl._M_finish._M_set_node(this-&gt;_M_impl._M_finish._M_node + 1);
+    // 设定 finish 状态
+    this-&gt;_M_impl._M_finish._M_cur = this-&gt;_M_impl._M_finish._M_first;
+  &#125;
+  __catch(...) &#123;
+        // ...
+  &#125;
+&#125;
+
+// 重新分配中控器空间
+void _M_reserve_map_at_back(size_type __nodes_to_add = 1) &#123;
+  if (__nodes_to_add + 1 &gt; this-&gt;_M_impl._M_map_size
+      - (this-&gt;_M_impl._M_finish._M_node - this-&gt;_M_impl._M_map))
+    _M_reallocate_map(__nodes_to_add, false);
+&#125;
+</code></pre>
+</blockquote>
+<br/>
+
+<br/>
+
+<p><strong>deque 之 push_front</strong></p>
+<blockquote>
+<pre><code class="cpp">void push_front(const value_type&amp; __x) &#123;
+  // 第一个 buffer 有元素备用空间
+  if (this-&gt;_M_impl._M_start._M_cur != this-&gt;_M_impl._M_start._M_first) &#123;
+    _Alloc_traits::construct(this-&gt;_M_impl,
+                             this-&gt;_M_impl._M_start._M_cur - 1,
+                             __x);
+    --this-&gt;_M_impl._M_start._M_cur;    // 调整 第一块 buffer 使用状态
+  &#125;
+  else
+    _M_push_front_aux(__x);        // 第一个 buffer 已无元素备用空间
+&#125;
+
+template&lt;typename... _Args&gt;
+void deque&lt;_Tp, _Alloc&gt;::_M_push_front_aux(_Args&amp;&amp;... __args) &#123;
+  if (size() == max_size())
+    __throw_length_error(
+    __N(&quot;cannot create std::deque larger than max_size()&quot;));
+
+  _M_reserve_map_at_front();  // 符合某种条件需要重新分配中控器空间
+  // 配置一个新的节点（新 buffer 块）
+  *(this-&gt;_M_impl._M_start._M_node - 1) = this-&gt;_M_allocate_node();
+  __try &#123;
+    // 改变 start 指向新的 buffer 块
+    this-&gt;_M_impl._M_start._M_set_node(this-&gt;_M_impl._M_start._M_node
+                                       - 1);
+    // start 的 cur 指向 新插入元素
+    this-&gt;_M_impl._M_start._M_cur = this-&gt;_M_impl._M_start._M_last - 1;
+        // 设定新插入元素的值
+    _Alloc_traits::construct(this-&gt;_M_impl,
+                             this-&gt;_M_impl._M_start._M_cur,
+                             std::forward&lt;_Args&gt;(__args)...);
+  &#125;
+  __catch(...) &#123;
+    // ...
+  &#125;
+&#125;
+</code></pre>
+</blockquote>
+<br/>
 
 <br/>
 
