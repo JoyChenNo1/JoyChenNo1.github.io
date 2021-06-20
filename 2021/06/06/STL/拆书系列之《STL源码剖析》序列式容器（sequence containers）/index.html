@@ -243,7 +243,7 @@
 
     
         <meta property="article:published_time" content="Sun Jun 06 2021 23:43:09 GMT+0800">
-        <meta property="article:modified_time" content="Sun Jun 20 2021 17:33:49 GMT+0800">
+        <meta property="article:modified_time" content="Sun Jun 20 2021 21:21:47 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -266,7 +266,7 @@
     "mainEntityOfPage": "http://example.com/2021/06/06/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E5%BA%8F%E5%88%97%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88sequence%20containers%EF%BC%89/index.html",
     "headline": "拆书系列之《STL源码剖析》序列式容器（sequence containers）",
     "datePublished": "Sun Jun 06 2021 23:43:09 GMT+0800",
-    "dateModified": "Sun Jun 20 2021 17:33:49 GMT+0800",
+    "dateModified": "Sun Jun 20 2021 21:21:47 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -1640,7 +1640,7 @@ void deque&lt;_Tp, _Alloc&gt;:: _M_fill_initialize(const value_type&amp; __value
 </blockquote>
 <br/>
 
-<p><strong>_M_create_nodes</strong></p>
+<p><strong>_M_create_nodes()</strong></p>
 <blockquote>
 <pre><code class="cpp">template&lt;typename _Tp, typename _Alloc&gt;
 void
@@ -1672,7 +1672,7 @@ _GLIBCXX_CONSTEXPR inline size_t __deque_buf_size(size_t __size) &#123;
 </blockquote>
 <br/>
 
-<p><strong>_M_initialize_map</strong></p>
+<p><strong>_M_initialize_map()</strong></p>
 <blockquote>
 <pre><code class="cpp">/**
 *  @brief Layout storage.
@@ -1732,7 +1732,7 @@ void _Deque_base&lt;_Tp, _Alloc&gt;:: _M_initialize_map(size_t __num_elements) &
 
 <br/>
 
-<p><strong>deque 之 push_back</strong></p>
+<p><strong>deque 之 push_back()</strong></p>
 <blockquote>
 <pre><code class="cpp">void push_back(const value_type&amp; __x) &#123;
     // 最后 buffer 还有2个及以上的元素备用空间
@@ -1753,7 +1753,7 @@ _M_push_back_aux(_Args&amp;&amp;... __args) &#123;
     __throw_length_error(
     __N(&quot;cannot create std::deque larger than max_size()&quot;));
 
-  _M_reserve_map_at_back();            // 如果符合某种条件，必须重换一个 map
+  _M_reserve_map_at_back();            // 如果中控器后端节点不足，必须重换一个 map
   // 配置一个新的节点（新 buffer 块）
   *(this-&gt;_M_impl._M_finish._M_node + 1) = this-&gt;_M_allocate_node();
   __try &#123;
@@ -1771,7 +1771,7 @@ _M_push_back_aux(_Args&amp;&amp;... __args) &#123;
   &#125;
 &#125;
 
-// 重新分配中控器空间
+// 中控器后端节点不足，重新分配中控器空间
 void _M_reserve_map_at_back(size_type __nodes_to_add = 1) &#123;
   if (__nodes_to_add + 1 &gt; this-&gt;_M_impl._M_map_size
       - (this-&gt;_M_impl._M_finish._M_node - this-&gt;_M_impl._M_map))
@@ -1785,32 +1785,67 @@ void _M_reserve_map_at_back(size_type __nodes_to_add = 1) &#123;
 
 <br/>
 
-<p><strong>deque 之 push_front</strong></p>
+<p><strong>deque 之 pop_back()</strong></p>
+<blockquote>
+<pre><code class="cpp">void pop_back() _GLIBCXX_NOEXCEPT &#123;
+  __glibcxx_requires_nonempty();
+  // 最后一个 buffer 有一个或者更多的元素
+  if (this-&gt;_M_impl._M_finish._M_cur
+      != this-&gt;_M_impl._M_finish._M_first) &#123;
+    --this-&gt;_M_impl._M_finish._M_cur;                // 调整 finish.cur 指针
+    // 析构最后一个元素
+    _Alloc_traits::destroy(this-&gt;_M_impl,
+                           this-&gt;_M_impl._M_finish._M_cur);
+  &#125;
+  // 最后一个 buffer 没有任何元素
+  else
+    _M_pop_back_aux(); // 释放 buffer 操作
+&#125;
+
+// 当 finish 指向的 buffer 没有任何一个元素时调用
+template &lt;typename _Tp, typename _Alloc&gt;
+void deque&lt;_Tp, _Alloc&gt;::
+_M_pop_back_aux() &#123;
+  // 释放最后一个 buffer
+  _M_deallocate_node(this-&gt;_M_impl._M_finish._M_first);
+  // 调整 finish 指向上一个 buffer
+  this-&gt;_M_impl._M_finish._M_set_node(this-&gt;_M_impl._M_finish._M_node - 1);
+  // 找到 buffer（原来倒数第二个 buffer 块） 的最后一个元素
+  this-&gt;_M_impl._M_finish._M_cur = this-&gt;_M_impl._M_finish._M_last - 1;
+  // 析构元素
+  _Alloc_traits::destroy(_M_get_Tp_allocator(),
+                         this-&gt;_M_impl._M_finish._M_cur);
+&#125;
+</code></pre>
+</blockquote>
+<br/>
+
+<p><strong>deque 之 push_front()</strong></p>
 <blockquote>
 <pre><code class="cpp">void push_front(const value_type&amp; __x) &#123;
-  // 第一个 buffer 有元素备用空间
-  if (this-&gt;_M_impl._M_start._M_cur != this-&gt;_M_impl._M_start._M_first) &#123;
-    _Alloc_traits::construct(this-&gt;_M_impl,
-                             this-&gt;_M_impl._M_start._M_cur - 1,
-                             __x);
-    --this-&gt;_M_impl._M_start._M_cur;    // 调整 第一块 buffer 使用状态
-  &#125;
-  else
-    _M_push_front_aux(__x);        // 第一个 buffer 已无元素备用空间
+// 第一个 buffer 有元素备用空间
+if (this-&gt;_M_impl._M_start._M_cur != this-&gt;_M_impl._M_start._M_first) &#123;
+ _Alloc_traits::construct(this-&gt;_M_impl,
+                          this-&gt;_M_impl._M_start._M_cur - 1,
+                          __x);
+ --this-&gt;_M_impl._M_start._M_cur;    // 调整 第一块 buffer 使用状态
+&#125;
+else
+ _M_push_front_aux(__x);        // 第一个 buffer 已无元素备用空间
 &#125;
 
 template&lt;typename... _Args&gt;
 void deque&lt;_Tp, _Alloc&gt;::_M_push_front_aux(_Args&amp;&amp;... __args) &#123;
-  if (size() == max_size())
-    __throw_length_error(
-    __N(&quot;cannot create std::deque larger than max_size()&quot;));
+if (size() == max_size())
+ __throw_length_error(
+ __N(&quot;cannot create std::deque larger than max_size()&quot;));
 
-  _M_reserve_map_at_front();  // 符合某种条件需要重新分配中控器空间
-  // 配置一个新的节点（新 buffer 块）
-  *(this-&gt;_M_impl._M_start._M_node - 1) = this-&gt;_M_allocate_node();
-  __try &#123;
-    // 改变 start 指向新的 buffer 块
-    this-&gt;_M_impl._M_start._M_set_node(this-&gt;_M_impl._M_start._M_node
+_M_reserve_map_at_front();  // 如果中控器前端节点不足，重新分配中控器空间
+// 配置一个新的节点（新 buffer 块）
+*(this-&gt;_M_impl._M_start._M_node - 1) = this-&gt;_M_allocate_node();
+__try &#123;
+ // 改变 start 指向新的 buffer 块
+ this-&gt;_M_impl._M_start._M_set_node(this-&gt;_M_impl._M_start._M_node
                                        - 1);
     // start 的 cur 指向 新插入元素
     this-&gt;_M_impl._M_start._M_cur = this-&gt;_M_impl._M_start._M_last - 1;
@@ -1823,15 +1858,369 @@ void deque&lt;_Tp, _Alloc&gt;::_M_push_front_aux(_Args&amp;&amp;... __args) &#12
     // ...
   &#125;
 &#125;
+
+// 中控器前端节点不足，重新分配中控器空间
+void _M_reserve_map_at_front(size_type __nodes_to_add = 1) &#123;
+  if (__nodes_to_add &gt; size_type(this-&gt;_M_impl._M_start._M_node
+                                 - this-&gt;_M_impl._M_map))
+    _M_reallocate_map(__nodes_to_add, true);
+&#125;
 </code></pre>
 </blockquote>
 <br/>
 
+<img title="push_front" src ="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/BlogImages/STL/deque-push-front.png">
+
 <br/>
 
-<h3 id="stack"><a href="#stack" class="headerlink" title="stack"></a>stack</h3><br/>
+<p><strong>deque 之 pop_front()</strong></p>
+<blockquote>
+<pre><code class="cpp">void pop_front() _GLIBCXX_NOEXCEPT &#123;
+  __glibcxx_requires_nonempty();
+  // 第一个 buffer 有超过1个元素
+  if (this-&gt;_M_impl._M_start._M_cur
+      != this-&gt;_M_impl._M_start._M_last - 1) &#123;
+    _Alloc_traits::destroy(this-&gt;_M_impl,
+                           this-&gt;_M_impl._M_start._M_cur);
+    ++this-&gt;_M_impl._M_start._M_cur;
+  &#125;
+  // 第一个 buffer 仅有一个元素，涉及 buffer 释放 
+  else
+    _M_pop_front_aux();
+&#125;
 
-<h3 id="queue"><a href="#queue" class="headerlink" title="queue"></a>queue</h3><br/>
+// 当第一个 buffer 仅有一个元素时，会调用
+template &lt;typename _Tp, typename _Alloc&gt;
+void deque&lt;_Tp, _Alloc&gt;::
+_M_pop_front_aux() &#123;
+  // 将第一个 buffer 仅剩的唯一一个元素析构
+  _Alloc_traits::destroy(_M_get_Tp_allocator(),
+                         this-&gt;_M_impl._M_start._M_cur);
+  // 释放第一个 buffer
+  _M_deallocate_node(this-&gt;_M_impl._M_start._M_first);
+  // 调整 迭代器 start 的状态指向原来第2个 buffer 块
+  this-&gt;_M_impl._M_start._M_set_node(this-&gt;_M_impl._M_start._M_node + 1);
+  //
+  this-&gt;_M_impl._M_start._M_cur = this-&gt;_M_impl._M_start._M_first;
+&#125;
+</code></pre>
+</blockquote>
+<br/>
+
+<p><strong>重新配置中控器</strong></p>
+<blockquote>
+<pre><code class="cpp">template &lt;typename _Tp, typename _Alloc&gt;
+void
+deque&lt;_Tp, _Alloc&gt;::
+_M_reallocate_map(size_type __nodes_to_add, bool __add_at_front) &#123;
+  const size_type __old_num_nodes
+    = this-&gt;_M_impl._M_finish._M_node - this-&gt;_M_impl._M_start._M_node + 1;
+  const size_type __new_num_nodes = __old_num_nodes + __nodes_to_add;
+
+  _Map_pointer __new_nstart;
+  if (this-&gt;_M_impl._M_map_size &gt; 2 * __new_num_nodes) &#123;
+    __new_nstart = this-&gt;_M_impl._M_map + (this-&gt;_M_impl._M_map_size
+                                           - __new_num_nodes) / 2
+      + (__add_at_front ? __nodes_to_add : 0);
+    if (__new_nstart &lt; this-&gt;_M_impl._M_start._M_node)
+      std::copy(this-&gt;_M_impl._M_start._M_node,
+                this-&gt;_M_impl._M_finish._M_node + 1,
+                __new_nstart);
+    else
+      std::copy_backward(this-&gt;_M_impl._M_start._M_node,
+                         this-&gt;_M_impl._M_finish._M_node + 1,
+                         __new_nstart + __old_num_nodes);
+  &#125; else &#123;
+    size_type __new_map_size = this-&gt;_M_impl._M_map_size
+      + std::max(this-&gt;_M_impl._M_map_size,
+                 __nodes_to_add) + 2;
+        // 配置一块新的空间， 准备给新的 map （中控器）使用
+    _Map_pointer __new_map = this-&gt;_M_allocate_map(__new_map_size);
+    __new_nstart = __new_map + (__new_map_size - __new_num_nodes) / 2
+      + (__add_at_front ? __nodes_to_add : 0);
+    // 拷贝原 中控器 内容
+    std::copy(this-&gt;_M_impl._M_start._M_node,
+              this-&gt;_M_impl._M_finish._M_node + 1,
+              __new_nstart);
+    // 释放原 map（中控器）
+    _M_deallocate_map(this-&gt;_M_impl._M_map, this-&gt;_M_impl._M_map_size);
+        // 新 map （中控器）的起始地址和大小
+    this-&gt;_M_impl._M_map = __new_map;
+    this-&gt;_M_impl._M_map_size = __new_map_size;
+  &#125;
+    // 重新设置 start、finish 迭代器
+  this-&gt;_M_impl._M_start._M_set_node(__new_nstart);
+  this-&gt;_M_impl._M_finish._M_set_node(__new_nstart + __old_num_nodes - 1);
+&#125;
+</code></pre>
+</blockquote>
+<br/>
+
+<p><strong>deque 之 insert()</strong></p>
+<blockquote>
+<pre><code class="cpp">template &lt;typename _Tp, typename _Alloc&gt;
+typename deque&lt;_Tp, _Alloc&gt;::iterator
+  deque&lt;_Tp, _Alloc&gt;::
+insert(const_iterator __position, const value_type&amp; __x) &#123;
+  // 如果插入点是 deque 的最前端
+  if (__position._M_cur == this-&gt;_M_impl._M_start._M_cur) &#123;
+    // 交给 push_front() 做
+    push_front(__x);
+    return this-&gt;_M_impl._M_start;
+  &#125;
+  // 如果插入点是 deque 的最尾端
+  else if (__position._M_cur == this-&gt;_M_impl._M_finish._M_cur) &#123;
+    // 交给 push_back() 做
+    push_back(__x);
+    iterator __tmp = this-&gt;_M_impl._M_finish;
+    --__tmp;
+    return __tmp;
+  &#125;
+  else
+    return _M_insert_aux(__position._M_const_cast(), __x);
+&#125;
+
+
+template&lt;typename _Tp, typename _Alloc&gt;
+template&lt;typename... _Args&gt;
+typename deque&lt;_Tp, _Alloc&gt;::iterator
+  deque&lt;_Tp, _Alloc&gt;::_M_insert_aux(iterator __pos, _Args&amp;&amp;... __args) &#123;
+    value_type __x_copy(std::forward&lt;_Args&gt;(__args)...);
+        // 插入点之前的元素个数
+    difference_type __index = __pos - this-&gt;_M_impl._M_start;
+    //如果插入点之前的元素较少
+    if (static_cast&lt;size_type&gt;(__index) &lt; size() / 2) &#123;
+      //  push_front 进行一个前端元素的添加
+      push_front(_GLIBCXX_MOVE(front()));
+      iterator __front1 = this-&gt;_M_impl._M_start;
+      ++__front1;
+      iterator __front2 = __front1;
+      ++__front2;
+      __pos = this-&gt;_M_impl._M_start + __index;
+      iterator __pos1 = __pos;
+      ++__pos1;
+      // 将插入点之前的元素前移，腾出1个元素空间
+      _GLIBCXX_MOVE3(__front2, __pos1, __front1);
+    &#125; else &#123;
+      //  push_back 进行一个后端元素的添加
+      push_back(_GLIBCXX_MOVE(back()));
+      iterator __back1 = this-&gt;_M_impl._M_finish;
+      --__back1;
+      iterator __back2 = __back1;
+      --__back2;
+      __pos = this-&gt;_M_impl._M_start + __index;
+      // 将插入点后面的元素再往后移，腾出1个元素空间
+      _GLIBCXX_MOVE_BACKWARD3(__pos, __back2, __back1);
+    &#125;
+    // 插入点设置新值
+    *__pos = _GLIBCXX_MOVE(__x_copy);
+    return __pos;
+&#125;
+</code></pre>
+</blockquote>
+<br/>
+
+<p><strong>deque 之 erase()</strong></p>
+<blockquote>
+<pre><code class="cpp">// 按个擦除
+template &lt;typename _Tp, typename _Alloc&gt;
+typename deque&lt;_Tp, _Alloc&gt;::iterator
+  deque&lt;_Tp, _Alloc&gt;::
+_M_erase(iterator __position) &#123;
+  iterator __next = __position;
+  ++__next;
+  // 擦除点之前的元素个数
+  const difference_type __index = __position - begin();
+  // 如果擦除点之前的元素个数较少
+  if (static_cast&lt;size_type&gt;(__index) &lt; (size() &gt;&gt; 1)) &#123;
+    // 前移擦除点之前的元素，只有调用 pop_front()
+    if (__position != begin())
+      _GLIBCXX_MOVE_BACKWARD3(begin(), __position, __next);
+    pop_front();
+  &#125; else &#123;
+    // 擦除点之后的元素个数较少
+    // 前移擦除点之后的元素，只有调用 pop_back()
+    if (__next != end())
+      _GLIBCXX_MOVE3(__next, end(), __position);
+    pop_back();
+  &#125;
+  return begin() + __index;
+&#125;
+
+// 按区间擦除
+template &lt;typename _Tp, typename _Alloc&gt;
+typename deque&lt;_Tp, _Alloc&gt;::iterator
+  deque&lt;_Tp, _Alloc&gt;::
+_M_erase(iterator __first, iterator __last) &#123;
+  if (__first == __last)
+    return __first;
+  // 擦除区间是真个 deque
+  else if (__first == begin() &amp;&amp; __last == end()) &#123;
+    clear();
+    return end();
+  &#125; else &#123;
+    // 计算擦除区间长度
+    const difference_type __n = __last - __first;
+    const difference_type __elems_before = __first - begin();
+    // 如果要擦除区间前面的元素较少
+    if (static_cast&lt;size_type&gt;(__elems_before) &lt;= (size() - __n) / 2) &#123;
+      // 后移前方的元素
+      if (__first != begin())
+        _GLIBCXX_MOVE_BACKWARD3(begin(), __first, __last);
+      // 析构 冗余的元素
+      _M_erase_at_begin(begin() + __n);
+    &#125; else &#123;
+      // 前移后方的元素
+      if (__last != end())
+        _GLIBCXX_MOVE3(__last, end(), __first);
+      // 析构 冗余的元素
+      _M_erase_at_end(end() - __n);
+    &#125;
+    return begin() + __elems_before;
+  &#125;
+&#125;
+
+// 将冗余的 buffer 释放
+void _M_erase_at_begin(iterator __pos) &#123;
+  _M_destroy_data(begin(), __pos, _M_get_Tp_allocator());
+  _M_destroy_nodes(this-&gt;_M_impl._M_start._M_node, __pos._M_node);
+  this-&gt;_M_impl._M_start = __pos; // 设置 deque 新起点
+&#125;
+
+// 将冗余的 buffer 释放
+void _M_erase_at_end(iterator __pos) &#123;
+  _M_destroy_data(__pos, end(), _M_get_Tp_allocator());
+  _M_destroy_nodes(__pos._M_node + 1,
+                   this-&gt;_M_impl._M_finish._M_node + 1);
+  this-&gt;_M_impl._M_finish = __pos; // 设置 deque 新尾点
+&#125;
+</code></pre>
+</blockquote>
+<br/>
+
+<p><strong>deque 之 clear()</strong></p>
+<blockquote>
+<pre><code class="cpp">void clear() _GLIBCXX_NOEXCEPT &#123; 
+  _M_erase_at_end(begin()); 
+&#125;
+</code></pre>
+</blockquote>
+<br/>
+
+<h3 id="stack"><a href="#stack" class="headerlink" title="stack"></a>stack</h3><p><code>属于 container adaptor，可以指定其他支持 back()、push_back()、pop_back() 接口的容器作为 stack 的内部结构，如：std::stack&lt;int, std::list&lt;int&gt;&gt; linkedStack &#123; 1, 2, 3, 4, 5 &#125;。</code></p>
+<blockquote>
+<pre><code class="cpp">/*   
+*  This is not a true container, but an @e adaptor.  It holds
+   *  another container, and provides a wrapper interface to that
+   *  container.  The wrapper is what enforces strict
+   *  first-in-last-out %stack behavior.
+   *
+   *  The second template parameter defines the type of the underlying
+   *  sequence/container.  It defaults to std::deque, but it can be
+   *  any type that supports @c back, @c push_back, and @c pop_back,
+   *  such as std::list, std::vector, or an appropriate user-defined
+   *  type.
+*/
+template&lt;typename _Tp, typename _Sequence = deque&lt;_Tp&gt; &gt;
+class stack &#123;
+public:
+  typedef typename _Sequence::value_type        value_type;
+  typedef typename _Sequence::reference        reference;
+  typedef typename _Sequence::const_reference    const_reference;
+  typedef typename _Sequence::size_type        size_type;
+  typedef           _Sequence            container_type;
+  _GLIBCXX_NODISCARD bool
+    empty() const
+  &#123; return c.empty(); &#125;
+
+  size_type size() const
+  &#123; return c.size(); &#125;
+
+  reference top() &#123;
+    __glibcxx_requires_nonempty();
+    return c.back();
+  &#125;
+  
+  const_reference top() const &#123;
+    __glibcxx_requires_nonempty();
+    return c.back();
+  &#125;
+    
+  template&lt;typename... _Args&gt;
+  decltype(auto) emplace(_Args&amp;&amp;... __args) &#123; 
+    return c.emplace_back(std::forward&lt;_Args&gt;(__args)...); 
+  &#125;
+
+  template&lt;typename _Tp, typename _Seq&gt;
+  inline bool
+  operator==(const stack&lt;_Tp, _Seq&gt;&amp; __x, const stack&lt;_Tp, _Seq&gt;&amp; __y)
+  &#123; return __x.c == __y.c; &#125;
+  
+  template&lt;typename _Tp, typename _Seq&gt;
+  inline bool
+  operator&lt;(const stack&lt;_Tp, _Seq&gt;&amp; __x, const stack&lt;_Tp, _Seq&gt;&amp; __y)
+  &#123; return __x.c &lt; __y.c; &#125;
+  
+  // ...
+protected:
+  //  See queue::c for notes on this name.
+  _Sequence c;
+&#125;;
+</code></pre>
+</blockquote>
+<br/>
+
+<h3 id="queue"><a href="#queue" class="headerlink" title="queue"></a>queue</h3><p><code>同理，属于 container adaptor，可以指定其他支持 back()、push_back()、pop_back() 接口的容器作为 queue 的内部结构，如：std::queue&lt;int, std::list&lt;int&gt;&gt; linkedQueue &#123; 1, 2, 3, 4, 5 &#125;。</code></p>
+<blockquote>
+<pre><code class="cpp">template&lt;typename _Tp, typename _Sequence = deque&lt;_Tp&gt; &gt;
+class queue &#123;
+public:
+  typedef typename    _Sequence::value_type        value_type;
+  typedef typename    _Sequence::reference        reference;
+  typedef typename    _Sequence::const_reference    const_reference;
+  typedef typename    _Sequence::size_type        size_type;
+  typedef        _Sequence            container_type;
+  
+  _GLIBCXX_NODISCARD bool empty() const
+  &#123; return c.empty(); &#125;
+
+  size_type  size() const
+  &#123; return c.size(); &#125;
+  
+  reference front() &#123;
+    __glibcxx_requires_nonempty();
+    return c.front();
+  &#125;
+  
+  reference back() &#123;
+    __glibcxx_requires_nonempty();
+    return c.back();
+  &#125;
+
+  void push(const value_type&amp; __x)
+  &#123; c.push_back(__x); &#125;
+  
+  void pop() &#123;
+    __glibcxx_requires_nonempty();
+    c.pop_front();
+  &#125;
+  
+  template&lt;typename _Tp, typename _Seq&gt;
+  inline bool
+  operator==(const queue&lt;_Tp, _Seq&gt;&amp; __x, const queue&lt;_Tp, _Seq&gt;&amp; __y)
+  &#123; return __x.c == __y.c; &#125;
+  
+  template&lt;typename _Tp, typename _Seq&gt;
+  inline bool
+  operator&lt;(const queue&lt;_Tp, _Seq&gt;&amp; __x, const queue&lt;_Tp, _Seq&gt;&amp; __y)
+  &#123; return __x.c &lt; __y.c; &#125;
+
+protected:
+  _Sequence c;
+&#125;;
+</code></pre>
+</blockquote>
+<br/>
 
 <h2 id="heap"><a href="#heap" class="headerlink" title="heap"></a>heap</h2><br/>
 
