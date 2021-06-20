@@ -243,7 +243,7 @@
 
     
         <meta property="article:published_time" content="Sun Jun 06 2021 23:43:09 GMT+0800">
-        <meta property="article:modified_time" content="Sun Jun 20 2021 21:21:47 GMT+0800">
+        <meta property="article:modified_time" content="Sun Jun 20 2021 23:26:29 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -266,7 +266,7 @@
     "mainEntityOfPage": "http://example.com/2021/06/06/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E5%BA%8F%E5%88%97%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88sequence%20containers%EF%BC%89/index.html",
     "headline": "拆书系列之《STL源码剖析》序列式容器（sequence containers）",
     "datePublished": "Sun Jun 06 2021 23:43:09 GMT+0800",
-    "dateModified": "Sun Jun 20 2021 21:21:47 GMT+0800",
+    "dateModified": "Sun Jun 20 2021 23:26:29 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -2107,7 +2107,9 @@ void _M_erase_at_end(iterator __pos) &#123;
 </blockquote>
 <br/>
 
-<h3 id="stack"><a href="#stack" class="headerlink" title="stack"></a>stack</h3><p><code>属于 container adaptor，可以指定其他支持 back()、push_back()、pop_back() 接口的容器作为 stack 的内部结构，如：std::stack&lt;int, std::list&lt;int&gt;&gt; linkedStack &#123; 1, 2, 3, 4, 5 &#125;。</code></p>
+<h3 id="stack"><a href="#stack" class="headerlink" title="stack"></a>stack</h3><p><code>属于 container adaptor，可以指定其他支持 back()、push_back()、pop_back() 接口的容器作为 stack 的内部结构，如：std::stack&lt;int, std::list&lt;int&gt;&gt; linkedStack 。</code></p>
+<img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/BlogImages/STL/stack.png">
+
 <blockquote>
 <pre><code class="cpp">/*   
 *  This is not a true container, but an @e adaptor.  It holds
@@ -2170,7 +2172,9 @@ protected:
 </blockquote>
 <br/>
 
-<h3 id="queue"><a href="#queue" class="headerlink" title="queue"></a>queue</h3><p><code>同理，属于 container adaptor，可以指定其他支持 back()、push_back()、pop_back() 接口的容器作为 queue 的内部结构，如：std::queue&lt;int, std::list&lt;int&gt;&gt; linkedQueue &#123; 1, 2, 3, 4, 5 &#125;。</code></p>
+<h3 id="queue"><a href="#queue" class="headerlink" title="queue"></a>queue</h3><p><code>同理，属于 container adaptor，可以指定其他支持 back()、push_back()、pop_back() 接口的容器作为 queue 的内部结构，如：std::queue&lt;int, std::list&lt;int&gt;&gt; linkedQueue 。</code></p>
+<img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/BlogImages/STL/queue.png">
+
 <blockquote>
 <pre><code class="cpp">template&lt;typename _Tp, typename _Sequence = deque&lt;_Tp&gt; &gt;
 class queue &#123;
@@ -2222,7 +2226,9 @@ protected:
 </blockquote>
 <br/>
 
-<h2 id="heap"><a href="#heap" class="headerlink" title="heap"></a>heap</h2><br/>
+<h2 id="heap"><a href="#heap" class="headerlink" title="heap"></a>heap</h2><p><code>非 STL 容器组件，作为 priority_queue 的底层机制。</code></p>
+<p><code>binary heap 是 complete binary tree（完全二叉树）的数组实现。</code></p>
+<br/>
 
 <h3 id="priority-queue"><a href="#priority-queue" class="headerlink" title="priority_queue"></a>priority_queue</h3><br/>
 
