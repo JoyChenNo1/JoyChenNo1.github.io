@@ -243,7 +243,7 @@
 
     
         <meta property="article:published_time" content="Sun Jun 06 2021 23:43:09 GMT+0800">
-        <meta property="article:modified_time" content="Sun Jun 27 2021 18:56:45 GMT+0800">
+        <meta property="article:modified_time" content="Sun Jun 27 2021 21:33:03 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -266,7 +266,7 @@
     "mainEntityOfPage": "http://example.com/2021/06/06/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E5%BA%8F%E5%88%97%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88sequence%20containers%EF%BC%89/index.html",
     "headline": "拆书系列之《STL源码剖析》序列式容器（sequence containers）",
     "datePublished": "Sun Jun 06 2021 23:43:09 GMT+0800",
-    "dateModified": "Sun Jun 27 2021 18:56:45 GMT+0800",
+    "dateModified": "Sun Jun 27 2021 21:33:03 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -350,7 +350,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E5%BA%8F%E5%88%97%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88sequence-containers%EF%BC%89"><span class="post-toc-number">1.</span> <span class="post-toc-text">《STL源码剖析》序列式容器（sequence containers）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#vector"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">vector</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#vector-%E4%BB%A3%E7%A0%81%E6%91%98%E8%A6%81%EF%BC%88GCC-%E7%89%88%E6%9C%AC%EF%BC%89"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">vector 代码摘要（GCC 版本）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#vector-%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">vector 的迭代器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#vector-%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="post-toc-number">1.1.3.</span> <span class="post-toc-text">vector 的数据结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#vector-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="post-toc-number">1.1.4.</span> <span class="post-toc-text">vector 初始化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#vector-%E4%B9%8B-insert"><span class="post-toc-number">1.1.5.</span> <span class="post-toc-text">vector 之 insert()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#vector-%E4%B9%8B-erase"><span class="post-toc-number">1.1.6.</span> <span class="post-toc-text">vector 之 erase()</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#list"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">list</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#list-%E8%8A%82%E7%82%B9"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">list 节点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#list-%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">list 迭代器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#list-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">list 数据结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#list-%E4%B9%8B-unique"><span class="post-toc-number">1.2.4.</span> <span class="post-toc-text">list 之 unique()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#list-%E4%B9%8B-erase"><span class="post-toc-number">1.2.5.</span> <span class="post-toc-text">list 之 erase()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#transfer"><span class="post-toc-number">1.2.6.</span> <span class="post-toc-text">transfer()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#list-%E4%B9%8B-splice"><span class="post-toc-number">1.2.7.</span> <span class="post-toc-text">list 之 splice()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#list-%E4%B9%8B-merge"><span class="post-toc-number">1.2.8.</span> <span class="post-toc-text">list 之 merge()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#list-%E4%B9%8B-reverse"><span class="post-toc-number">1.2.9.</span> <span class="post-toc-text">list 之 reverse()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#list-%E4%B9%8B-sort"><span class="post-toc-number">1.2.10.</span> <span class="post-toc-text">list 之 sort()</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#deque"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">deque</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#deque-%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">deque 迭代器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#deque-%E5%88%9B%E5%BB%BA"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">deque 创建</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#deque-%E4%B9%8B-push-back"><span class="post-toc-number">1.3.3.</span> <span class="post-toc-text">deque 之 push_back()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#deque-%E4%B9%8B-pop-back"><span class="post-toc-number">1.3.4.</span> <span class="post-toc-text">deque 之 pop_back()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#deque-%E4%B9%8B-push-front"><span class="post-toc-number">1.3.5.</span> <span class="post-toc-text">deque 之 push_front()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#deque-%E4%B9%8B-pop-front"><span class="post-toc-number">1.3.6.</span> <span class="post-toc-text">deque 之 pop_front()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%87%8D%E6%96%B0%E9%85%8D%E7%BD%AE%E4%B8%AD%E6%8E%A7%E5%99%A8"><span class="post-toc-number">1.3.7.</span> <span class="post-toc-text">重新配置中控器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#deque-%E4%B9%8B-insert"><span class="post-toc-number">1.3.8.</span> <span class="post-toc-text">deque 之 insert()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#deque-%E4%B9%8B-erase"><span class="post-toc-number">1.3.9.</span> <span class="post-toc-text">deque 之 erase()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#deque-%E4%B9%8B-clear"><span class="post-toc-number">1.3.10.</span> <span class="post-toc-text">deque 之 clear()</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#stack"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">stack</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#queue"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">queue</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#heap"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">heap</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#push-heap"><span class="post-toc-number">1.6.1.</span> <span class="post-toc-text">push_heap()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#pop-heap"><span class="post-toc-number">1.6.2.</span> <span class="post-toc-text">pop_heap()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#sort-heap"><span class="post-toc-number">1.6.3.</span> <span class="post-toc-text">sort_heap()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#make-heap"><span class="post-toc-number">1.6.4.</span> <span class="post-toc-text">make_heap()</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#priority-queue"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">priority_queue</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#slist"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">slist</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E5%BA%8F%E5%88%97%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88sequence-containers%EF%BC%89"><span class="post-toc-number">1.</span> <span class="post-toc-text">《STL源码剖析》序列式容器（sequence containers）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#vector"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">vector</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#vector-%E4%BB%A3%E7%A0%81%E6%91%98%E8%A6%81%EF%BC%88GCC-%E7%89%88%E6%9C%AC%EF%BC%89"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">vector 代码摘要（GCC 版本）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#vector-%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">vector 的迭代器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#vector-%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="post-toc-number">1.1.3.</span> <span class="post-toc-text">vector 的数据结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#vector-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="post-toc-number">1.1.4.</span> <span class="post-toc-text">vector 初始化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#vector-%E4%B9%8B-insert"><span class="post-toc-number">1.1.5.</span> <span class="post-toc-text">vector 之 insert()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#vector-%E4%B9%8B-erase"><span class="post-toc-number">1.1.6.</span> <span class="post-toc-text">vector 之 erase()</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#list"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">list</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#list-%E8%8A%82%E7%82%B9"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">list 节点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#list-%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">list 迭代器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#list-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">list 数据结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#list-%E4%B9%8B-unique"><span class="post-toc-number">1.2.4.</span> <span class="post-toc-text">list 之 unique()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#list-%E4%B9%8B-erase"><span class="post-toc-number">1.2.5.</span> <span class="post-toc-text">list 之 erase()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#transfer"><span class="post-toc-number">1.2.6.</span> <span class="post-toc-text">transfer()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#list-%E4%B9%8B-splice"><span class="post-toc-number">1.2.7.</span> <span class="post-toc-text">list 之 splice()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#list-%E4%B9%8B-merge"><span class="post-toc-number">1.2.8.</span> <span class="post-toc-text">list 之 merge()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#list-%E4%B9%8B-reverse"><span class="post-toc-number">1.2.9.</span> <span class="post-toc-text">list 之 reverse()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#list-%E4%B9%8B-sort"><span class="post-toc-number">1.2.10.</span> <span class="post-toc-text">list 之 sort()</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#deque"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">deque</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#deque-%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">deque 迭代器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#deque-%E5%88%9B%E5%BB%BA"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">deque 创建</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#deque-%E4%B9%8B-push-back"><span class="post-toc-number">1.3.3.</span> <span class="post-toc-text">deque 之 push_back()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#deque-%E4%B9%8B-pop-back"><span class="post-toc-number">1.3.4.</span> <span class="post-toc-text">deque 之 pop_back()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#deque-%E4%B9%8B-push-front"><span class="post-toc-number">1.3.5.</span> <span class="post-toc-text">deque 之 push_front()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#deque-%E4%B9%8B-pop-front"><span class="post-toc-number">1.3.6.</span> <span class="post-toc-text">deque 之 pop_front()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%87%8D%E6%96%B0%E9%85%8D%E7%BD%AE%E4%B8%AD%E6%8E%A7%E5%99%A8"><span class="post-toc-number">1.3.7.</span> <span class="post-toc-text">重新配置中控器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#deque-%E4%B9%8B-insert"><span class="post-toc-number">1.3.8.</span> <span class="post-toc-text">deque 之 insert()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#deque-%E4%B9%8B-erase"><span class="post-toc-number">1.3.9.</span> <span class="post-toc-text">deque 之 erase()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#deque-%E4%B9%8B-clear"><span class="post-toc-number">1.3.10.</span> <span class="post-toc-text">deque 之 clear()</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#stack"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">stack</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#queue"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">queue</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#heap"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">heap</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#push-heap"><span class="post-toc-number">1.6.1.</span> <span class="post-toc-text">push_heap()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#pop-heap"><span class="post-toc-number">1.6.2.</span> <span class="post-toc-text">pop_heap()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#sort-heap"><span class="post-toc-number">1.6.3.</span> <span class="post-toc-text">sort_heap()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#make-heap"><span class="post-toc-number">1.6.4.</span> <span class="post-toc-text">make_heap()</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#priority-queue"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">priority_queue</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#slist"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">slist</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#slist-%E7%9A%84%E8%8A%82%E7%82%B9%E5%92%8C%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="post-toc-number">1.8.1.</span> <span class="post-toc-text">slist 的节点和迭代器数据结构</span></a></li></ol></li></ol></li></ol>
     </ul>
     
 
@@ -2462,11 +2462,107 @@ public:
 </blockquote>
 <br/>
 
-
-
 <br/>
 
 <h2 id="slist"><a href="#slist" class="headerlink" title="slist"></a>slist</h2><br/>
+
+<table>
+<thead>
+<tr>
+<th align="center">slist</th>
+<th align="center">list</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">singly linked list</td>
+<td align="center">double linked list</td>
+</tr>
+<tr>
+<td align="center">Forward Iterator</td>
+<td align="center">Bidirectional Iterator</td>
+</tr>
+<tr>
+<td align="center">头插法插入新元素，只提供 <strong>push_front()</strong></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<br/>
+
+<h3 id="slist-的节点和迭代器数据结构"><a href="#slist-的节点和迭代器数据结构" class="headerlink" title="slist 的节点和迭代器数据结构"></a>slist 的节点和迭代器数据结构</h3><blockquote>
+<pre><code class="cpp">struct _Slist_node_base &#123;
+      _Slist_node_base* _M_next;
+&#125;;
+
+template &lt;class _Tp&gt;
+struct _Slist_node : public _Slist_node_base &#123;
+      _Tp _M_data;
+&#125;;
+
+struct _Slist_iterator_base &#123;
+    typedef size_t                    size_type;
+    typedef ptrdiff_t                 difference_type;
+    typedef std::forward_iterator_tag iterator_category;
+
+    _Slist_node_base* _M_node;
+
+    _Slist_iterator_base(_Slist_node_base* __x) : _M_node(__x) &#123;&#125;
+
+    void _M_incr() &#123; 
+      _M_node = _M_node-&gt;_M_next; 
+    &#125;
+
+    bool operator==(const _Slist_iterator_base&amp; __x) const &#123; 
+      return _M_node == __x._M_node; 
+    &#125;
+
+    bool operator!=(const _Slist_iterator_base&amp; __x) const &#123; 
+      return _M_node != __x._M_node; 
+    &#125;
+&#125;;
+
+template &lt;class _Tp, class _Ref, class _Ptr&gt;
+struct _Slist_iterator : public _Slist_iterator_base &#123;
+    typedef _Slist_iterator&lt;_Tp, _Tp&amp;, _Tp*&gt;             iterator;
+    typedef _Slist_iterator&lt;_Tp, const _Tp&amp;, const _Tp*&gt; const_iterator;
+    typedef _Slist_iterator&lt;_Tp, _Ref, _Ptr&gt;             _Self;
+
+    typedef _Tp              value_type;
+    typedef _Ptr             pointer;
+    typedef _Ref             reference;
+    typedef _Slist_node&lt;_Tp&gt; _Node;
+
+    explicit _Slist_iterator(_Node* __x) : _Slist_iterator_base(__x) &#123;&#125;
+
+    _Slist_iterator() : _Slist_iterator_base(0) &#123;&#125;
+
+    _Slist_iterator(const iterator&amp; __x) : _Slist_iterator_base(__x._M_node) &#123;&#125;
+
+    reference operator*() const &#123; 
+      return ((_Node*) _M_node)-&gt;_M_data; 
+    &#125;
+
+    pointer operator-&gt;() const &#123; 
+      return &amp;(operator*()); 
+    &#125;
+
+    _Self&amp; operator++() &#123;
+      _M_incr();
+      return *this;
+    &#125;
+
+    _Self operator++(int) &#123;
+      _Self __tmp = *this;
+      _M_incr();
+      return __tmp;
+    &#125;
+&#125;;
+</code></pre>
+</blockquote>
+<br/>
+
+
+
+<br/>
 
         
     
