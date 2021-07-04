@@ -42,7 +42,7 @@ a {
     font-weight: 300;
 }
 .mdl-button {
-    font-family: Roboto, 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+    font-family: Roboto, monaco, 'Microsoft YaHei', '微软雅黑', Arial;
 }
 .mdl-menu__item {
     font-weight: 300;
@@ -1132,6 +1132,8 @@ a {
 #scheme-Paradox .more {
     margin-left: 1pc
 }
+
+#scheme-Paradox #bottom,
 #scheme-Paradox #top {
     width: 0;
     height: 0;
@@ -2424,7 +2426,7 @@ a {
     font-feature-settings: 'liga'
 }
 /**************/
-/* Footer_Top */
+/* Footer_Top/bottom */
 /**************/
 
 #back-to-top{
@@ -2435,25 +2437,44 @@ a {
     transition: background-color .18s cubic-bezier(.6,0,.1,1),box-shadow .18s cubic-bezier(.6,0,.1,1),transform .18s cubic-bezier(.6,0,.1,1);
     z-index: 8;
 }
+
+#back-to-bottom{
+    display: block;
+    position: fixed;
+    bottom: 24px;
+    right: -41px;
+    transition: background-color .18s cubic-bezier(.6,0,.1,1),box-shadow .18s cubic-bezier(.6,0,.1,1),transform .18s cubic-bezier(.6,0,.1,1);
+    z-index: 8;
+}
+
+#back-to-bottom.btt-visible,
 #back-to-top.btt-visible{
     transform: translate(-64px, 0);
 }
+
+#back-to-bottom.btt-docked,
 #back-to-top.btt-docked{
     position: absolute;
     bottom: 100px;
 }
 @media screen and (max-width: 840px) {
+    #back-to-bottom {
+        bottom: 50px;
+    }
     #back-to-top{
         bottom: 24px;
     }
+    #back-to-bottom.btt-visible,
     #back-to-top.btt-visible{
         transform: translate(-60px, 0);
     }
+    #back-to-bottom.btt-docked,
     #back-to-top.btt-docked{
         position: absolute;
         bottom: 180px;
     }
 }
+.toBottom,
 .toTop {
     display: block;
     width: 40px;
@@ -2471,13 +2492,16 @@ a {
     position: relative;
     overflow: hidden
 }
+.toBottom:hover,
 .toTop:hover {
     box-shadow: 0 0 4px rgba(0, 0, 0, .14), 0 4px 8px rgba(0, 0, 0, .28);
 }
+.toBottom i,
 .toTop i {
     font-size: 24px;
     margin: 8px;
 }
+.footer_bottom-i,
 .footer_top-i {
     width: 24px;
     height: 24px;
