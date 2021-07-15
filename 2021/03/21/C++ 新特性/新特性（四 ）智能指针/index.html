@@ -243,7 +243,7 @@
 
     
         <meta property="article:published_time" content="Sun Mar 21 2021 23:37:48 GMT+0800">
-        <meta property="article:modified_time" content="Fri Jun 18 2021 23:52:44 GMT+0800">
+        <meta property="article:modified_time" content="Fri Jul 16 2021 07:29:30 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -266,7 +266,7 @@
     "mainEntityOfPage": "http://example.com/2021/03/21/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E5%9B%9B%20%EF%BC%89%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/index.html",
     "headline": "C++1x 新特性（四）智能指针",
     "datePublished": "Sun Mar 21 2021 23:37:48 GMT+0800",
-    "dateModified": "Fri Jun 18 2021 23:52:44 GMT+0800",
+    "dateModified": "Fri Jul 16 2021 07:29:30 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -350,7 +350,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#C-1x-%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E5%9B%9B%EF%BC%89%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="post-toc-number">1.</span> <span class="post-toc-text">C++1x 新特性（四）智能指针</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#RAII-%EF%BC%88%E8%B5%84%E6%BA%90%E8%8E%B7%E5%8F%96%E5%8D%B3%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%89"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">RAII （资源获取即初始化）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-shared-ptr"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">std::shared_ptr</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-unique-ptr"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">std::unique_ptr</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-weak-ptr"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">std::weak_ptr</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#C-1x-%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E5%9B%9B%EF%BC%89%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="post-toc-number">1.</span> <span class="post-toc-text">C++1x 新特性（四）智能指针</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#RAII-%EF%BC%88%E8%B5%84%E6%BA%90%E8%8E%B7%E5%8F%96%E5%8D%B3%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%89"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">RAII （资源获取即初始化）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#auto-ptr"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">auto_ptr</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-shared-ptr"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">std::shared_ptr</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-unique-ptr"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">std::unique_ptr</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-weak-ptr"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">std::weak_ptr</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-enable-shared-from-this"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">std::enable_shared_from_this</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">注意事项</span></a></li></ol></li></ol>
     </ul>
     
 
@@ -506,12 +506,93 @@
 
 <br/>
 
-<h2 id="RAII-（资源获取即初始化）"><a href="#RAII-（资源获取即初始化）" class="headerlink" title="RAII （资源获取即初始化）"></a><strong>RAII （资源获取即初始化）</strong></h2><p><code>存在的问题：存在中途抛出异常等情况导致 new 和 delete 带来的的内存泄露问题。 </code></p>
+<h2 id="RAII-（资源获取即初始化）"><a href="#RAII-（资源获取即初始化）" class="headerlink" title="RAII （资源获取即初始化）"></a><strong>RAII （资源获取即初始化）</strong></h2><p><code>存在中途抛出异常等情况导致 new 和 delete 带来的的内存泄露问题。 </code></p>
 <br/>
 
 <br/>
 
-<h2 id="std-shared-ptr"><a href="#std-shared-ptr" class="headerlink" title="std::shared_ptr"></a><strong>std::shared_ptr</strong></h2><p><code>std::shared_ptr 通过 get() 获取原始指针， reset() 减少一个引用计数， get_count()查看一个对象当前的引用计数。 </code></p>
+<h2 id="auto-ptr"><a href="#auto-ptr" class="headerlink" title="auto_ptr"></a>auto_ptr</h2><p><code>C++98提供的智能指针，现在废弃，用具有基本相同效果、更高安全性的 unique_ptr 替代。</code></p>
+<table>
+<thead>
+<tr>
+<th>auto_ptr</th>
+<th>unique_ptr</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>对于数组类型只会调用 delete 释放</td>
+<td>可以正确处理数组类型，会调用 delete[] 释放</td>
+</tr>
+<tr>
+<td>std::auto_ptr<int> p(new int);                                            std::auto_ptr<int> p2 = p;  // 隐式移交所有权</td>
+<td>std::unique_ptr<int> p(new int); std::unique_ptr<int> p2 = std::move(p);  // 显式移交所有权</td>
+</tr>
+</tbody></table>
+<br/>
+
+<br/>
+
+<h2 id="std-shared-ptr"><a href="#std-shared-ptr" class="headerlink" title="std::shared_ptr"></a><strong>std::shared_ptr</strong></h2><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>make_shared<T>(args)</td>
+<td>工厂构造函数</td>
+</tr>
+<tr>
+<td>p = q</td>
+<td>p 和 q 可以互相转换的智能指针，该操作会减少 p 的引用计数， 增加 q 的引用计数，如果 p 的引用计数为 0，会释放当前 p 指向的对象。</td>
+</tr>
+<tr>
+<td>shared_ptr<T> p(q)</td>
+<td>q 可以转换成 T* 类型，智能指针 p 是 q 的拷贝，这会增加 q 的引用计数。</td>
+</tr>
+<tr>
+<td>p.unique()</td>
+<td>如果p.use_count == 1, 返回 <code>true</code> （C++17 deprecated, C++20 removed）</td>
+</tr>
+<tr>
+<td>p.use_count()</td>
+<td>查看对象当前的引用计数</td>
+</tr>
+</tbody></table>
+<br/>
+
+<p><strong>可以这么实现一个 share_ptr</strong></p>
+<blockquote>
+<pre><code class="cpp">
+</code></pre>
+</blockquote>
+<br/>
+
+<p><strong>shared_ptr 引用计数</strong></p>
+<blockquote>
+<pre><code class="cpp">// GCC, c++/9/bits/shared_ptr_base.h
+template&lt;typename _Tp, _Lock_policy _Lp&gt;
+class __shared_ptr : public __shared_ptr_access&lt;_Tp, _Lp&gt; &#123;
+      element_type*       _M_ptr;         // Contained pointer.
+      __shared_count&lt;_Lp&gt;  _M_refcount;    // Reference counter.
+&#125;;
+
+template&lt;_Lock_policy _Lp&gt;
+class __shared_count &#123;
+    _Sp_counted_base&lt;_Lp&gt;*  _M_pi;
+&#125;；
+
+template&lt;_Lock_policy _Lp = __default_lock_policy&gt;
+class _Sp_counted_base : public _Mutex_base&lt;_Lp&gt; &#123;
+    _Atomic_word  _M_use_count;     // #shared
+    _Atomic_word  _M_weak_count;    // #weak + (#shared != 0)
+&#125;；
+</code></pre>
+</blockquote>
+<br/>
+
+<p><code>std::shared_ptr 通过 get() 获取原始指针， reset() 减少一个引用计数， get_count()查看一个对象当前的引用计数。 </code></p>
 <blockquote>
 <pre><code class="c++">// 记录有多少个share_ptr共同指向一个对象
 #include &lt;memory&gt;
@@ -568,9 +649,37 @@ p3.use_count() = 0
 </blockquote>
 <br/>
 
+
+
 <br/>
 
-<h2 id="std-unique-ptr"><a href="#std-unique-ptr" class="headerlink" title="std::unique_ptr"></a><strong>std::unique_ptr</strong></h2><p><code>是一种独占指针，禁止其他智能指针与其共享同一个对象，从而保证代码安全。</code></p>
+<h2 id="std-unique-ptr"><a href="#std-unique-ptr" class="headerlink" title="std::unique_ptr"></a><strong>std::unique_ptr</strong></h2><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>unique_ptr&lt;T, D&gt;u</td>
+<td>D 为指定的释放方法用于替代 delete</td>
+</tr>
+<tr>
+<td>u.release()</td>
+<td>u 让出 对所持对象的控制权，返回出来，并置 u 为 nullptr</td>
+</tr>
+<tr>
+<td>u.reset()</td>
+<td>删除 u 指向对象</td>
+</tr>
+<tr>
+<td>u.reset(q)</td>
+<td>如果 q 有效 令 u 指向 q</td>
+</tr>
+</tbody></table>
+<br/>
+
+<p><code>是一种独占指针，禁止其他智能指针与其共享同一个对象，从而保证代码安全。</code></p>
 <p><code>独占，意味着，不可复制。但是，我们可以利用 std::move() 移交给其他 unique_ptr。</code></p>
 <blockquote>
 <pre><code class="c++">#include &lt;memory&gt;
@@ -600,10 +709,94 @@ p1移交独占权后，为空！
 
 <br/>
 
-<h2 id="std-weak-ptr"><a href="#std-weak-ptr" class="headerlink" title="std::weak_ptr"></a><strong>std::weak_ptr</strong></h2><p><code>std::weak_ptr 要解决的是 std::shared_ptr存在的强引用带来的的资源无法释放的问题。 </code></p>
+<h2 id="std-weak-ptr"><a href="#std-weak-ptr" class="headerlink" title="std::weak_ptr"></a><strong>std::weak_ptr</strong></h2><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>weak_ptr<T> w(sp)</td>
+<td>sp 为可以和 T 互转的 shared_ptr</td>
+</tr>
+<tr>
+<td>w.reset()</td>
+<td>让 w 为空</td>
+</tr>
+<tr>
+<td>w.expired()</td>
+<td>如果 w.use_count() == 0， 返回 <code>true</code></td>
+</tr>
+<tr>
+<td>w.lock()</td>
+<td>如果 expired() 为 <code>true</code>,返回 nullptr， 否则返回 w 所指向对象的 shared_ptr</td>
+</tr>
+</tbody></table>
+<br/>
+
+<blockquote>
+<pre><code class="cpp">shared_ptr&lt;_Tp&gt; lock() const noexcept &#123; 
+    return shared_ptr&lt;_Tp&gt;(*this, std::nothrow); 
+&#125;
+</code></pre>
+</blockquote>
+<br/>
+
+<blockquote>
+<pre><code class="cpp">if (const auto sp(w.lock()); sp) &#123;
+    cout &lt;&lt; &quot;对象不为空&quot;;
+&#125; else &#123;
+    cout &lt;&lt; &quot;nullptr&quot;；
+&#125;
+</code></pre>
+</blockquote>
+<br/>
+
+<p><code>std::weak_ptr 要解决的是 std::shared_ptr存在的强引用带来的的资源无法释放的问题。 </code></p>
 <p><code>没有 * 和 -&gt; 运算符，所以不能够对资源进行操作，expired() 在资源未被释放时返回 true。</code></p>
 <br/>
 
+<p><strong>循环引用例子</strong></p>
+<blockquote>
+<pre><code class="cpp">#include &lt;iostream&gt;
+#include &lt;memory&gt;
+using namespace std;
+
+class B;
+
+class A &#123;
+public:
+    A() &#123; cout &lt;&lt; &quot;A()&quot; &lt;&lt; endl; &#125;
+    ~A() &#123; cout &lt;&lt; &quot;~A()&quot; &lt;&lt; endl; &#125;
+    shared_ptr&lt;B&gt; b; // 指向 B 对象的智能指针
+&#125;;
+
+class B &#123;
+public:
+    B() &#123; cout &lt;&lt; &quot;B()&quot; &lt;&lt; endl; &#125;
+    ~B() &#123; cout &lt;&lt; &quot;~B()&quot; &lt;&lt; endl; &#125;
+    shared_ptr&lt;A&gt; a; // 指向 A 对象的智能指针
+&#125;;
+
+int main() &#123;
+    shared_ptr&lt;A&gt; ptra(new A());// a 指向 A 对象，A 的引用计数为 1
+    shared_ptr&lt;B&gt; ptrb(new B());// b 指向 B 对象，B 的引用计数为 1
+    ptra-&gt;b = b;// A 对象的成员变量_ptrb也指向 B 对象，B 的引用计数为 2
+    ptrb-&gt;a = a;// B 对象的成员变量_ptra也指向 A 对象，A 的引用计数为 2
+
+    cout &lt;&lt; ptra.use_count() &lt;&lt; endl; // 打印A的引用计数结果:2
+    cout &lt;&lt; ptrb.use_count() &lt;&lt; endl; // 打印B的引用计数结果:2
+
+    /*
+    离开 main 函数作用域，ptra 和 ptrb 两个局部对象析构，分别给 A 对象和
+     B 对象的引用计数从 2 减到 1，达不到释放 A 和 B 的条件（释放的条件是
+    A 和 B 的引用计数为 0，因此造成两个new出来的A和B对象无法释放，导致内存泄露
+    */
+    return 0;
+&#125;
+</code></pre>
+</blockquote>
 <p><strong>a 、b 被销毁后，A，B依然被强引用无法释放</strong></p>
 <img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/BlogImages/C%2B%2B%E6%96%B0%E7%89%B9%E6%80%A7/pointers1_en.png">
 
@@ -612,6 +805,48 @@ p1移交独占权后，为空！
 <p><strong>使用弱引用指针 std::weak_ptr， 不会引起引用计数的增加。</strong></p>
 <img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/BlogImages/C%2B%2B%E6%96%B0%E7%89%B9%E6%80%A7/pointers2.png">
 
+<br/>
+
+<p><strong>weak_ptr 是怎么解决 循环引用的问题？</strong></p>
+<blockquote>
+<pre><code class="cpp">//GCC,  c++/9/bits/shared_ptr_base.h
+template&lt;typename _Tp, _Lock_policy _Lp&gt;
+class __weak_ptr &#123;
+    // ...
+    __weak_count&lt;_Lp&gt;  _M_refcount;    // Reference counter.
+&#125;;
+
+template&lt;_Lock_policy _Lp&gt;
+class __weak_count &#123;
+    // ... 
+    _Sp_counted_base&lt;_Lp&gt;*  _M_pi;
+&#125;;
+
+// _Sp_counted_base 引用计数对象有 2 种计数
+// 1. use_count 统计有多少 shared_ptr 指向资源对象
+// 2. weak_count 统计有多少 weak_ptr 指向资源对象
+template&lt;_Lock_policy _Lp = __default_lock_policy&gt;
+class _Sp_counted_base : public _Mutex_base&lt;_Lp&gt; &#123;
+    // ...
+    _Atomic_word  _M_use_count;     // #shared
+    _Atomic_word  _M_weak_count;    // #weak + (#shared != 0)
+&#125;;
+
+long use_count() const noexcept &#123;
+    // Returns: 0 if *this is empty; 
+    // otherwise, the number of shared_ptr instances that share ownership
+    // with *this.
+&#125;
+
+bool expired() const noexcept &#123;
+    // Returns: use_count() == 0.
+&#125;
+
+shared_ptr&lt;T&gt; lock() const noexcept &#123;
+    // Returns: expired() ? shared_ptr&lt;T&gt;() : shared_ptr&lt;T&gt;(*this), executed atomically.
+&#125;
+</code></pre>
+</blockquote>
 <br/>
 
 <blockquote>
@@ -627,55 +862,56 @@ class B;
 
 class A &#123;
 public:
-     std::shared_ptr&lt;B&gt; ptr_b;
-     ~A() &#123;
-           LOG(&quot;A 被销毁。&quot;);
-     &#125;
+  std::shared_ptr&lt;B&gt; ptr_b;
+  ~A() &#123;
+        LOG(&quot;A 被销毁。&quot;);
+  &#125;
 &#125;;
 
 class B &#123;
 public:
-     std::shared_ptr&lt;A&gt; ptr_a;
-     ~B() &#123;
-           LOG(&quot;B 被销毁。&quot;);
-     &#125;
+  std::shared_ptr&lt;A&gt; ptr_a;
+  ~B() &#123;
+        LOG(&quot;B 被销毁。&quot;);
+  &#125;
 &#125;;
 
 void strong_referrence() &#123;
-     auto a = std::make_shared&lt;A&gt;();
-     auto b = std::make_shared&lt;B&gt;();
+  auto a = std::make_shared&lt;A&gt;();
+  auto b = std::make_shared&lt;B&gt;();
 
-     // 存在循环引用，不会调用各自的析构函数
-     a-&gt;ptr_b = b;
-     b-&gt;ptr_a = a;
+  // 存在循环引用
+  // use_count() 永远不会等于 0, 不会调用各自的析构函数
+  a-&gt;ptr_b = b;
+  b-&gt;ptr_a = a;
 &#125;
 
 int main() &#123;
-     strong_referrence(); // 强引用存在的情况
+  strong_referrence(); // 强引用存在的情况
 
-     std::weak_ptr&lt;int&gt; weak_p;
+  std::weak_ptr&lt;int&gt; weak_p;
 
-     // std::weak_ptr 没有 * 运算符 和 -&gt; 运算符，不能够对资源进行操作
-     // expired() 方法 用于判断资源是否被释放
-     auto observer = [&amp;] () &#123;
-           if (auto ptr = weak_p.lock()) &#123;
-               LOG(*ptr);
-           &#125; else &#123;
-               LOG(&quot;资源被释放!&quot;);
-           &#125;
-     &#125;;
+  // std::weak_ptr 没有 * 运算符 和 -&gt; 运算符，不能够对资源进行操作
+  // expired() 方法 用于判断资源是否被释放
+  auto observer = [&amp;] () &#123;
+        if (auto ptr = weak_p.lock()) &#123;
+            LOG(*ptr);
+        &#125; else &#123;
+            LOG(&quot;资源被释放!&quot;);
+        &#125;
+  &#125;;
 
-     &#123;
-           LOG(&quot;进入某个作用域赋值。&quot;);
-           auto p1 = std::make_shared&lt;int&gt;(100);
-           weak_p = p1;
-           observer();
-           LOG(&quot;离开某个作用域。&quot;);
-     &#125;
+  &#123;
+        LOG(&quot;进入某个作用域赋值。&quot;);
+        auto p1 = std::make_shared&lt;int&gt;(100);
+        weak_p = p1;
+        observer();
+        LOG(&quot;离开某个作用域。&quot;);
+  &#125;
 
-     observer();
+  observer();
 
-     return 0;
+  return 0;
 &#125;
 </code></pre>
 </blockquote>
@@ -687,6 +923,84 @@ int main() &#123;
 资源被释放!
 </code></pre>
 </blockquote>
+<br/>
+
+<h2 id="std-enable-shared-from-this"><a href="#std-enable-shared-from-this" class="headerlink" title="std::enable_shared_from_this"></a>std::enable_shared_from_this</h2><ul>
+<li><code>shared_from_this()</code> 返回 一个指向 <code>this</code> 的  <code>shared_ptr</code>。</li>
+<li><code>weak_from_this()</code> 返回一个指向 <code>this</code> 的 <code>weak_ptr</code>。</li>
+<li><code>A class T can inherit from enable_shared_from_this&lt;T&gt; to inherit the shared_from_this member functions that obtain a shared_ptr instance pointing to *this.</code></li>
+</ul>
+<br/>
+
+<p><strong>要解决的问题</strong></p>
+<ul>
+<li><p>当类 A 被 <code>shared_ptr</code> 管理，且在类 A 的成员函数里需要把当前类对象作为参数传给其他函数时，就需要传递一个指向自身的 <code>share_ptr</code>。为了防止智能指针的语义被破坏，不直接传递 <code>this</code> 指针。</p>
+</li>
+<li><p>不直接传递 <code>shared_ptr&lt;this&gt;</code>，因为这样会造成多个非共享的 <code>shared_ptr</code> 指向同一个对象，未增加引用计数导对象被析构多次，如下：</p>
+<blockquote>
+<pre><code class="cpp">
+#include &lt;memory&gt;
+#include &lt;iostream&gt;
+ 
+class Bad &#123;
+public:
+    std::shared_ptr&lt;Bad&gt; getptr() &#123;
+        return std::shared_ptr&lt;Bad&gt;(this);
+    &#125;
+    ~Bad() &#123; std::cout &lt;&lt; &quot;Bad::~Bad() called&quot; &lt;&lt; std::endl; &#125;
+&#125;;
+ 
+int main() &#123;
+    // 错误点：每个 shared_ptr 都认为自己是对象仅有的所有者
+    std::shared_ptr&lt;Bad&gt; bp1(new Bad());
+    std::shared_ptr&lt;Bad&gt; bp2 = bp1-&gt;getptr();
+    // 打印bp1和bp2的引用计数
+    std::cout &lt;&lt; &quot;bp1.use_count() = &quot; &lt;&lt; bp1.use_count() &lt;&lt; std::endl; // 1
+    std::cout &lt;&lt; &quot;bp2.use_count() = &quot; &lt;&lt; bp2.use_count() &lt;&lt; std::endl; // 1
+&#125;
+</code></pre>
+</blockquote>
+</li>
+</ul>
+<br/>
+
+<p><strong>使用方式</strong></p>
+<blockquote>
+<pre><code class="cpp">class MyObject : public std::enable_shared_from_this&lt;MyObject&gt; &#123;
+public:
+    std::shared_ptr&lt;MyObject&gt; pointer() &#123; return shared_from_this(); &#125;
+&#125;;
+
+int main() &#123;
+    auto p1 = std::make_shared&lt;MyObject&gt;();
+    auto p2 = p1-&gt;pointer();
+    auto p3 = p1-&gt;shared_from_this();
+    
+    MyObject unshared;
+    auto p4 = unshared.shared_from_this(); // Throws std::bad_weak_ptr
+    return 0;
+&#125;
+</code></pre>
+</blockquote>
+<br/>
+
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p><strong>对动态数组使用只能指针</strong></p>
+<table>
+<thead>
+<tr>
+<th>unique_ptr&lt;int[]&gt; up(new int[10]);</th>
+<th>shared_ptr<int> sp(new int[10], [](int *p) { delete[] p; });</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>可以 up[i] 索引访问</td>
+<td></td>
+</tr>
+<tr>
+<td>up.release() 会自动使用 delete[] 删除</td>
+<td>sp.reset(), 调用自定义的 deleter.</td>
+</tr>
+</tbody></table>
 
         
     

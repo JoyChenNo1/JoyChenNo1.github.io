@@ -243,7 +243,7 @@
 
     
         <meta property="article:published_time" content="Sun Jun 06 2021 23:43:09 GMT+0800">
-        <meta property="article:modified_time" content="Fri Jul 09 2021 00:56:09 GMT+0800">
+        <meta property="article:modified_time" content="Sun Jul 11 2021 00:14:14 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -266,7 +266,7 @@
     "mainEntityOfPage": "http://example.com/2021/06/06/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E5%BA%8F%E5%88%97%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88sequence%20containers%EF%BC%89/index.html",
     "headline": "拆书系列之《STL源码剖析》序列式容器（sequence containers）",
     "datePublished": "Sun Jun 06 2021 23:43:09 GMT+0800",
-    "dateModified": "Fri Jul 09 2021 00:56:09 GMT+0800",
+    "dateModified": "Sun Jul 11 2021 00:14:14 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -2353,13 +2353,13 @@ void __adjust_heap(_RandomAccessIterator __first, _Distance __holeIndex,
 <pre><code class="cpp">template&lt;typename _RandomAccessIterator, typename _Compare&gt;
 void __sort_heap(_RandomAccessIterator __first, _RandomAccessIterator __last,
                  _Compare&amp; __comp) &#123;
-  // 执行一次 __pop_heap()，（根据__comp比较策略）极值放在尾端
-  // 再执行一次 __pop_heap()，次极值放在新的尾端，
-  // 如此下去，最后得到的便是排好序的区间 [first, last)
-  while (__last - __first &gt; 1) &#123;
-    --__last;
-    std::__pop_heap(__first, __last, __last, __comp);
-  &#125;
+    // 执行一次 __pop_heap()，（根据__comp比较策略）极值放在尾端
+    // 再执行一次 __pop_heap()，次极值放在新的尾端，
+    // 如此下去，最后得到的便是排好序的区间 [first, last)
+    while (__last - __first &gt; 1) &#123;
+       --__last;
+       std::__pop_heap(__first, __last, __last, __comp);
+    &#125;
 &#125;
 </code></pre>
 </blockquote>
@@ -2561,9 +2561,9 @@ struct _Slist_iterator : public _Slist_iterator_base &#123;
   &#125;
 
   _Self operator++(int) &#123;
-   _Self __tmp = *this;
-   _M_incr();        // 前进一个节点
-   return __tmp;
+     _Self __tmp = *this;
+     _M_incr();        // 前进一个节点
+     return __tmp;
   &#125;
 &#125;;
 </code></pre>
