@@ -243,7 +243,7 @@
 
     
         <meta property="article:published_time" content="Sun Mar 21 2021 23:37:48 GMT+0800">
-        <meta property="article:modified_time" content="Sat Jul 17 2021 11:19:22 GMT+0800">
+        <meta property="article:modified_time" content="Sat Jul 17 2021 12:47:29 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -266,7 +266,7 @@
     "mainEntityOfPage": "http://example.com/2021/03/21/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E5%9B%9B%20%EF%BC%89%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/index.html",
     "headline": "C++1x 新特性（四）智能指针",
     "datePublished": "Sun Mar 21 2021 23:37:48 GMT+0800",
-    "dateModified": "Sat Jul 17 2021 11:19:22 GMT+0800",
+    "dateModified": "Sat Jul 17 2021 12:47:29 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -563,113 +563,8 @@
 <br/>
 
 <p><strong>可以这么实现一个 share_ptr</strong></p>
-<blockquote>
-<pre><code class="cpp">// 简单实现一个 shared_ptr
+<div class="tag-common tabs" id="代码实现"><ul class="nav-tabs"></ul><div class="tab-content"></div></div>
 
-#include &lt;iostream&gt;
-
-class RefCount &#123;
-public:
-    RefCount() :　use_count(0) &#123;
-    &#125;
-
-    RefCount(const RefCount&amp;) = delete;
-
-    RefCount&amp; operator=(const RefCount&amp;) = delete;
-
-    ~RefCount() &#123;&#125;
-
-    void reset() &#123;
-        use_count_ = 0;
-    &#125;
-
-    unsigned int use_count() &#123;
-        return use_count_;
-    &#125;
-
-    // 重载前置/后置自增
-    void operator++() &#123;
-      ++use_count_;
-    &#125;
- 
-    void operator++(int) &#123;
-      use_count_++;
-    &#125;
- 
-    // 重载前置/后置自减
-    void operator--() &#123;
-      --use_count_;
-    &#125;
-
-    void operator--(int) &#123;
-      use_count_--;
-    &#125;
-
-    // 重载 &lt;&lt; 操作
-    friend operator &lt;&lt; (std::ostream&amp; os, const RefCount&amp; RefCount) &#123;
-        os &lt;&lt; &quot;当前引用值为: &quot; &lt;&lt; RefCount.use_count_ &lt;&lt; std::endl;
-        return os;
-    &#125;
-
-private:
-    unsigned int use_count_ &#123;&#125;;
-    // usinged int weak_count_ &#123;&#125;;
-&#125;; 
-
-template &lt;typename T&gt;
-class SharedPtr &#123;
-    // 显式构造
-    explicit SharedPtr(T* ptr = nullptr) &#123;
-        raw_ptr_ = ptr;
-        ref_count_ = new RefCount();
-        if(ptr) &#123;
-            (*ref_count_)++;
-        &#125;
-    &#125;
-
-    // 拷贝构造
-    SharedPtr(cconst SharedPtr&amp; sp) &#123;
-        raw_ptr_ = sp.raw_ptr_;
-        ref_count_ = sp.ref_count_;
-        ++(*ref_count_);
-    &#125;
-
-    T* get() &#123;
-        return raw_ptr_;
-    &#125;
-
-    unsigned int use_count() &#123;
-        return ref_count_-&gt;use_count();
-    &#125;
-
-    ~SharedPtr() &#123;
-        --(*ref_count_);
-        if(ref_count_-&gt;use_count() == 0) &#123;
-            delete ref_count_;
-            delete raw_ptr_;
-        &#125;
-    &#125;
-
-    T&amp; operator*() &#123;
-        return *raw_ptr_;
-    &#125;
-
-    T* operator-&gt;() &#123;
-        return raw_ptr_;
-    &#125;
-
-    friend operator &lt;&lt; (std::ostream&amp; os, const SharedPtr&amp; sp) &#123;
-        os &lt;&lt; &quot;所指对象地址： &quot; &lt;&lt; sp-&gt;get() &lt;&lt; std::endl;
-        os &lt;&lt; &quot;引用计数： &quot; &lt;&lt; (*sp.ref_count_) &lt;&lt; std::endl;
-        return os;
-    &#125;
-
-private:
-    T*              raw_ptr_ = nullptr;
-    RefCount*       ref_count_ = nullptr;
-&#125;;
-</code></pre>
-</blockquote>
 <br/>
 
 <p><strong>shared_ptr 引用计数</strong></p>
