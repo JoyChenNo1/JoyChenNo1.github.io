@@ -243,7 +243,7 @@
 
     
         <meta property="article:published_time" content="Sun Mar 21 2021 23:37:48 GMT+0800">
-        <meta property="article:modified_time" content="Sat Jul 17 2021 12:47:29 GMT+0800">
+        <meta property="article:modified_time" content="Tue Jul 20 2021 20:55:02 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -266,7 +266,7 @@
     "mainEntityOfPage": "http://example.com/2021/03/21/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E5%9B%9B%20%EF%BC%89%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/index.html",
     "headline": "C++1x 新特性（四）智能指针",
     "datePublished": "Sun Mar 21 2021 23:37:48 GMT+0800",
-    "dateModified": "Sat Jul 17 2021 12:47:29 GMT+0800",
+    "dateModified": "Tue Jul 20 2021 20:55:02 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -350,7 +350,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#C-1x-%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E5%9B%9B%EF%BC%89%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="post-toc-number">1.</span> <span class="post-toc-text">C++1x 新特性（四）智能指针</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#RAII-%EF%BC%88%E8%B5%84%E6%BA%90%E8%8E%B7%E5%8F%96%E5%8D%B3%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%89"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">RAII （资源获取即初始化）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#auto-ptr"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">auto_ptr</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-shared-ptr"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">std::shared_ptr</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-unique-ptr"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">std::unique_ptr</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-weak-ptr"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">std::weak_ptr</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-enable-shared-from-this"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">std::enable_shared_from_this</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">注意事项</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#C-1x-%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E5%9B%9B%EF%BC%89%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="post-toc-number">1.</span> <span class="post-toc-text">C++1x 新特性（四）智能指针</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#RAII-%EF%BC%88%E8%B5%84%E6%BA%90%E8%8E%B7%E5%8F%96%E5%8D%B3%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%89"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">RAII （资源获取即初始化）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#auto-ptr"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">auto_ptr</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-shared-ptr"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">std::shared_ptr</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0-%E4%B8%80%E4%B8%AA-shared-ptr"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">简单实现 一个 shared_ptr</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-unique-ptr"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">std::unique_ptr</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-weak-ptr"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">std::weak_ptr</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-enable-shared-from-this"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">std::enable_shared_from_this</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">注意事项</span></a></li></ol></li></ol>
     </ul>
     
 
@@ -501,7 +501,10 @@
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
         <h1 id="C-1x-新特性（四）智能指针"><a href="#C-1x-新特性（四）智能指针" class="headerlink" title="C++1x 新特性（四）智能指针"></a>C++1x 新特性（四）智能指针</h1><p><code>本系列主要阐述依据：</code></p>
-<p>[<a target="_blank" rel="noopener" href="https://github.com/changkun/modern-cpp-tutorial]">https://github.com/changkun/modern-cpp-tutorial]</a>: 《Modern C++ Tutorial: C++11/14/17/20 On the Fly》</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/changkun/modern-cpp-tutorial">《Modern C++ Tutorial: C++11/14/17/20 On the Fly》</a></p>
+<p>关于只能指针的源码剖析：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43798887/article/details/116464334">https://blog.csdn.net/weixin_43798887/article/details/116464334</a>  </p>
+<p>​                                            <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/144593171">https://zhuanlan.zhihu.com/p/144593171</a>    </p>
+<p>​                                            <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b6ac02d406a0">https://www.jianshu.com/p/b6ac02d406a0</a></p>
 <br/>
 
 <br/>
@@ -562,8 +565,142 @@
 </tbody></table>
 <br/>
 
-<p><strong>可以这么实现一个 share_ptr</strong></p>
-<div class="tag-common tabs" id="代码实现"><ul class="nav-tabs"></ul><div class="tab-content"></div></div>
+<h3 id="简单实现-一个-shared-ptr"><a href="#简单实现-一个-shared-ptr" class="headerlink" title="简单实现 一个 shared_ptr"></a>简单实现 一个 shared_ptr</h3><div class="tag-common tabs" id="shared_ptr-的简单实现"><ul class="nav-tabs"><li class="tab active"><a href="#shared_ptr-的简单实现-1">代码实现</a></li><li class="tab"><a href="#shared_ptr-的简单实现-2">示例</a></li></ul><div class="tab-content"><div class="tab-pane active" id="shared_ptr-的简单实现-1"><pre><code class="cpp">// 简单实现一个 shared_ptr
+#include &lt;iostream&gt;
+
+class RefCount {
+public:
+    RefCount() : use_count_(0) {
+    }
+
+    RefCount(const RefCount&amp;) = delete;
+
+    RefCount&amp; operator=(const RefCount&amp;) = delete;
+
+    ~RefCount() {}
+
+    void reset() {
+        use_count_ = 0;
+    }
+
+    unsigned int use_count() {
+        return use_count_;
+    }
+
+    // 重载前置/后置自增
+    void operator++() {
+      ++use_count_;
+    }
+ 
+    void operator++(int) {
+      use_count_++;
+    }
+ 
+    // 重载前置/后置自减
+    void operator--() {
+      --use_count_;
+    }
+
+    void operator--(int) {
+      use_count_--;
+    }
+
+    // 重载 &lt;&lt; 操作
+    friend std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const RefCount&amp; c) {
+        os &lt;&lt; &quot;当前引用值为: &quot; &lt;&lt; c.use_count_ &lt;&lt; std::endl;
+        return os;
+    }
+
+private:
+    unsigned int use_count_ {};
+    // usinged int weak_count_ {};
+}; 
+
+template &lt;typename T&gt;
+class SharedPtr {
+public:
+    // 显式构造
+    explicit SharedPtr(T* ptr = nullptr) {
+        raw_ptr_ = ptr;
+        ref_count_ = new RefCount();
+        if(ptr) {
+            (*ref_count_)++;
+        }
+    }
+
+    // 拷贝构造
+    SharedPtr(const SharedPtr&amp; sp) {
+        raw_ptr_ = sp.raw_ptr_;
+        ref_count_ = sp.ref_count_;
+        ++(*ref_count_);
+    }
+
+    T* get() {
+        return raw_ptr_;
+    }
+
+    unsigned int use_count() {
+        return ref_count_-&gt;use_count();
+    }
+
+    ~SharedPtr() {
+        --(*ref_count_);
+        if(ref_count_-&gt;use_count() == 0) {
+            delete ref_count_;
+            delete raw_ptr_;
+        }
+    }
+
+    T&amp; operator*() {
+        return *raw_ptr_;
+    }
+
+    T* operator-&gt;() {
+        return raw_ptr_;
+    }
+
+    friend std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, SharedPtr&lt;T&gt;&amp; sp) {
+        os &lt;&lt; &quot;所指对象地址： &quot; &lt;&lt; sp.get() &lt;&lt; std::endl;
+        os &lt;&lt; &quot;引用计数： &quot; &lt;&lt; (*sp.ref_count_) &lt;&lt; std::endl;
+        return os;
+    }
+
+private:
+    T*              raw_ptr_ = nullptr;
+    RefCount*       ref_count_ = nullptr;
+};
+</code></pre></div><div class="tab-pane" id="shared_ptr-的简单实现-2"><pre><code class="cpp">#include &quot;SharedPtr.h&quot;
+#include &lt;iostream&gt;
+
+int main() {
+    SharedPtr&lt;int&gt; sp1(new int(10));
+    std::cout &lt;&lt; sp1;
+    {
+        std::cout &lt;&lt; &quot;进入局部作用域...\r\n\n&quot;;
+        SharedPtr&lt;int&gt; sp2(sp1);
+        std::cout &lt;&lt; sp1;
+        std::cout &lt;&lt; sp2;
+        std::cout &lt;&lt; &quot;离开局部作用域...\r\n\n&quot;;
+    }
+    std::cout &lt;&lt; sp1;
+    return 0;
+}
+</code></pre>
+<pre><code class="bash">$ ./TestSmartPointer 
+所指对象地址： 0x557de5ef9eb0
+引用计数： 当前引用值为: 1
+
+进入局部作用域...
+所指对象地址： 0x557de5ef9eb0
+引用计数： 当前引用值为: 2
+
+所指对象地址： 0x557de5ef9eb0
+引用计数： 当前引用值为: 2
+
+离开局部作用域...
+所指对象地址： 0x557de5ef9eb0
+引用计数： 当前引用值为: 1
+</code></pre></div></div></div>
 
 <br/>
 
@@ -700,8 +837,38 @@ p3.use_count() = 0
 </tbody></table>
 <br/>
 
+<p><strong>简单实现 unique_ptr</strong></p>
+<blockquote>
+<pre><code class="cpp">// TODO
+</code></pre>
+</blockquote>
+<br/>
+
 <p><code>是一种独占指针，禁止其他智能指针与其共享同一个对象，从而保证代码安全。</code></p>
 <p><code>独占，意味着，不可复制。但是，我们可以利用 std::move() 移交给其他 unique_ptr。</code></p>
+<blockquote>
+<pre><code class="cpp">/// Move constructor.
+unique_ptr(unique_ptr&amp;&amp; __u) noexcept
+    : _M_t(__u.release(), std::forward&lt;deleter_type&gt;(__u.get_deleter())) &#123; &#125;
+
+// Assignment.
+
+/** @brief Move assignment operator.
+*
+* @param __u  The object to transfer ownership from.
+*
+* Invokes the deleter first if this object owns a pointer.
+*/
+unique_ptr&amp; operator=(unique_ptr&amp;&amp; __u) noexcept &#123;
+    reset(__u.release());
+    get_deleter() = std::forward&lt;deleter_type&gt;(__u.get_deleter());
+    return *this;
+&#125;
+</code></pre>
+</blockquote>
+<br/>
+
+<p><strong>使用示例</strong></p>
 <blockquote>
 <pre><code class="c++">#include &lt;memory&gt;
 #include &lt;iostream&gt;
