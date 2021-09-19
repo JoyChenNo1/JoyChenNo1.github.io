@@ -3335,7 +3335,8 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
   width: 300px;
   max-width: 100%;
   margin: 0;
-  padding: 20px 0
+  padding: 20px 0;
+  background-color: #f5f5f5;
 }
 
 .mdl-textfield .mdl-button {
@@ -3367,11 +3368,13 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
   width: 100%;
   background: 16px;
   text-align: left;
-  color: inherit
+  color: #f5f5f5;
+  background-color: #f5f5f5;
 }
 
 .mdl-textfield.is-focused .mdl-textfield__input {
-  outline: 0
+  outline: 0;
+  background-color: #f5f5f5;
 }
 
 .mdl-textfield.is-invalid .mdl-textfield__input {
@@ -3380,7 +3383,7 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
 }
 
 .mdl-textfield.is-disabled .mdl-textfield__input {
-  background-color: transparent;
+  background-color: #f5f5f5;
   border-bottom: 1px dotted rgba(0, 0, 0, .12)
 }
 

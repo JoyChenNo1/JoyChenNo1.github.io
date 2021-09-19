@@ -508,38 +508,38 @@
 
 <h2 id="lambda"><a href="#lambda" class="headerlink" title="lambda"></a><strong>lambda</strong></h2><p><code>[捕获列表] (参数列表) mutable(可选) 异常属性 -&gt; 返回类型 &#123;       // 函数体 &#125;</code></p>
 <blockquote>
-<pre><code class="c++">#include &lt;iostream&gt;
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
 #include &lt;memory&gt;
 
 #define LOG(x) std::cout &lt;&lt; x &lt;&lt; std::endl
 
 void TestReferenceCapture() &#123;
 
-     int value = 1;
-     bool change = false;
+     int value &#x3D; 1;
+     bool change &#x3D; false;
 
-     auto value_capture = [=] () &#123;
+     auto value_capture &#x3D; [&#x3D;] () &#123;
          LOG(&quot;改变？&quot; + change + &quot; 值捕获： &quot; + value);
      &#125;;
-     auto reference_capture = [&amp;] () &#123;
+     auto reference_capture &#x3D; [&amp;] () &#123;
          LOG(&quot;改变？&quot; + change + &quot; 引用捕获： &quot; + value);
      &#125;;
 
-     // 改变kvalue的值
-     value = 10000;
-     change = true;
+     &#x2F;&#x2F; 改变kvalue的值
+     value &#x3D; 10000;
+     change &#x3D; true;
 
      value_capture();
      reference_capture();
 &#125;
 
-// C++14 表达式捕获
-// 允许捕获的成员用任意的表达式进行初始化，允许右值捕获
+&#x2F;&#x2F; C++14 表达式捕获
+&#x2F;&#x2F; 允许捕获的成员用任意的表达式进行初始化，允许右值捕获
 void TestRvalueCapture() &#123;
-     std::unique_ptr&lt;int&gt; important = std::make_unique&lt;int&gt;(10000);
+     std::unique_ptr&lt;int&gt; important &#x3D; std::make_unique&lt;int&gt;(10000);
 
-     // 泛型lambda since C++14, auto关键字产生意义上的泛型， 不需要 -&gt; 返回类型
-     auto add = [v1 = 1, v2 = std::move(important)] (int x, int y) /*-&gt; int*/ &#123;
+     &#x2F;&#x2F; 泛型lambda since C++14, auto关键字产生意义上的泛型， 不需要 -&gt; 返回类型
+     auto add &#x3D; [v1 &#x3D; 1, v2 &#x3D; std::move(important)] (int x, int y) &#x2F;*-&gt; int*&#x2F; &#123;
          return (*v2) + (x + y + v1);
      &#125;;
 
@@ -550,15 +550,13 @@ int main() &#123;
      TestReferenceCapture();
      TestRvalueCapture();
      return 0;
-&#125;
-</code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <blockquote>
-<pre><code class="bash">$ ./lambda 
-改变？0 值捕获： 1
-改变？1 引用捕获： 10000
-10008
-</code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ ./lambda 
+改变？0 值捕获： <span class="token number">1</span>
+改变？1 引用捕获： <span class="token number">10000</span>
+<span class="token number">10008</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
@@ -566,7 +564,7 @@ int main() &#123;
 
 <h2 id="move-semantics（移动语义）"><a href="#move-semantics（移动语义）" class="headerlink" title="move semantics（移动语义）"></a><strong>move semantics（移动语义）</strong></h2><p><code>移动语义的出现解决了传统C++没有区分移动和拷贝而导致造成大量数据复制的问题。</code></p>
 <blockquote>
-<pre><code class="c++">#include &lt;iostream&gt;
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
 #include &lt;string&gt;
 #include &lt;vector&gt;
 
@@ -574,19 +572,19 @@ int main() &#123;
 
 class A &#123;
 public:
-    int* ptr_ = nullptr;
+    int* ptr_ &#x3D; nullptr;
 
     A() : ptr_(new int(1)) &#123;
           LOG(&quot;默认构造&quot;  + ptr_ );
     &#125;
 
-    // 存在无意义的对象拷贝
+    &#x2F;&#x2F; 存在无意义的对象拷贝
     A(A&amp; a) : ptr_(new int(*a.ptr_)) &#123;
         LOG(&quot;拷贝构造&quot;  + ptr_);
     &#125;
 
     A(A&amp;&amp; a) : ptr_(a.ptr_) &#123;
-           a.ptr_ = nullptr;
+           a.ptr_ &#x3D; nullptr;
            LOG(&quot;移动构造&quot; + ptr_);
     &#125;
 
@@ -597,11 +595,11 @@ public:
 
 &#125;;
 
-// 这样定义能防止编译器优化
-// 函数返回后会产生一个将亡值，被A的移动构造 A(A&amp;&amp;) 引用，从而延长生命周期，
-// 并将这个右值中的指针拿到，保存到 A obj 中， 之后将亡值的指针会被置为 nullptr， 
-// 防止了这块内存域被销毁，
-// 从而别免了无意义的拷贝构造，增强性能。 
+&#x2F;&#x2F; 这样定义能防止编译器优化
+&#x2F;&#x2F; 函数返回后会产生一个将亡值，被A的移动构造 A(A&amp;&amp;) 引用，从而延长生命周期，
+&#x2F;&#x2F; 并将这个右值中的指针拿到，保存到 A obj 中， 之后将亡值的指针会被置为 nullptr， 
+&#x2F;&#x2F; 防止了这块内存域被销毁，
+&#x2F;&#x2F; 从而别免了无意义的拷贝构造，增强性能。 
 A Get_A(bool test) &#123;
       A a, b;
       return test ? a : b;
@@ -609,62 +607,59 @@ A Get_A(bool test) &#123;
 
 int main() &#123;
 
-      A obj = Get_A(false);
+      A obj &#x3D; Get_A(false);
       LOG(obj.ptr_);
       LOG(*obj.ptr_);
 
-      // std::vector 例子
-      std::string str = &quot;xxx&quot;;
+      &#x2F;&#x2F; std::vector 例子
+      std::string str &#x3D; &quot;xxx&quot;;
       std::vector&lt;std::string&gt; v;
 
       v.push_back(str);
-      // str 为 &quot;xxx&quot;
+      &#x2F;&#x2F; str 为 &quot;xxx&quot;
       LOG(&quot;拷贝传参后的str: &quot; + str);
-      // 如果使用如下，str将被置为空。
+      &#x2F;&#x2F; 如果使用如下，str将被置为空。
       v.push_back(std::move(str));
-      // str 为 &quot;&quot;
+      &#x2F;&#x2F; str 为 &quot;&quot;
       LOG(&quot;移动传参后的str: &quot; + str);
 
       return 0;
-&#125;
-</code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <blockquote>
-<pre><code class="bash">$ ./move_semantics 
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ ./move_semantics 
 默认构造0x5578c3559eb0
 默认构造0x5578c355a2e0
 拷贝构造0x5578c355a300
 析构0x5578c355a2e0
 析构0x5578c3559eb0
 0x5578c355a300
-1
+<span class="token number">1</span>
 拷贝传参后的str: xxx
 移动传参后的str: 
-析构0x5578c355a300
-</code></pre>
+析构0x5578c355a300<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
 <br/>
 
 <h2 id="std-bind"><a href="#std-bind" class="headerlink" title="std::bind"></a><strong>std::bind</strong></h2><blockquote>
-<pre><code class="c++">#include &lt;iostream&gt;
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
 #include &lt;functional&gt;
 
 int Calculate(int x, int y, bool is_add) &#123;
-        return is_add ? x + y : x * y;
+    	return is_add ? x + y : x * y;
 &#125;
 
-// 将部分调用参数提前提前绑定到函数身上，成为一个新的对象，
-// 然后在参数齐全后完成调用、
-// 使用std::placeholders::_1对第3位参数进行占位，如果多个占位，依次为_1, _2, _3, ...
+&#x2F;&#x2F; 将部分调用参数提前提前绑定到函数身上，成为一个新的对象，
+&#x2F;&#x2F; 然后在参数齐全后完成调用、
+&#x2F;&#x2F; 使用std::placeholders::_1对第3位参数进行占位，如果多个占位，依次为_1, _2, _3, ...
 
 int main() &#123;
-        auto bind_calculate = std::bind(Calculate, 3, 4, std::placeholders::_1);
+        auto bind_calculate &#x3D; std::bind(Calculate, 3, 4, std::placeholders::_1);
         std::cout &lt;&lt; bind_calculate(false) &lt;&lt; std::endl;
         return 0;
-&#125;
-</code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
@@ -706,7 +701,7 @@ int main() &#123;
 <br/>
 
 <blockquote>
-<pre><code class="c++">// 前面提到，声明一个右值引用其实是一个左值 std::string&amp;&amp; rs = &quot;xx&quot; + &quot;yy&quot;;
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 前面提到，声明一个右值引用其实是一个左值 std::string&amp;&amp; rs &#x3D; &quot;xx&quot; + &quot;yy&quot;;
 
 #include &lt;iostream&gt;
 #include &lt;utility&gt;
@@ -714,11 +709,11 @@ int main() &#123;
 #define LOG(x) std::cout &lt;&lt; x &lt;&lt; std::endl
 
 void log(int&amp; v) &#123;
-     LOG(&quot;      左值引用&quot;);
+ 	LOG(&quot;      左值引用&quot;);
 &#125;
 
 void log(int&amp;&amp; v) &#123;
-     LOG(&quot;      右值引用&quot;);
+ 	LOG(&quot;      右值引用&quot;);
 &#125;
 
 
@@ -733,54 +728,53 @@ void forward_pass(T&amp;&amp; v) &#123;
        LOG(&quot;    --普通传参&quot;);
        log(v);
 
-       // 单纯的将左值转化为右值。
+       &#x2F;&#x2F; 单纯的将左值转化为右值。
        LOG(&quot;    --move 传参。&quot;);
        log(std::move(v));
 
-       // 单纯将参数做了类型转换, 由std::forward的实现得知。
-       /* 
+       &#x2F;&#x2F; 单纯将参数做了类型转换, 由std::forward的实现得知。
+       &#x2F;* 
      template&lt;typename _Tp&gt;
          constexpr _Tp&amp;&amp;
          forward(typename std::remove_reference&lt;_Tp&gt;::type&amp; __t) noexcept
          &#123; return static_cast&lt;_Tp&amp;&amp;&gt;(__t); &#125;
-     */
+     *&#x2F;
        LOG(&quot;    --forward 传参。&quot;);
        log(std::forward&lt;T&gt;(v));
 &#125;
 
 int main() &#123;
        LOG(&quot;传递右值:&quot;);
-       pass(1); // 虽然传递右值1，但是对于pass(v)的参数v来说，v是一个（右值）引用，同时也是左值
+       pass(1); &#x2F;&#x2F; 虽然传递右值1，但是对于pass(v)的参数v来说，v是一个（右值）引用，同时也是左值
 
        LOG(&quot;传递左值:&quot;);
-       int value = 100;
-       pass(value); // value是左引用，为什么能调用到pass(T&amp;&amp; v) ？ 如上表格坍缩规则。
+       int value &#x3D; 100;
+       pass(value); &#x2F;&#x2F; value是左引用，为什么能调用到pass(T&amp;&amp; v) ？ 如上表格坍缩规则。
 
-       LOG(&quot;=================================&quot;);
+       LOG(&quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;);
 
-       // 无论传递 左值（2）, 还是右值（f_value），普通传参都会将参数作为左值进行转发。
-       // 所以std::move总会接到一个左值，从而转发调用 log(int&amp;&amp; )输出右值引用。
-       // std::forward 没有造成多余的拷贝， 同时完美转发（传递）了函数实参给了内部调用的其他函数。
+       &#x2F;&#x2F; 无论传递 左值（2）, 还是右值（f_value），普通传参都会将参数作为左值进行转发。
+       &#x2F;&#x2F; 所以std::move总会接到一个左值，从而转发调用 log(int&amp;&amp; )输出右值引用。
+       &#x2F;&#x2F; std::forward 没有造成多余的拷贝， 同时完美转发（传递）了函数实参给了内部调用的其他函数。
        LOG(&quot;传递右值:&quot;);
        forward_pass(2);
 
        LOG(&quot;传递左值:&quot;);
-       int f_value = 200;
+       int f_value &#x3D; 200;
        forward_pass(f_value);
 
        return 0;
-&#125;
-</code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <blockquote>
-<pre><code class="bash">$ ./std_forward 
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ ./std_forward 
 传递右值:
     --普通传参
       左值引用
 传递左值:
     --普通传参
       左值引用
-=================================
+<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">=</span>
 传递右值:
     --普通传参
       左值引用
@@ -794,42 +788,41 @@ int main() &#123;
     --move 传参。
       右值引用
     --forward 传参。
-      左值引用
-</code></pre>
+      左值引用<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
 <br/>
 
 <h2 id="std-function"><a href="#std-function" class="headerlink" title="std::function"></a><strong>std::function</strong></h2><blockquote>
-<pre><code class="c++">#include &lt;iostream&gt;
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
 #include &lt;functional&gt;
 
 #define LOG(x) std::cout &lt;&lt; x &lt;&lt; std::endl
 
-// old
-using foo = void(int);
-// 函数指针的调用是非类型安全的
+&#x2F;&#x2F; old
+using foo &#x3D; void(int);
+&#x2F;&#x2F; 函数指针的调用是非类型安全的
 void excecute_f(foo f) &#123;
        f(3);
 &#125;
 void Oldman() &#123;
-       auto f = [](int value) &#123;
+       auto f &#x3D; [](int value) &#123;
            LOG(value);
        &#125;;
        excecute_f(f);
 &#125;
 
 
-//new
+&#x2F;&#x2F;new
 int print(int para) &#123;
     return para;
 &#125;
-// 函数容器 将函数、函数指针作为对象处理，是一种通用、多态的函数封装，类型安全
+&#x2F;&#x2F; 函数容器 将函数、函数指针作为对象处理，是一种通用、多态的函数封装，类型安全
 void Coolman() &#123;
 
-       std::function&lt;int(int)&gt; func_1 = print;
-       std::function&lt;int(int)&gt; func_2 = [&amp;](int value) &#123;
+       std::function&lt;int(int)&gt; func_1 &#x3D; print;
+       std::function&lt;int(int)&gt; func_2 &#x3D; [&amp;](int value) &#123;
            return func_1(value) + value;
        &#125;;
        LOG(func_2(100));
@@ -839,14 +832,12 @@ int main() &#123;
        Oldman();
        Coolman();
        return 0;
-&#125;
-</code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <blockquote>
-<pre><code class="bash">$ ./std_function 
-3
-200
-</code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ ./std_function 
+<span class="token number">3</span>
+<span class="token number">200</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
@@ -857,57 +848,55 @@ int main() &#123;
 <p><code>纯右值: 纯粹的字面量，如 10, true, 1+2, ..</code></p>
 <p><code>将亡值: 即将被销毁、却能够被移动的值。</code></p>
 <blockquote>
-<pre><code class="cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;string&gt;
-#include &lt;utility&gt;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;vector></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;utility></span></span>
 
-#define LOG(x) std::cout &lt;&lt; x &lt;&lt; std::endl
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">LOG</span><span class="token expression"><span class="token punctuation">(</span>x<span class="token punctuation">)</span> std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl</span></span>
 
-std::vector&lt;int&gt; foo() &#123;
-       std::vector&lt;int&gt; tmp &#123;1, 2, 3, 4&#125;;
-       return tmp;
-&#125;
+std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+       std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> tmp <span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+       <span class="token keyword">return</span> tmp<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 
-    // v是左值， foo()就是右值，也是纯右值
-    // 对于foo()产生的返回值作为一个临时值，一旦被v复制后，就无法获取和修改
-    std::vector&lt;int&gt; v = foo();
+	<span class="token comment">// v是左值， foo()就是右值，也是纯右值</span>
+	<span class="token comment">// 对于foo()产生的返回值作为一个临时值，一旦被v复制后，就无法获取和修改</span>
+	std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> v <span class="token operator">=</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-// std::move() 将左值参数无条件的转换成右值
-void log(const std::string&amp; str) &#123;
-     LOG(&quot;左值： &quot; + str);
-&#125;
+<span class="token comment">// std::move() 将左值参数无条件的转换成右值</span>
+<span class="token keyword">void</span> <span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>string<span class="token operator">&amp;</span> str<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+ 	<span class="token function">LOG</span><span class="token punctuation">(</span><span class="token string">"左值： "</span> <span class="token operator">+</span> str<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 
-void log(const std::string&amp;&amp; str) &#123;
-     LOG(&quot;右值： &quot; + str);
-&#125;
+<span class="token keyword">void</span> <span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>string<span class="token operator">&amp;&amp;</span> str<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+ 	<span class="token function">LOG</span><span class="token punctuation">(</span><span class="token string">"右值： "</span> <span class="token operator">+</span> str<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 
-int main() &#123;
-       std::string ls1 = &quot;xxx&quot;;
-       // an rvalue reference cannot be bound to an lvalue
-       // std::string&amp;&amp; rs2 = ls1;
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+       std<span class="token double-colon punctuation">::</span>string ls1 <span class="token operator">=</span> <span class="token string">"xxx"</span><span class="token punctuation">;</span>
+       <span class="token comment">// an rvalue reference cannot be bound to an lvalue</span>
+       <span class="token comment">// std::string&amp;&amp; rs2 = ls1;</span>
 
-       std::string&amp;&amp; rs2 = std::move(ls1);
+       std<span class="token double-colon punctuation">::</span>string<span class="token operator">&amp;&amp;</span> rs2 <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token function">move</span><span class="token punctuation">(</span>ls1<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-       // 常量左值引用延长临时变量的生命周期， 但是ls3不可修改
-       // initial value of reference to non-const must be an lvalue
-       const std::string&amp; ls3 = ls1 + ls1; 
-       // ls3 += &quot;yyy&quot;;
+       <span class="token comment">// 常量左值引用延长临时变量的生命周期， 但是ls3不可修改</span>
+       <span class="token comment">// initial value of reference to non-const must be an lvalue</span>
+       <span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>string<span class="token operator">&amp;</span> ls3 <span class="token operator">=</span> ls1 <span class="token operator">+</span> ls1<span class="token punctuation">;</span> 
+       <span class="token comment">// ls3 += "yyy";</span>
 
-       // 右值引用延长生命周期，可以定义为非常量引用，可修改。
-       std::string&amp;&amp; rs4 = ls1 + rs2;
-       rs4 += &quot;yyy&quot;;
+       <span class="token comment">// 右值引用延长生命周期，可以定义为非常量引用，可修改。</span>
+       std<span class="token double-colon punctuation">::</span>string<span class="token operator">&amp;&amp;</span> rs4 <span class="token operator">=</span> ls1 <span class="token operator">+</span> rs2<span class="token punctuation">;</span>
+       rs4 <span class="token operator">+=</span> <span class="token string">"yyy"</span><span class="token punctuation">;</span>
 
-       // rs4虽然引用了一个右值，但是由于它是一个引用，所以它依然是一个左值。
-       log(rs4);
-       return 0;
-&#125;
-</code></pre>
+       <span class="token comment">// rs4虽然引用了一个右值，但是由于它是一个引用，所以它依然是一个左值。</span>
+       <span class="token function">log</span><span class="token punctuation">(</span>rs4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <blockquote>
-<pre><code class="bash">$ ./std_move 
-左值： xxxxxxyyy
-</code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ ./std_move 
+左值： xxxxxxyyy<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </blockquote>
 
         
@@ -1035,7 +1024,7 @@ int main() &#123;
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2021/06/">六月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/05/">五月 2021<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/03/">三月 2021<span class="sidebar_archives-count">5</span></a>
+                <a class="sidebar_archives-link" href="/archives/2021/08/">八月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/06/">六月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/05/">五月 2021<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/03/">三月 2021<span class="sidebar_archives-count">5</span></a>
             </ul>
         </li>
         

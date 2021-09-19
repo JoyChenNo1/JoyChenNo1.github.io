@@ -539,31 +539,30 @@
 </tbody></table>
 <p>​                                                                  </p>
 <blockquote>
-<pre><code class="cpp">#include &lt;iostream&gt;
-#include &lt;cstdio&gt;
-#include &lt;array&gt;
-#include &lt;algorithm&gt;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstdio></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;array></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;algorithm></span></span>
 
-// C风格的接口
-void c_test (int* p, size_t len) &#123;
-    printf(&quot;%d, %d&quot;, *p, len);
-&#125;
+<span class="token comment">// C风格的接口</span>
+<span class="token keyword">void</span> <span class="token function">c_test</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token operator">*</span> p<span class="token punctuation">,</span> size_t len<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d, %d"</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">,</span> len<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 
-int main() &#123;
-     std::array&lt;int, 5&gt; arr_1 = &#123;1, 2, 3, 4, 5&#125;;
-    
-     // 无法转换成 C 风格指针传递！
-     // no suitable conversion function from &quot;std::array&lt;int, 5UL&gt;&quot; to &quot;int *&quot; exists
-     // c_test(arr_1, arr_1.size());
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+     std<span class="token double-colon punctuation">::</span>array<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token operator">></span> arr_1 <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+	
+     <span class="token comment">// 无法转换成 C 风格指针传递！</span>
+     <span class="token comment">// no suitable conversion function from "std::array&lt;int, 5UL>" to "int *" exists</span>
+     <span class="token comment">// c_test(arr_1, arr_1.size());</span>
 
-     // struct std::array&lt;int, &lt;error-constant&gt;&gt;
-     // int len = 5;
-     constexpr int len = 5;
-     std::array&lt;int, len&gt; arr_2 = &#123; 1, 3, 2, 5, 4 &#125;;
-     std::sort(arr_2.begin(), arr_2.end());
-     return 0;
-&#125;
-</code></pre>
+     <span class="token comment">// struct std::array&lt;int, &lt;error-constant>></span>
+     <span class="token comment">// int len = 5;</span>
+     <span class="token keyword">constexpr</span> <span class="token keyword">int</span> len <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+     std<span class="token double-colon punctuation">::</span>array<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> len<span class="token operator">></span> arr_2 <span class="token operator">=</span> <span class="token punctuation">&#123;</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">4</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+     std<span class="token double-colon punctuation">::</span><span class="token function">sort</span><span class="token punctuation">(</span>arr_2<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> arr_2<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
@@ -598,34 +597,34 @@ int main() &#123;
 <br/>                                                                                                                                                   
 
 <h2 id="std-tuple"><a href="#std-tuple" class="headerlink" title="std::tuple"></a><strong>std::tuple</strong></h2><blockquote>
-<pre><code class="c++">#include &lt;iostream&gt;
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
 #include &lt;tuple&gt;
-#include &lt;boost/variant.hpp&gt;
+#include &lt;boost&#x2F;variant.hpp&gt;
 #include &lt;variant&gt;
 
 #define LOG(x) std::cout &lt;&lt; x &lt;&lt; std::endl
 
-// 用于求取 tuple size
+&#x2F;&#x2F; 用于求取 tuple size
 
 template &lt;typename T&gt;
 auto tuple_size(const T&amp; tpl) &#123;
  return std::tuple_size&lt;T&gt;::value;
 &#125;
 
-// 借助 boost::variant 实现 
-// 参考 https://www.boost.org/doc/libs/1_75_0/doc/html/variant.html
+&#x2F;&#x2F; 借助 boost::variant 实现 
+&#x2F;&#x2F; 参考 https:&#x2F;&#x2F;www.boost.org&#x2F;doc&#x2F;libs&#x2F;1_75_0&#x2F;doc&#x2F;html&#x2F;variant.html
 template &lt;size_t n, typename... Args&gt;
 boost::variant&lt;Args...&gt; _tuple_index(size_t i, const std::tuple&lt;Args...&gt;&amp; tpl) &#123;
- if (i == n) &#123;
+ if (i &#x3D;&#x3D; n) &#123;
      return std::get&lt;n&gt;(tpl);
- &#125; else if (n == sizeof...(Args) - 1) &#123;
+ &#125; else if (n &#x3D;&#x3D; sizeof...(Args) - 1) &#123;
      throw std::out_of_range(&quot;越界！&quot;);
  &#125;else &#123;
      return _tuple_index&lt;(n &lt; sizeof...(Args) - 1 ? n + 1 : 0)&gt;(i, tpl);
  &#125;
 &#125;
 
-// 用于获取指定索引的 tuple 元素值
+&#x2F;&#x2F; 用于获取指定索引的 tuple 元素值
 template &lt;typename... Args&gt;
 boost::variant&lt;Args...&gt; tuple_index(size_t i, const std::tuple&lt;Args...&gt;&amp; tpl) &#123;
  return _tuple_index&lt;0&gt;(i, tpl);
@@ -633,11 +632,11 @@ boost::variant&lt;Args...&gt; tuple_index(size_t i, const std::tuple&lt;Args...&
 
 int main() &#123;
 
- auto student = std::make_tuple(&quot;Liming&quot;, 18, &#39;B&#39;);
+ auto student &#x3D; std::make_tuple(&quot;Liming&quot;, 18, &#39;B&#39;);
 
- constexpr int i_0 = 0, i_1 = 1, i_2 = 2;
+ constexpr int i_0 &#x3D; 0, i_1 &#x3D; 1, i_2 &#x3D; 2;
 
- // std::get&lt;&gt; 依赖的是编译期的常量
+ &#x2F;&#x2F; std::get&lt;&gt; 依赖的是编译期的常量
  LOG(&quot;姓名： &quot; + std::get&lt;i_0&gt;(student));
  LOG(&quot;年龄： &quot; + std::get&lt;i_1&gt;(student));
  LOG(&quot;成绩： &quot; + std::get&lt;i_2&gt;(student));
@@ -645,96 +644,92 @@ int main() &#123;
  std::string name;
  char grade;
 
- // 利用std::tie 进行元组拆包， std::ignore忽略某个元素
- std::tie(name, std::ignore, grade) = student;
+ &#x2F;&#x2F; 利用std::tie 进行元组拆包， std::ignore忽略某个元素
+ std::tie(name, std::ignore, grade) &#x3D; student;
  LOG(&quot;姓名： &quot; + name);
  LOG(&quot;成绩： &quot; + grade);
 
- // 元组合并
- auto teacher = std::make_tuple(&quot;Miss Li&quot;, 25, &#39;A&#39;);
- auto concat = std::tuple_cat(std::move(student), std::move(teacher));
+ &#x2F;&#x2F; 元组合并
+ auto teacher &#x3D; std::make_tuple(&quot;Miss Li&quot;, 25, &#39;A&#39;);
+ auto concat &#x3D; std::tuple_cat(std::move(student), std::move(teacher));
 
- // 元组遍历
- for (size_t i = 0; i != tuple_size(concat); ++i) &#123;
+ &#x2F;&#x2F; 元组遍历
+ for (size_t i &#x3D; 0; i !&#x3D; tuple_size(concat); ++i) &#123;
      LOG(tuple_index(i, concat));
  &#125;
 
  return 0;
-&#125;
-</code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <blockquote>
-<pre><code class="bash">$ ./std_tuple 
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ ./std_tuple 
 姓名： Liming
-年龄： 18
+年龄： <span class="token number">18</span>
 成绩： B
 姓名： Liming
 成绩： B
 Liming
-18
+<span class="token number">18</span>
 B
 Miss Li
-25
-A
-</code></pre>
+<span class="token number">25</span>
+A<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
 <br/>
 
 <h2 id="std-unordered-map"><a href="#std-unordered-map" class="headerlink" title="std::unordered_map"></a><strong>std::unordered_map</strong></h2><blockquote>
-<pre><code class="cpp">#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;unordered_map&gt;
-#include &lt;map&gt;
-#include &lt;algorithm&gt;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unordered_map></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;map></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;algorithm></span></span>
 
-#define LOG(x) std::cout &lt;&lt; x &lt;&lt; std::endl
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">LOG</span><span class="token expression"><span class="token punctuation">(</span>x<span class="token punctuation">)</span> std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl</span></span>
 
-template &lt;typename T&gt;
-void log(const T&amp; t) &#123;
- LOG(&quot;容器类型： &quot; + typeid(T).name());
- std::for_each(t.begin(), t.end(), [](const auto&amp; item)&#123;
-     LOG(&quot;Key: &quot; + item.first + &quot;  Value: &quot; + item.second);
- &#125;);
-&#125;
+<span class="token keyword">template</span> <span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">T</span><span class="token operator">></span>
+<span class="token keyword">void</span> <span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">const</span> T<span class="token operator">&amp;</span> t<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+ <span class="token function">LOG</span><span class="token punctuation">(</span><span class="token string">"容器类型： "</span> <span class="token operator">+</span> <span class="token keyword">typeid</span><span class="token punctuation">(</span>T<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ std<span class="token double-colon punctuation">::</span><span class="token function">for_each</span><span class="token punctuation">(</span>t<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> t<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">auto</span><span class="token operator">&amp;</span> item<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+     <span class="token function">LOG</span><span class="token punctuation">(</span><span class="token string">"Key: "</span> <span class="token operator">+</span> item<span class="token punctuation">.</span>first <span class="token operator">+</span> <span class="token string">"  Value: "</span> <span class="token operator">+</span> item<span class="token punctuation">.</span>second<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 
-int main() &#123;
- // 无序
- std::unordered_map&lt;int, std::string&gt; unordered = &#123;
-     &#123;1, &quot;one&quot;&#125;,
-     &#123;4, &quot;four&quot;&#125;,
-     &#123;3, &quot;three&quot;&#125;, 
-     &#123;2, &quot;two&quot;&#125;
- &#125;;
- // 有序
- std::map&lt;int, std::string&gt; ordered = &#123;
-     &#123;1, &quot;one&quot;&#125;,
-     &#123;4, &quot;four&quot;&#125;,
-     &#123;3, &quot;three&quot;&#125;, 
-     &#123;2, &quot;two&quot;&#125;
- &#125;;
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+ <span class="token comment">// 无序</span>
+ std<span class="token double-colon punctuation">::</span>unordered_map<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> std<span class="token double-colon punctuation">::</span>string<span class="token operator">></span> unordered <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+     <span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"one"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+     <span class="token punctuation">&#123;</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token string">"four"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+     <span class="token punctuation">&#123;</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token string">"three"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> 
+     <span class="token punctuation">&#123;</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">"two"</span><span class="token punctuation">&#125;</span>
+ <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+ <span class="token comment">// 有序</span>
+ std<span class="token double-colon punctuation">::</span>map<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> std<span class="token double-colon punctuation">::</span>string<span class="token operator">></span> ordered <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+     <span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"one"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+     <span class="token punctuation">&#123;</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token string">"four"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+     <span class="token punctuation">&#123;</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token string">"three"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> 
+     <span class="token punctuation">&#123;</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">"two"</span><span class="token punctuation">&#125;</span>
+ <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
- log(unordered);
- log(ordered);
+ <span class="token function">log</span><span class="token punctuation">(</span>unordered<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token function">log</span><span class="token punctuation">(</span>ordered<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
- return 0;
-&#125;
-</code></pre>
+ <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <blockquote>
-<pre><code class="bash">$ ./std_unordered_map 
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ ./std_unordered_map 
 容器类型： St13unordered_mapIiNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4hashIiESt8equal_toIiESaISt4pairIKiS5_EEE
-Key: 2  Value: two
-Key: 3  Value: three
-Key: 4  Value: four
-Key: 1  Value: one
+Key: <span class="token number">2</span>  Value: two
+Key: <span class="token number">3</span>  Value: three
+Key: <span class="token number">4</span>  Value: four
+Key: <span class="token number">1</span>  Value: one
 容器类型： St3mapIiNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4lessIiESaISt4pairIKiS5_EEE
-Key: 1  Value: one
-Key: 2  Value: two
-Key: 3  Value: three
-Key: 4  Value: four
-</code></pre>
+Key: <span class="token number">1</span>  Value: one
+Key: <span class="token number">2</span>  Value: two
+Key: <span class="token number">3</span>  Value: three
+Key: <span class="token number">4</span>  Value: four<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
@@ -900,7 +895,7 @@ Key: 4  Value: four
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2021/06/">六月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/05/">五月 2021<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/03/">三月 2021<span class="sidebar_archives-count">5</span></a>
+                <a class="sidebar_archives-link" href="/archives/2021/08/">八月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/06/">六月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/05/">五月 2021<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/03/">三月 2021<span class="sidebar_archives-count">5</span></a>
             </ul>
         </li>
         

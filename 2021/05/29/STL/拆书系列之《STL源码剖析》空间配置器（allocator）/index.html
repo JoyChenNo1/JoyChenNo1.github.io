@@ -243,7 +243,7 @@
 
     
         <meta property="article:published_time" content="Sat May 29 2021 12:06:17 GMT+0800">
-        <meta property="article:modified_time" content="Sun Jun 20 2021 12:45:17 GMT+0800">
+        <meta property="article:modified_time" content="Sun Sep 19 2021 11:16:41 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -266,7 +266,7 @@
     "mainEntityOfPage": "http://example.com/2021/05/29/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89/index.html",
     "headline": "拆书系列之《STL 源码剖析》空间配置器（allocator）",
     "datePublished": "Sat May 29 2021 12:06:17 GMT+0800",
-    "dateModified": "Sun Jun 20 2021 12:45:17 GMT+0800",
+    "dateModified": "Sun Sep 19 2021 11:16:41 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -502,89 +502,88 @@
     
         <h1 id="《STL-源码剖析》空间配置器（allocator）"><a href="#《STL-源码剖析》空间配置器（allocator）" class="headerlink" title="《STL 源码剖析》空间配置器（allocator）"></a>《STL 源码剖析》空间配置器（allocator）</h1><p><code>参考自《STL 源码剖析》-侯捷著。</code></p>
 <h2 id="STL-中，allocator-的必要接口"><a href="#STL-中，allocator-的必要接口" class="headerlink" title="STL 中，allocator 的必要接口"></a>STL 中，allocator 的必要接口</h2><blockquote>
-<pre><code class="cpp">// /usr/include/c++/9/bits/allocator.h
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// /usr/include/c++/9/bits/allocator.h</span>
 
 
 
-template&lt;typename _Tp&gt;
-using __allocator_base = __gnu_cxx::new_allocator&lt;_Tp&gt;;
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Tp</span><span class="token operator">></span>
+<span class="token keyword">using</span> __allocator_base <span class="token operator">=</span> __gnu_cxx<span class="token double-colon punctuation">::</span>new_allocator<span class="token operator">&lt;</span>_Tp<span class="token operator">></span><span class="token punctuation">;</span>
 
-template&lt;typename _Tp&gt;
-class new_allocator &#123;
-public:
-    typedef size_t     size_type;
-    typedef ptrdiff_t  difference_type;
-    typedef _Tp*       pointer;
-    typedef const _Tp* const_pointer;
-    typedef _Tp&amp;       reference;
-    typedef const _Tp&amp; const_reference;
-    typedef _Tp        value_type;
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Tp</span><span class="token operator">></span>
+<span class="token keyword">class</span> <span class="token class-name">new_allocator</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">typedef</span> size_t     size_type<span class="token punctuation">;</span>
+    <span class="token keyword">typedef</span> ptrdiff_t  difference_type<span class="token punctuation">;</span>
+    <span class="token keyword">typedef</span> _Tp<span class="token operator">*</span>       pointer<span class="token punctuation">;</span>
+    <span class="token keyword">typedef</span> <span class="token keyword">const</span> _Tp<span class="token operator">*</span> const_pointer<span class="token punctuation">;</span>
+    <span class="token keyword">typedef</span> _Tp<span class="token operator">&amp;</span>       reference<span class="token punctuation">;</span>
+    <span class="token keyword">typedef</span> <span class="token keyword">const</span> _Tp<span class="token operator">&amp;</span> const_reference<span class="token punctuation">;</span>
+    <span class="token keyword">typedef</span> _Tp        value_type<span class="token punctuation">;</span>
 
-  template&lt;typename _Tp1&gt;
-    struct rebind &#123; typedef new_allocator&lt;_Tp1&gt; other; &#125;;
-    // ...
+  <span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Tp1</span><span class="token operator">></span>
+    <span class="token keyword">struct</span> <span class="token class-name">rebind</span> <span class="token punctuation">&#123;</span> <span class="token keyword">typedef</span> new_allocator<span class="token operator">&lt;</span>_Tp1<span class="token operator">></span> other<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token comment">// ...</span>
 
-// 默认构造
+<span class="token comment">// 默认构造</span>
   _GLIBCXX20_CONSTEXPR
-    new_allocator() _GLIBCXX_USE_NOEXCEPT &#123; &#125;
-  // 拷贝构造
+    <span class="token function">new_allocator</span><span class="token punctuation">(</span><span class="token punctuation">)</span> _GLIBCXX_USE_NOEXCEPT <span class="token punctuation">&#123;</span> <span class="token punctuation">&#125;</span>
+  <span class="token comment">// 拷贝构造</span>
   _GLIBCXX20_CONSTEXPR
-    new_allocator(const new_allocator&amp;) _GLIBCXX_USE_NOEXCEPT &#123; &#125;
-// 泛化的拷贝构造
-  template&lt;typename _Tp1&gt;
+    <span class="token function">new_allocator</span><span class="token punctuation">(</span><span class="token keyword">const</span> new_allocator<span class="token operator">&amp;</span><span class="token punctuation">)</span> _GLIBCXX_USE_NOEXCEPT <span class="token punctuation">&#123;</span> <span class="token punctuation">&#125;</span>
+<span class="token comment">// 泛化的拷贝构造</span>
+  <span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Tp1</span><span class="token operator">></span>
   _GLIBCXX20_CONSTEXPR
-  new_allocator(const new_allocator&lt;_Tp1&gt;&amp;) _GLIBCXX_USE_NOEXCEPT &#123; &#125;
-//析构
-  ~new_allocator() _GLIBCXX_USE_NOEXCEPT &#123; &#125;
+  <span class="token function">new_allocator</span><span class="token punctuation">(</span><span class="token keyword">const</span> new_allocator<span class="token operator">&lt;</span>_Tp1<span class="token operator">></span><span class="token operator">&amp;</span><span class="token punctuation">)</span> _GLIBCXX_USE_NOEXCEPT <span class="token punctuation">&#123;</span> <span class="token punctuation">&#125;</span>
+<span class="token comment">//析构</span>
+  <span class="token operator">~</span><span class="token function">new_allocator</span><span class="token punctuation">(</span><span class="token punctuation">)</span> _GLIBCXX_USE_NOEXCEPT <span class="token punctuation">&#123;</span> <span class="token punctuation">&#125;</span>
 
-// 返回某个对象的地址
+<span class="token comment">// 返回某个对象的地址</span>
   pointer
-    address(reference __x) const _GLIBCXX_NOEXCEPT
-  &#123; return std::__addressof(__x); &#125;
+    <span class="token function">address</span><span class="token punctuation">(</span>reference __x<span class="token punctuation">)</span> <span class="token keyword">const</span> _GLIBCXX_NOEXCEPT
+  <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> std<span class="token double-colon punctuation">::</span><span class="token function">__addressof</span><span class="token punctuation">(</span>__x<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
 
   const_pointer
-    address(const_reference __x) const _GLIBCXX_NOEXCEPT
-  &#123; return std::__addressof(__x); &#125;
+    <span class="token function">address</span><span class="token punctuation">(</span>const_reference __x<span class="token punctuation">)</span> <span class="token keyword">const</span> _GLIBCXX_NOEXCEPT
+  <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> std<span class="token double-colon punctuation">::</span><span class="token function">__addressof</span><span class="token punctuation">(</span>__x<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
 
-  // 配置空间 足以存储 n 个 T 对象
+  <span class="token comment">// 配置空间 足以存储 n 个 T 对象</span>
 _GLIBCXX_NODISCARD pointer
-allocate(size_type __n, const void* = static_cast&lt;const void*&gt;(0)) &#123;
-    if (__n &gt; this-&gt;max_size())
-      std::__throw_bad_alloc();
+<span class="token function">allocate</span><span class="token punctuation">(</span>size_type __n<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">void</span><span class="token operator">*</span> <span class="token operator">=</span> <span class="token generic-function"><span class="token function">static_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token keyword">const</span> <span class="token keyword">void</span><span class="token operator">*</span><span class="token operator">></span></span></span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>__n <span class="token operator">></span> <span class="token keyword">this</span><span class="token operator">-></span><span class="token function">max_size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+      std<span class="token double-colon punctuation">::</span><span class="token function">__throw_bad_alloc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-#if __cpp_aligned_new
-    if (alignof(_Tp) &gt; __STDCPP_DEFAULT_NEW_ALIGNMENT__) &#123;
-      std::align_val_t __al = std::align_val_t(alignof(_Tp));
-      return static_cast&lt;_Tp*&gt;(::operator new(__n * sizeof(_Tp), __al));
-    &#125;
-#endif
-    return static_cast&lt;_Tp*&gt;(::operator new(__n * sizeof(_Tp)));
-&#125;
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">if</span> <span class="token expression">__cpp_aligned_new</span></span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">alignof</span><span class="token punctuation">(</span>_Tp<span class="token punctuation">)</span> <span class="token operator">></span> __STDCPP_DEFAULT_NEW_ALIGNMENT__<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      std<span class="token double-colon punctuation">::</span>align_val_t __al <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token function">align_val_t</span><span class="token punctuation">(</span><span class="token keyword">alignof</span><span class="token punctuation">(</span>_Tp<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> <span class="token generic-function"><span class="token function">static_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span>_Tp<span class="token operator">*</span><span class="token operator">></span></span></span><span class="token punctuation">(</span><span class="token double-colon punctuation">::</span><span class="token keyword">operator</span> <span class="token keyword">new</span><span class="token punctuation">(</span>__n <span class="token operator">*</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>_Tp<span class="token punctuation">)</span><span class="token punctuation">,</span> __al<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
+    <span class="token keyword">return</span> <span class="token generic-function"><span class="token function">static_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span>_Tp<span class="token operator">*</span><span class="token operator">></span></span></span><span class="token punctuation">(</span><span class="token double-colon punctuation">::</span><span class="token keyword">operator</span> <span class="token keyword">new</span><span class="token punctuation">(</span>__n <span class="token operator">*</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>_Tp<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 
-// 归还先前配置空间
-void deallocate(pointer __p, size_type) &#123;
-    #if __cpp_aligned_new
-    if (alignof(_Tp) &gt; __STDCPP_DEFAULT_NEW_ALIGNMENT__)
-    &#123;
-      ::operator delete(__p, std::align_val_t(alignof(_Tp)));
-      return;
-    &#125;
-    #endif
-    ::operator delete(__p);
-&#125;
+<span class="token comment">// 归还先前配置空间</span>
+<span class="token keyword">void</span> <span class="token function">deallocate</span><span class="token punctuation">(</span>pointer __p<span class="token punctuation">,</span> size_type<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">if</span> <span class="token expression">__cpp_aligned_new</span></span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">alignof</span><span class="token punctuation">(</span>_Tp<span class="token punctuation">)</span> <span class="token operator">></span> __STDCPP_DEFAULT_NEW_ALIGNMENT__<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+      <span class="token double-colon punctuation">::</span><span class="token keyword">operator</span> <span class="token keyword">delete</span><span class="token punctuation">(</span>__p<span class="token punctuation">,</span> std<span class="token double-colon punctuation">::</span><span class="token function">align_val_t</span><span class="token punctuation">(</span><span class="token keyword">alignof</span><span class="token punctuation">(</span>_Tp<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
+    <span class="token double-colon punctuation">::</span><span class="token keyword">operator</span> <span class="token keyword">delete</span><span class="token punctuation">(</span>__p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 
-template&lt;typename _Up, typename... _Args&gt;
-void construct(_Up* __p, _Args&amp;&amp;... __args)
-    noexcept(noexcept(::new((void *)__p)
-                _Up(std::forward&lt;_Args&gt;(__args)...)))
-    &#123; ::new((void *)__p) _Up(std::forward&lt;_Args&gt;(__args)...); &#125;
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Up</span><span class="token punctuation">,</span> <span class="token keyword">typename</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> _Args<span class="token operator">></span>
+<span class="token keyword">void</span> <span class="token function">construct</span><span class="token punctuation">(</span>_Up<span class="token operator">*</span> __p<span class="token punctuation">,</span> _Args<span class="token operator">&amp;&amp;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> __args<span class="token punctuation">)</span>
+    <span class="token keyword">noexcept</span><span class="token punctuation">(</span><span class="token keyword">noexcept</span><span class="token punctuation">(</span><span class="token double-colon punctuation">::</span><span class="token keyword">new</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">)</span>__p<span class="token punctuation">)</span>
+                <span class="token function">_Up</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span><span class="token generic-function"><span class="token function">forward</span><span class="token generic class-name"><span class="token operator">&lt;</span>_Args<span class="token operator">></span></span></span><span class="token punctuation">(</span>__args<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span> <span class="token double-colon punctuation">::</span><span class="token keyword">new</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">)</span>__p<span class="token punctuation">)</span> <span class="token function">_Up</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span><span class="token generic-function"><span class="token function">forward</span><span class="token generic class-name"><span class="token operator">&lt;</span>_Args<span class="token operator">></span></span></span><span class="token punctuation">(</span>__args<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
 
-template&lt;typename _Up&gt;
-void destroy(_Up* __p)
-    noexcept(noexcept( __p-&gt;~_Up()))
-    &#123; __p-&gt;~_Up(); &#125;
-&#125;; // class new_allocator  
-</code></pre>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Up</span><span class="token operator">></span>
+<span class="token keyword">void</span> <span class="token function">destroy</span><span class="token punctuation">(</span>_Up<span class="token operator">*</span> __p<span class="token punctuation">)</span>
+    <span class="token keyword">noexcept</span><span class="token punctuation">(</span><span class="token keyword">noexcept</span><span class="token punctuation">(</span> __p<span class="token operator">-></span><span class="token operator">~</span><span class="token function">_Up</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span> __p<span class="token operator">-></span><span class="token operator">~</span><span class="token function">_Up</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span> <span class="token comment">// class new_allocator  </span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
@@ -612,99 +611,96 @@ void destroy(_Up* __p)
 <h3 id="解决小型区块可能造成的内存破碎问题（双层级配置器）"><a href="#解决小型区块可能造成的内存破碎问题（双层级配置器）" class="headerlink" title="解决小型区块可能造成的内存破碎问题（双层级配置器）"></a>解决小型区块可能造成的内存破碎问题（双层级配置器）</h3><p><code>配置区块 &gt; 128bytes 时，视为足够大，调用</code><strong>第一级配置器</strong>。</p>
 <p><code>配置区块 &lt;= 128bytes 时，视为过小，为了降低额外负担，采用复杂的 memory pool 的整理方式，开放</code><strong>第二级配置器</strong>。</p>
 <blockquote>
-<pre><code class="cpp">// 一级配置器
-template&lt;typename _Tp&gt;
-class malloc_allocator &#123;
-    ...
-allocate(size_type __n, const void* = 0) &#123;
-    if (__n &gt; this-&gt;max_size())
-        std::__throw_bad_alloc();
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 一级配置器</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Tp</span><span class="token operator">></span>
+<span class="token keyword">class</span> <span class="token class-name">malloc_allocator</span> <span class="token punctuation">&#123;</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token function">allocate</span><span class="token punctuation">(</span>size_type __n<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">void</span><span class="token operator">*</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>__n <span class="token operator">></span> <span class="token keyword">this</span><span class="token operator">-></span><span class="token function">max_size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        std<span class="token double-colon punctuation">::</span><span class="token function">__throw_bad_alloc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    pointer __ret = 0;
-#if __cpp_aligned_new
-#if __cplusplus &gt; 201402L &amp;&amp; _GLIBCXX_HAVE_ALIGNED_ALLOC
-    if (alignof(_Tp) &gt; alignof(std::max_align_t)) &#123;
-      __ret = static_cast&lt;_Tp*&gt;(::aligned_alloc(alignof(_Tp),
-                                                __n * sizeof(_Tp)));
-    &#125;
-#else
-# define _GLIBCXX_CHECK_MALLOC_RESULT
-#endif
-#endif
-    // 直接使用 malloc()
-    if (!__ret)
-      __ret = static_cast&lt;_Tp*&gt;(std::malloc(__n * sizeof(_Tp)));
-    if (!__ret)
-      std::__throw_bad_alloc();
-#ifdef _GLIBCXX_CHECK_MALLOC_RESULT
-#undef _GLIBCXX_CHECK_MALLOC_RESULT
-    if (reinterpret_cast&lt;std::size_t&gt;(__ret) % alignof(_Tp)) &#123;
-      // Memory returned by malloc is not suitably aligned for _Tp.
-      deallocate(__ret, __n);
-      std::__throw_bad_alloc();
-    &#125;
-   #endif
- return __ret;
-   &#125;
-// 直接调用 free()
-void deallocate(pointer __p, size_type) &#123; 
-    std::free(static_cast&lt;void*&gt;(__p)); 
-  &#125;
-&#125;；// class malloc_allocator
-</code></pre>
+    pointer __ret <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">if</span> <span class="token expression">__cpp_aligned_new</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">if</span> <span class="token expression">__cplusplus <span class="token operator">></span> <span class="token number">201402L</span> <span class="token operator">&amp;&amp;</span> _GLIBCXX_HAVE_ALIGNED_ALLOC</span></span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">alignof</span><span class="token punctuation">(</span>_Tp<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token keyword">alignof</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span>max_align_t<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      __ret <span class="token operator">=</span> <span class="token generic-function"><span class="token function">static_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span>_Tp<span class="token operator">*</span><span class="token operator">></span></span></span><span class="token punctuation">(</span><span class="token double-colon punctuation">::</span><span class="token function">aligned_alloc</span><span class="token punctuation">(</span><span class="token keyword">alignof</span><span class="token punctuation">(</span>_Tp<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                                                __n <span class="token operator">*</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>_Tp<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">else</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">define</span> <span class="token macro-name">_GLIBCXX_CHECK_MALLOC_RESULT</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
+    <span class="token comment">// 直接使用 malloc()</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>__ret<span class="token punctuation">)</span>
+      __ret <span class="token operator">=</span> <span class="token generic-function"><span class="token function">static_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span>_Tp<span class="token operator">*</span><span class="token operator">></span></span></span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span><span class="token function">malloc</span><span class="token punctuation">(</span>__n <span class="token operator">*</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>_Tp<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>__ret<span class="token punctuation">)</span>
+      std<span class="token double-colon punctuation">::</span><span class="token function">__throw_bad_alloc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifdef</span> <span class="token expression">_GLIBCXX_CHECK_MALLOC_RESULT</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">undef</span> <span class="token expression">_GLIBCXX_CHECK_MALLOC_RESULT</span></span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token generic-function"><span class="token function">reinterpret_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span>std<span class="token double-colon punctuation">::</span>size_t<span class="token operator">></span></span></span><span class="token punctuation">(</span>__ret<span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token keyword">alignof</span><span class="token punctuation">(</span>_Tp<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token comment">// Memory returned by malloc is not suitably aligned for _Tp.</span>
+      <span class="token function">deallocate</span><span class="token punctuation">(</span>__ret<span class="token punctuation">,</span> __n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      std<span class="token double-colon punctuation">::</span><span class="token function">__throw_bad_alloc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+   <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
+ <span class="token keyword">return</span> __ret<span class="token punctuation">;</span>
+   <span class="token punctuation">&#125;</span>
+<span class="token comment">// 直接调用 free()</span>
+<span class="token keyword">void</span> <span class="token function">deallocate</span><span class="token punctuation">(</span>pointer __p<span class="token punctuation">,</span> size_type<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> 
+    std<span class="token double-colon punctuation">::</span><span class="token function">free</span><span class="token punctuation">(</span><span class="token generic-function"><span class="token function">static_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">*</span><span class="token operator">></span></span></span><span class="token punctuation">(</span>__p<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>；<span class="token comment">// class malloc_allocator</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <blockquote>
-<pre><code class="cpp">// 二级配置器
-class __pool_alloc_base &#123;
-protected:
-    enum &#123; _S_align = 8 &#125;;
-    enum &#123; _S_max_bytes = 128 &#125;;
-    enum &#123; _S_free_list_size = (size_t)_S_max_bytes / (size_t)_S_align &#125;;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 二级配置器</span>
+<span class="token keyword">class</span> <span class="token class-name">__pool_alloc_base</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">protected</span><span class="token operator">:</span>
+    <span class="token keyword">enum</span> <span class="token punctuation">&#123;</span> _S_align <span class="token operator">=</span> <span class="token number">8</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token keyword">enum</span> <span class="token punctuation">&#123;</span> _S_max_bytes <span class="token operator">=</span> <span class="token number">128</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token keyword">enum</span> <span class="token punctuation">&#123;</span> _S_free_list_size <span class="token operator">=</span> <span class="token punctuation">(</span>size_t<span class="token punctuation">)</span>_S_max_bytes <span class="token operator">/</span> <span class="token punctuation">(</span>size_t<span class="token punctuation">)</span>_S_align <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-    union _Obj &#123;
-      union _Obj* _M_free_list_link;
-      char        _M_client_data[1];    // The client sees this.
-    &#125;;
+    <span class="token keyword">union</span> _Obj <span class="token punctuation">&#123;</span>
+      <span class="token keyword">union</span> _Obj<span class="token operator">*</span> _M_free_list_link<span class="token punctuation">;</span>
+      <span class="token keyword">char</span>        _M_client_data<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>    <span class="token comment">// The client sees this.</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-    static _Obj* volatile         _S_free_list[_S_free_list_size];
+    <span class="token keyword">static</span> _Obj<span class="token operator">*</span> <span class="token keyword">volatile</span>         _S_free_list<span class="token punctuation">[</span>_S_free_list_size<span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-    // Chunk allocation state.
-    static char*                  _S_start_free;
-    static char*                  _S_end_free;
-    static size_t                 _S_heap_size;   
-...
-&#125;
-</code></pre>
+    <span class="token comment">// Chunk allocation state.</span>
+    <span class="token keyword">static</span> <span class="token keyword">char</span><span class="token operator">*</span>                  _S_start_free<span class="token punctuation">;</span>
+    <span class="token keyword">static</span> <span class="token keyword">char</span><span class="token operator">*</span>                  _S_end_free<span class="token punctuation">;</span>
+    <span class="token keyword">static</span> size_t                 _S_heap_size<span class="token punctuation">;</span>   
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/BlogImages/STL/%E4%B8%80%E7%BA%A7%E4%BA%8C%E7%BA%A7%E9%85%8D%E7%BD%AE%E5%99%A8%E5%85%B3%E7%B3%BB.png">
 
 <p>无论是第一级还是第二级配置器，STL 没有直接调用，而是封装了多层。在 GCC9 版本中，提供了 <code>polymorphic_allocator</code>。</p>
 <blockquote>
-<pre><code class="cpp">// vector
-template&lt;typename _Tp&gt; class polymorphic_allocator;
-// 使用复杂的 polymorphic_allocator
-using vector = std::vector&lt;_Tp, polymorphic_allocator&lt;_Tp&gt;&gt;;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// vector</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Tp</span><span class="token operator">></span> <span class="token keyword">class</span> <span class="token class-name">polymorphic_allocator</span><span class="token punctuation">;</span>
+<span class="token comment">// 使用复杂的 polymorphic_allocator</span>
+<span class="token keyword">using</span> vector <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span>_Tp<span class="token punctuation">,</span> polymorphic_allocator<span class="token operator">&lt;</span>_Tp<span class="token operator">>></span><span class="token punctuation">;</span>
 
-// std::vector 默认用的简单的 std::allocator
-template&lt;typename _Tp, typename _Alloc = std::allocator&lt;_Tp&gt; &gt;
-class vector : protected _Vector_base&lt;_Tp, _Alloc&gt; &#123;
-&#125;
-//...
+<span class="token comment">// std::vector 默认用的简单的 std::allocator</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Tp</span><span class="token punctuation">,</span> <span class="token keyword">typename</span> <span class="token class-name">_Alloc</span> <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span>allocator<span class="token operator">&lt;</span>_Tp<span class="token operator">></span> <span class="token operator">></span>
+<span class="token keyword">class</span> <span class="token class-name">vector</span> <span class="token operator">:</span> <span class="token base-clause"><span class="token keyword">protected</span> <span class="token class-name">_Vector_base</span><span class="token operator">&lt;</span><span class="token class-name">_Tp</span><span class="token punctuation">,</span> <span class="token class-name">_Alloc</span><span class="token operator">></span></span> <span class="token punctuation">&#123;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">//...</span>
 
-template&lt;typename _Tp&gt;
-class polymorphic_allocator &#123;
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Tp</span><span class="token operator">></span>
+<span class="token keyword">class</span> <span class="token class-name">polymorphic_allocator</span> <span class="token punctuation">&#123;</span>
 
-template &lt;typename _Tp1, typename... _Args&gt; // used here
-void construct(_Tp1* __p, _Args&amp;&amp;... __args) &#123;
-    std::__uses_allocator_construct(this-&gt;resource(), __p,
-                                    std::forward&lt;_Args&gt;(__args)...);
-&#125;
+<span class="token keyword">template</span> <span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Tp1</span><span class="token punctuation">,</span> <span class="token keyword">typename</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> _Args<span class="token operator">></span> <span class="token comment">// used here</span>
+<span class="token keyword">void</span> <span class="token function">construct</span><span class="token punctuation">(</span>_Tp1<span class="token operator">*</span> __p<span class="token punctuation">,</span> _Args<span class="token operator">&amp;&amp;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> __args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    std<span class="token double-colon punctuation">::</span><span class="token function">__uses_allocator_construct</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token operator">-></span><span class="token function">resource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> __p<span class="token punctuation">,</span>
+                                    std<span class="token double-colon punctuation">::</span><span class="token generic-function"><span class="token function">forward</span><span class="token generic class-name"><span class="token operator">&lt;</span>_Args<span class="token operator">></span></span></span><span class="token punctuation">(</span>__args<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 
-void deallocate(_Tp* __p, size_t __n) &#123; 
-    _M_resource-&gt;deallocate(__p, __n * sizeof(_Tp), alignof(_Tp)); 
-&#125;
-&#125;; // polymorphic_allocator
-</code></pre>
+<span class="token keyword">void</span> <span class="token function">deallocate</span><span class="token punctuation">(</span>_Tp<span class="token operator">*</span> __p<span class="token punctuation">,</span> size_t __n<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> 
+    _M_resource<span class="token operator">-></span><span class="token function">deallocate</span><span class="token punctuation">(</span>__p<span class="token punctuation">,</span> __n <span class="token operator">*</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>_Tp<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">alignof</span><span class="token punctuation">(</span>_Tp<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span> <span class="token comment">// polymorphic_allocator</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <p>参考 <a target="_blank" rel="noopener" href="http://cs.brown.edu/~jwicks/libstdc++/html/20_util/allocator.html">http://cs.brown.edu/~jwicks/libstdc++/html/20_util/allocator.html</a> 可知在 GCC 中，</p>
 <p><code>For GCC releases, defining </code>__USE_MALLOC<code> on the gcc command line would change the default allocation strategy to instead use malloc and free</code>.</p>
@@ -762,10 +758,9 @@ void deallocate(_Tp* __p, size_t __n) &#123;
 <p>  This class take a boolean template parameter, called <code>thr</code>, and an integer template parameter, called <code>inst</code>.</p>
 <p>  The <code>inst</code> number is used to track additional memory pools. The point of the number is to allow multiple instantiations of the classes without changing the semantics at all. All three of</p>
 <blockquote>
-<pre><code class="cpp">typedef  __pool_alloc&lt;true,0&gt;    normal;
-typedef  __pool_alloc&lt;true,1&gt;    private;
-typedef  __pool_alloc&lt;true,42&gt;   also_private;
-</code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">typedef</span>  __pool_alloc<span class="token operator">&lt;</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token operator">></span>    normal<span class="token punctuation">;</span>
+<span class="token keyword">typedef</span>  __pool_alloc<span class="token operator">&lt;</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token operator">></span>    <span class="token keyword">private</span><span class="token punctuation">;</span>
+<span class="token keyword">typedef</span>  __pool_alloc<span class="token operator">&lt;</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token number">42</span><span class="token operator">></span>   also_private<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <p>  behave exactly the same way. However, the memory pool for each type (and remember that different instantiations result in different types) remains separate.</p>
 <p>  The library uses <strong>0</strong> in all its instantiations. If you wish to keep separate free lists for a particular purpose, use a different number.</p>
@@ -778,10 +773,8 @@ typedef  __pool_alloc&lt;true,42&gt;   also_private;
 <li><p><strong>bitmap_allocator</strong></p>
 <p>  A high-performance allocator that uses a bit-map to keep track of the used and unused memory locations. It has its own documentation, found <a target="_blank" rel="noopener" href="http://cs.brown.edu/~jwicks/libstdc++/html/ext/ballocator_doc.txt">here</a>.</p>
 <blockquote>
-<pre><code class="cpp">// specify that only malloc/free should be used instead of the default node allocator
-std::list &lt;int, __gnu_cxx::malloc_allocator&lt;int&gt; &gt;  malloc_list;
-</code></pre>
-</blockquote>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// specify that only malloc/free should be used instead of the default node allocator</span>
+std<span class="token double-colon punctuation">::</span>list <span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> __gnu_cxx<span class="token double-colon punctuation">::</span>malloc_allocator<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> <span class="token operator">></span>  malloc_list<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></blockquote>
 </li>
 </ul>
 <p>如果想自行实现 allocator，可参照 <code>new_allocator</code>。</p>
@@ -789,76 +782,75 @@ std::list &lt;int, __gnu_cxx::malloc_allocator&lt;int&gt; &gt;  malloc_list;
 <p><code>SGI 版本和目前 GCC 版本差别较大，可对比新版代码和下面整理的 SGI 版本。 </code></p>
 <p>代码参考： <a target="_blank" rel="noopener" href="https://github.com/steveLauwh/SGI-STL">https://github.com/steveLauwh/SGI-STL</a></p>
 <blockquote>
-<pre><code class="cpp">template &lt;int __inst&gt;
-class __malloc_alloc_template &#123;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">template</span> <span class="token operator">&lt;</span><span class="token keyword">int</span> __inst<span class="token operator">></span>
+<span class="token keyword">class</span> <span class="token class-name">__malloc_alloc_template</span> <span class="token punctuation">&#123;</span>
 
-private:
-    // oom: out of memory
-    // 以下函数用来处理内存不足的情况
-    static void* _S_oom_malloc(size_t);
-    static void* _S_oom_realloc(void*, size_t);
+<span class="token keyword">private</span><span class="token operator">:</span>
+    <span class="token comment">// oom: out of memory</span>
+    <span class="token comment">// 以下函数用来处理内存不足的情况</span>
+    <span class="token keyword">static</span> <span class="token keyword">void</span><span class="token operator">*</span> <span class="token function">_S_oom_malloc</span><span class="token punctuation">(</span>size_t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">static</span> <span class="token keyword">void</span><span class="token operator">*</span> <span class="token function">_S_oom_realloc</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token operator">*</span><span class="token punctuation">,</span> size_t<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  #ifndef __STL_STATIC_TEMPLATE_MEMBER_BUG
-    static void (* __malloc_alloc_oom_handler)();
-  #endif
+  <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifndef</span> <span class="token expression">__STL_STATIC_TEMPLATE_MEMBER_BUG</span></span>
+    <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span> __malloc_alloc_oom_handler<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
 
-public:
-    static void* allocate(size_t __n) &#123;
-      void* __result = malloc(__n);
-      // 无法满足需求时， 改用_S_oom_malloc()
-      if (0 == __result) __result = _S_oom_malloc(__n);
-      return __result;
-    &#125;
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">static</span> <span class="token keyword">void</span><span class="token operator">*</span> <span class="token function">allocate</span><span class="token punctuation">(</span>size_t __n<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">void</span><span class="token operator">*</span> __result <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span>__n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// 无法满足需求时， 改用_S_oom_malloc()</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token number">0</span> <span class="token operator">==</span> __result<span class="token punctuation">)</span> __result <span class="token operator">=</span> <span class="token function">_S_oom_malloc</span><span class="token punctuation">(</span>__n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> __result<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
 
-    static void deallocate(void* __p, size_t /* __n */) &#123;
-      free(__p);
-    &#125;
+    <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">deallocate</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token operator">*</span> __p<span class="token punctuation">,</span> size_t <span class="token comment">/* __n */</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token function">free</span><span class="token punctuation">(</span>__p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
 
-    static void* reallocate(void* __p, size_t /* old_sz */, size_t __new_sz) &#123;
-      void* __result = realloc(__p, __new_sz);
-      // 无法满足需求时， _S_oom_realloc()
-      if (0 == __result) __result = _S_oom_realloc(__p, __new_sz);
-      return __result;
-    &#125;
+    <span class="token keyword">static</span> <span class="token keyword">void</span><span class="token operator">*</span> <span class="token function">reallocate</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token operator">*</span> __p<span class="token punctuation">,</span> size_t <span class="token comment">/* old_sz */</span><span class="token punctuation">,</span> size_t __new_sz<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">void</span><span class="token operator">*</span> __result <span class="token operator">=</span> <span class="token function">realloc</span><span class="token punctuation">(</span>__p<span class="token punctuation">,</span> __new_sz<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// 无法满足需求时， _S_oom_realloc()</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token number">0</span> <span class="token operator">==</span> __result<span class="token punctuation">)</span> __result <span class="token operator">=</span> <span class="token function">_S_oom_realloc</span><span class="token punctuation">(</span>__p<span class="token punctuation">,</span> __new_sz<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> __result<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
 
-    static void (* __set_malloc_handler(void (*__f)()))() &#123;
-      void (* __old)() = __malloc_alloc_oom_handler;
-      __malloc_alloc_oom_handler = __f;
-      return(__old);
-    &#125;
-&#125;; // class __malloc_alloc_template
+    <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span> <span class="token function">__set_malloc_handler</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span>__f<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span> __old<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> __malloc_alloc_oom_handler<span class="token punctuation">;</span>
+      __malloc_alloc_oom_handler <span class="token operator">=</span> __f<span class="token punctuation">;</span>
+      <span class="token keyword">return</span><span class="token punctuation">(</span>__old<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span> <span class="token comment">// class __malloc_alloc_template</span>
 
-template &lt;int __inst&gt;
-void* __malloc_alloc_template&lt;__inst&gt;::_S_oom_malloc(size_t __n) &#123;
-     void (* __my_malloc_handler)();
-     void* __result;
+<span class="token keyword">template</span> <span class="token operator">&lt;</span><span class="token keyword">int</span> __inst<span class="token operator">></span>
+<span class="token keyword">void</span><span class="token operator">*</span> <span class="token class-name">__malloc_alloc_template</span><span class="token operator">&lt;</span>__inst<span class="token operator">></span><span class="token double-colon punctuation">::</span><span class="token function">_S_oom_malloc</span><span class="token punctuation">(</span>size_t __n<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+     <span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span> __my_malloc_handler<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token keyword">void</span><span class="token operator">*</span> __result<span class="token punctuation">;</span>
 
-     // 不断尝试释放、配置
-     for (;;) &#123;
-       __my_malloc_handler = __malloc_alloc_oom_handler;
-       if (0 == __my_malloc_handler) &#123; __THROW_BAD_ALLOC; &#125;
-       (*__my_malloc_handler)();  // 调用处理例程，企图释放内存
-       __result = malloc(__n);   // 再次尝试配置内存
-       if (__result) return(__result);
-     &#125;
-&#125;
+     <span class="token comment">// 不断尝试释放、配置</span>
+     <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+       __my_malloc_handler <span class="token operator">=</span> __malloc_alloc_oom_handler<span class="token punctuation">;</span>
+       <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token number">0</span> <span class="token operator">==</span> __my_malloc_handler<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> __THROW_BAD_ALLOC<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+       <span class="token punctuation">(</span><span class="token operator">*</span>__my_malloc_handler<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 调用处理例程，企图释放内存</span>
+       __result <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span>__n<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// 再次尝试配置内存</span>
+       <span class="token keyword">if</span> <span class="token punctuation">(</span>__result<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">(</span>__result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
 
-template &lt;int __inst&gt;
-void* __malloc_alloc_template&lt;__inst&gt;::_S_oom_realloc(void* __p, size_t __n) &#123;
-     void (* __my_malloc_handler)();
-     void* __result;
+<span class="token keyword">template</span> <span class="token operator">&lt;</span><span class="token keyword">int</span> __inst<span class="token operator">></span>
+<span class="token keyword">void</span><span class="token operator">*</span> <span class="token class-name">__malloc_alloc_template</span><span class="token operator">&lt;</span>__inst<span class="token operator">></span><span class="token double-colon punctuation">::</span><span class="token function">_S_oom_realloc</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token operator">*</span> __p<span class="token punctuation">,</span> size_t __n<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+     <span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span> __my_malloc_handler<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token keyword">void</span><span class="token operator">*</span> __result<span class="token punctuation">;</span>
 
-     //  给一个已经分配了地址的指针重新分配空间，参数 __p 为原有的空间地址，__n 是重新申请的地址长度
-     for (;;) &#123;
-    // 当 &quot;内存不足处理例程&quot; 并未被客户设定，便调用 __THROW_BAD_ALLOC，丢出 bad_alloc 异常信息
-       __my_malloc_handler = __malloc_alloc_oom_handler;
-       if (0 == __my_malloc_handler) &#123; __THROW_BAD_ALLOC; &#125;
-       (*__my_malloc_handler)();   // 调用处理例程，企图释放内存
-       __result = realloc(__p, __n);  // 再次尝试配置内存，扩大内存大小
-       if (__result) return(__result);
-     &#125;
-&#125;
-</code></pre>
+     <span class="token comment">//  给一个已经分配了地址的指针重新分配空间，参数 __p 为原有的空间地址，__n 是重新申请的地址长度</span>
+     <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 当 "内存不足处理例程" 并未被客户设定，便调用 __THROW_BAD_ALLOC，丢出 bad_alloc 异常信息</span>
+       __my_malloc_handler <span class="token operator">=</span> __malloc_alloc_oom_handler<span class="token punctuation">;</span>
+       <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token number">0</span> <span class="token operator">==</span> __my_malloc_handler<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> __THROW_BAD_ALLOC<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+       <span class="token punctuation">(</span><span class="token operator">*</span>__my_malloc_handler<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// 调用处理例程，企图释放内存</span>
+       __result <span class="token operator">=</span> <span class="token function">realloc</span><span class="token punctuation">(</span>__p<span class="token punctuation">,</span> __n<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 再次尝试配置内存，扩大内存大小</span>
+       <span class="token keyword">if</span> <span class="token punctuation">(</span>__result<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">(</span>__result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
@@ -867,12 +859,11 @@ void* __malloc_alloc_template&lt;__inst&gt;::_S_oom_realloc(void* __p, size_t __
 <p><strong>剖析第二级配置器</strong></p>
 <p><code>为了避免结点需要额外的指针造成额外的开销，设计结点类型为 union 类型。</code></p>
 <blockquote>
-<pre><code class="cpp">// 一物二用，避免了为了维护链表所必须的指针而造成内存的浪费
-union _Obj &#123;
-    union _Obj* _M_free_list_link;    // 指向同一形式的 obj 结点
-    char        _M_client_data[1];    // 可视为一个指针，指向实际区块
-&#125;;
-</code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 一物二用，避免了为了维护链表所必须的指针而造成内存的浪费</span>
+<span class="token keyword">union</span> _Obj <span class="token punctuation">&#123;</span>
+    <span class="token keyword">union</span> _Obj<span class="token operator">*</span> _M_free_list_link<span class="token punctuation">;</span>    <span class="token comment">// 指向同一形式的 obj 结点</span>
+    <span class="token keyword">char</span>        _M_client_data<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>    <span class="token comment">// 可视为一个指针，指向实际区块</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
@@ -883,123 +874,121 @@ union _Obj &#123;
 <br/>
 
 <blockquote>
-<pre><code class="cpp">   /*  Important implementation properties:
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">   <span class="token comment">/*  Important implementation properties:
    *  0. If globally mandated, then allocate objects from new
-   *  1. If the clients request an object of size &gt; _S_max_bytes, the resulting
+   *  1. If the clients request an object of size > _S_max_bytes, the resulting
    *     object will be obtained directly from new
    *  2. In all other cases, we allocate an object of size exactly
    *     _S_round_up(requested_size).  Thus the client has enough size
    *     information that we can return the object to the proper free list
    *     without permanently losing part of the object.
-   */
-class __pool_alloc_base &#123;
-protected:
-  enum &#123; _S_align = 8 &#125;; // 小型区块的上调边界
-  enum &#123; _S_max_bytes = 128 &#125;; // 小区块的上限
-  enum &#123; _S_free_list_size = (size_t)_S_max_bytes / (size_t)_S_align &#125;;
-  union _Obj &#123; 
-    //... 
-  &#125;;
-  // 将bytes 上调至 8 的倍数，方便管理
-  // 16个free-list分别为 8,16,24,32,40,48,56,64,72,80,88,96,104,112,120,128 bytes
-  size_t _M_round_up(size_t __bytes) &#123; 
-    return ((__bytes + (size_t)_S_align - 1) &amp; ~((size_t)_S_align - 1)); 
-  &#125;
+   */</span>
+<span class="token keyword">class</span> <span class="token class-name">__pool_alloc_base</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">protected</span><span class="token operator">:</span>
+  <span class="token keyword">enum</span> <span class="token punctuation">&#123;</span> _S_align <span class="token operator">=</span> <span class="token number">8</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span> <span class="token comment">// 小型区块的上调边界</span>
+  <span class="token keyword">enum</span> <span class="token punctuation">&#123;</span> _S_max_bytes <span class="token operator">=</span> <span class="token number">128</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span> <span class="token comment">// 小区块的上限</span>
+  <span class="token keyword">enum</span> <span class="token punctuation">&#123;</span> _S_free_list_size <span class="token operator">=</span> <span class="token punctuation">(</span>size_t<span class="token punctuation">)</span>_S_max_bytes <span class="token operator">/</span> <span class="token punctuation">(</span>size_t<span class="token punctuation">)</span>_S_align <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+  <span class="token keyword">union</span> _Obj <span class="token punctuation">&#123;</span> 
+    <span class="token comment">//... </span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+  <span class="token comment">// 将bytes 上调至 8 的倍数，方便管理</span>
+  <span class="token comment">// 16个free-list分别为 8,16,24,32,40,48,56,64,72,80,88,96,104,112,120,128 bytes</span>
+  size_t <span class="token function">_M_round_up</span><span class="token punctuation">(</span>size_t __bytes<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> 
+    <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>__bytes <span class="token operator">+</span> <span class="token punctuation">(</span>size_t<span class="token punctuation">)</span>_S_align <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token operator">~</span><span class="token punctuation">(</span><span class="token punctuation">(</span>size_t<span class="token punctuation">)</span>_S_align <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+  <span class="token punctuation">&#125;</span>
 
-  // Returns an object of size __n, and optionally adds to size __n
-  // free list.
-  void* _M_refill(size_t __n);
+  <span class="token comment">// Returns an object of size __n, and optionally adds to size __n</span>
+  <span class="token comment">// free list.</span>
+  <span class="token keyword">void</span><span class="token operator">*</span> <span class="token function">_M_refill</span><span class="token punctuation">(</span>size_t __n<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  // Allocates a chunk for nobjs of size size.  nobjs may be reduced
-  // if it is inconvenient to allocate the requested number.
-  char* _M_allocate_chunk(size_t __n, int&amp; __nobjs);
-&#125;; // __pool_alloc_base
-</code></pre>
+  <span class="token comment">// Allocates a chunk for nobjs of size size.  nobjs may be reduced</span>
+  <span class="token comment">// if it is inconvenient to allocate the requested number.</span>
+  <span class="token keyword">char</span><span class="token operator">*</span> <span class="token function">_M_allocate_chunk</span><span class="token punctuation">(</span>size_t __n<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token operator">&amp;</span> __nobjs<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span> <span class="token comment">// __pool_alloc_base</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <blockquote>
-<pre><code class="cpp">template&lt;typename _Tp&gt;
-class __pool_alloc : private __pool_alloc_base &#123;
-//...
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Tp</span><span class="token operator">></span>
+<span class="token keyword">class</span> <span class="token class-name">__pool_alloc</span> <span class="token operator">:</span> <span class="token base-clause"><span class="token keyword">private</span> <span class="token class-name">__pool_alloc_base</span></span> <span class="token punctuation">&#123;</span>
+<span class="token comment">//...</span>
 
-// 空间配置函数 allocate()
-template&lt;typename _Tp&gt;
-_GLIBCXX_NODISCARD _Tp* __pool_alloc&lt;_Tp&gt;::allocate(size_type __n, const void*) &#123;
-  pointer __ret = 0;
-  if (__builtin_expect(__n != 0, true)) &#123;
-    if (__n &gt; this-&gt;max_size())
-      std::__throw_bad_alloc();
+<span class="token comment">// 空间配置函数 allocate()</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Tp</span><span class="token operator">></span>
+_GLIBCXX_NODISCARD _Tp<span class="token operator">*</span> <span class="token class-name">__pool_alloc</span><span class="token operator">&lt;</span>_Tp<span class="token operator">></span><span class="token double-colon punctuation">::</span><span class="token function">allocate</span><span class="token punctuation">(</span>size_type __n<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">void</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  pointer __ret <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">__builtin_expect</span><span class="token punctuation">(</span>__n <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>__n <span class="token operator">></span> <span class="token keyword">this</span><span class="token operator">-></span><span class="token function">max_size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+      std<span class="token double-colon punctuation">::</span><span class="token function">__throw_bad_alloc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    const size_t __bytes = __n * sizeof(_Tp);
+    <span class="token keyword">const</span> size_t __bytes <span class="token operator">=</span> __n <span class="token operator">*</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>_Tp<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    #if __cpp_aligned_new
-    if (alignof(_Tp) &gt; __STDCPP_DEFAULT_NEW_ALIGNMENT__)
-    &#123;
-      std::align_val_t __al = std::align_val_t(alignof(_Tp));
-      return static_cast&lt;_Tp*&gt;(::operator new(__bytes, __al));
-    &#125;
-    #endif
+    <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">if</span> <span class="token expression">__cpp_aligned_new</span></span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">alignof</span><span class="token punctuation">(</span>_Tp<span class="token punctuation">)</span> <span class="token operator">></span> __STDCPP_DEFAULT_NEW_ALIGNMENT__<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+      std<span class="token double-colon punctuation">::</span>align_val_t __al <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token function">align_val_t</span><span class="token punctuation">(</span><span class="token keyword">alignof</span><span class="token punctuation">(</span>_Tp<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> <span class="token generic-function"><span class="token function">static_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span>_Tp<span class="token operator">*</span><span class="token operator">></span></span></span><span class="token punctuation">(</span><span class="token double-colon punctuation">::</span><span class="token keyword">operator</span> <span class="token keyword">new</span><span class="token punctuation">(</span>__bytes<span class="token punctuation">,</span> __al<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
 
-    // If there is a race through here, assume answer from getenv
-    // will resolve in same direction.  Inspired by techniques
-    // to efficiently support threading found in basic_string.h.
-    if (_S_force_new == 0) &#123;
-      if (std::getenv(&quot;GLIBCXX_FORCE_NEW&quot;))
-        __atomic_add_dispatch(&amp;_S_force_new, 1);
-      else
-        __atomic_add_dispatch(&amp;_S_force_new, -1);
-    &#125;
-        // &gt; 128bytes 的情况
-    if (__bytes &gt; size_t(_S_max_bytes) || _S_force_new &gt; 0)
-      __ret = static_cast&lt;_Tp*&gt;(::operator new(__bytes));
-    else &#123;
-    // 寻找16个 free lists中适当的一个
-      _Obj* volatile* __free_list = _M_get_free_list(__bytes);
+    <span class="token comment">// If there is a race through here, assume answer from getenv</span>
+    <span class="token comment">// will resolve in same direction.  Inspired by techniques</span>
+    <span class="token comment">// to efficiently support threading found in basic_string.h.</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>_S_force_new <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span><span class="token function">getenv</span><span class="token punctuation">(</span><span class="token string">"GLIBCXX_FORCE_NEW"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token function">__atomic_add_dispatch</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>_S_force_new<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">else</span>
+        <span class="token function">__atomic_add_dispatch</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>_S_force_new<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+        <span class="token comment">// > 128bytes 的情况</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>__bytes <span class="token operator">></span> <span class="token function">size_t</span><span class="token punctuation">(</span>_S_max_bytes<span class="token punctuation">)</span> <span class="token operator">||</span> _S_force_new <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span>
+      __ret <span class="token operator">=</span> <span class="token generic-function"><span class="token function">static_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span>_Tp<span class="token operator">*</span><span class="token operator">></span></span></span><span class="token punctuation">(</span><span class="token double-colon punctuation">::</span><span class="token keyword">operator</span> <span class="token keyword">new</span><span class="token punctuation">(</span>__bytes<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 寻找16个 free lists中适当的一个</span>
+      _Obj<span class="token operator">*</span> <span class="token keyword">volatile</span><span class="token operator">*</span> __free_list <span class="token operator">=</span> <span class="token function">_M_get_free_list</span><span class="token punctuation">(</span>__bytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-      __scoped_lock sentry(_M_get_mutex());
-      _Obj* __restrict__ __result = *__free_list;
-      // 没有找到可用的 free list，准备重新填充free list
-      if (__builtin_expect(__result == 0, 0))
-        __ret = static_cast&lt;_Tp*&gt;(_M_refill(_M_round_up(__bytes)));
-      else &#123;
-      // 调整 free list
-        *__free_list = __result-&gt;_M_free_list_link;
-        __ret = reinterpret_cast&lt;_Tp*&gt;(__result);
-      &#125;
-      if (__ret == 0)
-        std::__throw_bad_alloc();
-    &#125;
-  &#125;
-  return __ret;
-&#125;
+      __scoped_lock <span class="token function">sentry</span><span class="token punctuation">(</span><span class="token function">_M_get_mutex</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      _Obj<span class="token operator">*</span> __restrict__ __result <span class="token operator">=</span> <span class="token operator">*</span>__free_list<span class="token punctuation">;</span>
+      <span class="token comment">// 没有找到可用的 free list，准备重新填充free list</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">__builtin_expect</span><span class="token punctuation">(</span>__result <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        __ret <span class="token operator">=</span> <span class="token generic-function"><span class="token function">static_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span>_Tp<span class="token operator">*</span><span class="token operator">></span></span></span><span class="token punctuation">(</span><span class="token function">_M_refill</span><span class="token punctuation">(</span><span class="token function">_M_round_up</span><span class="token punctuation">(</span>__bytes<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+      <span class="token comment">// 调整 free list</span>
+        <span class="token operator">*</span>__free_list <span class="token operator">=</span> __result<span class="token operator">-></span>_M_free_list_link<span class="token punctuation">;</span>
+        __ret <span class="token operator">=</span> <span class="token generic-function"><span class="token function">reinterpret_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span>_Tp<span class="token operator">*</span><span class="token operator">></span></span></span><span class="token punctuation">(</span>__result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>__ret <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+        std<span class="token double-colon punctuation">::</span><span class="token function">__throw_bad_alloc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">return</span> __ret<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 
 
-// 空间释放函数 deallocate()
-template&lt;typename _Tp&gt;
-void __pool_alloc&lt;_Tp&gt;::deallocate(pointer __p, size_type __n) &#123;
-  if (__builtin_expect(__n != 0 &amp;&amp; __p != 0, true)) &#123;
-#if __cpp_aligned_new
-    if (alignof(_Tp) &gt; __STDCPP_DEFAULT_NEW_ALIGNMENT__) &#123;
-      ::operator delete(__p, std::align_val_t(alignof(_Tp)));
-      return;
-    &#125;
-#endif
-    const size_t __bytes = __n * sizeof(_Tp);
-    // &gt; 128bytes 的情况
-    if (__bytes &gt; static_cast&lt;size_t&gt;(_S_max_bytes) || _S_force_new &gt; 0)
-      ::operator delete(__p);
-    else &#123;
-    // 寻找对应的 free list
-      _Obj* volatile* __free_list = _M_get_free_list(__bytes);
-      _Obj* __q = reinterpret_cast&lt;_Obj*&gt;(__p);
-        // 调整 free list 回收区块
-      __scoped_lock sentry(_M_get_mutex());
-      __q -&gt;_M_free_list_link = *__free_list;
-      *__free_list = __q;
-    &#125;
-  &#125;
-&#125;
-&#125;；// class __pool_alloc
-</code></pre>
+<span class="token comment">// 空间释放函数 deallocate()</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Tp</span><span class="token operator">></span>
+<span class="token keyword">void</span> <span class="token class-name">__pool_alloc</span><span class="token operator">&lt;</span>_Tp<span class="token operator">></span><span class="token double-colon punctuation">::</span><span class="token function">deallocate</span><span class="token punctuation">(</span>pointer __p<span class="token punctuation">,</span> size_type __n<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">__builtin_expect</span><span class="token punctuation">(</span>__n <span class="token operator">!=</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> __p <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">if</span> <span class="token expression">__cpp_aligned_new</span></span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">alignof</span><span class="token punctuation">(</span>_Tp<span class="token punctuation">)</span> <span class="token operator">></span> __STDCPP_DEFAULT_NEW_ALIGNMENT__<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token double-colon punctuation">::</span><span class="token keyword">operator</span> <span class="token keyword">delete</span><span class="token punctuation">(</span>__p<span class="token punctuation">,</span> std<span class="token double-colon punctuation">::</span><span class="token function">align_val_t</span><span class="token punctuation">(</span><span class="token keyword">alignof</span><span class="token punctuation">(</span>_Tp<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
+    <span class="token keyword">const</span> size_t __bytes <span class="token operator">=</span> __n <span class="token operator">*</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>_Tp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// > 128bytes 的情况</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>__bytes <span class="token operator">></span> <span class="token generic-function"><span class="token function">static_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span>size_t<span class="token operator">></span></span></span><span class="token punctuation">(</span>_S_max_bytes<span class="token punctuation">)</span> <span class="token operator">||</span> _S_force_new <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span>
+      <span class="token double-colon punctuation">::</span><span class="token keyword">operator</span> <span class="token keyword">delete</span><span class="token punctuation">(</span>__p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 寻找对应的 free list</span>
+      _Obj<span class="token operator">*</span> <span class="token keyword">volatile</span><span class="token operator">*</span> __free_list <span class="token operator">=</span> <span class="token function">_M_get_free_list</span><span class="token punctuation">(</span>__bytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      _Obj<span class="token operator">*</span> __q <span class="token operator">=</span> <span class="token generic-function"><span class="token function">reinterpret_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span>_Obj<span class="token operator">*</span><span class="token operator">></span></span></span><span class="token punctuation">(</span>__p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 调整 free list 回收区块</span>
+      __scoped_lock <span class="token function">sentry</span><span class="token punctuation">(</span><span class="token function">_M_get_mutex</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      __q <span class="token operator">-></span>_M_free_list_link <span class="token operator">=</span> <span class="token operator">*</span>__free_list<span class="token punctuation">;</span>
+      <span class="token operator">*</span>__free_list <span class="token operator">=</span> __q<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>；<span class="token comment">// class __pool_alloc</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
@@ -1018,71 +1007,70 @@ void __pool_alloc&lt;_Tp&gt;::deallocate(pointer __p, size_type __n) &#123;
 <p>​                </p>
 <p><strong>基于SGI版本分析内存池（memory pool）</strong></p>
 <blockquote>
-<pre><code class="cpp">// 从内存池中取空间
-template &lt;bool __threads, int __inst&gt;
-char*
-__default_alloc_template&lt;__threads, __inst&gt;::_S_chunk_alloc(size_t __size, 
-                                                            int&amp; __nobjs) &#123;
- char* __result;
-    size_t __total_bytes = __size * __nobjs;  // 需要申请空间的大小 
-    size_t __bytes_left = _S_end_free - _S_start_free;  // 计算内存池剩余空间
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 从内存池中取空间</span>
+<span class="token keyword">template</span> <span class="token operator">&lt;</span><span class="token keyword">bool</span> __threads<span class="token punctuation">,</span> <span class="token keyword">int</span> __inst<span class="token operator">></span>
+<span class="token keyword">char</span><span class="token operator">*</span>
+<span class="token class-name">__default_alloc_template</span><span class="token operator">&lt;</span>__threads<span class="token punctuation">,</span> __inst<span class="token operator">></span><span class="token double-colon punctuation">::</span><span class="token function">_S_chunk_alloc</span><span class="token punctuation">(</span>size_t __size<span class="token punctuation">,</span> 
+                                                            <span class="token keyword">int</span><span class="token operator">&amp;</span> __nobjs<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+ <span class="token keyword">char</span><span class="token operator">*</span> __result<span class="token punctuation">;</span>
+    size_t __total_bytes <span class="token operator">=</span> __size <span class="token operator">*</span> __nobjs<span class="token punctuation">;</span>  <span class="token comment">// 需要申请空间的大小 </span>
+    size_t __bytes_left <span class="token operator">=</span> _S_end_free <span class="token operator">-</span> _S_start_free<span class="token punctuation">;</span>  <span class="token comment">// 计算内存池剩余空间</span>
 
- if (__bytes_left &gt;= __total_bytes) &#123;  // 内存池剩余空间完全满足申请
-        __result = _S_start_free;
-        _S_start_free += __total_bytes;
-        return(__result);
-    &#125; else if (__bytes_left &gt;= __size) &#123;  // 内存池剩余空间不能满足申请，提供一个以上的区块
-        __nobjs = (int)(__bytes_left/__size);
-        __total_bytes = __size * __nobjs;
-        __result = _S_start_free;
-        _S_start_free += __total_bytes;
-        return(__result);
-    &#125; else &#123;                             // 内存池剩余空间连一个区块的大小都无法提供                      
-        size_t __bytes_to_get = 
-         2 * __total_bytes + _S_round_up(_S_heap_size &gt;&gt; 4);
-     // Try to make use of the left-over piece.
-       // 内存池的剩余空间分给合适的空闲链表
-     if (__bytes_left &gt; 0) &#123;
-            _Obj* __STL_VOLATILE* __my_free_list =
-                        _S_free_list + _S_freelist_index(__bytes_left);
+ <span class="token keyword">if</span> <span class="token punctuation">(</span>__bytes_left <span class="token operator">>=</span> __total_bytes<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>  <span class="token comment">// 内存池剩余空间完全满足申请</span>
+        __result <span class="token operator">=</span> _S_start_free<span class="token punctuation">;</span>
+        _S_start_free <span class="token operator">+=</span> __total_bytes<span class="token punctuation">;</span>
+        <span class="token keyword">return</span><span class="token punctuation">(</span>__result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>__bytes_left <span class="token operator">>=</span> __size<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>  <span class="token comment">// 内存池剩余空间不能满足申请，提供一个以上的区块</span>
+        __nobjs <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span>__bytes_left<span class="token operator">/</span>__size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        __total_bytes <span class="token operator">=</span> __size <span class="token operator">*</span> __nobjs<span class="token punctuation">;</span>
+        __result <span class="token operator">=</span> _S_start_free<span class="token punctuation">;</span>
+        _S_start_free <span class="token operator">+=</span> __total_bytes<span class="token punctuation">;</span>
+        <span class="token keyword">return</span><span class="token punctuation">(</span>__result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>                             <span class="token comment">// 内存池剩余空间连一个区块的大小都无法提供                      </span>
+        size_t __bytes_to_get <span class="token operator">=</span> 
+         <span class="token number">2</span> <span class="token operator">*</span> __total_bytes <span class="token operator">+</span> <span class="token function">_S_round_up</span><span class="token punctuation">(</span>_S_heap_size <span class="token operator">>></span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token comment">// Try to make use of the left-over piece.</span>
+       <span class="token comment">// 内存池的剩余空间分给合适的空闲链表</span>
+     <span class="token keyword">if</span> <span class="token punctuation">(</span>__bytes_left <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            _Obj<span class="token operator">*</span> __STL_VOLATILE<span class="token operator">*</span> __my_free_list <span class="token operator">=</span>
+                        _S_free_list <span class="token operator">+</span> <span class="token function">_S_freelist_index</span><span class="token punctuation">(</span>__bytes_left<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-         ((_Obj*)_S_start_free) -&gt; _M_free_list_link = *__my_free_list;
-            *__my_free_list = (_Obj*)_S_start_free;
-        &#125;
-        _S_start_free = (char*)malloc(__bytes_to_get);  // 配置 heap 空间，用来补充内存池
-        if (0 == _S_start_free) &#123;  // heap 空间不足，malloc() 失败
-            size_t __i;
-            _Obj* __STL_VOLATILE* __my_free_list;
-           _Obj* __p;
-         // Try to make do with what we have.  That can&#39;t
-            // hurt.  We do not try smaller requests, since that tends
-            // to result in disaster on multi-process machines.
-            for (__i = __size;
-                 __i &lt;= (size_t) _MAX_BYTES;
-                 __i += (size_t) _ALIGN) &#123;
-                __my_free_list = _S_free_list + _S_freelist_index(__i);
-                __p = *__my_free_list;
-                if (0 != __p) &#123;
-                    *__my_free_list = __p -&gt; _M_free_list_link;
-                    _S_start_free = (char*)__p;
-                    _S_end_free = _S_start_free + __i;
-                    return(_S_chunk_alloc(__size, __nobjs));
-                    // Any leftover piece will eventually make it to the
-                    // right free list.
-                &#125;
-            &#125;
-           _S_end_free = 0;    // In case of exception.
-         _S_start_free = (char*)malloc_alloc::allocate(__bytes_to_get);  // 调用第一级配置器
-            // This should either throw an
-            // exception or remedy the situation.  Thus we assume it
-            // succeeded.
-        &#125;
-        _S_heap_size += __bytes_to_get;
-        _S_end_free = _S_start_free + __bytes_to_get;
-        return(_S_chunk_alloc(__size, __nobjs));  // 递归调用自己
-    &#125;
-   &#125;
-</code></pre>
+         <span class="token punctuation">(</span><span class="token punctuation">(</span>_Obj<span class="token operator">*</span><span class="token punctuation">)</span>_S_start_free<span class="token punctuation">)</span> <span class="token operator">-></span> _M_free_list_link <span class="token operator">=</span> <span class="token operator">*</span>__my_free_list<span class="token punctuation">;</span>
+            <span class="token operator">*</span>__my_free_list <span class="token operator">=</span> <span class="token punctuation">(</span>_Obj<span class="token operator">*</span><span class="token punctuation">)</span>_S_start_free<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        _S_start_free <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span>__bytes_to_get<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 配置 heap 空间，用来补充内存池</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token number">0</span> <span class="token operator">==</span> _S_start_free<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>  <span class="token comment">// heap 空间不足，malloc() 失败</span>
+            size_t __i<span class="token punctuation">;</span>
+            _Obj<span class="token operator">*</span> __STL_VOLATILE<span class="token operator">*</span> __my_free_list<span class="token punctuation">;</span>
+           _Obj<span class="token operator">*</span> __p<span class="token punctuation">;</span>
+         <span class="token comment">// Try to make do with what we have.  That can't</span>
+            <span class="token comment">// hurt.  We do not try smaller requests, since that tends</span>
+            <span class="token comment">// to result in disaster on multi-process machines.</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span>__i <span class="token operator">=</span> __size<span class="token punctuation">;</span>
+                 __i <span class="token operator">&lt;=</span> <span class="token punctuation">(</span>size_t<span class="token punctuation">)</span> _MAX_BYTES<span class="token punctuation">;</span>
+                 __i <span class="token operator">+=</span> <span class="token punctuation">(</span>size_t<span class="token punctuation">)</span> _ALIGN<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                __my_free_list <span class="token operator">=</span> _S_free_list <span class="token operator">+</span> <span class="token function">_S_freelist_index</span><span class="token punctuation">(</span>__i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                __p <span class="token operator">=</span> <span class="token operator">*</span>__my_free_list<span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token number">0</span> <span class="token operator">!=</span> __p<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                    <span class="token operator">*</span>__my_free_list <span class="token operator">=</span> __p <span class="token operator">-></span> _M_free_list_link<span class="token punctuation">;</span>
+                    _S_start_free <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span>__p<span class="token punctuation">;</span>
+                    _S_end_free <span class="token operator">=</span> _S_start_free <span class="token operator">+</span> __i<span class="token punctuation">;</span>
+                    <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token function">_S_chunk_alloc</span><span class="token punctuation">(</span>__size<span class="token punctuation">,</span> __nobjs<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token comment">// Any leftover piece will eventually make it to the</span>
+                    <span class="token comment">// right free list.</span>
+                <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span>
+           _S_end_free <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>    <span class="token comment">// In case of exception.</span>
+         _S_start_free <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span>malloc_alloc<span class="token double-colon punctuation">::</span><span class="token function">allocate</span><span class="token punctuation">(</span>__bytes_to_get<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 调用第一级配置器</span>
+            <span class="token comment">// This should either throw an</span>
+            <span class="token comment">// exception or remedy the situation.  Thus we assume it</span>
+            <span class="token comment">// succeeded.</span>
+        <span class="token punctuation">&#125;</span>
+        _S_heap_size <span class="token operator">+=</span> __bytes_to_get<span class="token punctuation">;</span>
+        _S_end_free <span class="token operator">=</span> _S_start_free <span class="token operator">+</span> __bytes_to_get<span class="token punctuation">;</span>
+        <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token function">_S_chunk_alloc</span><span class="token punctuation">(</span>__size<span class="token punctuation">,</span> __nobjs<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 递归调用自己</span>
+    <span class="token punctuation">&#125;</span>
+   <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
@@ -1096,165 +1084,159 @@ __default_alloc_template&lt;__threads, __inst&gt;::_S_chunk_alloc(size_t __size,
 <br/>
 
 <h2 id="对于-lt-stl-construct-h-gt-中的-construct-和-destroy"><a href="#对于-lt-stl-construct-h-gt-中的-construct-和-destroy" class="headerlink" title="对于  &lt;stl_construct.h&gt; 中的 construct() 和 destroy()"></a>对于  &lt;stl_construct.h&gt; 中的 construct() 和 destroy()</h2><h3 id="construct"><a href="#construct" class="headerlink" title="construct()"></a>construct()</h3><blockquote>
-<pre><code class="cpp">// construct() 
-// 调用 _T1::_T1(__args)
-template&lt;typename _T1, typename... _Args&gt;
-inline void _Construct(_T1* __p, _Args&amp;&amp;... __args)
-&#123; ::new(static_cast&lt;void*&gt;(__p)) _T1(std::forward&lt;_Args&gt;(__args)...); &#125;
-</code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// construct() </span>
+<span class="token comment">// 调用 _T1::_T1(__args)</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_T1</span><span class="token punctuation">,</span> <span class="token keyword">typename</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> _Args<span class="token operator">></span>
+<span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">_Construct</span><span class="token punctuation">(</span>_T1<span class="token operator">*</span> __p<span class="token punctuation">,</span> _Args<span class="token operator">&amp;&amp;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> __args<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span> <span class="token double-colon punctuation">::</span><span class="token keyword">new</span><span class="token punctuation">(</span><span class="token generic-function"><span class="token function">static_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">*</span><span class="token operator">></span></span></span><span class="token punctuation">(</span>__p<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token function">_T1</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span><span class="token generic-function"><span class="token function">forward</span><span class="token generic class-name"><span class="token operator">&lt;</span>_Args<span class="token operator">></span></span></span><span class="token punctuation">(</span>__args<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <h3 id="destroy"><a href="#destroy" class="headerlink" title="destroy()"></a>destroy()</h3><p>（1）直接调用对象的析构。</p>
 <blockquote>
-<pre><code class="cpp">// 版本一
-template&lt;typename _Tp&gt;
-inline void _Destroy(_Tp* __pointer)
-&#123; __pointer-&gt;~_Tp(); &#125;
-</code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 版本一</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Tp</span><span class="token operator">></span>
+<span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">_Destroy</span><span class="token punctuation">(</span>_Tp<span class="token operator">*</span> __pointer<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span> __pointer<span class="token operator">-></span><span class="token operator">~</span><span class="token function">_Tp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <p>（2）接受迭代器 first 和 last，为了解决迭代范围很大的情况，如果都直接调用对象析构，影响效率，所以要根据元素value type 来感知是否为 trivival destructor。</p>
 <blockquote>
-<pre><code class="cpp">// 版本二
-template&lt;typename _ForwardIterator&gt;
-inline void _Destroy(_ForwardIterator __first, _ForwardIterator __last) &#123;
-  typedef typename iterator_traits&lt;_ForwardIterator&gt;::value_type _Value_type;
-#if __cplusplus &gt;= 201103L
-  // A deleted destructor is trivial, this ensures we reject such types:
-  static_assert(is_destructible&lt;_Value_type&gt;::value, &quot;value type is destructible&quot;);
-#endif
-  std::_Destroy_aux&lt;__has_trivial_destructor(_Value_type)&gt;::
-  __destroy(__first, __last);
-&#125;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 版本二</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_ForwardIterator</span><span class="token operator">></span>
+<span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">_Destroy</span><span class="token punctuation">(</span>_ForwardIterator __first<span class="token punctuation">,</span> _ForwardIterator __last<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">typedef</span> <span class="token keyword">typename</span> <span class="token class-name">iterator_traits</span><span class="token operator">&lt;</span>_ForwardIterator<span class="token operator">></span><span class="token double-colon punctuation">::</span>value_type _Value_type<span class="token punctuation">;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">if</span> <span class="token expression">__cplusplus <span class="token operator">>=</span> <span class="token number">201103L</span></span></span>
+  <span class="token comment">// A deleted destructor is trivial, this ensures we reject such types:</span>
+  <span class="token keyword">static_assert</span><span class="token punctuation">(</span>is_destructible<span class="token operator">&lt;</span>_Value_type<span class="token operator">></span><span class="token double-colon punctuation">::</span>value<span class="token punctuation">,</span> <span class="token string">"value type is destructible"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
+  std<span class="token double-colon punctuation">::</span><span class="token class-name">_Destroy_aux</span><span class="token operator">&lt;</span><span class="token function">__has_trivial_destructor</span><span class="token punctuation">(</span>_Value_type<span class="token punctuation">)</span><span class="token operator">></span><span class="token double-colon punctuation">::</span>
+  <span class="token function">__destroy</span><span class="token punctuation">(</span>__first<span class="token punctuation">,</span> __last<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 
-// std::_Destroy_aux
+<span class="token comment">// std::_Destroy_aux</span>
 
-// 元素的 value type，有 non-trivival destructor
-template&lt;bool&gt;
-struct _Destroy_aux &#123;
-  template&lt;typename _ForwardIterator&gt;
-  static void __destroy(_ForwardIterator __first, _ForwardIterator __last) &#123;
-    for (; __first != __last; ++__first)
-      std::_Destroy(std::__addressof(*__first));
-  &#125;
-&#125;;
+<span class="token comment">// 元素的 value type，有 non-trivival destructor</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">bool</span><span class="token operator">></span>
+<span class="token keyword">struct</span> <span class="token class-name">_Destroy_aux</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_ForwardIterator</span><span class="token operator">></span>
+  <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">__destroy</span><span class="token punctuation">(</span>_ForwardIterator __first<span class="token punctuation">,</span> _ForwardIterator __last<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> __first <span class="token operator">!=</span> __last<span class="token punctuation">;</span> <span class="token operator">++</span>__first<span class="token punctuation">)</span>
+      std<span class="token double-colon punctuation">::</span><span class="token function">_Destroy</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span><span class="token function">__addressof</span><span class="token punctuation">(</span><span class="token operator">*</span>__first<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-// 元素的 value type，有 trivival destructor
-template&lt;&gt;
-struct _Destroy_aux&lt;true&gt; &#123;
-      template&lt;typename _ForwardIterator&gt;
-      static void __destroy(_ForwardIterator, _ForwardIterator) &#123; &#125;
-&#125;;
-</code></pre>
+<span class="token comment">// 元素的 value type，有 trivival destructor</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token operator">></span>
+<span class="token keyword">struct</span> <span class="token class-name">_Destroy_aux</span><span class="token operator">&lt;</span><span class="token boolean">true</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_ForwardIterator</span><span class="token operator">></span>
+      <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">__destroy</span><span class="token punctuation">(</span>_ForwardIterator<span class="token punctuation">,</span> _ForwardIterator<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <p><br/><br/></p>
 <h2 id="内存基本处理工具"><a href="#内存基本处理工具" class="headerlink" title="内存基本处理工具"></a>内存基本处理工具</h2><p>STL 定义了5个全局函数作用于未初始化空间上，除了上面提及的construct()、destroy()，还有：</p>
 <h3 id="uninitialized-copy"><a href="#uninitialized-copy" class="headerlink" title="uninitialized_copy()"></a>uninitialized_copy()</h3><blockquote>
-<pre><code class="cpp">// POD 类型
-// POD 类型必然有 trivival ctor/dtor/copy/assignment 函数
-template&lt;&gt;
-struct __uninitialized_copy&lt;true&gt; &#123;
-    template&lt;typename _InputIterator, typename _ForwardIterator&gt;
-    static _ForwardIterator
-    __uninit_copy(_InputIterator __first, _InputIterator __last,
-                  _ForwardIterator __result) &#123; 
-      // 调用 STL 算法 copy()
-      return std::copy(__first, __last, __result); 
-    &#125; 
-&#125;;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// POD 类型</span>
+<span class="token comment">// POD 类型必然有 trivival ctor/dtor/copy/assignment 函数</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token operator">></span>
+<span class="token keyword">struct</span> <span class="token class-name">__uninitialized_copy</span><span class="token operator">&lt;</span><span class="token boolean">true</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_InputIterator</span><span class="token punctuation">,</span> <span class="token keyword">typename</span> <span class="token class-name">_ForwardIterator</span><span class="token operator">></span>
+    <span class="token keyword">static</span> _ForwardIterator
+    <span class="token function">__uninit_copy</span><span class="token punctuation">(</span>_InputIterator __first<span class="token punctuation">,</span> _InputIterator __last<span class="token punctuation">,</span>
+                  _ForwardIterator __result<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> 
+      <span class="token comment">// 调用 STL 算法 copy()</span>
+      <span class="token keyword">return</span> std<span class="token double-colon punctuation">::</span><span class="token function">copy</span><span class="token punctuation">(</span>__first<span class="token punctuation">,</span> __last<span class="token punctuation">,</span> __result<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+    <span class="token punctuation">&#125;</span> 
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-// non-POD 类型
-template&lt;bool _TrivialValueTypes&gt;
-struct __uninitialized_copy &#123;
-    template&lt;typename _InputIterator, typename _ForwardIterator&gt;
-    static _ForwardIterator
-    __uninit_copy(_InputIterator __first, _InputIterator __last,
-                  _ForwardIterator __result) &#123;
-      _ForwardIterator __cur = __result;
-      __try &#123;
-        // 必须一个一个元素地构造，无法批量进行
-        for (; __first != __last; ++__first, (void)++__cur)
-          std::_Construct(std::__addressof(*__cur), *__first);
-        return __cur;
-      &#125;
-      __catch(...) &#123;
-        std::_Destroy(__result, __cur);
-        __throw_exception_again;
-      &#125;
-    &#125;
-&#125;;
-</code></pre>
+<span class="token comment">// non-POD 类型</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">bool</span> _TrivialValueTypes<span class="token operator">></span>
+<span class="token keyword">struct</span> <span class="token class-name">__uninitialized_copy</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_InputIterator</span><span class="token punctuation">,</span> <span class="token keyword">typename</span> <span class="token class-name">_ForwardIterator</span><span class="token operator">></span>
+    <span class="token keyword">static</span> _ForwardIterator
+    <span class="token function">__uninit_copy</span><span class="token punctuation">(</span>_InputIterator __first<span class="token punctuation">,</span> _InputIterator __last<span class="token punctuation">,</span>
+                  _ForwardIterator __result<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      _ForwardIterator __cur <span class="token operator">=</span> __result<span class="token punctuation">;</span>
+      __try <span class="token punctuation">&#123;</span>
+        <span class="token comment">// 必须一个一个元素地构造，无法批量进行</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> __first <span class="token operator">!=</span> __last<span class="token punctuation">;</span> <span class="token operator">++</span>__first<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token operator">++</span>__cur<span class="token punctuation">)</span>
+          std<span class="token double-colon punctuation">::</span><span class="token function">_Construct</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span><span class="token function">__addressof</span><span class="token punctuation">(</span><span class="token operator">*</span>__cur<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token operator">*</span>__first<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> __cur<span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+      <span class="token function">__catch</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        std<span class="token double-colon punctuation">::</span><span class="token function">_Destroy</span><span class="token punctuation">(</span>__result<span class="token punctuation">,</span> __cur<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        __throw_exception_again<span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
 <h3 id="uninitialized-fill"><a href="#uninitialized-fill" class="headerlink" title="uninitialized_fill()"></a>uninitialized_fill()</h3><blockquote>
-<pre><code class="cpp">// POD 类型
-template&lt;&gt;
-struct __uninitialized_fill&lt;true&gt; &#123;
-    template&lt;typename _ForwardIterator, typename _Tp&gt;
-    static void
-    __uninit_fill(_ForwardIterator __first, _ForwardIterator __last,
-                  const _Tp&amp; __x) &#123; 
-      // 调用 STL 算法 fill()
-      std::fill(__first, __last, __x); 
-    &#125;
-&#125;;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// POD 类型</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token operator">></span>
+<span class="token keyword">struct</span> <span class="token class-name">__uninitialized_fill</span><span class="token operator">&lt;</span><span class="token boolean">true</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_ForwardIterator</span><span class="token punctuation">,</span> <span class="token keyword">typename</span> <span class="token class-name">_Tp</span><span class="token operator">></span>
+    <span class="token keyword">static</span> <span class="token keyword">void</span>
+    <span class="token function">__uninit_fill</span><span class="token punctuation">(</span>_ForwardIterator __first<span class="token punctuation">,</span> _ForwardIterator __last<span class="token punctuation">,</span>
+                  <span class="token keyword">const</span> _Tp<span class="token operator">&amp;</span> __x<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> 
+      <span class="token comment">// 调用 STL 算法 fill()</span>
+      std<span class="token double-colon punctuation">::</span><span class="token function">fill</span><span class="token punctuation">(</span>__first<span class="token punctuation">,</span> __last<span class="token punctuation">,</span> __x<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-// non-POD 类型
-template&lt;bool _TrivialValueType&gt;
-struct __uninitialized_fill &#123;
-     template&lt;typename _ForwardIterator, typename _Tp&gt;
-     static void
-     __uninit_fill(_ForwardIterator __first, _ForwardIterator __last,
-                   const _Tp&amp; __x) &#123;
-       _ForwardIterator __cur = __first;
-       __try &#123;
-         // 必须一个个构造，无法批量进行
-         for (; __cur != __last; ++__cur)
-           std::_Construct(std::__addressof(*__cur), __x);
-       &#125;
-       __catch(...) &#123;
-         std::_Destroy(__first, __cur);
-         __throw_exception_again;
-       &#125;
-     &#125;
-&#125;;
-</code></pre>
+<span class="token comment">// non-POD 类型</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">bool</span> _TrivialValueType<span class="token operator">></span>
+<span class="token keyword">struct</span> <span class="token class-name">__uninitialized_fill</span> <span class="token punctuation">&#123;</span>
+     <span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_ForwardIterator</span><span class="token punctuation">,</span> <span class="token keyword">typename</span> <span class="token class-name">_Tp</span><span class="token operator">></span>
+     <span class="token keyword">static</span> <span class="token keyword">void</span>
+     <span class="token function">__uninit_fill</span><span class="token punctuation">(</span>_ForwardIterator __first<span class="token punctuation">,</span> _ForwardIterator __last<span class="token punctuation">,</span>
+                   <span class="token keyword">const</span> _Tp<span class="token operator">&amp;</span> __x<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+       _ForwardIterator __cur <span class="token operator">=</span> __first<span class="token punctuation">;</span>
+       __try <span class="token punctuation">&#123;</span>
+         <span class="token comment">// 必须一个个构造，无法批量进行</span>
+         <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> __cur <span class="token operator">!=</span> __last<span class="token punctuation">;</span> <span class="token operator">++</span>__cur<span class="token punctuation">)</span>
+           std<span class="token double-colon punctuation">::</span><span class="token function">_Construct</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span><span class="token function">__addressof</span><span class="token punctuation">(</span><span class="token operator">*</span>__cur<span class="token punctuation">)</span><span class="token punctuation">,</span> __x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token punctuation">&#125;</span>
+       <span class="token function">__catch</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+         std<span class="token double-colon punctuation">::</span><span class="token function">_Destroy</span><span class="token punctuation">(</span>__first<span class="token punctuation">,</span> __cur<span class="token punctuation">)</span><span class="token punctuation">;</span>
+         __throw_exception_again<span class="token punctuation">;</span>
+       <span class="token punctuation">&#125;</span>
+     <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
 <h3 id="uninitialized-fill-n"><a href="#uninitialized-fill-n" class="headerlink" title="uninitialized_fill_n()"></a>uninitialized_fill_n()</h3><blockquote>
-<pre><code class="cpp">// POD 类型
-template&lt;&gt;
-struct __uninitialized_fill_n&lt;true&gt; &#123;
-    template&lt;typename _ForwardIterator, typename _Size, typename _Tp&gt;
-    static _ForwardIterator
-    __uninit_fill_n(_ForwardIterator __first, _Size __n,
-                    const _Tp&amp; __x) &#123; 
-      // 调用 STL 算法 fill_n()
-      return std::fill_n(__first, __n, __x); 
-    &#125;
-&#125;;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// POD 类型</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token operator">></span>
+<span class="token keyword">struct</span> <span class="token class-name">__uninitialized_fill_n</span><span class="token operator">&lt;</span><span class="token boolean">true</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_ForwardIterator</span><span class="token punctuation">,</span> <span class="token keyword">typename</span> <span class="token class-name">_Size</span><span class="token punctuation">,</span> <span class="token keyword">typename</span> <span class="token class-name">_Tp</span><span class="token operator">></span>
+    <span class="token keyword">static</span> _ForwardIterator
+    <span class="token function">__uninit_fill_n</span><span class="token punctuation">(</span>_ForwardIterator __first<span class="token punctuation">,</span> _Size __n<span class="token punctuation">,</span>
+                    <span class="token keyword">const</span> _Tp<span class="token operator">&amp;</span> __x<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> 
+      <span class="token comment">// 调用 STL 算法 fill_n()</span>
+      <span class="token keyword">return</span> std<span class="token double-colon punctuation">::</span><span class="token function">fill_n</span><span class="token punctuation">(</span>__first<span class="token punctuation">,</span> __n<span class="token punctuation">,</span> __x<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-// non-POD 类型
-template&lt;bool _TrivialValueType&gt;
-struct __uninitialized_fill_n &#123;
-      template&lt;typename _ForwardIterator, typename _Size, typename _Tp&gt;
-    static _ForwardIterator
-    __uninit_fill_n(_ForwardIterator __first, _Size __n,
-                    const _Tp&amp; __x) &#123;
-      _ForwardIterator __cur = __first;
-      __try &#123;
-        // 必须一个一个元素地构造，无法批量进行
-        for (; __n &gt; 0; --__n, (void) ++__cur)
-          std::_Construct(std::__addressof(*__cur), __x);
-        return __cur;
-      &#125;
-      __catch(...) &#123;
-        std::_Destroy(__first, __cur);
-        __throw_exception_again;
-      &#125;
-    &#125;
-&#125;;
-</code></pre>
+<span class="token comment">// non-POD 类型</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">bool</span> _TrivialValueType<span class="token operator">></span>
+<span class="token keyword">struct</span> <span class="token class-name">__uninitialized_fill_n</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_ForwardIterator</span><span class="token punctuation">,</span> <span class="token keyword">typename</span> <span class="token class-name">_Size</span><span class="token punctuation">,</span> <span class="token keyword">typename</span> <span class="token class-name">_Tp</span><span class="token operator">></span>
+    <span class="token keyword">static</span> _ForwardIterator
+    <span class="token function">__uninit_fill_n</span><span class="token punctuation">(</span>_ForwardIterator __first<span class="token punctuation">,</span> _Size __n<span class="token punctuation">,</span>
+                    <span class="token keyword">const</span> _Tp<span class="token operator">&amp;</span> __x<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      _ForwardIterator __cur <span class="token operator">=</span> __first<span class="token punctuation">;</span>
+      __try <span class="token punctuation">&#123;</span>
+        <span class="token comment">// 必须一个一个元素地构造，无法批量进行</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> __n <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token operator">--</span>__n<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token operator">++</span>__cur<span class="token punctuation">)</span>
+          std<span class="token double-colon punctuation">::</span><span class="token function">_Construct</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span><span class="token function">__addressof</span><span class="token punctuation">(</span><span class="token operator">*</span>__cur<span class="token punctuation">)</span><span class="token punctuation">,</span> __x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> __cur<span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+      <span class="token function">__catch</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        std<span class="token double-colon punctuation">::</span><span class="token function">_Destroy</span><span class="token punctuation">(</span>__first<span class="token punctuation">,</span> __cur<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        __throw_exception_again<span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
@@ -1386,7 +1368,7 @@ struct __uninitialized_fill_n &#123;
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2021/06/">六月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/05/">五月 2021<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/03/">三月 2021<span class="sidebar_archives-count">5</span></a>
+                <a class="sidebar_archives-link" href="/archives/2021/08/">八月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/06/">六月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/05/">五月 2021<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/03/">三月 2021<span class="sidebar_archives-count">5</span></a>
             </ul>
         </li>
         

@@ -243,7 +243,7 @@
 
     
         <meta property="article:published_time" content="Mon May 31 2021 22:56:16 GMT+0800">
-        <meta property="article:modified_time" content="Sat Jun 26 2021 23:13:06 GMT+0800">
+        <meta property="article:modified_time" content="Sun Sep 19 2021 11:16:49 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -266,7 +266,7 @@
     "mainEntityOfPage": "http://example.com/2021/05/31/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%88iterators%EF%BC%89/index.html",
     "headline": "拆书系列之《STL 源码剖析》迭代器（iterators）",
     "datePublished": "Mon May 31 2021 22:56:16 GMT+0800",
-    "dateModified": "Sat Jun 26 2021 23:13:06 GMT+0800",
+    "dateModified": "Sun Sep 19 2021 11:16:49 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -509,7 +509,7 @@
 <p>STL 的中心思想在于：将数据容器（containers）和算法（algorithms）分开，彼此独立设计，最后再以粘胶剂将他们撮合在一起。而这个粘胶剂就是 <strong>iterator</strong>。</p>
 <p><strong>以 std:find() 为例</strong></p>
 <blockquote>
-<pre><code class="cpp">  /**
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">  <span class="token comment">/**
    *  @brief Find the first occurrence of a value in a sequence.
    *  @ingroup non_mutating_algorithms
    *  @param  __first  An input iterator.
@@ -517,117 +517,114 @@
    *  @param  __val    The value to find.
    *  @return   The first iterator @c i in the range @p [__first,__last)
    *  such that @c *i == @p __val, or @p __last if no such iterator exists.
-  */
-  template&lt;typename _InputIterator, typename _Tp&gt;
-    inline _InputIterator
-    find(_InputIterator __first, _InputIterator __last, const _Tp&amp; __val) &#123;
-      return std::__find_if(__first, __last,
-                __gnu_cxx::__ops::__iter_equals_val(__val));
-    &#125;
+  */</span>
+  <span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_InputIterator</span><span class="token punctuation">,</span> <span class="token keyword">typename</span> <span class="token class-name">_Tp</span><span class="token operator">></span>
+    <span class="token keyword">inline</span> _InputIterator
+    <span class="token function">find</span><span class="token punctuation">(</span>_InputIterator __first<span class="token punctuation">,</span> _InputIterator __last<span class="token punctuation">,</span> <span class="token keyword">const</span> _Tp<span class="token operator">&amp;</span> __val<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">return</span> std<span class="token double-colon punctuation">::</span><span class="token function">__find_if</span><span class="token punctuation">(</span>__first<span class="token punctuation">,</span> __last<span class="token punctuation">,</span>
+                __gnu_cxx<span class="token double-colon punctuation">::</span>__ops<span class="token double-colon punctuation">::</span><span class="token function">__iter_equals_val</span><span class="token punctuation">(</span>__val<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
 
-#include &lt;algorithm&gt;
-#include &lt;vector&gt;
-#include &lt;iostream&gt;
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;algorithm></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;vector></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 
-int main() &#123;
-    std::vector&lt;int&gt; vec &#123;1, 2, 3, 4, 5&#125;;
-    std::vector&lt;int&gt;::iterator iter = std::find(vec.begin(), vec.end(), 3);
-    if(iter != vec.end()) &#123;
-       std::cout &lt;&lt; &quot;find it&quot;;
-    &#125;
-    return 0;
-&#125;
-</code></pre>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> vec <span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span><span class="token double-colon punctuation">::</span>iterator iter <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token function">find</span><span class="token punctuation">(</span>vec<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> vec<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>iter <span class="token operator">!=</span> vec<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+       std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"find it"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <p>我们可以实现一个如下类似的迭代器类：</p>
 <blockquote>
-<pre><code class="c">#include &lt;list&gt;
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;list></span></span>
 
-class ListItem &#123;
-public:
-    T value() const &#123; return _value; &#125;      
-  ListItem* next() const &#123; return _next; &#125;
+class ListItem <span class="token punctuation">&#123;</span>
+public<span class="token operator">:</span>
+    T <span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> _value<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>      
+  ListItem<span class="token operator">*</span> <span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> _next<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
 
-private:
-  T _value;
-  ListItem* _next;
-&#125;
+private<span class="token operator">:</span>
+  T _value<span class="token punctuation">;</span>
+  ListItem<span class="token operator">*</span> _next<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 
-class List &#123;
-    void insert_front(T value);
-    void insert_end(T value);
-    void display(std::ostream &amp;os = std::cout) const;
-  //...
-private:
-    ListItem&lt;T&gt;* _end;
-    ListItem&lt;T&gt;* _front;
-    long _size;
-&#125;;
+class List <span class="token punctuation">&#123;</span>
+    <span class="token keyword">void</span> <span class="token function">insert_front</span><span class="token punctuation">(</span>T value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">void</span> <span class="token function">insert_end</span><span class="token punctuation">(</span>T value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">void</span> <span class="token function">display</span><span class="token punctuation">(</span>std<span class="token operator">::</span>ostream <span class="token operator">&amp;</span>os <span class="token operator">=</span> std<span class="token operator">::</span>cout<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+  <span class="token comment">//...</span>
+private<span class="token operator">:</span>
+    ListItem<span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token operator">*</span> _end<span class="token punctuation">;</span>
+    ListItem<span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token operator">*</span> _front<span class="token punctuation">;</span>
+    <span class="token keyword">long</span> _size<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-// 自定义 List 迭代器类
-template &lt;class Item&gt;
-struct ListIter &#123;
+<span class="token comment">// 自定义 List 迭代器类</span>
+template <span class="token operator">&lt;</span>class Item<span class="token operator">></span>
+<span class="token keyword">struct</span> <span class="token class-name">ListIter</span> <span class="token punctuation">&#123;</span>
 
-    Item* ptr;
+    Item<span class="token operator">*</span> ptr<span class="token punctuation">;</span>
 
-  //...
-    Item&amp; operator*() const &#123; return *ptr; &#125;
-    Item* operator-&gt;() const &#123; return ptr; &#125;
-    ListIter&amp; operator++() &#123; ptr = ptr-&gt;next(); return *this; &#125;
-   ...
-&#125;;
+  <span class="token comment">//...</span>
+    Item<span class="token operator">&amp;</span> operator<span class="token operator">*</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> <span class="token operator">*</span>ptr<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    Item<span class="token operator">*</span> operator<span class="token operator">-></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> ptr<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    ListIter<span class="token operator">&amp;</span> operator<span class="token operator">++</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> ptr <span class="token operator">=</span> ptr<span class="token operator">-></span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token keyword">return</span> <span class="token operator">*</span>this<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+   <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-int main() &#123;
-    list&lt;int&gt; mylist &#123;1, 2, 3, 4, 5&#125;;
-    ListIter&lt;ListItem&lt;int&gt;&gt; begin(mylist.front());
-    ListIter&lt;ListItem&lt;int&gt;&gt; end(mylist.end());
-    auto iter = std::find(begin, end, 3);
-    return 0;
-&#125;
-</code></pre>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    list<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> mylist <span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    ListIter<span class="token operator">&lt;</span>ListItem<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">>></span> <span class="token function">begin</span><span class="token punctuation">(</span>mylist<span class="token punctuation">.</span><span class="token function">front</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ListIter<span class="token operator">&lt;</span>ListItem<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">>></span> <span class="token function">end</span><span class="token punctuation">(</span>mylist<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">auto</span> iter <span class="token operator">=</span> std<span class="token operator">::</span><span class="token function">find</span><span class="token punctuation">(</span>begin<span class="token punctuation">,</span> end<span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <p><strong>上面的做法为了实现一个针对 List 的迭代器，暴露了太多关于 List 的实现细节。STL 为了避免这种问题，将迭代器交给了各个容器去实现，这就是为什么 STL 容器都有自己专属的迭代器。</strong></p>
 <h2 id="Traits-编程技法"><a href="#Traits-编程技法" class="headerlink" title="Traits 编程技法"></a>Traits 编程技法</h2><p>为了让迭代器和算法更好的结合，算法要用到迭代器的相应特性（traits），包括<code> value type、difference type、reference type、pointer type、iterator_category</code>。</p>
 <blockquote>
-<pre><code class="cpp">// _GLIBCXX_RESOLVE_LIB_DEFECTS
-// 2408. SFINAE-friendly common_type/iterator_traits is missing in C++14
-template&lt;typename _Iterator, typename = __void_t&lt;&gt;&gt;
-struct __iterator_traits &#123; &#125;;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// _GLIBCXX_RESOLVE_LIB_DEFECTS</span>
+<span class="token comment">// 2408. SFINAE-friendly common_type/iterator_traits is missing in C++14</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Iterator</span><span class="token punctuation">,</span> <span class="token keyword">typename</span> <span class="token operator">=</span> __void_t<span class="token operator">&lt;</span><span class="token operator">>></span>
+<span class="token keyword">struct</span> <span class="token class-name">__iterator_traits</span> <span class="token punctuation">&#123;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-template&lt;typename _Iterator&gt;
-struct __iterator_traits&lt;_Iterator,
-__void_t&lt;typename _Iterator::iterator_category,
-typename _Iterator::value_type,
-typename _Iterator::difference_type,
-typename _Iterator::pointer,
-typename _Iterator::reference&gt;&gt; &#123;
-     typedef typename _Iterator::iterator_category iterator_category;
-    typedef typename _Iterator::value_type        value_type;
-    typedef typename _Iterator::difference_type   difference_type;
-    typedef typename _Iterator::pointer           pointer;
-    typedef typename _Iterator::reference         reference;
-  &#125;;
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Iterator</span><span class="token operator">></span>
+<span class="token keyword">struct</span> <span class="token class-name">__iterator_traits</span><span class="token operator">&lt;</span>_Iterator<span class="token punctuation">,</span>
+__void_t<span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Iterator</span><span class="token double-colon punctuation">::</span>iterator_category<span class="token punctuation">,</span>
+<span class="token keyword">typename</span> <span class="token class-name">_Iterator</span><span class="token double-colon punctuation">::</span>value_type<span class="token punctuation">,</span>
+<span class="token keyword">typename</span> <span class="token class-name">_Iterator</span><span class="token double-colon punctuation">::</span>difference_type<span class="token punctuation">,</span>
+<span class="token keyword">typename</span> <span class="token class-name">_Iterator</span><span class="token double-colon punctuation">::</span>pointer<span class="token punctuation">,</span>
+<span class="token keyword">typename</span> <span class="token class-name">_Iterator</span><span class="token double-colon punctuation">::</span>reference<span class="token operator">>></span> <span class="token punctuation">&#123;</span>
+     <span class="token keyword">typedef</span> <span class="token keyword">typename</span> <span class="token class-name">_Iterator</span><span class="token double-colon punctuation">::</span>iterator_category iterator_category<span class="token punctuation">;</span>
+    <span class="token keyword">typedef</span> <span class="token keyword">typename</span> <span class="token class-name">_Iterator</span><span class="token double-colon punctuation">::</span>value_type        value_type<span class="token punctuation">;</span>
+    <span class="token keyword">typedef</span> <span class="token keyword">typename</span> <span class="token class-name">_Iterator</span><span class="token double-colon punctuation">::</span>difference_type   difference_type<span class="token punctuation">;</span>
+    <span class="token keyword">typedef</span> <span class="token keyword">typename</span> <span class="token class-name">_Iterator</span><span class="token double-colon punctuation">::</span>pointer           pointer<span class="token punctuation">;</span>
+    <span class="token keyword">typedef</span> <span class="token keyword">typename</span> <span class="token class-name">_Iterator</span><span class="token double-colon punctuation">::</span>reference         reference<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-// 针对原生指针而设计的偏特化版本
-template&lt;typename _Tp&gt;
-struct iterator_traits&lt;_Tp*&gt; &#123;
-  typedef random_access_iterator_tag iterator_category;
-  typedef _Tp                         value_type;
-    typedef ptrdiff_t                   difference_type;
-    typedef _Tp*                        pointer;
-    typedef _Tp&amp;                        reference;
-  &#125;;
+<span class="token comment">// 针对原生指针而设计的偏特化版本</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Tp</span><span class="token operator">></span>
+<span class="token keyword">struct</span> <span class="token class-name">iterator_traits</span><span class="token operator">&lt;</span>_Tp<span class="token operator">*</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">typedef</span> random_access_iterator_tag iterator_category<span class="token punctuation">;</span>
+  <span class="token keyword">typedef</span> _Tp                         value_type<span class="token punctuation">;</span>
+    <span class="token keyword">typedef</span> ptrdiff_t                   difference_type<span class="token punctuation">;</span>
+    <span class="token keyword">typedef</span> _Tp<span class="token operator">*</span>                        pointer<span class="token punctuation">;</span>
+    <span class="token keyword">typedef</span> _Tp<span class="token operator">&amp;</span>                        reference<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-// 针对原生（pointer-to-const）指针而设计的偏特化版本
-template&lt;typename _Tp&gt;
-struct iterator_traits&lt;const _Tp*&gt; &#123;
-  typedef random_access_iterator_tag iterator_category;
-  typedef _Tp                         value_type;
-  typedef ptrdiff_t                   difference_type;
-    typedef const _Tp*                  pointer;
-    typedef const _Tp&amp;                  reference;
-  &#125;;
-</code></pre>
+<span class="token comment">// 针对原生（pointer-to-const）指针而设计的偏特化版本</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Tp</span><span class="token operator">></span>
+<span class="token keyword">struct</span> <span class="token class-name">iterator_traits</span><span class="token operator">&lt;</span><span class="token keyword">const</span> _Tp<span class="token operator">*</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">typedef</span> random_access_iterator_tag iterator_category<span class="token punctuation">;</span>
+  <span class="token keyword">typedef</span> _Tp                         value_type<span class="token punctuation">;</span>
+  <span class="token keyword">typedef</span> ptrdiff_t                   difference_type<span class="token punctuation">;</span>
+    <span class="token keyword">typedef</span> <span class="token keyword">const</span> _Tp<span class="token operator">*</span>                  pointer<span class="token punctuation">;</span>
+    <span class="token keyword">typedef</span> <span class="token keyword">const</span> _Tp<span class="token operator">&amp;</span>                  reference<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
@@ -640,7 +637,7 @@ struct iterator_traits&lt;const _Tp*&gt; &#123;
 
 <h3 id="difference-type"><a href="#difference-type" class="headerlink" title="difference type"></a>difference type</h3><p>用来表示两个迭代器的距离，因此他也可以用来表示一个容器的容量。</p>
 <blockquote>
-<pre><code class="cpp">/**
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">/**
    *  @brief Count the number of copies of a value in a sequence.
    *  @ingroup non_mutating_algorithms
    *  @param  __first  An input iterator.
@@ -648,19 +645,17 @@ struct iterator_traits&lt;const _Tp*&gt; &#123;
    *  @param  __value  The value to be counted.
    *  @return   The number of iterators @c i in the range @p [__first,__last)
    *  for which @c *i == @p __value
-  */
-template&lt;typename _InputIterator, typename _Tp&gt;
-inline typename iterator_traits&lt;_InputIterator&gt;::difference_type
-  count(_InputIterator __first, _InputIterator __last, const _Tp&amp; __value) &#123;
-  return std::__count_if(__first, __last,
-                         __gnu_cxx::__ops::__iter_equals_val(__value));
-&#125;
-</code></pre>
+  */</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_InputIterator</span><span class="token punctuation">,</span> <span class="token keyword">typename</span> <span class="token class-name">_Tp</span><span class="token operator">></span>
+<span class="token keyword">inline</span> <span class="token keyword">typename</span> <span class="token class-name">iterator_traits</span><span class="token operator">&lt;</span>_InputIterator<span class="token operator">></span><span class="token double-colon punctuation">::</span>difference_type
+  <span class="token function">count</span><span class="token punctuation">(</span>_InputIterator __first<span class="token punctuation">,</span> _InputIterator __last<span class="token punctuation">,</span> <span class="token keyword">const</span> _Tp<span class="token operator">&amp;</span> __value<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> std<span class="token double-colon punctuation">::</span><span class="token function">__count_if</span><span class="token punctuation">(</span>__first<span class="token punctuation">,</span> __last<span class="token punctuation">,</span>
+                         __gnu_cxx<span class="token double-colon punctuation">::</span>__ops<span class="token double-colon punctuation">::</span><span class="token function">__iter_equals_val</span><span class="token punctuation">(</span>__value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <p>当我们需要迭代器 I 的 difference type 时，可以这么写：</p>
 <blockquote>
-<pre><code class="cpp">typename iterator_traits&lt;I&gt;::difference_type
-</code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">typename</span> <span class="token class-name">iterator_traits</span><span class="token operator">&lt;</span>I<span class="token operator">></span><span class="token double-colon punctuation">::</span>difference_type<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </blockquote>
 <br/>
 
@@ -688,31 +683,30 @@ inline typename iterator_traits&lt;_InputIterator&gt;::difference_type
 
 <h3 id="pointer-type"><a href="#pointer-type" class="headerlink" title="pointer type"></a>pointer type</h3><p>形如 <strong>T</strong>* 便是 pointer type。</p>
 <blockquote>
-<pre><code class="cpp">template&lt;typename _Iterator&gt;
-struct __iterator_traits&lt;
-typename _Iterator::pointer,
-typename _Iterator::reference&gt;&gt; &#123;
-  //...
-    typedef typename _Iterator::pointer           pointer;
-    typedef typename _Iterator::reference         reference;
-&#125;;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Iterator</span><span class="token operator">></span>
+<span class="token keyword">struct</span> <span class="token class-name">__iterator_traits</span><span class="token operator">&lt;</span>
+<span class="token keyword">typename</span> <span class="token class-name">_Iterator</span><span class="token double-colon punctuation">::</span>pointer<span class="token punctuation">,</span>
+<span class="token keyword">typename</span> <span class="token class-name">_Iterator</span><span class="token double-colon punctuation">::</span>reference<span class="token operator">>></span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">//...</span>
+    <span class="token keyword">typedef</span> <span class="token keyword">typename</span> <span class="token class-name">_Iterator</span><span class="token double-colon punctuation">::</span>pointer           pointer<span class="token punctuation">;</span>
+    <span class="token keyword">typedef</span> <span class="token keyword">typename</span> <span class="token class-name">_Iterator</span><span class="token double-colon punctuation">::</span>reference         reference<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-// 针对原生指针而设计的偏特化版本
-template&lt;typename _Tp&gt;
-struct iterator_traits&lt;_Tp*&gt; &#123;
-  //...
-    typedef ptrdiff_t                   difference_type;
-    typedef _Tp*                        pointer;
-&#125;;
+<span class="token comment">// 针对原生指针而设计的偏特化版本</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Tp</span><span class="token operator">></span>
+<span class="token keyword">struct</span> <span class="token class-name">iterator_traits</span><span class="token operator">&lt;</span>_Tp<span class="token operator">*</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">//...</span>
+    <span class="token keyword">typedef</span> ptrdiff_t                   difference_type<span class="token punctuation">;</span>
+    <span class="token keyword">typedef</span> _Tp<span class="token operator">*</span>                        pointer<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-// 针对原生（pointer-to-const）指针而设计的偏特化版本
-template&lt;typename _Tp&gt;
-struct iterator_traits&lt;const _Tp*&gt; &#123;
-  //...
-    typedef const _Tp*                  pointer;
-    typedef const _Tp&amp;                  reference;
-&#125;;
-</code></pre>
+<span class="token comment">// 针对原生（pointer-to-const）指针而设计的偏特化版本</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Tp</span><span class="token operator">></span>
+<span class="token keyword">struct</span> <span class="token class-name">iterator_traits</span><span class="token operator">&lt;</span><span class="token keyword">const</span> _Tp<span class="token operator">*</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">//...</span>
+    <span class="token keyword">typedef</span> <span class="token keyword">const</span> _Tp<span class="token operator">*</span>                  pointer<span class="token punctuation">;</span>
+    <span class="token keyword">typedef</span> <span class="token keyword">const</span> _Tp<span class="token operator">&amp;</span>                  reference<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
@@ -774,7 +768,7 @@ struct iterator_traits&lt;const _Tp*&gt; &#123;
 
 <p>STL 为了提高效率，针对不同的迭代器类型提供不同的版本，例如 <code>distance()</code>:</p>
 <blockquote>
-<pre><code class="cpp">  /**
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">  <span class="token comment">/**
    *  @brief A generalization of pointer arithmetic.
    *  @param  __first  An input iterator.
    *  @param  __last  An input iterator.
@@ -786,55 +780,54 @@ struct iterator_traits&lt;const _Tp*&gt; &#123;
    *
    *  For random access iterators, this uses their @c + and @c - operations
    *  and are constant time.  For other %iterator classes they are linear time.
-  */
-template&lt;typename _InputIterator&gt;
-inline _GLIBCXX17_CONSTEXPR
-typename iterator_traits&lt;_InputIterator&gt;::difference_type
-  distance(_InputIterator __first, _InputIterator __last) &#123;
-  return std::__distance(__first, __last,
-                         std::__iterator_category(__first));
-&#125;
+  */</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_InputIterator</span><span class="token operator">></span>
+<span class="token keyword">inline</span> _GLIBCXX17_CONSTEXPR
+<span class="token keyword">typename</span> <span class="token class-name">iterator_traits</span><span class="token operator">&lt;</span>_InputIterator<span class="token operator">></span><span class="token double-colon punctuation">::</span>difference_type
+  <span class="token function">distance</span><span class="token punctuation">(</span>_InputIterator __first<span class="token punctuation">,</span> _InputIterator __last<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> std<span class="token double-colon punctuation">::</span><span class="token function">__distance</span><span class="token punctuation">(</span>__first<span class="token punctuation">,</span> __last<span class="token punctuation">,</span>
+                         std<span class="token double-colon punctuation">::</span><span class="token function">__iterator_category</span><span class="token punctuation">(</span>__first<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 
-// 逐一累计距离
-template&lt;typename _InputIterator, typename _Distance&gt;
-inline _GLIBCXX14_CONSTEXPR void
-__advance(_InputIterator&amp; __i, _Distance __n, input_iterator_tag) &#123;
-  while (__n--)
-    ++__i;
-&#125;
+<span class="token comment">// 逐一累计距离</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_InputIterator</span><span class="token punctuation">,</span> <span class="token keyword">typename</span> <span class="token class-name">_Distance</span><span class="token operator">></span>
+<span class="token keyword">inline</span> _GLIBCXX14_CONSTEXPR <span class="token keyword">void</span>
+<span class="token function">__advance</span><span class="token punctuation">(</span>_InputIterator<span class="token operator">&amp;</span> __i<span class="token punctuation">,</span> _Distance __n<span class="token punctuation">,</span> input_iterator_tag<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">while</span> <span class="token punctuation">(</span>__n<span class="token operator">--</span><span class="token punctuation">)</span>
+    <span class="token operator">++</span>__i<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 
-// 逐一累计距离 （可逆向）
-template&lt;typename _BidirectionalIterator, typename _Distance&gt;
-inline _GLIBCXX14_CONSTEXPR void
-__advance(_BidirectionalIterator&amp; __i, _Distance __n,
-          bidirectional_iterator_tag) &#123;
-  if (__n &gt; 0)
-    while (__n--)
-      ++__i;
-  else
-    while (__n++)
-      --__i;
-&#125;
+<span class="token comment">// 逐一累计距离 （可逆向）</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_BidirectionalIterator</span><span class="token punctuation">,</span> <span class="token keyword">typename</span> <span class="token class-name">_Distance</span><span class="token operator">></span>
+<span class="token keyword">inline</span> _GLIBCXX14_CONSTEXPR <span class="token keyword">void</span>
+<span class="token function">__advance</span><span class="token punctuation">(</span>_BidirectionalIterator<span class="token operator">&amp;</span> __i<span class="token punctuation">,</span> _Distance __n<span class="token punctuation">,</span>
+          bidirectional_iterator_tag<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>__n <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>__n<span class="token operator">--</span><span class="token punctuation">)</span>
+      <span class="token operator">++</span>__i<span class="token punctuation">;</span>
+  <span class="token keyword">else</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>__n<span class="token operator">++</span><span class="token punctuation">)</span>
+      <span class="token operator">--</span>__i<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 
-// 直接计算差距
-template&lt;typename _RandomAccessIterator, typename _Distance&gt;
-inline _GLIBCXX14_CONSTEXPR void
-__advance(_RandomAccessIterator&amp; __i, _Distance __n,
-          random_access_iterator_tag) &#123;
-    if (__builtin_constant_p(__n) &amp;&amp; __n == 1)
-      ++__i;
-  else if (__builtin_constant_p(__n) &amp;&amp; __n == -1)
-    --__i;
-  else
-    __i += __n;
-&#125;
-</code></pre>
+<span class="token comment">// 直接计算差距</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_RandomAccessIterator</span><span class="token punctuation">,</span> <span class="token keyword">typename</span> <span class="token class-name">_Distance</span><span class="token operator">></span>
+<span class="token keyword">inline</span> _GLIBCXX14_CONSTEXPR <span class="token keyword">void</span>
+<span class="token function">__advance</span><span class="token punctuation">(</span>_RandomAccessIterator<span class="token operator">&amp;</span> __i<span class="token punctuation">,</span> _Distance __n<span class="token punctuation">,</span>
+          random_access_iterator_tag<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">__builtin_constant_p</span><span class="token punctuation">(</span>__n<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> __n <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span>
+      <span class="token operator">++</span>__i<span class="token punctuation">;</span>
+  <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">__builtin_constant_p</span><span class="token punctuation">(</span>__n<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> __n <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token operator">--</span>__i<span class="token punctuation">;</span>
+  <span class="token keyword">else</span>
+    __i <span class="token operator">+=</span> __n<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
 <h3 id="std-iterator"><a href="#std-iterator" class="headerlink" title="std::iterator"></a>std::iterator</h3><p>为了方便我们自定义迭代器类型，保证设计的迭代器符合 STL规范，提供了：</p>
 <blockquote>
-<pre><code class="cpp">  /**
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">  <span class="token comment">/**
    *  @brief  Common %iterator class.
    *
    *  This class does nothing but define nested typedefs.  %Iterator classes
@@ -843,22 +836,21 @@ __advance(_RandomAccessIterator&amp; __i, _Distance __n,
    *
    *  In particular, there are no default implementations of requirements
    *  such as @c operator++ and the like.  (How could there be?)
-  */
-template&lt;typename _Category, typename _Tp, typename _Distance = ptrdiff_t,
-typename _Pointer = _Tp*, typename _Reference = _Tp&amp;&gt;
-  struct iterator &#123;
-    /// One of the @link iterator_tags tag types@endlink.
-    typedef _Category  iterator_category;
-    /// The type &quot;pointed to&quot; by the iterator.
-    typedef _Tp        value_type;
-    /// Distance between iterators is represented as this type.
-    typedef _Distance  difference_type;
-    /// This type represents a pointer-to-value_type.
-    typedef _Pointer   pointer;
-    /// This type represents a reference-to-value_type.
-    typedef _Reference reference;
-&#125;;
-</code></pre>
+  */</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Category</span><span class="token punctuation">,</span> <span class="token keyword">typename</span> <span class="token class-name">_Tp</span><span class="token punctuation">,</span> <span class="token keyword">typename</span> <span class="token class-name">_Distance</span> <span class="token operator">=</span> ptrdiff_t<span class="token punctuation">,</span>
+<span class="token keyword">typename</span> <span class="token class-name">_Pointer</span> <span class="token operator">=</span> _Tp<span class="token operator">*</span><span class="token punctuation">,</span> <span class="token keyword">typename</span> <span class="token class-name">_Reference</span> <span class="token operator">=</span> _Tp<span class="token operator">&amp;</span><span class="token operator">></span>
+  <span class="token keyword">struct</span> <span class="token class-name">iterator</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">/// One of the @link iterator_tags tag types@endlink.</span>
+    <span class="token keyword">typedef</span> _Category  iterator_category<span class="token punctuation">;</span>
+    <span class="token comment">/// The type "pointed to" by the iterator.</span>
+    <span class="token keyword">typedef</span> _Tp        value_type<span class="token punctuation">;</span>
+    <span class="token comment">/// Distance between iterators is represented as this type.</span>
+    <span class="token keyword">typedef</span> _Distance  difference_type<span class="token punctuation">;</span>
+    <span class="token comment">/// This type represents a pointer-to-value_type.</span>
+    <span class="token keyword">typedef</span> _Pointer   pointer<span class="token punctuation">;</span>
+    <span class="token comment">/// This type represents a reference-to-value_type.</span>
+    <span class="token keyword">typedef</span> _Reference reference<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
@@ -867,81 +859,79 @@ typename _Pointer = _Tp*, typename _Reference = _Tp&amp;&gt;
 <h2 id="type-traits"><a href="#type-traits" class="headerlink" title="__type_traits"></a>__type_traits</h2><p><strong>iterator_traits</strong> 负责的是萃取<strong>迭代器的特性</strong>，为了进一步扩大到迭代器以外的世界，提供了**__type_traits** 负责萃取 <strong>type的特性</strong>。 </p>
 <p><strong>SGI 版本</strong></p>
 <blockquote>
-<pre><code class="cpp">template &lt;class _Tp&gt;
-struct __type_traits &#123; 
-     typedef __true_type     this_dummy_member_must_be_first;
-     typedef __false_type    has_trivial_default_constructor;
-     typedef __false_type    has_trivial_copy_constructor;
-     typedef __false_type    has_trivial_assignment_operator;
-     typedef __false_type    has_trivial_destructor;
-     typedef __false_type    is_POD_type;
-&#125;;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">template</span> <span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token class-name">_Tp</span><span class="token operator">></span>
+<span class="token keyword">struct</span> <span class="token class-name">__type_traits</span> <span class="token punctuation">&#123;</span> 
+     <span class="token keyword">typedef</span> __true_type     this_dummy_member_must_be_first<span class="token punctuation">;</span>
+     <span class="token keyword">typedef</span> __false_type    has_trivial_default_constructor<span class="token punctuation">;</span>
+     <span class="token keyword">typedef</span> __false_type    has_trivial_copy_constructor<span class="token punctuation">;</span>
+     <span class="token keyword">typedef</span> __false_type    has_trivial_assignment_operator<span class="token punctuation">;</span>
+     <span class="token keyword">typedef</span> __false_type    has_trivial_destructor<span class="token punctuation">;</span>
+     <span class="token keyword">typedef</span> __false_type    is_POD_type<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-// 针对 C++ 基本类别提供的特化版本
-// 每个成员的值都是 __true_type，表示这些类型可以
-// 采用最快速的方式（如 memcpy）进行拷贝和赋值
-__STL_TEMPLATE_NULL struct __type_traits&lt;char&gt; &#123;
-     typedef __true_type    has_trivial_default_constructor;
-     typedef __true_type    has_trivial_copy_constructor;
-     typedef __true_type    has_trivial_assignment_operator;
-     typedef __true_type    has_trivial_destructor;
-     typedef __true_type    is_POD_type;
-&#125;;
+<span class="token comment">// 针对 C++ 基本类别提供的特化版本</span>
+<span class="token comment">// 每个成员的值都是 __true_type，表示这些类型可以</span>
+<span class="token comment">// 采用最快速的方式（如 memcpy）进行拷贝和赋值</span>
+__STL_TEMPLATE_NULL <span class="token keyword">struct</span> <span class="token class-name">__type_traits</span><span class="token operator">&lt;</span><span class="token keyword">char</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>
+     <span class="token keyword">typedef</span> __true_type    has_trivial_default_constructor<span class="token punctuation">;</span>
+     <span class="token keyword">typedef</span> __true_type    has_trivial_copy_constructor<span class="token punctuation">;</span>
+     <span class="token keyword">typedef</span> __true_type    has_trivial_assignment_operator<span class="token punctuation">;</span>
+     <span class="token keyword">typedef</span> __true_type    has_trivial_destructor<span class="token punctuation">;</span>
+     <span class="token keyword">typedef</span> __true_type    is_POD_type<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-__STL_TEMPLATE_NULL struct __type_traits&lt;unsigned int&gt; &#123;
-     typedef __true_type    has_trivial_default_constructor;
-     typedef __true_type    has_trivial_copy_constructor;
-     typedef __true_type    has_trivial_assignment_operator;
-     typedef __true_type    has_trivial_destructor;
-     typedef __true_type    is_POD_type;
-&#125;;
-//...
-</code></pre>
+__STL_TEMPLATE_NULL <span class="token keyword">struct</span> <span class="token class-name">__type_traits</span><span class="token operator">&lt;</span><span class="token keyword">unsigned</span> <span class="token keyword">int</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>
+     <span class="token keyword">typedef</span> __true_type    has_trivial_default_constructor<span class="token punctuation">;</span>
+     <span class="token keyword">typedef</span> __true_type    has_trivial_copy_constructor<span class="token punctuation">;</span>
+     <span class="token keyword">typedef</span> __true_type    has_trivial_assignment_operator<span class="token punctuation">;</span>
+     <span class="token keyword">typedef</span> __true_type    has_trivial_destructor<span class="token punctuation">;</span>
+     <span class="token keyword">typedef</span> __true_type    is_POD_type<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+<span class="token comment">//...</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
 <p><strong>GCC 版本</strong></p>
 <blockquote>
-<pre><code class="cpp">// include/c++/9/type_traits
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// include/c++/9/type_traits</span>
 
-/// is_trivial
-template&lt;typename _Tp&gt;
-struct is_trivial
-: public integral_constant&lt;bool, __is_trivial(_Tp)&gt;
-&#123; &#125;;
+<span class="token comment">/// is_trivial</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Tp</span><span class="token operator">></span>
+<span class="token keyword">struct</span> <span class="token class-name">is_trivial</span>
+<span class="token operator">:</span> <span class="token base-clause"><span class="token keyword">public</span> <span class="token class-name">integral_constant</span><span class="token operator">&lt;</span><span class="token keyword">bool</span><span class="token punctuation">,</span> <span class="token function">__is_trivial</span><span class="token punctuation">(</span><span class="token class-name">_Tp</span><span class="token punctuation">)</span><span class="token operator">></span></span>
+<span class="token punctuation">&#123;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-// is_trivially_copyable
-template&lt;typename _Tp&gt;
-struct is_trivially_copyable
-: public integral_constant&lt;bool, __is_trivially_copyable(_Tp)&gt;
-&#123; &#125;;
+<span class="token comment">// is_trivially_copyable</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Tp</span><span class="token operator">></span>
+<span class="token keyword">struct</span> <span class="token class-name">is_trivially_copyable</span>
+<span class="token operator">:</span> <span class="token base-clause"><span class="token keyword">public</span> <span class="token class-name">integral_constant</span><span class="token operator">&lt;</span><span class="token keyword">bool</span><span class="token punctuation">,</span> <span class="token function">__is_trivially_copyable</span><span class="token punctuation">(</span><span class="token class-name">_Tp</span><span class="token punctuation">)</span><span class="token operator">></span></span>
+<span class="token punctuation">&#123;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-/// is_pod
-// Could use is_standard_layout &amp;&amp; is_trivial instead of the builtin.
-template&lt;typename _Tp&gt;
-struct is_pod
-: public integral_constant&lt;bool, __is_pod(_Tp)&gt;
-&#123; &#125;;
+<span class="token comment">/// is_pod</span>
+<span class="token comment">// Could use is_standard_layout &amp;&amp; is_trivial instead of the builtin.</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Tp</span><span class="token operator">></span>
+<span class="token keyword">struct</span> <span class="token class-name">is_pod</span>
+<span class="token operator">:</span> <span class="token base-clause"><span class="token keyword">public</span> <span class="token class-name">integral_constant</span><span class="token operator">&lt;</span><span class="token keyword">bool</span><span class="token punctuation">,</span> <span class="token function">__is_pod</span><span class="token punctuation">(</span><span class="token class-name">_Tp</span><span class="token punctuation">)</span><span class="token operator">></span></span>
+<span class="token punctuation">&#123;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-template&lt;typename _Tp&gt;
-struct is_trivially_move_assignable
-  : public __is_trivially_move_assignable_impl&lt;_Tp&gt;
-  &#123; &#125;;
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Tp</span><span class="token operator">></span>
+<span class="token keyword">struct</span> <span class="token class-name">is_trivially_move_assignable</span>
+  <span class="token operator">:</span> <span class="token base-clause"><span class="token keyword">public</span> <span class="token class-name">__is_trivially_move_assignable_impl</span><span class="token operator">&lt;</span><span class="token class-name">_Tp</span><span class="token operator">></span></span>
+  <span class="token punctuation">&#123;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-/// is_trivially_destructible
-template&lt;typename _Tp&gt;
-struct is_trivially_destructible
-  : public __and_&lt;is_destructible&lt;_Tp&gt;,
-__bool_constant&lt;__has_trivial_destructor(_Tp)&gt;&gt;
-&#123; &#125;;
+<span class="token comment">/// is_trivially_destructible</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Tp</span><span class="token operator">></span>
+<span class="token keyword">struct</span> <span class="token class-name">is_trivially_destructible</span>
+  <span class="token operator">:</span> <span class="token base-clause"><span class="token keyword">public</span> <span class="token class-name">__and_</span><span class="token operator">&lt;</span><span class="token class-name">is_destructible</span><span class="token operator">&lt;</span><span class="token class-name">_Tp</span><span class="token operator">></span><span class="token punctuation">,</span>
+<span class="token class-name">__bool_constant</span><span class="token operator">&lt;</span><span class="token function">__has_trivial_destructor</span><span class="token punctuation">(</span><span class="token class-name">_Tp</span><span class="token punctuation">)</span><span class="token operator">>></span></span>
+<span class="token punctuation">&#123;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
 
-/// has_virtual_destructor
-template&lt;typename _Tp&gt;
-struct has_virtual_destructor
-  : public integral_constant&lt;bool, __has_virtual_destructor(_Tp)&gt;
-  &#123; &#125;;
-</code></pre>
+<span class="token comment">/// has_virtual_destructor</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_Tp</span><span class="token operator">></span>
+<span class="token keyword">struct</span> <span class="token class-name">has_virtual_destructor</span>
+  <span class="token operator">:</span> <span class="token base-clause"><span class="token keyword">public</span> <span class="token class-name">integral_constant</span><span class="token operator">&lt;</span><span class="token keyword">bool</span><span class="token punctuation">,</span> <span class="token function">__has_virtual_destructor</span><span class="token punctuation">(</span><span class="token class-name">_Tp</span><span class="token punctuation">)</span><span class="token operator">></span></span>
+  <span class="token punctuation">&#123;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <p><code>__type_trait</code> 在 STL 中应用，如之前提到的<code>uninitialized_fill_n()</code>，会根据是否为 POD类别，选择调用高阶函数<code>std::fill_n()</code> 还是 <code>逐一调用对象的construct()</code>。</p>
 
@@ -1070,7 +1060,7 @@ struct has_virtual_destructor
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2021/06/">六月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/05/">五月 2021<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/03/">三月 2021<span class="sidebar_archives-count">5</span></a>
+                <a class="sidebar_archives-link" href="/archives/2021/08/">八月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/06/">六月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/05/">五月 2021<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/03/">三月 2021<span class="sidebar_archives-count">5</span></a>
             </ul>
         </li>
         

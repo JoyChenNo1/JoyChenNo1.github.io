@@ -564,142 +564,140 @@
 </tbody></table>
 <br/>
 
-<h3 id="简单实现-一个-shared-ptr"><a href="#简单实现-一个-shared-ptr" class="headerlink" title="简单实现 一个 shared_ptr"></a>简单实现 一个 shared_ptr</h3><div class="tag-common tabs" id="shared_ptr-的简单实现"><ul class="nav-tabs"><li class="tab active"><a href="#shared_ptr-的简单实现-1">代码实现</a></li><li class="tab"><a href="#shared_ptr-的简单实现-2">示例</a></li></ul><div class="tab-content"><div class="tab-pane active" id="shared_ptr-的简单实现-1"><pre><code class="cpp">// 简单实现一个 shared_ptr
-#include &lt;iostream&gt;
+<h3 id="简单实现-一个-shared-ptr"><a href="#简单实现-一个-shared-ptr" class="headerlink" title="简单实现 一个 shared_ptr"></a>简单实现 一个 shared_ptr</h3><div class="tag-common tabs" id="shared_ptr-的简单实现"><ul class="nav-tabs"><li class="tab active"><a href="#shared_ptr-的简单实现-1">代码实现</a></li><li class="tab"><a href="#shared_ptr-的简单实现-2">示例</a></li></ul><div class="tab-content"><div class="tab-pane active" id="shared_ptr-的简单实现-1"><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 简单实现一个 shared_ptr</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 
-class RefCount {
-public:
-    RefCount() : use_count_(0) {
-    }
+<span class="token keyword">class</span> <span class="token class-name">RefCount</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token function">RefCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token function">use_count_</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token punctuation">&#125;</span>
 
-    RefCount(const RefCount&amp;) = delete;
+    <span class="token function">RefCount</span><span class="token punctuation">(</span><span class="token keyword">const</span> RefCount<span class="token operator">&amp;</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">delete</span><span class="token punctuation">;</span>
 
-    RefCount&amp; operator=(const RefCount&amp;) = delete;
+    RefCount<span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">const</span> RefCount<span class="token operator">&amp;</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">delete</span><span class="token punctuation">;</span>
 
-    ~RefCount() {}
+    <span class="token operator">~</span><span class="token function">RefCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
 
-    void reset() {
-        use_count_ = 0;
-    }
+    <span class="token keyword">void</span> <span class="token function">reset</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        use_count_ <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
 
-    unsigned int use_count() {
-        return use_count_;
-    }
+    <span class="token keyword">unsigned</span> <span class="token keyword">int</span> <span class="token function">use_count</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> use_count_<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
 
-    // 重载前置/后置自增
-    void operator++() {
-      ++use_count_;
-    }
+    <span class="token comment">// 重载前置/后置自增</span>
+    <span class="token keyword">void</span> <span class="token keyword">operator</span><span class="token operator">++</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token operator">++</span>use_count_<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
  
-    void operator++(int) {
-      use_count_++;
-    }
+    <span class="token keyword">void</span> <span class="token keyword">operator</span><span class="token operator">++</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      use_count_<span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
  
-    // 重载前置/后置自减
-    void operator--() {
-      --use_count_;
-    }
+    <span class="token comment">// 重载前置/后置自减</span>
+    <span class="token keyword">void</span> <span class="token keyword">operator</span><span class="token operator">--</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token operator">--</span>use_count_<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
 
-    void operator--(int) {
-      use_count_--;
-    }
+    <span class="token keyword">void</span> <span class="token keyword">operator</span><span class="token operator">--</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      use_count_<span class="token operator">--</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
 
-    // 重载 &lt;&lt; 操作
-    friend std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const RefCount&amp; c) {
-        os &lt;&lt; &quot;当前引用值为: &quot; &lt;&lt; c.use_count_ &lt;&lt; std::endl;
-        return os;
-    }
+    <span class="token comment">// 重载 &lt;&lt; 操作</span>
+    <span class="token keyword">friend</span> std<span class="token double-colon punctuation">::</span>ostream<span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">&lt;&lt;</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span>ostream<span class="token operator">&amp;</span> os<span class="token punctuation">,</span> <span class="token keyword">const</span> RefCount<span class="token operator">&amp;</span> c<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        os <span class="token operator">&lt;&lt;</span> <span class="token string">"当前引用值为: "</span> <span class="token operator">&lt;&lt;</span> c<span class="token punctuation">.</span>use_count_ <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> os<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
 
-private:
-    unsigned int use_count_ {};
-    // usinged int weak_count_ {};
-}; 
+<span class="token keyword">private</span><span class="token operator">:</span>
+    <span class="token keyword">unsigned</span> <span class="token keyword">int</span> use_count_ <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token comment">// usinged int weak_count_ &#123;&#125;;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span> 
 
-template &lt;typename T&gt;
-class SharedPtr {
-public:
-    // 显式构造
-    explicit SharedPtr(T* ptr = nullptr) {
-        raw_ptr_ = ptr;
-        ref_count_ = new RefCount();
-        if(ptr) {
-            (*ref_count_)++;
-        }
-    }
+<span class="token keyword">template</span> <span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">T</span><span class="token operator">></span>
+<span class="token keyword">class</span> <span class="token class-name">SharedPtr</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token comment">// 显式构造</span>
+    <span class="token keyword">explicit</span> <span class="token function">SharedPtr</span><span class="token punctuation">(</span>T<span class="token operator">*</span> ptr <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        raw_ptr_ <span class="token operator">=</span> ptr<span class="token punctuation">;</span>
+        ref_count_ <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token function">RefCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>ptr<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token punctuation">(</span><span class="token operator">*</span>ref_count_<span class="token punctuation">)</span><span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
 
-    // 拷贝构造
-    SharedPtr(const SharedPtr&amp; sp) {
-        raw_ptr_ = sp.raw_ptr_;
-        ref_count_ = sp.ref_count_;
-        ++(*ref_count_);
-    }
+    <span class="token comment">// 拷贝构造</span>
+    <span class="token function">SharedPtr</span><span class="token punctuation">(</span><span class="token keyword">const</span> SharedPtr<span class="token operator">&amp;</span> sp<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        raw_ptr_ <span class="token operator">=</span> sp<span class="token punctuation">.</span>raw_ptr_<span class="token punctuation">;</span>
+        ref_count_ <span class="token operator">=</span> sp<span class="token punctuation">.</span>ref_count_<span class="token punctuation">;</span>
+        <span class="token operator">++</span><span class="token punctuation">(</span><span class="token operator">*</span>ref_count_<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
 
-    T* get() {
-        return raw_ptr_;
-    }
+    T<span class="token operator">*</span> <span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> raw_ptr_<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
 
-    unsigned int use_count() {
-        return ref_count_-&gt;use_count();
-    }
+    <span class="token keyword">unsigned</span> <span class="token keyword">int</span> <span class="token function">use_count</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> ref_count_<span class="token operator">-></span><span class="token function">use_count</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
 
-    ~SharedPtr() {
-        --(*ref_count_);
-        if(ref_count_-&gt;use_count() == 0) {
-            delete ref_count_;
-            delete raw_ptr_;
-        }
-    }
+    <span class="token operator">~</span><span class="token function">SharedPtr</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token operator">--</span><span class="token punctuation">(</span><span class="token operator">*</span>ref_count_<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>ref_count_<span class="token operator">-></span><span class="token function">use_count</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">delete</span> ref_count_<span class="token punctuation">;</span>
+            <span class="token keyword">delete</span> raw_ptr_<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
 
-    T&amp; operator*() {
-        return *raw_ptr_;
-    }
+    T<span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token operator">*</span>raw_ptr_<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
 
-    T* operator-&gt;() {
-        return raw_ptr_;
-    }
+    T<span class="token operator">*</span> <span class="token keyword">operator</span><span class="token operator">-></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> raw_ptr_<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
 
-    friend std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, SharedPtr&lt;T&gt;&amp; sp) {
-        os &lt;&lt; &quot;所指对象地址： &quot; &lt;&lt; sp.get() &lt;&lt; std::endl;
-        os &lt;&lt; &quot;引用计数： &quot; &lt;&lt; (*sp.ref_count_) &lt;&lt; std::endl;
-        return os;
-    }
+    <span class="token keyword">friend</span> std<span class="token double-colon punctuation">::</span>ostream<span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">&lt;&lt;</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span>ostream<span class="token operator">&amp;</span> os<span class="token punctuation">,</span> SharedPtr<span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token operator">&amp;</span> sp<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        os <span class="token operator">&lt;&lt;</span> <span class="token string">"所指对象地址： "</span> <span class="token operator">&lt;&lt;</span> sp<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>
+        os <span class="token operator">&lt;&lt;</span> <span class="token string">"引用计数： "</span> <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span><span class="token operator">*</span>sp<span class="token punctuation">.</span>ref_count_<span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> os<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
 
-private:
-    T*              raw_ptr_ = nullptr;
-    RefCount*       ref_count_ = nullptr;
-};
-</code></pre></div><div class="tab-pane" id="shared_ptr-的简单实现-2"><pre><code class="cpp">#include &quot;SharedPtr.h&quot;
-#include &lt;iostream&gt;
+<span class="token keyword">private</span><span class="token operator">:</span>
+    T<span class="token operator">*</span>              raw_ptr_ <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">;</span>
+    RefCount<span class="token operator">*</span>       ref_count_ <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane" id="shared_ptr-的简单实现-2"><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"SharedPtr.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
 
-int main() {
-    SharedPtr&lt;int&gt; sp1(new int(10));
-    std::cout &lt;&lt; sp1;
-    {
-        std::cout &lt;&lt; &quot;进入局部作用域...\r\n\n&quot;;
-        SharedPtr&lt;int&gt; sp2(sp1);
-        std::cout &lt;&lt; sp1;
-        std::cout &lt;&lt; sp2;
-        std::cout &lt;&lt; &quot;离开局部作用域...\r\n\n&quot;;
-    }
-    std::cout &lt;&lt; sp1;
-    return 0;
-}
-</code></pre>
-<pre><code class="bash">$ ./TestSmartPointer 
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    SharedPtr<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> <span class="token function">sp1</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> sp1<span class="token punctuation">;</span>
+    <span class="token punctuation">&#123;</span>
+        std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"进入局部作用域...\r\n\n"</span><span class="token punctuation">;</span>
+        SharedPtr<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> <span class="token function">sp2</span><span class="token punctuation">(</span>sp1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> sp1<span class="token punctuation">;</span>
+        std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> sp2<span class="token punctuation">;</span>
+        std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"离开局部作用域...\r\n\n"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> sp1<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ ./TestSmartPointer 
 所指对象地址： 0x557de5ef9eb0
-引用计数： 当前引用值为: 1
+引用计数： 当前引用值为: <span class="token number">1</span>
 
-进入局部作用域...
+进入局部作用域<span class="token punctuation">..</span>.
 所指对象地址： 0x557de5ef9eb0
-引用计数： 当前引用值为: 2
+引用计数： 当前引用值为: <span class="token number">2</span>
 
 所指对象地址： 0x557de5ef9eb0
-引用计数： 当前引用值为: 2
+引用计数： 当前引用值为: <span class="token number">2</span>
 
-离开局部作用域...
+离开局部作用域<span class="token punctuation">..</span>.
 所指对象地址： 0x557de5ef9eb0
-引用计数： 当前引用值为: 1
-</code></pre></div></div></div>
+引用计数： 当前引用值为: <span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></div></div>
 
 <br/>
 
@@ -708,7 +706,7 @@ int main() {
 
 <p><code>std::shared_ptr 通过 get() 获取原始指针， reset() 减少一个引用计数， get_count()查看一个对象当前的引用计数。 </code></p>
 <blockquote>
-<pre><code class="c++">// 记录有多少个share_ptr共同指向一个对象
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 记录有多少个share_ptr共同指向一个对象
 #include &lt;memory&gt;
 #include &lt;iostream&gt;
 #include &lt;string&gt;
@@ -717,17 +715,17 @@ int main() {
 
 template &lt;typename T&gt;
 void print_use_count(const T&amp; p, std::string name) &#123;
-     LOG(name + &quot;.use_count() = &quot; + p.use_count());
+ 	LOG(name + &quot;.use_count() &#x3D; &quot; + p.use_count());
 &#125;
 
 int main() &#123;
 
- auto p1 = std::make_shared&lt;int&gt;(100);
- auto p2 = p1;
- auto p3 = p1;
- int *q = p1.get(); // 不会增加引用计数
+ auto p1 &#x3D; std::make_shared&lt;int&gt;(100);
+ auto p2 &#x3D; p1;
+ auto p3 &#x3D; p1;
+ int *q &#x3D; p1.get(); &#x2F;&#x2F; 不会增加引用计数
 
- auto print_all = [&amp;]() &#123; 
+ auto print_all &#x3D; [&amp;]() &#123; 
      print_use_count(p1, &quot;p1&quot;);
      print_use_count(p2, &quot;p2&quot;);
      print_use_count(p3, &quot;p3&quot;);
@@ -743,23 +741,21 @@ int main() &#123;
  print_all();
 
  return 0;
-&#125;
-</code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <blockquote>
-<pre><code class="bash">$ ./share_ptr 
-p1.use_count() = 3
-p2.use_count() = 3
-p3.use_count() = 3
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ ./share_ptr 
+p1.use_count<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">3</span>
+p2.use_count<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">3</span>
+p3.use_count<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">3</span>
 reset p2 之后： 
-p1.use_count() = 2
-p2.use_count() = 0
-p3.use_count() = 2
+p1.use_count<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">2</span>
+p2.use_count<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span>
+p3.use_count<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">2</span>
 reset p3 之后： 
-p1.use_count() = 1
-p2.use_count() = 0
-p3.use_count() = 0
-</code></pre>
+p1.use_count<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">1</span>
+p2.use_count<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span>
+p3.use_count<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
@@ -795,59 +791,55 @@ p3.use_count() = 0
 
 <p><strong>简单实现 unique_ptr</strong></p>
 <blockquote>
-<pre><code class="cpp">// TODO
-</code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// TODO</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </blockquote>
 <br/>
 
 <p><code>是一种独占指针，禁止其他智能指针与其共享同一个对象，从而保证代码安全。</code></p>
 <p><code>独占，意味着，不可复制。但是，我们可以利用 std::move() 移交给其他 unique_ptr。</code></p>
 <blockquote>
-<pre><code class="cpp">/// Move constructor.
-unique_ptr(unique_ptr&amp;&amp; __u) noexcept
-    : _M_t(__u.release(), std::forward&lt;deleter_type&gt;(__u.get_deleter())) &#123; &#125;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">/// Move constructor.</span>
+<span class="token function">unique_ptr</span><span class="token punctuation">(</span>unique_ptr<span class="token operator">&amp;&amp;</span> __u<span class="token punctuation">)</span> <span class="token keyword">noexcept</span>
+    <span class="token operator">:</span> <span class="token function">_M_t</span><span class="token punctuation">(</span>__u<span class="token punctuation">.</span><span class="token function">release</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> std<span class="token double-colon punctuation">::</span><span class="token generic-function"><span class="token function">forward</span><span class="token generic class-name"><span class="token operator">&lt;</span>deleter_type<span class="token operator">></span></span></span><span class="token punctuation">(</span>__u<span class="token punctuation">.</span><span class="token function">get_deleter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token punctuation">&#125;</span>
 
-// Assignment.
+<span class="token comment">// Assignment.</span>
 
-/** @brief Move assignment operator.
+<span class="token comment">/** @brief Move assignment operator.
 *
 * @param __u  The object to transfer ownership from.
 *
 * Invokes the deleter first if this object owns a pointer.
-*/
-unique_ptr&amp; operator=(unique_ptr&amp;&amp; __u) noexcept &#123;
-    reset(__u.release());
-    get_deleter() = std::forward&lt;deleter_type&gt;(__u.get_deleter());
-    return *this;
-&#125;
-</code></pre>
+*/</span>
+unique_ptr<span class="token operator">&amp;</span> <span class="token keyword">operator</span><span class="token operator">=</span><span class="token punctuation">(</span>unique_ptr<span class="token operator">&amp;&amp;</span> __u<span class="token punctuation">)</span> <span class="token keyword">noexcept</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">reset</span><span class="token punctuation">(</span>__u<span class="token punctuation">.</span><span class="token function">release</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">get_deleter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token generic-function"><span class="token function">forward</span><span class="token generic class-name"><span class="token operator">&lt;</span>deleter_type<span class="token operator">></span></span></span><span class="token punctuation">(</span>__u<span class="token punctuation">.</span><span class="token function">get_deleter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token operator">*</span><span class="token keyword">this</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
 <p><strong>使用示例</strong></p>
 <blockquote>
-<pre><code class="c++">#include &lt;memory&gt;
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;memory&gt;
 #include &lt;iostream&gt;
 
 int main() &#123;
 
-    std::unique_ptr&lt;int&gt; p1 = std::make_unique&lt;int&gt;(100);
+    std::unique_ptr&lt;int&gt; p1 &#x3D; std::make_unique&lt;int&gt;(100);
 
-    // auto p2 = p1; // 非法
+    &#x2F;&#x2F; auto p2 &#x3D; p1; &#x2F;&#x2F; 非法
 
-    // 利用std::move转移独占权
-    auto p3 = std::move(p1);
+    &#x2F;&#x2F; 利用std::move转移独占权
+    auto p3 &#x3D; std::move(p1);
     if (!p1) &#123;
         std::cout &lt;&lt; &quot;p1 移交独占权后，为空！&quot; &lt;&lt; std::endl;
     &#125;
     return 0;
-&#125;
-</code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <blockquote>
-<pre><code class="bash">$ ./unique_ptr 
-p1移交独占权后，为空！
-</code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ ./unique_ptr 
+p1移交独占权后，为空！<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
@@ -880,20 +872,18 @@ p1移交独占权后，为空！
 <br/>
 
 <blockquote>
-<pre><code class="cpp">shared_ptr&lt;_Tp&gt; lock() const noexcept &#123; 
-    return shared_ptr&lt;_Tp&gt;(*this, std::nothrow); 
-&#125;
-</code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">shared_ptr<span class="token operator">&lt;</span>_Tp<span class="token operator">></span> <span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token keyword">noexcept</span> <span class="token punctuation">&#123;</span> 
+    <span class="token keyword">return</span> <span class="token generic-function"><span class="token function">shared_ptr</span><span class="token generic class-name"><span class="token operator">&lt;</span>_Tp<span class="token operator">></span></span></span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token keyword">this</span><span class="token punctuation">,</span> std<span class="token double-colon punctuation">::</span>nothrow<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
 <blockquote>
-<pre><code class="cpp">if (const auto sp(w.lock()); sp) &#123;
-    cout &lt;&lt; &quot;对象不为空&quot;;
-&#125; else &#123;
-    cout &lt;&lt; &quot;nullptr&quot;；
-&#125;
-</code></pre>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">auto</span> <span class="token function">sp</span><span class="token punctuation">(</span>w<span class="token punctuation">.</span><span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> sp<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"对象不为空"</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"nullptr"</span>；
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
@@ -903,43 +893,42 @@ p1移交独占权后，为空！
 
 <p><strong>循环引用例子</strong></p>
 <blockquote>
-<pre><code class="cpp">#include &lt;iostream&gt;
-#include &lt;memory&gt;
-using namespace std;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;memory></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 
-class B;
+<span class="token keyword">class</span> <span class="token class-name">B</span><span class="token punctuation">;</span>
 
-class A &#123;
-public:
-    A() &#123; cout &lt;&lt; &quot;A()&quot; &lt;&lt; endl; &#125;
-    ~A() &#123; cout &lt;&lt; &quot;~A()&quot; &lt;&lt; endl; &#125;
-    shared_ptr&lt;B&gt; b; // 指向 B 对象的智能指针
-&#125;;
+<span class="token keyword">class</span> <span class="token class-name">A</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+	<span class="token function">A</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> cout <span class="token operator">&lt;&lt;</span> <span class="token string">"A()"</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+	<span class="token operator">~</span><span class="token function">A</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> cout <span class="token operator">&lt;&lt;</span> <span class="token string">"~A()"</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+	shared_ptr<span class="token operator">&lt;</span>B<span class="token operator">></span> b<span class="token punctuation">;</span> <span class="token comment">// 指向 B 对象的智能指针</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-class B &#123;
-public:
-    B() &#123; cout &lt;&lt; &quot;B()&quot; &lt;&lt; endl; &#125;
-    ~B() &#123; cout &lt;&lt; &quot;~B()&quot; &lt;&lt; endl; &#125;
-    shared_ptr&lt;A&gt; a; // 指向 A 对象的智能指针
-&#125;;
+<span class="token keyword">class</span> <span class="token class-name">B</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+	<span class="token function">B</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> cout <span class="token operator">&lt;&lt;</span> <span class="token string">"B()"</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+	<span class="token operator">~</span><span class="token function">B</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> cout <span class="token operator">&lt;&lt;</span> <span class="token string">"~B()"</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+	shared_ptr<span class="token operator">&lt;</span>A<span class="token operator">></span> a<span class="token punctuation">;</span> <span class="token comment">// 指向 A 对象的智能指针</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-int main() &#123;
-    shared_ptr&lt;A&gt; ptra(new A());// a 指向 A 对象，A 的引用计数为 1
-    shared_ptr&lt;B&gt; ptrb(new B());// b 指向 B 对象，B 的引用计数为 1
-    ptra-&gt;b = b;// A 对象的成员变量_ptrb也指向 B 对象，B 的引用计数为 2
-    ptrb-&gt;a = a;// B 对象的成员变量_ptra也指向 A 对象，A 的引用计数为 2
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	shared_ptr<span class="token operator">&lt;</span>A<span class="token operator">></span> <span class="token function">ptra</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token function">A</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">// a 指向 A 对象，A 的引用计数为 1</span>
+	shared_ptr<span class="token operator">&lt;</span>B<span class="token operator">></span> <span class="token function">ptrb</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token function">B</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">// b 指向 B 对象，B 的引用计数为 1</span>
+	ptra<span class="token operator">-></span>b <span class="token operator">=</span> b<span class="token punctuation">;</span><span class="token comment">// A 对象的成员变量_ptrb也指向 B 对象，B 的引用计数为 2</span>
+	ptrb<span class="token operator">-></span>a <span class="token operator">=</span> a<span class="token punctuation">;</span><span class="token comment">// B 对象的成员变量_ptra也指向 A 对象，A 的引用计数为 2</span>
 
-    cout &lt;&lt; ptra.use_count() &lt;&lt; endl; // 打印A的引用计数结果:2
-    cout &lt;&lt; ptrb.use_count() &lt;&lt; endl; // 打印B的引用计数结果:2
+	cout <span class="token operator">&lt;&lt;</span> ptra<span class="token punctuation">.</span><span class="token function">use_count</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span> <span class="token comment">// 打印A的引用计数结果:2</span>
+	cout <span class="token operator">&lt;&lt;</span> ptrb<span class="token punctuation">.</span><span class="token function">use_count</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span> <span class="token comment">// 打印B的引用计数结果:2</span>
 
-    /*
-    离开 main 函数作用域，ptra 和 ptrb 两个局部对象析构，分别给 A 对象和
-     B 对象的引用计数从 2 减到 1，达不到释放 A 和 B 的条件（释放的条件是
-    A 和 B 的引用计数为 0，因此造成两个new出来的A和B对象无法释放，导致内存泄露
-    */
-    return 0;
-&#125;
-</code></pre>
+	<span class="token comment">/*
+	离开 main 函数作用域，ptra 和 ptrb 两个局部对象析构，分别给 A 对象和
+	 B 对象的引用计数从 2 减到 1，达不到释放 A 和 B 的条件（释放的条件是
+	A 和 B 的引用计数为 0，因此造成两个new出来的A和B对象无法释放，导致内存泄露
+	*/</span>
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <p><strong>a 、b 被销毁后，A，B依然被强引用无法释放</strong></p>
 <img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/BlogImages/C%2B%2B%E6%96%B0%E7%89%B9%E6%80%A7/pointers1_en.png">
@@ -956,78 +945,76 @@ int main() &#123;
 <br/>
 
 <blockquote>
-<pre><code class="cpp">// 解决 std::share_ptr带来的强引用无法释放的问题。
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 解决 std::share_ptr带来的强引用无法释放的问题。</span>
 
-#include &lt;iostream&gt;
-#include &lt;memory&gt;
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;memory></span></span>
 
-#define LOG(x) std::cout &lt;&lt; x &lt;&lt; std::endl
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">LOG</span><span class="token expression"><span class="token punctuation">(</span>x<span class="token punctuation">)</span> std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl</span></span>
 
-class A;
-class B;
+<span class="token keyword">class</span> <span class="token class-name">A</span><span class="token punctuation">;</span>
+<span class="token keyword">class</span> <span class="token class-name">B</span><span class="token punctuation">;</span>
 
-class A &#123;
-public:
-  std::shared_ptr&lt;B&gt; ptr_b;
-  ~A() &#123;
-        LOG(&quot;A 被销毁。&quot;);
-  &#125;
-&#125;;
+<span class="token keyword">class</span> <span class="token class-name">A</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+  std<span class="token double-colon punctuation">::</span>shared_ptr<span class="token operator">&lt;</span>B<span class="token operator">></span> ptr_b<span class="token punctuation">;</span>
+  <span class="token operator">~</span><span class="token function">A</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">LOG</span><span class="token punctuation">(</span><span class="token string">"A 被销毁。"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-class B &#123;
-public:
-  std::shared_ptr&lt;A&gt; ptr_a;
-  ~B() &#123;
-        LOG(&quot;B 被销毁。&quot;);
-  &#125;
-&#125;;
+<span class="token keyword">class</span> <span class="token class-name">B</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+  std<span class="token double-colon punctuation">::</span>shared_ptr<span class="token operator">&lt;</span>A<span class="token operator">></span> ptr_a<span class="token punctuation">;</span>
+  <span class="token operator">~</span><span class="token function">B</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">LOG</span><span class="token punctuation">(</span><span class="token string">"B 被销毁。"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-void strong_referrence() &#123;
-  auto a = std::make_shared&lt;A&gt;();
-  auto b = std::make_shared&lt;B&gt;();
+<span class="token keyword">void</span> <span class="token function">strong_referrence</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">auto</span> a <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token generic-function"><span class="token function">make_shared</span><span class="token generic class-name"><span class="token operator">&lt;</span>A<span class="token operator">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">auto</span> b <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token generic-function"><span class="token function">make_shared</span><span class="token generic class-name"><span class="token operator">&lt;</span>B<span class="token operator">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  // 存在循环引用
-  // use_count() 永远不会等于 0, 不会调用各自的析构函数
-  a-&gt;ptr_b = b;
-  b-&gt;ptr_a = a;
-&#125;
+  <span class="token comment">// 存在循环引用</span>
+  <span class="token comment">// use_count() 永远不会等于 0, 不会调用各自的析构函数</span>
+  a<span class="token operator">-></span>ptr_b <span class="token operator">=</span> b<span class="token punctuation">;</span>
+  b<span class="token operator">-></span>ptr_a <span class="token operator">=</span> a<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 
-int main() &#123;
-  strong_referrence(); // 强引用存在的情况
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token function">strong_referrence</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 强引用存在的情况</span>
 
-  std::weak_ptr&lt;int&gt; weak_p;
+  std<span class="token double-colon punctuation">::</span>weak_ptr<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> weak_p<span class="token punctuation">;</span>
 
-  // std::weak_ptr 没有 * 运算符 和 -&gt; 运算符，不能够对资源进行操作
-  // expired() 方法 用于判断资源是否被释放
-  auto observer = [&amp;] () &#123;
-        if (auto ptr = weak_p.lock()) &#123;
-            LOG(*ptr);
-        &#125; else &#123;
-            LOG(&quot;资源被释放!&quot;);
-        &#125;
-  &#125;;
+  <span class="token comment">// std::weak_ptr 没有 * 运算符 和 -> 运算符，不能够对资源进行操作</span>
+  <span class="token comment">// expired() 方法 用于判断资源是否被释放</span>
+  <span class="token keyword">auto</span> observer <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token operator">&amp;</span><span class="token punctuation">]</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">auto</span> ptr <span class="token operator">=</span> weak_p<span class="token punctuation">.</span><span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token function">LOG</span><span class="token punctuation">(</span><span class="token operator">*</span>ptr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            <span class="token function">LOG</span><span class="token punctuation">(</span><span class="token string">"资源被释放!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-  &#123;
-        LOG(&quot;进入某个作用域赋值。&quot;);
-        auto p1 = std::make_shared&lt;int&gt;(100);
-        weak_p = p1;
-        observer();
-        LOG(&quot;离开某个作用域。&quot;);
-  &#125;
+  <span class="token punctuation">&#123;</span>
+        <span class="token function">LOG</span><span class="token punctuation">(</span><span class="token string">"进入某个作用域赋值。"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">auto</span> p1 <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token generic-function"><span class="token function">make_shared</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span></span></span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        weak_p <span class="token operator">=</span> p1<span class="token punctuation">;</span>
+        <span class="token function">observer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">LOG</span><span class="token punctuation">(</span><span class="token string">"离开某个作用域。"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
 
-  observer();
+  <span class="token function">observer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  return 0;
-&#125;
-</code></pre>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <blockquote>
-<pre><code class="bash">$ ./weak_ptr 
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ ./weak_ptr 
 进入某个作用域赋值。
-100
+<span class="token number">100</span>
 离开某个作用域。
-资源被释放!
-</code></pre>
+资源被释放<span class="token operator">!</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
@@ -1042,47 +1029,45 @@ int main() &#123;
 <p>1、当类 A 被 <code>shared_ptr</code> 管理，且在类 A 的成员函数里需要把当前类对象作为参数传给其他函数时，就需要传递一个指向自身的 <code>share_ptr</code>。为了防止智能指针的语义被破坏，不直接传递 <code>this</code> 指针。</p>
 <p>2、不直接传递 <code>shared_ptr&lt;this&gt;</code>，因为这样会造成多个非共享的 <code>shared_ptr</code> 指向同一个对象，未增加引用计数导对象被析构多次，如下：</p>
 <blockquote>
-<pre><code class="cpp">
-#include &lt;memory&gt;
-#include &lt;iostream&gt;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;memory></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
  
-class Bad &#123;
-public:
-    std::shared_ptr&lt;Bad&gt; getptr() &#123;
-        return std::shared_ptr&lt;Bad&gt;(this);
-    &#125;
-    ~Bad() &#123; std::cout &lt;&lt; &quot;Bad::~Bad() called&quot; &lt;&lt; std::endl; &#125;
-&#125;;
+<span class="token keyword">class</span> <span class="token class-name">Bad</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+	std<span class="token double-colon punctuation">::</span>shared_ptr<span class="token operator">&lt;</span>Bad<span class="token operator">></span> <span class="token function">getptr</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token keyword">return</span> std<span class="token double-colon punctuation">::</span><span class="token generic-function"><span class="token function">shared_ptr</span><span class="token generic class-name"><span class="token operator">&lt;</span>Bad<span class="token operator">></span></span></span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+	<span class="token operator">~</span><span class="token function">Bad</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Bad::~Bad() called"</span> <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
  
-int main() &#123;
-    // 错误点：每个 shared_ptr 都认为自己是对象仅有的所有者
-    std::shared_ptr&lt;Bad&gt; bp1(new Bad());
-    std::shared_ptr&lt;Bad&gt; bp2 = bp1-&gt;getptr();
-    // 打印bp1和bp2的引用计数
-    std::cout &lt;&lt; &quot;bp1.use_count() = &quot; &lt;&lt; bp1.use_count() &lt;&lt; std::endl; // 1
-    std::cout &lt;&lt; &quot;bp2.use_count() = &quot; &lt;&lt; bp2.use_count() &lt;&lt; std::endl; // 1
-&#125;
-</code></pre>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	<span class="token comment">// 错误点：每个 shared_ptr 都认为自己是对象仅有的所有者</span>
+	std<span class="token double-colon punctuation">::</span>shared_ptr<span class="token operator">&lt;</span>Bad<span class="token operator">></span> <span class="token function">bp1</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token function">Bad</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	std<span class="token double-colon punctuation">::</span>shared_ptr<span class="token operator">&lt;</span>Bad<span class="token operator">></span> bp2 <span class="token operator">=</span> bp1<span class="token operator">-></span><span class="token function">getptr</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">// 打印bp1和bp2的引用计数</span>
+	std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"bp1.use_count() = "</span> <span class="token operator">&lt;&lt;</span> bp1<span class="token punctuation">.</span><span class="token function">use_count</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span> <span class="token comment">// 1</span>
+	std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"bp2.use_count() = "</span> <span class="token operator">&lt;&lt;</span> bp2<span class="token punctuation">.</span><span class="token function">use_count</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span> <span class="token comment">// 1</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
 <p><strong>使用方式</strong></p>
 <blockquote>
-<pre><code class="cpp">class MyObject : public std::enable_shared_from_this&lt;MyObject&gt; &#123;
-public:
-    std::shared_ptr&lt;MyObject&gt; pointer() &#123; return shared_from_this(); &#125;
-&#125;;
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">MyObject</span> <span class="token operator">:</span> <span class="token base-clause"><span class="token keyword">public</span> std<span class="token double-colon punctuation">::</span><span class="token class-name">enable_shared_from_this</span><span class="token operator">&lt;</span><span class="token class-name">MyObject</span><span class="token operator">></span></span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    std<span class="token double-colon punctuation">::</span>shared_ptr<span class="token operator">&lt;</span>MyObject<span class="token operator">></span> <span class="token function">pointer</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> <span class="token function">shared_from_this</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-int main() &#123;
-    auto p1 = std::make_shared&lt;MyObject&gt;();
-    auto p2 = p1-&gt;pointer();
-    auto p3 = p1-&gt;shared_from_this();
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">auto</span> p1 <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token generic-function"><span class="token function">make_shared</span><span class="token generic class-name"><span class="token operator">&lt;</span>MyObject<span class="token operator">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">auto</span> p2 <span class="token operator">=</span> p1<span class="token operator">-></span><span class="token function">pointer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">auto</span> p3 <span class="token operator">=</span> p1<span class="token operator">-></span><span class="token function">shared_from_this</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     
-    MyObject unshared;
-    auto p4 = unshared.shared_from_this(); // Throws std::bad_weak_ptr
-    return 0;
-&#125;
-</code></pre>
+    MyObject unshared<span class="token punctuation">;</span>
+    <span class="token keyword">auto</span> p4 <span class="token operator">=</span> unshared<span class="token punctuation">.</span><span class="token function">shared_from_this</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Throws std::bad_weak_ptr</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <br/>
 
@@ -1229,7 +1214,7 @@ int main() &#123;
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2021/06/">六月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/05/">五月 2021<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/03/">三月 2021<span class="sidebar_archives-count">5</span></a>
+                <a class="sidebar_archives-link" href="/archives/2021/08/">八月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/06/">六月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/05/">五月 2021<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/03/">三月 2021<span class="sidebar_archives-count">5</span></a>
             </ul>
         </li>
         
