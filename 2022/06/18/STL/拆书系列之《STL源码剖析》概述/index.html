@@ -44,6 +44,8 @@
     
     <title>
         
+            拆书系列之《STL 源码剖析》概述 | 
+        
         进阶之路
     </title>
 
@@ -53,7 +55,7 @@
 
     <meta name="format-detection" content="telephone=no"/>
     <meta name="description" itemprop="description" content="">
-    <meta name="keywords" content="">
+    <meta name="keywords" content=",STL 迭代器">
     <meta name="theme-color" content="#0097A7">
 
     <!-- Disable Fucking Bloody Baidu Tranformation -->
@@ -217,7 +219,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="进阶之路">
-    <meta name="msapplication-starturl" content="http://example.com/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%AE%97%E6%B3%95%EF%BC%88algorithms%EF%BC%89/">
+    <meta name="msapplication-starturl" content="http://example.com/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E6%A6%82%E8%BF%B0/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="进阶之路">
@@ -232,16 +234,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://example.com/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%AE%97%E6%B3%95%EF%BC%88algorithms%EF%BC%89/">
+    <meta property="og:url" content="http://example.com/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E6%A6%82%E8%BF%B0/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="进阶之路">
+    <meta property="og:title" content="拆书系列之《STL 源码剖析》概述 | 进阶之路">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="">
-    
+    <meta property="og:article:tag" content="STL 迭代器"> 
 
     
-        <meta property="article:published_time" content="Sat Jun 18 2022 20:07:05 GMT+0800">
-        <meta property="article:modified_time" content="Sat Jun 18 2022 20:07:05 GMT+0800">
+        <meta property="article:published_time" content="Sat Jun 18 2022 20:07:04 GMT+0800">
+        <meta property="article:modified_time" content="Sat Jul 02 2022 22:50:59 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -249,7 +251,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://example.com/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%AE%97%E6%B3%95%EF%BC%88algorithms%EF%BC%89/index.html" />
+        <link rel="canonical" href="http://example.com/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E6%A6%82%E8%BF%B0/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -261,10 +263,10 @@
 {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "mainEntityOfPage": "http://example.com/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%AE%97%E6%B3%95%EF%BC%88algorithms%EF%BC%89/index.html",
-    "headline": "",
-    "datePublished": "Sat Jun 18 2022 20:07:05 GMT+0800",
-    "dateModified": "Sat Jun 18 2022 20:07:05 GMT+0800",
+    "mainEntityOfPage": "http://example.com/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E6%A6%82%E8%BF%B0/index.html",
+    "headline": "拆书系列之《STL 源码剖析》概述",
+    "datePublished": "Sat Jun 18 2022 20:07:04 GMT+0800",
+    "dateModified": "Sat Jul 02 2022 22:50:59 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -282,7 +284,7 @@
             "url": "/img/favicon.png"
         }
     },
-    "keywords": "",
+    "keywords": ",STL 迭代器",
     "description": "",
 }
 </script>
@@ -342,6 +344,15 @@
     <!-- Left aligned menu below button -->
     
     
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E6%A6%82%E8%BF%B0"><span class="post-toc-number">1.</span> <span class="post-toc-text">拆书系列之《STL源码剖析》概述</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1%E3%80%81%E5%AE%B9%E5%99%A8%EF%BC%88container%EF%BC%89"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">1、容器（container）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2%E3%80%81%E7%AE%97%E6%B3%95%EF%BC%88algorithms%EF%BC%89"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">2、算法（algorithms）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3%E3%80%81%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%88iterators%EF%BC%89"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">3、迭代器（iterators）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4%E3%80%81%E4%BB%BF%E5%87%BD%E6%95%B0%EF%BC%88functors%EF%BC%89"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">4、仿函数（functors）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5%E3%80%81%E9%85%8D%E6%8E%A5%E5%99%A8%EF%BC%88adapters%EF%BC%89"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">5、配接器（adapters）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6%E3%80%81%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocators%EF%BC%89"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">6、配置器（allocators）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#STL%E5%85%AD%E5%A4%A7%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BA%A4%E4%BA%92%E5%85%B3%E7%B3%BB"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">STL六大组件的交互关系</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#STL-%E5%90%84%E7%A7%8D%E5%AE%B9%E5%99%A8"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">STL 各种容器</span></a></li></ol></li></ol>
+    </ul>
+    
 
 
 
@@ -371,7 +382,7 @@
         
     
             <p class="article-headline-p">
-                
+                拆书系列之《STL 源码剖析》概述
             </p>
         </div>
 
@@ -408,6 +419,15 @@
 
     <!-- Tags (bookmark) -->
     
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-none-link" href="/tags/STL-%E8%BF%AD%E4%BB%A3%E5%99%A8/" rel="tag">STL 迭代器</a>
+    </ul>
+    
 
     <!-- Share -->
     
@@ -425,7 +445,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=&url=http://example.com/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%AE%97%E6%B3%95%EF%BC%88algorithms%EF%BC%89/index.html&via=Joy Chen" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=拆书系列之《STL 源码剖析》概述&url=http://example.com/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E6%A6%82%E8%BF%B0/index.html&via=Joy Chen" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -434,7 +454,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%AE%97%E6%B3%95%EF%BC%88algorithms%EF%BC%89/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E6%A6%82%E8%BF%B0/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -443,7 +463,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=http://example.com/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%AE%97%E6%B3%95%EF%BC%88algorithms%EF%BC%89/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://example.com/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E6%A6%82%E8%BF%B0/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -452,7 +472,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://example.com/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%AE%97%E6%B3%95%EF%BC%88algorithms%EF%BC%89/index.html&title=" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://example.com/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E6%A6%82%E8%BF%B0/index.html&title=拆书系列之《STL 源码剖析》概述" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -461,7 +481,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=进阶之路&title=&summary=&pics=http://example.com/img/favicon.png&url=http://example.com/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%AE%97%E6%B3%95%EF%BC%88algorithms%EF%BC%89/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=进阶之路&title=拆书系列之《STL 源码剖析》概述&summary=&pics=http://example.com/img/favicon.png&url=http://example.com/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E6%A6%82%E8%BF%B0/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -480,7 +500,34 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        
+        <h1 id="拆书系列之《STL源码剖析》概述"><a href="#拆书系列之《STL源码剖析》概述" class="headerlink" title="拆书系列之《STL源码剖析》概述"></a>拆书系列之《STL源码剖析》概述</h1><p><code>参考自《STL 源码剖析》-侯捷著。</code></p>
+<h2 id="1、容器（container）"><a href="#1、容器（container）" class="headerlink" title="1、容器（container）"></a>1、容器（container）</h2><p>各种数据结构，如 <code>vector， list，deque，set，map</code>等。</p>
+<p>从实现角度看，<strong>STL容器是一种 class template</strong>。</p>
+<br/>
+
+<h2 id="2、算法（algorithms）"><a href="#2、算法（algorithms）" class="headerlink" title="2、算法（algorithms）"></a>2、算法（algorithms）</h2><p>如<code> sort，search，copy，erase</code>等。</p>
+<p>从实现角度看，<strong>STL 算法是一种 function template</strong>。</p>
+<h2 id="3、迭代器（iterators）"><a href="#3、迭代器（iterators）" class="headerlink" title="3、迭代器（iterators）"></a>3、迭代器（iterators）</h2><p>容器域算法之间的胶水，所谓的“泛型指针”。</p>
+<p>从实现角度看，<strong>是一种将 <code>operator*，operator-&gt;，operator++， operator-- </code>等指针操作给予重载的 calss template</strong>。</p>
+<br/>
+
+<h2 id="4、仿函数（functors）"><a href="#4、仿函数（functors）" class="headerlink" title="4、仿函数（functors）"></a>4、仿函数（functors）</h2><p>行为类似函数，可以作为算法的<code>某种策略（policy）</code>。</p>
+<p>从实现角度来看，<strong>仿函数是一种重载了 <code>operator()</code> 的 class 或者 class template</strong>。</p>
+<br/>
+
+<h2 id="5、配接器（adapters）"><a href="#5、配接器（adapters）" class="headerlink" title="5、配接器（adapters）"></a>5、配接器（adapters）</h2><p>一种用来修饰容器（containers）或者仿函数（functors）或者迭代器（iterators）接口的东西。</p>
+<br/>
+
+<h2 id="6、配置器（allocators）"><a href="#6、配置器（allocators）" class="headerlink" title="6、配置器（allocators）"></a>6、配置器（allocators）</h2><p>负责空间配置与管理。</p>
+<p>从实现角度来看，<strong>配置器是一个实现了动态空间配置，空间管理、空间释放的 class template</strong>。</p>
+<br/>
+
+<h2 id="STL六大组件的交互关系"><a href="#STL六大组件的交互关系" class="headerlink" title="STL六大组件的交互关系"></a>STL六大组件的交互关系</h2><img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/BlogImages/STL/STL%E5%85%AD%E5%A4%A7%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BA%A4%E4%BA%92%E5%85%B3%E7%B3%BB.png">
+
+<br/>
+
+<h2 id="STL-各种容器"><a href="#STL-各种容器" class="headerlink" title="STL 各种容器"></a>STL 各种容器</h2><img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/BlogImages/STL/%E5%90%84%E7%A7%8D%E5%AE%B9%E5%99%A8%E6%A6%82%E8%A7%88.png">
+
         
     
 
@@ -500,7 +547,7 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2022/06/18/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%BA%8C%EF%BC%89%E8%AF%AD%E8%A8%80%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%BC%BA%E5%8C%96/" id="post_nav-newer" class="prev-content">
+        <a href="/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -514,7 +561,7 @@
 
     <!-- Next Nav -->
     
-        <a href="/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E5%85%B3%E8%81%94%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88associative%20containers%EF%BC%89/" id="post_nav-older" class="next-content">
+        <a href="/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E4%BB%BF%E5%87%BD%E6%95%B0%EF%BC%88functors%EF%BC%89.md/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">

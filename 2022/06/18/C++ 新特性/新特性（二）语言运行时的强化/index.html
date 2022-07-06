@@ -44,7 +44,7 @@
     
     <title>
         
-            拆书系列之《STL源码剖析》关联式容器（associative containers） | 
+            C++1x 新特性（二）语言运行时的强化 | 
         
         进阶之路
     </title>
@@ -55,7 +55,7 @@
 
     <meta name="format-detection" content="telephone=no"/>
     <meta name="description" itemprop="description" content="">
-    <meta name="keywords" content=",STL container">
+    <meta name="keywords" content=",C++11 C++14 C++17">
     <meta name="theme-color" content="#0097A7">
 
     <!-- Disable Fucking Bloody Baidu Tranformation -->
@@ -219,7 +219,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="进阶之路">
-    <meta name="msapplication-starturl" content="http://example.com/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E5%85%B3%E8%81%94%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88associative%20containers%EF%BC%89/">
+    <meta name="msapplication-starturl" content="http://example.com/2022/06/18/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%BA%8C%EF%BC%89%E8%AF%AD%E8%A8%80%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%BC%BA%E5%8C%96/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="进阶之路">
@@ -234,16 +234,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://example.com/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E5%85%B3%E8%81%94%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88associative%20containers%EF%BC%89/">
+    <meta property="og:url" content="http://example.com/2022/06/18/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%BA%8C%EF%BC%89%E8%AF%AD%E8%A8%80%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%BC%BA%E5%8C%96/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="拆书系列之《STL源码剖析》关联式容器（associative containers） | 进阶之路">
+    <meta property="og:title" content="C++1x 新特性（二）语言运行时的强化 | 进阶之路">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="">
-    <meta property="og:article:tag" content="STL container"> 
+    <meta property="og:article:tag" content="C++11 C++14 C++17"> 
 
     
         <meta property="article:published_time" content="Sat Jun 18 2022 20:07:05 GMT+0800">
-        <meta property="article:modified_time" content="Wed Jul 06 2022 23:08:10 GMT+0800">
+        <meta property="article:modified_time" content="Sat Jun 18 2022 20:07:05 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -251,7 +251,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://example.com/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E5%85%B3%E8%81%94%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88associative%20containers%EF%BC%89/index.html" />
+        <link rel="canonical" href="http://example.com/2022/06/18/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%BA%8C%EF%BC%89%E8%AF%AD%E8%A8%80%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%BC%BA%E5%8C%96/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -263,10 +263,10 @@
 {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "mainEntityOfPage": "http://example.com/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E5%85%B3%E8%81%94%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88associative%20containers%EF%BC%89/index.html",
-    "headline": "拆书系列之《STL源码剖析》关联式容器（associative containers）",
+    "mainEntityOfPage": "http://example.com/2022/06/18/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%BA%8C%EF%BC%89%E8%AF%AD%E8%A8%80%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%BC%BA%E5%8C%96/index.html",
+    "headline": "C++1x 新特性（二）语言运行时的强化",
     "datePublished": "Sat Jun 18 2022 20:07:05 GMT+0800",
-    "dateModified": "Wed Jul 06 2022 23:08:10 GMT+0800",
+    "dateModified": "Sat Jun 18 2022 20:07:05 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Joy Chen",
@@ -284,7 +284,7 @@
             "url": "/img/favicon.png"
         }
     },
-    "keywords": ",STL container",
+    "keywords": ",C++11 C++14 C++17",
     "description": "",
 }
 </script>
@@ -350,7 +350,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E5%BA%8F%E5%88%97%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88sequence-containers%EF%BC%89"><span class="post-toc-number">1.</span> <span class="post-toc-text">《STL源码剖析》序列式容器（sequence containers）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#RB-Tree"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">RB-Tree</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#set"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">set</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link"><span class="post-toc-number">1.3.</span> <span class="post-toc-text"></span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#map"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">map</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#hashtable"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">hashtable</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#unordered-set%EF%BC%88hash-set%EF%BC%89"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">unordered_set（hash_set）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#unordered-map%EF%BC%88hash-map%EF%BC%89"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">unordered_map（hash_map）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#unordered-multiset%EF%BC%88hash-multiset%EF%BC%89"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">unordered_multiset（hash_multiset）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#unordered-multimap%EF%BC%88hash-multimap%EF%BC%89"><span class="post-toc-number">1.9.</span> <span class="post-toc-text">unordered_multimap（hash_multimap）</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#C-1x-%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%BA%8C%EF%BC%89%E8%AF%AD%E8%A8%80%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%BC%BA%E5%8C%96"><span class="post-toc-number">1.</span> <span class="post-toc-text">C++1x 新特性（二）语言运行时的强化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#lambda"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">lambda</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#move-semantics%EF%BC%88%E7%A7%BB%E5%8A%A8%E8%AF%AD%E4%B9%89%EF%BC%89"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">move semantics（移动语义）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-bind"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">std::bind</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-forward"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">std::forward</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-function"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">std::function</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#std-move"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">std::move</span></a></li></ol></li></ol>
     </ul>
     
 
@@ -382,7 +382,7 @@
         
     
             <p class="article-headline-p">
-                拆书系列之《STL源码剖析》关联式容器（associative containers）
+                C++1x 新特性（二）语言运行时的强化
             </p>
         </div>
 
@@ -425,7 +425,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        <a class="post_tag-none-link" href="/tags/STL-container/" rel="tag">STL container</a>
+        <a class="post_tag-none-link" href="/tags/C-11-C-14-C-17/" rel="tag">C++11 C++14 C++17</a>
     </ul>
     
 
@@ -445,7 +445,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=拆书系列之《STL源码剖析》关联式容器（associative containers）&url=http://example.com/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E5%85%B3%E8%81%94%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88associative%20containers%EF%BC%89/index.html&via=Joy Chen" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=C++1x 新特性（二）语言运行时的强化&url=http://example.com/2022/06/18/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%BA%8C%EF%BC%89%E8%AF%AD%E8%A8%80%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%BC%BA%E5%8C%96/index.html&via=Joy Chen" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -454,7 +454,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E5%85%B3%E8%81%94%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88associative%20containers%EF%BC%89/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://example.com/2022/06/18/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%BA%8C%EF%BC%89%E8%AF%AD%E8%A8%80%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%BC%BA%E5%8C%96/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -463,7 +463,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=http://example.com/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E5%85%B3%E8%81%94%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88associative%20containers%EF%BC%89/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://example.com/2022/06/18/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%BA%8C%EF%BC%89%E8%AF%AD%E8%A8%80%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%BC%BA%E5%8C%96/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -472,7 +472,7 @@
 
     <!-- Share LinkedIn -->
     
-        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://example.com/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E5%85%B3%E8%81%94%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88associative%20containers%EF%BC%89/index.html&title=拆书系列之《STL源码剖析》关联式容器（associative containers）" target="_blank">
+        <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://example.com/2022/06/18/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%BA%8C%EF%BC%89%E8%AF%AD%E8%A8%80%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%BC%BA%E5%8C%96/index.html&title=C++1x 新特性（二）语言运行时的强化" target="_blank">
             <li class="mdl-menu__item">
                 分享到 LinkedIn
             </li>
@@ -481,7 +481,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=进阶之路&title=拆书系列之《STL源码剖析》关联式容器（associative containers）&summary=&pics=http://example.com/img/favicon.png&url=http://example.com/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E5%85%B3%E8%81%94%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88associative%20containers%EF%BC%89/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=进阶之路&title=C++1x 新特性（二）语言运行时的强化&summary=&pics=http://example.com/img/favicon.png&url=http://example.com/2022/06/18/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%BA%8C%EF%BC%89%E8%AF%AD%E8%A8%80%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%BC%BA%E5%8C%96/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -500,49 +500,405 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1 id="《STL源码剖析》序列式容器（sequence-containers）"><a href="#《STL源码剖析》序列式容器（sequence-containers）" class="headerlink" title="《STL源码剖析》序列式容器（sequence containers）"></a>《STL源码剖析》序列式容器（sequence containers）</h1><p><code>参考自《STL 源码剖析》-侯捷著。</code></p>
-<img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/BlogImages/STL/%E5%85%B3%E8%81%94%E5%BC%8F%E5%AE%B9%E5%99%A8.png">
-
-
-
-<h2 id="RB-Tree"><a href="#RB-Tree" class="headerlink" title="RB-Tree"></a>RB-Tree</h2><p><code>RB-Tree 性质</code></p>
-<p><code>1、每个节点不是红色就是黑色。</code></p>
-<p><code>2、根节点为黑色。</code></p>
-<p><code>3、如果节点为红色，其子节点必须为黑色。</code></p>
-<p><code>4、任一节点到 NULL（树尾端）的任何路径所含黑色节点必须相同。</code></p>
-<p><code>5、根据上诉规则，新增节点必须为红色，新增节点的父节点必须为黑色。</code></p>
-<p><code>ps：为了方便处理，视 NULL 节点为黑色节点。</code></p>
+        <h1 id="C-1x-新特性（二）语言运行时的强化"><a href="#C-1x-新特性（二）语言运行时的强化" class="headerlink" title="C++1x 新特性（二）语言运行时的强化"></a>C++1x 新特性（二）语言运行时的强化</h1><p><code>本系列主要阐述依据：</code></p>
+<p>[<a target="_blank" rel="noopener" href="https://github.com/changkun/modern-cpp-tutorial]">https://github.com/changkun/modern-cpp-tutorial]</a>: 《Modern C++ Tutorial: C++11/14/17/20 On the Fly》</p>
 <br/>
 
 <br/>
 
-<h2 id="set"><a href="#set" class="headerlink" title="set"></a>set</h2><h2 id=""><a href="#" class="headerlink" title=""></a></h2><br/>
+<h2 id="lambda"><a href="#lambda" class="headerlink" title="lambda"></a><strong>lambda</strong></h2><p><code>[捕获列表] (参数列表) mutable(可选) 异常属性 -&gt; 返回类型 &#123;       // 函数体 &#125;</code></p>
+<blockquote>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;memory&gt;
+
+#define LOG(x) std::cout &lt;&lt; x &lt;&lt; std::endl
+
+void TestReferenceCapture() &#123;
+
+     int value &#x3D; 1;
+     bool change &#x3D; false;
+
+     auto value_capture &#x3D; [&#x3D;] () &#123;
+         LOG(&quot;改变？&quot; + change + &quot; 值捕获： &quot; + value);
+     &#125;;
+     auto reference_capture &#x3D; [&amp;] () &#123;
+         LOG(&quot;改变？&quot; + change + &quot; 引用捕获： &quot; + value);
+     &#125;;
+
+     &#x2F;&#x2F; 改变kvalue的值
+     value &#x3D; 10000;
+     change &#x3D; true;
+
+     value_capture();
+     reference_capture();
+&#125;
+
+&#x2F;&#x2F; C++14 表达式捕获
+&#x2F;&#x2F; 允许捕获的成员用任意的表达式进行初始化，允许右值捕获
+void TestRvalueCapture() &#123;
+     std::unique_ptr&lt;int&gt; important &#x3D; std::make_unique&lt;int&gt;(10000);
+
+     &#x2F;&#x2F; 泛型lambda since C++14, auto关键字产生意义上的泛型， 不需要 -&gt; 返回类型
+     auto add &#x3D; [v1 &#x3D; 1, v2 &#x3D; std::move(important)] (int x, int y) &#x2F;*-&gt; int*&#x2F; &#123;
+         return (*v2) + (x + y + v1);
+     &#125;;
+
+     LOG(add(3, 4));
+&#125;
+
+int main() &#123;
+     TestReferenceCapture();
+     TestRvalueCapture();
+     return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ ./lambda 
+改变？0 值捕获： <span class="token number">1</span>
+改变？1 引用捕获： <span class="token number">10000</span>
+<span class="token number">10008</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<br/>
 
 <br/>
 
-<h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><br/>
+<h2 id="move-semantics（移动语义）"><a href="#move-semantics（移动语义）" class="headerlink" title="move semantics（移动语义）"></a><strong>move semantics（移动语义）</strong></h2><p><code>移动语义的出现解决了传统C++没有区分移动和拷贝而导致造成大量数据复制的问题。</code></p>
+<blockquote>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
 
-<br/> 
+#define LOG(x) std::cout &lt;&lt; x &lt;&lt; std::endl
 
-<h2 id="hashtable"><a href="#hashtable" class="headerlink" title="hashtable"></a>hashtable</h2><br/>
+class A &#123;
+public:
+    int* ptr_ &#x3D; nullptr;
+
+    A() : ptr_(new int(1)) &#123;
+          LOG(&quot;默认构造&quot;  + ptr_ );
+    &#125;
+
+    &#x2F;&#x2F; 存在无意义的对象拷贝
+    A(A&amp; a) : ptr_(new int(*a.ptr_)) &#123;
+        LOG(&quot;拷贝构造&quot;  + ptr_);
+    &#125;
+
+    A(A&amp;&amp; a) : ptr_(a.ptr_) &#123;
+           a.ptr_ &#x3D; nullptr;
+           LOG(&quot;移动构造&quot; + ptr_);
+    &#125;
+
+    ~A() &#123;
+           LOG(&quot;析构&quot; + ptr_);
+           delete ptr_;
+    &#125;
+
+&#125;;
+
+&#x2F;&#x2F; 这样定义能防止编译器优化
+&#x2F;&#x2F; 函数返回后会产生一个将亡值，被A的移动构造 A(A&amp;&amp;) 引用，从而延长生命周期，
+&#x2F;&#x2F; 并将这个右值中的指针拿到，保存到 A obj 中， 之后将亡值的指针会被置为 nullptr， 
+&#x2F;&#x2F; 防止了这块内存域被销毁，
+&#x2F;&#x2F; 从而别免了无意义的拷贝构造，增强性能。 
+A Get_A(bool test) &#123;
+      A a, b;
+      return test ? a : b;
+&#125;
+
+int main() &#123;
+
+      A obj &#x3D; Get_A(false);
+      LOG(obj.ptr_);
+      LOG(*obj.ptr_);
+
+      &#x2F;&#x2F; std::vector 例子
+      std::string str &#x3D; &quot;xxx&quot;;
+      std::vector&lt;std::string&gt; v;
+
+      v.push_back(str);
+      &#x2F;&#x2F; str 为 &quot;xxx&quot;
+      LOG(&quot;拷贝传参后的str: &quot; + str);
+      &#x2F;&#x2F; 如果使用如下，str将被置为空。
+      v.push_back(std::move(str));
+      &#x2F;&#x2F; str 为 &quot;&quot;
+      LOG(&quot;移动传参后的str: &quot; + str);
+
+      return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ ./move_semantics 
+默认构造0x5578c3559eb0
+默认构造0x5578c355a2e0
+拷贝构造0x5578c355a300
+析构0x5578c355a2e0
+析构0x5578c3559eb0
+0x5578c355a300
+<span class="token number">1</span>
+拷贝传参后的str: xxx
+移动传参后的str: 
+析构0x5578c355a300<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<br/>
 
 <br/>
 
-<h2 id="unordered-set（hash-set）"><a href="#unordered-set（hash-set）" class="headerlink" title="unordered_set（hash_set）"></a>unordered_set（hash_set）</h2><br/>
+<h2 id="std-bind"><a href="#std-bind" class="headerlink" title="std::bind"></a><strong>std::bind</strong></h2><blockquote>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;functional&gt;
+
+int Calculate(int x, int y, bool is_add) &#123;
+    	return is_add ? x + y : x * y;
+&#125;
+
+&#x2F;&#x2F; 将部分调用参数提前提前绑定到函数身上，成为一个新的对象，
+&#x2F;&#x2F; 然后在参数齐全后完成调用、
+&#x2F;&#x2F; 使用std::placeholders::_1对第3位参数进行占位，如果多个占位，依次为_1, _2, _3, ...
+
+int main() &#123;
+        auto bind_calculate &#x3D; std::bind(Calculate, 3, 4, std::placeholders::_1);
+        std::cout &lt;&lt; bind_calculate(false) &lt;&lt; std::endl;
+        return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<br/>
 
 <br/>
 
-<h2 id="unordered-map（hash-map）"><a href="#unordered-map（hash-map）" class="headerlink" title="unordered_map（hash_map）"></a>unordered_map（hash_map）</h2><br/>
+<h2 id="std-forward"><a href="#std-forward" class="headerlink" title="std::forward"></a><strong>std::forward</strong></h2><p><code>完美转发, 为了在传递参数的时候保持原来的参数类型（左引用保持左引用，右引用保持右引用）</code></p>
+<br/>
+
+<p><em><strong>坍缩规则：</strong></em></p>
+<table>
+<thead>
+<tr>
+<th align="center">数形参类型</th>
+<th align="center">实参参数类型</th>
+<th align="center">推导后的函数形参类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">T&amp;</td>
+<td align="center">左引用</td>
+<td align="center">T&amp;</td>
+</tr>
+<tr>
+<td align="center">T&amp;</td>
+<td align="center">右引用</td>
+<td align="center">T&amp;</td>
+</tr>
+<tr>
+<td align="center">T&amp;&amp;</td>
+<td align="center">左引用</td>
+<td align="center">T&amp;</td>
+</tr>
+<tr>
+<td align="center">T&amp;&amp;</td>
+<td align="center">右引用</td>
+<td align="center">T&amp;&amp;</td>
+</tr>
+</tbody></table>
+<br/>
+
+<blockquote>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 前面提到，声明一个右值引用其实是一个左值 std::string&amp;&amp; rs &#x3D; &quot;xx&quot; + &quot;yy&quot;;
+
+#include &lt;iostream&gt;
+#include &lt;utility&gt;
+
+#define LOG(x) std::cout &lt;&lt; x &lt;&lt; std::endl
+
+void log(int&amp; v) &#123;
+ 	LOG(&quot;      左值引用&quot;);
+&#125;
+
+void log(int&amp;&amp; v) &#123;
+ 	LOG(&quot;      右值引用&quot;);
+&#125;
+
+
+template &lt;typename T&gt;
+void pass(T&amp;&amp; v) &#123;
+       LOG(&quot;    --普通传参&quot;);
+       log(v);
+&#125;
+
+template &lt;typename T&gt;
+void forward_pass(T&amp;&amp; v) &#123;
+       LOG(&quot;    --普通传参&quot;);
+       log(v);
+
+       &#x2F;&#x2F; 单纯的将左值转化为右值。
+       LOG(&quot;    --move 传参。&quot;);
+       log(std::move(v));
+
+       &#x2F;&#x2F; 单纯将参数做了类型转换, 由std::forward的实现得知。
+       &#x2F;* 
+     template&lt;typename _Tp&gt;
+         constexpr _Tp&amp;&amp;
+         forward(typename std::remove_reference&lt;_Tp&gt;::type&amp; __t) noexcept
+         &#123; return static_cast&lt;_Tp&amp;&amp;&gt;(__t); &#125;
+     *&#x2F;
+       LOG(&quot;    --forward 传参。&quot;);
+       log(std::forward&lt;T&gt;(v));
+&#125;
+
+int main() &#123;
+       LOG(&quot;传递右值:&quot;);
+       pass(1); &#x2F;&#x2F; 虽然传递右值1，但是对于pass(v)的参数v来说，v是一个（右值）引用，同时也是左值
+
+       LOG(&quot;传递左值:&quot;);
+       int value &#x3D; 100;
+       pass(value); &#x2F;&#x2F; value是左引用，为什么能调用到pass(T&amp;&amp; v) ？ 如上表格坍缩规则。
+
+       LOG(&quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;);
+
+       &#x2F;&#x2F; 无论传递 左值（2）, 还是右值（f_value），普通传参都会将参数作为左值进行转发。
+       &#x2F;&#x2F; 所以std::move总会接到一个左值，从而转发调用 log(int&amp;&amp; )输出右值引用。
+       &#x2F;&#x2F; std::forward 没有造成多余的拷贝， 同时完美转发（传递）了函数实参给了内部调用的其他函数。
+       LOG(&quot;传递右值:&quot;);
+       forward_pass(2);
+
+       LOG(&quot;传递左值:&quot;);
+       int f_value &#x3D; 200;
+       forward_pass(f_value);
+
+       return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ ./std_forward 
+传递右值:
+    --普通传参
+      左值引用
+传递左值:
+    --普通传参
+      左值引用
+<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">=</span>
+传递右值:
+    --普通传参
+      左值引用
+    --move 传参。
+      右值引用
+    --forward 传参。
+      右值引用
+传递左值:
+    --普通传参
+      左值引用
+    --move 传参。
+      右值引用
+    --forward 传参。
+      左值引用<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<br/>
 
 <br/>
 
-<h2 id="unordered-multiset（hash-multiset）"><a href="#unordered-multiset（hash-multiset）" class="headerlink" title="unordered_multiset（hash_multiset）"></a>unordered_multiset（hash_multiset）</h2><br/>
+<h2 id="std-function"><a href="#std-function" class="headerlink" title="std::function"></a><strong>std::function</strong></h2><blockquote>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;functional&gt;
+
+#define LOG(x) std::cout &lt;&lt; x &lt;&lt; std::endl
+
+&#x2F;&#x2F; old
+using foo &#x3D; void(int);
+&#x2F;&#x2F; 函数指针的调用是非类型安全的
+void excecute_f(foo f) &#123;
+       f(3);
+&#125;
+void Oldman() &#123;
+       auto f &#x3D; [](int value) &#123;
+           LOG(value);
+       &#125;;
+       excecute_f(f);
+&#125;
+
+
+&#x2F;&#x2F;new
+int print(int para) &#123;
+    return para;
+&#125;
+&#x2F;&#x2F; 函数容器 将函数、函数指针作为对象处理，是一种通用、多态的函数封装，类型安全
+void Coolman() &#123;
+
+       std::function&lt;int(int)&gt; func_1 &#x3D; print;
+       std::function&lt;int(int)&gt; func_2 &#x3D; [&amp;](int value) &#123;
+           return func_1(value) + value;
+       &#125;;
+       LOG(func_2(100));
+&#125;
+
+int main() &#123;
+       Oldman();
+       Coolman();
+       return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ ./std_function 
+<span class="token number">3</span>
+<span class="token number">200</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<br/>
 
 <br/>
 
-<h2 id="unordered-multimap（hash-multimap）"><a href="#unordered-multimap（hash-multimap）" class="headerlink" title="unordered_multimap（hash_multimap）"></a>unordered_multimap（hash_multimap）</h2><br/>
+<h2 id="std-move"><a href="#std-move" class="headerlink" title="std::move"></a><strong>std::move</strong></h2><p><code>左值: 符号左边的值，是表达式（不一定是赋值表达式）后依然存在的持久对象。</code></p>
+<p><code>右值: 表达式结束后就不存在的临时对象。</code></p>
+<p><code>纯右值: 纯粹的字面量，如 10, true, 1+2, ..</code></p>
+<p><code>将亡值: 即将被销毁、却能够被移动的值。</code></p>
+<blockquote>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;vector></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;utility></span></span>
 
-<br/>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">LOG</span><span class="token expression"><span class="token punctuation">(</span>x<span class="token punctuation">)</span> std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl</span></span>
+
+std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+       std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> tmp <span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+       <span class="token keyword">return</span> tmp<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+	<span class="token comment">// v是左值， foo()就是右值，也是纯右值</span>
+	<span class="token comment">// 对于foo()产生的返回值作为一个临时值，一旦被v复制后，就无法获取和修改</span>
+	std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> v <span class="token operator">=</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// std::move() 将左值参数无条件的转换成右值</span>
+<span class="token keyword">void</span> <span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>string<span class="token operator">&amp;</span> str<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+ 	<span class="token function">LOG</span><span class="token punctuation">(</span><span class="token string">"左值： "</span> <span class="token operator">+</span> str<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">void</span> <span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>string<span class="token operator">&amp;&amp;</span> str<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+ 	<span class="token function">LOG</span><span class="token punctuation">(</span><span class="token string">"右值： "</span> <span class="token operator">+</span> str<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+       std<span class="token double-colon punctuation">::</span>string ls1 <span class="token operator">=</span> <span class="token string">"xxx"</span><span class="token punctuation">;</span>
+       <span class="token comment">// an rvalue reference cannot be bound to an lvalue</span>
+       <span class="token comment">// std::string&amp;&amp; rs2 = ls1;</span>
+
+       std<span class="token double-colon punctuation">::</span>string<span class="token operator">&amp;&amp;</span> rs2 <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token function">move</span><span class="token punctuation">(</span>ls1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+       <span class="token comment">// 常量左值引用延长临时变量的生命周期， 但是ls3不可修改</span>
+       <span class="token comment">// initial value of reference to non-const must be an lvalue</span>
+       <span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>string<span class="token operator">&amp;</span> ls3 <span class="token operator">=</span> ls1 <span class="token operator">+</span> ls1<span class="token punctuation">;</span> 
+       <span class="token comment">// ls3 += "yyy";</span>
+
+       <span class="token comment">// 右值引用延长生命周期，可以定义为非常量引用，可修改。</span>
+       std<span class="token double-colon punctuation">::</span>string<span class="token operator">&amp;&amp;</span> rs4 <span class="token operator">=</span> ls1 <span class="token operator">+</span> rs2<span class="token punctuation">;</span>
+       rs4 <span class="token operator">+=</span> <span class="token string">"yyy"</span><span class="token punctuation">;</span>
+
+       <span class="token comment">// rs4虽然引用了一个右值，但是由于它是一个引用，所以它依然是一个左值。</span>
+       <span class="token function">log</span><span class="token punctuation">(</span>rs4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ ./std_move 
+左值： xxxxxxyyy<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</blockquote>
+
         
     
 
@@ -562,7 +918,7 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%AE%97%E6%B3%95%EF%BC%88algorithms%EF%BC%89/" id="post_nav-newer" class="prev-content">
+        <a href="/2022/06/18/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%89%EF%BC%89%E5%AF%B9%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E6%89%A9%E5%85%85/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -576,7 +932,7 @@
 
     <!-- Next Nav -->
     
-        <a href="/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%88iterators%EF%BC%89/" id="post_nav-older" class="next-content">
+        <a href="/2022/06/18/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%AE%97%E6%B3%95%EF%BC%88algorithms%EF%BC%89/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
