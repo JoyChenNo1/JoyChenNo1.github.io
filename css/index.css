@@ -1369,10 +1369,6 @@ body {
   font-family: /;
   line-height: 2;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 *::-webkit-scrollbar {
   width: 8px;
@@ -2582,6 +2578,7 @@ h1.page-title + .tag-cloud-list {
   color: var(--btn-color);
   text-align: center;
   line-height: 2.4;
+  border-radius: 4px;
 }
 #aside-content .card-info #card-info-btn:hover {
   background-color: var(--btn-hover-color);
