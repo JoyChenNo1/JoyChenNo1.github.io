@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/material-6.png">
 <meta property="article:published_time" content="2021-10-08T06:20:00.000Z">
-<meta property="article:modified_time" content="2022-07-16T04:37:17.919Z">
+<meta property="article:modified_time" content="2022-07-16T09:17:13.506Z">
 <meta property="article:author" content="JoyChen">
 <meta property="article:tag" content="C++ 对象模型">
 <meta property="article:tag" content="拆书系列">
@@ -54,7 +54,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2022-07-16 12:37:17'
+  postUpdate: '2022-07-16 17:17:13'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -143,7 +143,7 @@
       }
     }
     detectApple()
-    })(window)</script><link rel="stylesheet" href="/css/font.css"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/material-6.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">JoyChen's 进阶之路</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">拆书系列之《深度探索 C++ 对象模型》</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-10-08T06:20:00.000Z" title="发表于 2021-10-08 14:20:00">2021-10-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-07-16T04:37:17.919Z" title="更新于 2022-07-16 12:37:17">2022-07-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/">C++</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="拆书系列之《深度探索-C-对象模型》"><a href="#拆书系列之《深度探索-C-对象模型》" class="headerlink" title="拆书系列之《深度探索 C++ 对象模型》"></a>拆书系列之《深度探索 C++ 对象模型》</h1><p><code>参考自《深度探索 C++ 对象模型》--Stanley B.Lippman 著，侯捷译。</code></p>
+    })(window)</script><link rel="stylesheet" href="/css/font.css"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/material-6.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">JoyChen's 进阶之路</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">拆书系列之《深度探索 C++ 对象模型》</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-10-08T06:20:00.000Z" title="发表于 2021-10-08 14:20:00">2021-10-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-07-16T09:17:13.506Z" title="更新于 2022-07-16 17:17:13">2022-07-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/">C++</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="拆书系列之《深度探索-C-对象模型》"><a href="#拆书系列之《深度探索-C-对象模型》" class="headerlink" title="拆书系列之《深度探索 C++ 对象模型》"></a>拆书系列之《深度探索 C++ 对象模型》</h1><p><code>参考自《深度探索 C++ 对象模型》--Stanley B.Lippman 著，侯捷译。</code></p>
 <br/>
 
 <h2 id="关于对象（Object-Lessons）"><a href="#关于对象（Object-Lessons）" class="headerlink" title="关于对象（Object Lessons）"></a>关于对象（Object Lessons）</h2><p><code>本章主要泛讲 C++的对象模型、struct 和 class 关键字的差异、多态下的内存布局分析等。</code></p>
@@ -165,16 +165,16 @@
 
 <h3 id="C-对象模型（The-C-Object-Model）"><a href="#C-对象模型（The-C-Object-Model）" class="headerlink" title="C++ 对象模型（The C++ Object Model）"></a>C++ 对象模型（The C++ Object Model）</h3><p>比如一个类 <strong>Point</strong>：</p>
 <div class="tabs" id="point"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#point-1">class Point</button></li><li class="tab"><button type="button" data-href="#point-2">class Point 对象模型</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="point-1"><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Point</span> <span class="token punctuation">&#123;</span>
-<span class="token keyword">public</span><span class="token operator">:</span>
+  <span class="token keyword">public</span><span class="token operator">:</span>
     <span class="token function">Point</span><span class="token punctuation">(</span><span class="token keyword">float</span> xval<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">virtual</span> <span class="token operator">~</span><span class="token function">Point</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">float</span> <span class="token function">x</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
     <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">PointCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    
-<span class="token keyword">protected</span><span class="token operator">:</span>
+
+  <span class="token keyword">protected</span><span class="token operator">:</span>
     <span class="token keyword">virtual</span> ostream<span class="token operator">&amp;</span> <span class="token function">Print</span><span class="token punctuation">(</span>ostream<span class="token operator">&amp;</span> os<span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-    
-<span class="token keyword">protected</span><span class="token operator">:</span>
+
+  <span class="token keyword">protected</span><span class="token operator">:</span>
     <span class="token keyword">float</span> x_<span class="token punctuation">;</span>
     <span class="token keyword">static</span> <span class="token keyword">int</span> point_count_<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="point-2"><p>优点：<code>空间及存取时间的效率。</code></p>
@@ -283,11 +283,11 @@ X <span class="token function">foobar</span><span class="token punctuation">(</s
 
 <span class="token keyword">class</span> <span class="token class-name">Point</span> <span class="token punctuation">&#123;</span>
   <span class="token keyword">public</span><span class="token operator">:</span> 
-  	<span class="token keyword">operator</span> <span class="token function">C_Point</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> _c_point<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
-  	<span class="token comment">// ...</span>
+    <span class="token keyword">operator</span> <span class="token function">C_Point</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> _c_point<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token comment">// ...</span>
   <span class="token keyword">private</span><span class="token operator">:</span>
-  	C_Point _c_point<span class="token punctuation">;</span>
-  	<span class="token comment">// ...</span>
+    C_Point _c_point<span class="token punctuation">;</span>
+    <span class="token comment">// ...</span>
 <span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <br/>
@@ -299,28 +299,48 @@ X <span class="token function">foobar</span><span class="token punctuation">(</s
 <br/>
 
 <h4 id="指针类型"><a href="#指针类型" class="headerlink" title="指针类型"></a>指针类型</h4><p>一个指针，不管它指向那种数据类型，指针本身所需的内存大小是固定的（32 位机器上是 4 bytes，64 位机器上是 8 bytes），指针类型只会教导编译器如何解释某个特定地址中的内存内容及其大小。</p>
-<div class="tabs" id="zooanimal"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#zooanimal-1">class ZooAnimal</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="zooanimal-1"><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">ZooAnimal</span> <span class="token punctuation">&#123;</span>
-<span class="token keyword">public</span><span class="token operator">:</span>
-	<span class="token function">ZooAnimal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<div class="tabs" id="zooanimal"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#zooanimal-1">class ZooAnimal</button></li><li class="tab"><button type="button" data-href="#zooanimal-2">ZooAnimal object 内存布局</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="zooanimal-1"><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">ZooAnimal</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token function">ZooAnimal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">virtual</span> <span class="token operator">~</span><span class="token function">ZooAnimal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token comment">// ...</span>
     <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">Rotate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    
-<span class="token keyword">protected</span><span class="token operator">:</span>
+
+  <span class="token keyword">protected</span><span class="token operator">:</span>
     <span class="token keyword">int</span> location_<span class="token punctuation">;</span>
     String name_<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
 ZooAnimal <span class="token function">za</span><span class="token punctuation">(</span><span class="token string">"Zoey"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-ZooAnimal<span class="token operator">*</span> pza <span class="token operator">=</span> <span class="token operator">&amp;</span>za<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+ZooAnimal<span class="token operator">*</span> pza <span class="token operator">=</span> <span class="token operator">&amp;</span>za<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="zooanimal-2"><p>如果 String 是传统的 8-bytes（包括一个 4 bytes 的 char* 和表示长度的 int ），一个 ZooAnimal 指针将横跨地址空间 1000~1015（4+8+4）,如图：</p>
+<img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/BlogImages/Object%20Model/%E7%8B%AC%E7%AB%8Bclass%E7%9A%84object%E5%B8%83%E5%B1%80%E5%92%8Cpointer%E5%B8%83%E5%B1%80.png"><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
 
-
+<br/>
 
 <p>对于一个指向某个地址的 <em><em>void</em> 指针</em>*，我们并不知道他将涵盖怎样的地址，所以 <strong>不能通过它操作所指的 object</strong>。</p>
 <p>对于<strong>转型（cast）</strong>，其实是一种编译器指令，它并不改变一个指针所含的真正地址，<strong>它只影响被指明的内存的大小和内容的解释方式。</strong></p>
 <br/>
 
-<h4 id="加上多态之后"><a href="#加上多态之后" class="headerlink" title="加上多态之后"></a>加上多态之后</h4><br/>
+<h4 id="加上多态之后"><a href="#加上多态之后" class="headerlink" title="加上多态之后"></a>加上多态之后</h4><div class="tabs" id="adding-polymorphism"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#adding-polymorphism-1">定义一个 Bear 作为一种 ZooAnimal</button></li><li class="tab"><button type="button" data-href="#adding-polymorphism-2">Bear object 内存布局</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="adding-polymorphism-1"><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Bear</span> <span class="token operator">:</span> <span class="token base-clause"><span class="token keyword">public</span> <span class="token class-name">ZooAnimal</span></span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token function">Bear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">~</span><span class="token function">Bear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// ...</span>
+    <span class="token keyword">void</span> <span class="token function">rotate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">dance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// ...</span>
+
+  <span class="token keyword">protected</span><span class="token operator">:</span>
+    <span class="token keyword">enum</span> <span class="token class-name">Dances</span> <span class="token punctuation">&#123;</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    Dances dances_known<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> cell_block<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+Bear <span class="token function">b</span><span class="token punctuation">(</span><span class="token string">"Yogi"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Bear <span class="token operator">*</span>pb <span class="token operator">=</span> <span class="token operator">&amp;</span>b<span class="token punctuation">;</span>
+Bear <span class="token operator">&amp;</span>rb <span class="token operator">=</span> <span class="token operator">*</span>pb<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="adding-polymorphism-2"><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+
+<br/>
 
 <h2 id="构造语义学（The-Semantics-of-constructors）"><a href="#构造语义学（The-Semantics-of-constructors）" class="headerlink" title="构造语义学（The Semantics of constructors）"></a>构造语义学（The Semantics of constructors）</h2><p><code>本章主要讲编译器在哪些情况下必须为没有声明构造函数的类生成必要的默认构造函数和拷贝构造函数、编译器为参数初始化、返回值初始化等做了哪些优化操作。</code></p>
 <br/>
