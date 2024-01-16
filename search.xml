@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>C++ 并发编程之C++11</title>
-    <url>/2022/07/13/C++%20%E5%B9%B6%E5%8F%91/Concurrency%20in%20C++11/</url>
+    <title>拆书系列之《C++ Templates 2nd》</title>
+    <url>/2021/05/05/C++%20Template/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8AC++%20Templates%202nd%E3%80%8B/</url>
     <content><![CDATA[]]></content>
       <categories>
         <category>C++</category>
-        <category>并发编程</category>
       </categories>
       <tags>
-        <tag>C++ Concurrency</tag>
-        <tag>并发编程</tag>
+        <tag>C++</tag>
+        <tag>C++ Templates</tag>
       </tags>
   </entry>
   <entry>
@@ -488,20 +487,8 @@ Point p<span class="token punctuation">;</span>
       </tags>
   </entry>
   <entry>
-    <title>拆书系列之《C++ Templates 2nd》</title>
-    <url>/2021/05/05/C++%20Template/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8AC++%20Templates%202nd%E3%80%8B/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>C++ Templates</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C++ 并发编程之C++17</title>
-    <url>/2022/07/13/C++%20%E5%B9%B6%E5%8F%91/Concurrency%20in%20C++17/</url>
+    <title>C++ 并发编程之C++11</title>
+    <url>/2022/07/13/C++%20%E5%B9%B6%E5%8F%91/Concurrency%20in%20C++11/</url>
     <content><![CDATA[]]></content>
       <categories>
         <category>C++</category>
@@ -550,18 +537,6 @@ Point p<span class="token punctuation">;</span>
         <tag>C++ Network</tag>
         <tag>C++ 并发</tag>
         <tag>C++20</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C++20 新特性</title>
-    <url>/2021/05/08/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/C++20%20%E6%96%B0%E7%89%B9%E6%80%A7/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>C++20</tag>
-        <tag>Modern C++</tag>
       </tags>
   </entry>
   <entry>
@@ -1162,8 +1137,33 @@ include <span class="token string">"xxx.hpp"</span><span aria-hidden="true" clas
         <category>C++</category>
       </categories>
       <tags>
-        <tag>Modern C++</tag>
         <tag>C++17</tag>
+        <tag>Modern C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++20 新特性</title>
+    <url>/2021/05/08/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/C++20%20%E6%96%B0%E7%89%B9%E6%80%A7/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>C++20</tag>
+        <tag>Modern C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++ 并发编程之C++17</title>
+    <url>/2022/07/13/C++%20%E5%B9%B6%E5%8F%91/Concurrency%20in%20C++17/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>C++</category>
+        <category>并发编程</category>
+      </categories>
+      <tags>
+        <tag>C++ Concurrency</tag>
+        <tag>并发编程</tag>
       </tags>
   </entry>
   <entry>
@@ -1694,8 +1694,284 @@ C++17 <span class="token function">fold</span> expression:
         <category>C++</category>
       </categories>
       <tags>
-        <tag>Modern C++</tag>
         <tag>C++17</tag>
+        <tag>Modern C++</tag>
+        <tag>C++11</tag>
+        <tag>C++14</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++1x 新特性（三）对标准库的扩充</title>
+    <url>/2021/04/10/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%89%EF%BC%89%E5%AF%B9%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E6%89%A9%E5%85%85/</url>
+    <content><![CDATA[<h1 id="C-1x-新特性（三）对标准库的扩充"><a href="#C-1x-新特性（三）对标准库的扩充" class="headerlink" title="C++1x 新特性（三）对标准库的扩充"></a>C++1x 新特性（三）对标准库的扩充</h1><p><code>本系列主要阐述依据：</code></p>
+<p>[<a href="https://github.com/changkun/modern-cpp-tutorial]">https://github.com/changkun/modern-cpp-tutorial]</a>: 《Modern C++ Tutorial: C++11&#x2F;14&#x2F;17&#x2F;20 On the Fly》</p>
+<br/>
+
+<h2 id="std-array"><a href="#std-array" class="headerlink" title="std::array"></a><strong>std::array</strong></h2><br/>
+
+<p><em><strong>std::array 和 std::vector 的区别</strong></em></p>
+<table>
+<thead>
+<tr>
+<th align="center">std::array</th>
+<th align="center">std::vector</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">栈内存</td>
+<td align="center">堆内存</td>
+</tr>
+<tr>
+<td align="center">灵活访问，更高性能</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">更现代</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">编译时会创建一个固定的数组</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">不能够隐式转成指针（注意！！！）</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<p>​                                                                  </p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstdio></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;array></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;algorithm></span></span>
+
+<span class="token comment">// C风格的接口</span>
+<span class="token keyword">void</span> <span class="token function">c_test</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token operator">*</span> p<span class="token punctuation">,</span> size_t len<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+ <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d, %d"</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">,</span> len<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  std<span class="token double-colon punctuation">::</span>array<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token operator">></span> arr_1 <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// 无法转换成 C 风格指针传递！</span>
+  <span class="token comment">// no suitable conversion function from "std::array&lt;int, 5UL>" to "int *" exists</span>
+  <span class="token comment">// c_test(arr_1, arr_1.size());</span>
+
+  <span class="token comment">// struct std::array&lt;int, &lt;error-constant>></span>
+  <span class="token comment">// int len = 5;</span>
+  <span class="token keyword">constexpr</span> <span class="token keyword">int</span> len <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+  std<span class="token double-colon punctuation">::</span>array<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> len<span class="token operator">></span> arr_2 <span class="token operator">=</span> <span class="token punctuation">&#123;</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">4</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+  std<span class="token double-colon punctuation">::</span><span class="token function">sort</span><span class="token punctuation">(</span>arr_2<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> arr_2<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<br/>
+
+<br/>
+
+<h2 id="std-forward-list"><a href="#std-forward-list" class="headerlink" title="std::forward_list"></a><strong>std::forward_list</strong></h2><table>
+<thead>
+<tr>
+<th align="center">std::list</th>
+<th align="center">std::forward_list</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">双向链表</td>
+<td align="center">单链表</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">不支持随机访问， O(1)复杂度插入</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">唯一一个不提供size()的容器</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">不需要双向迭代时，更高的空间利用率</td>
+</tr>
+</tbody></table>
+<br/>
+
+<br/>                                                                                                                                                   
+
+<h2 id="std-tuple"><a href="#std-tuple" class="headerlink" title="std::tuple"></a><strong>std::tuple</strong></h2><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;tuple></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;boost/variant.hpp></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;variant></span></span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">LOG</span><span class="token expression"><span class="token punctuation">(</span>x<span class="token punctuation">)</span> std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl</span></span>
+
+<span class="token comment">// 用于求取 tuple size</span>
+
+<span class="token keyword">template</span> <span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">T</span><span class="token operator">></span>
+<span class="token keyword">auto</span> <span class="token function">tuple_size</span><span class="token punctuation">(</span><span class="token keyword">const</span> T<span class="token operator">&amp;</span> tpl<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">return</span> std<span class="token double-colon punctuation">::</span>tuple_size<span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token double-colon punctuation">::</span>value<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// 借助 boost::variant 实现 </span>
+<span class="token comment">// 参考 https://www.boost.org/doc/libs/1_75_0/doc/html/variant.html</span>
+<span class="token keyword">template</span> <span class="token operator">&lt;</span>size_t n<span class="token punctuation">,</span> <span class="token keyword">typename</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> Args<span class="token operator">></span>
+boost<span class="token double-colon punctuation">::</span>variant<span class="token operator">&lt;</span>Args<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">></span> <span class="token function">_tuple_index</span><span class="token punctuation">(</span>size_t i<span class="token punctuation">,</span> <span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>tuple<span class="token operator">&lt;</span>Args<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">></span><span class="token operator">&amp;</span> tpl<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> n<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> std<span class="token double-colon punctuation">::</span><span class="token generic-function"><span class="token function">get</span><span class="token generic class-name"><span class="token operator">&lt;</span>n<span class="token operator">></span></span></span><span class="token punctuation">(</span>tpl<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token keyword">sizeof</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">(</span>Args<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">throw</span> std<span class="token double-colon punctuation">::</span><span class="token function">out_of_range</span><span class="token punctuation">(</span><span class="token string">"越界！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> _tuple_index<span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token generic-function"><span class="token function">n</span> <span class="token generic class-name"><span class="token operator">&lt;</span> <span class="token keyword">sizeof</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">(</span>Args<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span> <span class="token operator">?</span> n <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token operator">></span></span></span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> tpl<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// 用于获取指定索引的 tuple 元素值</span>
+<span class="token keyword">template</span> <span class="token operator">&lt;</span><span class="token keyword">typename</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> Args<span class="token operator">></span>
+boost<span class="token double-colon punctuation">::</span>variant<span class="token operator">&lt;</span>Args<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">></span> <span class="token function">tuple_index</span><span class="token punctuation">(</span>size_t i<span class="token punctuation">,</span> <span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>tuple<span class="token operator">&lt;</span>Args<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">></span><span class="token operator">&amp;</span> tpl<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">return</span> <span class="token generic-function"><span class="token function">_tuple_index</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token number">0</span><span class="token operator">></span></span></span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> tpl<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+
+<span class="token keyword">auto</span> student <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token function">make_tuple</span><span class="token punctuation">(</span><span class="token string">"Liming"</span><span class="token punctuation">,</span> <span class="token number">18</span><span class="token punctuation">,</span> <span class="token char">'B'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">constexpr</span> <span class="token keyword">int</span> i_0 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> i_1 <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> i_2 <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+
+<span class="token comment">// std::get&lt;> 依赖的是编译期的常量</span>
+<span class="token function">LOG</span><span class="token punctuation">(</span><span class="token string">"姓名： "</span> <span class="token operator">+</span> std<span class="token double-colon punctuation">::</span><span class="token generic-function"><span class="token function">get</span><span class="token generic class-name"><span class="token operator">&lt;</span>i_0<span class="token operator">></span></span></span><span class="token punctuation">(</span>student<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">LOG</span><span class="token punctuation">(</span><span class="token string">"年龄： "</span> <span class="token operator">+</span> std<span class="token double-colon punctuation">::</span><span class="token generic-function"><span class="token function">get</span><span class="token generic class-name"><span class="token operator">&lt;</span>i_1<span class="token operator">></span></span></span><span class="token punctuation">(</span>student<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">LOG</span><span class="token punctuation">(</span><span class="token string">"成绩： "</span> <span class="token operator">+</span> std<span class="token double-colon punctuation">::</span><span class="token generic-function"><span class="token function">get</span><span class="token generic class-name"><span class="token operator">&lt;</span>i_2<span class="token operator">></span></span></span><span class="token punctuation">(</span>student<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+std<span class="token double-colon punctuation">::</span>string name<span class="token punctuation">;</span>
+<span class="token keyword">char</span> grade<span class="token punctuation">;</span>
+
+<span class="token comment">// 利用std::tie 进行元组拆包， std::ignore忽略某个元素</span>
+std<span class="token double-colon punctuation">::</span><span class="token function">tie</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> std<span class="token double-colon punctuation">::</span>ignore<span class="token punctuation">,</span> grade<span class="token punctuation">)</span> <span class="token operator">=</span> student<span class="token punctuation">;</span>
+<span class="token function">LOG</span><span class="token punctuation">(</span><span class="token string">"姓名： "</span> <span class="token operator">+</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">LOG</span><span class="token punctuation">(</span><span class="token string">"成绩： "</span> <span class="token operator">+</span> grade<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 元组合并</span>
+<span class="token keyword">auto</span> teacher <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token function">make_tuple</span><span class="token punctuation">(</span><span class="token string">"Miss Li"</span><span class="token punctuation">,</span> <span class="token number">25</span><span class="token punctuation">,</span> <span class="token char">'A'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">auto</span> concat <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token function">tuple_cat</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span><span class="token function">move</span><span class="token punctuation">(</span>student<span class="token punctuation">)</span><span class="token punctuation">,</span> std<span class="token double-colon punctuation">::</span><span class="token function">move</span><span class="token punctuation">(</span>teacher<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 元组遍历</span>
+<span class="token keyword">for</span> <span class="token punctuation">(</span>size_t i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">!=</span> <span class="token function">tuple_size</span><span class="token punctuation">(</span>concat<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token function">LOG</span><span class="token punctuation">(</span><span class="token function">tuple_index</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> concat<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ ./std_tuple 
+姓名： Liming
+年龄： <span class="token number">18</span>
+成绩： B
+姓名： Liming
+成绩： B
+Liming
+<span class="token number">18</span>
+B
+Miss Li
+<span class="token number">25</span>
+A<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<br/>
+
+<br/>
+
+<h2 id="std-unordered-map"><a href="#std-unordered-map" class="headerlink" title="std::unordered_map"></a><strong>std::unordered_map</strong></h2><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unordered_map></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;map></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;algorithm></span></span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">LOG</span><span class="token expression"><span class="token punctuation">(</span>x<span class="token punctuation">)</span> std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl</span></span>
+
+<span class="token keyword">template</span> <span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">T</span><span class="token operator">></span>
+<span class="token keyword">void</span> <span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">const</span> T<span class="token operator">&amp;</span> t<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<span class="token function">LOG</span><span class="token punctuation">(</span><span class="token string">"容器类型： "</span> <span class="token operator">+</span> <span class="token keyword">typeid</span><span class="token punctuation">(</span>T<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+std<span class="token double-colon punctuation">::</span><span class="token function">for_each</span><span class="token punctuation">(</span>t<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> t<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">auto</span><span class="token operator">&amp;</span> item<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  <span class="token function">LOG</span><span class="token punctuation">(</span><span class="token string">"Key: "</span> <span class="token operator">+</span> item<span class="token punctuation">.</span>first <span class="token operator">+</span> <span class="token string">"  Value: "</span> <span class="token operator">+</span> item<span class="token punctuation">.</span>second<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<span class="token comment">// 无序</span>
+std<span class="token double-colon punctuation">::</span>unordered_map<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> std<span class="token double-colon punctuation">::</span>string<span class="token operator">></span> unordered <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+  <span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"one"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#123;</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token string">"four"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#123;</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token string">"three"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> 
+  <span class="token punctuation">&#123;</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">"two"</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+<span class="token comment">// 有序</span>
+std<span class="token double-colon punctuation">::</span>map<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> std<span class="token double-colon punctuation">::</span>string<span class="token operator">></span> ordered <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+  <span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"one"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#123;</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token string">"four"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#123;</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token string">"three"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> 
+  <span class="token punctuation">&#123;</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">"two"</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+<span class="token function">log</span><span class="token punctuation">(</span>unordered<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">log</span><span class="token punctuation">(</span>ordered<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ ./std_unordered_map 
+容器类型： St13unordered_mapIiNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4hashIiESt8equal_toIiESaISt4pairIKiS5_EEE
+Key: <span class="token number">2</span>  Value: two
+Key: <span class="token number">3</span>  Value: three
+Key: <span class="token number">4</span>  Value: four
+Key: <span class="token number">1</span>  Value: one
+容器类型： St3mapIiNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4lessIiESaISt4pairIKiS5_EEE
+Key: <span class="token number">1</span>  Value: one
+Key: <span class="token number">2</span>  Value: two
+Key: <span class="token number">3</span>  Value: three
+Key: <span class="token number">4</span>  Value: four<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<br/>
+
+<br/>
+
+<h2 id="std-unordered-set"><a href="#std-unordered-set" class="headerlink" title="std::unordered_set"></a><strong>std::unordered_set</strong></h2><table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">set</th>
+<th align="center">unordered_set</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"></td>
+<td align="center">升序（默认）</td>
+<td align="center">无序</td>
+</tr>
+<tr>
+<td align="center">实现</td>
+<td align="center">RB Tree</td>
+<td align="center">Hash Table</td>
+</tr>
+<tr>
+<td align="center">查找时间复杂度</td>
+<td align="center">log(n)</td>
+<td align="center">best O(1) -&gt; O(n)  worst</td>
+</tr>
+<tr>
+<td align="center">插入时间复杂度</td>
+<td align="center">log(n) + Rebalance</td>
+<td align="center">同上</td>
+</tr>
+<tr>
+<td align="center">删除时间复杂度</td>
+<td align="center">log(n) + Rebalance</td>
+<td align="center">同上</td>
+</tr>
+</tbody></table>
+<h1 id=""><a href="#" class="headerlink" title=""></a><strong><img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/BlogImages/C++新特性/unordered_set.png"/></strong></h1>]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>C++17</tag>
+        <tag>Modern C++</tag>
         <tag>C++11</tag>
         <tag>C++14</tag>
       </tags>
@@ -2093,299 +2369,10 @@ std<span class="token double-colon punctuation">::</span>vector<span class="toke
         <category>C++</category>
       </categories>
       <tags>
-        <tag>Modern C++</tag>
         <tag>C++17</tag>
+        <tag>Modern C++</tag>
         <tag>C++11</tag>
         <tag>C++14</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C++1x 新特性（三）对标准库的扩充</title>
-    <url>/2021/04/10/C++%20%E6%96%B0%E7%89%B9%E6%80%A7/%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%89%EF%BC%89%E5%AF%B9%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84%E6%89%A9%E5%85%85/</url>
-    <content><![CDATA[<h1 id="C-1x-新特性（三）对标准库的扩充"><a href="#C-1x-新特性（三）对标准库的扩充" class="headerlink" title="C++1x 新特性（三）对标准库的扩充"></a>C++1x 新特性（三）对标准库的扩充</h1><p><code>本系列主要阐述依据：</code></p>
-<p>[<a href="https://github.com/changkun/modern-cpp-tutorial]">https://github.com/changkun/modern-cpp-tutorial]</a>: 《Modern C++ Tutorial: C++11&#x2F;14&#x2F;17&#x2F;20 On the Fly》</p>
-<br/>
-
-<h2 id="std-array"><a href="#std-array" class="headerlink" title="std::array"></a><strong>std::array</strong></h2><br/>
-
-<p><em><strong>std::array 和 std::vector 的区别</strong></em></p>
-<table>
-<thead>
-<tr>
-<th align="center">std::array</th>
-<th align="center">std::vector</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">栈内存</td>
-<td align="center">堆内存</td>
-</tr>
-<tr>
-<td align="center">灵活访问，更高性能</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">更现代</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">编译时会创建一个固定的数组</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">不能够隐式转成指针（注意！！！）</td>
-<td align="center"></td>
-</tr>
-</tbody></table>
-<p>​                                                                  </p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstdio></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;array></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;algorithm></span></span>
-
-<span class="token comment">// C风格的接口</span>
-<span class="token keyword">void</span> <span class="token function">c_test</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token operator">*</span> p<span class="token punctuation">,</span> size_t len<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
- <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d, %d"</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">,</span> len<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  std<span class="token double-colon punctuation">::</span>array<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token operator">></span> arr_1 <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-
-  <span class="token comment">// 无法转换成 C 风格指针传递！</span>
-  <span class="token comment">// no suitable conversion function from "std::array&lt;int, 5UL>" to "int *" exists</span>
-  <span class="token comment">// c_test(arr_1, arr_1.size());</span>
-
-  <span class="token comment">// struct std::array&lt;int, &lt;error-constant>></span>
-  <span class="token comment">// int len = 5;</span>
-  <span class="token keyword">constexpr</span> <span class="token keyword">int</span> len <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
-  std<span class="token double-colon punctuation">::</span>array<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> len<span class="token operator">></span> arr_2 <span class="token operator">=</span> <span class="token punctuation">&#123;</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">4</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-  std<span class="token double-colon punctuation">::</span><span class="token function">sort</span><span class="token punctuation">(</span>arr_2<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> arr_2<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<br/>
-
-<br/>
-
-<h2 id="std-forward-list"><a href="#std-forward-list" class="headerlink" title="std::forward_list"></a><strong>std::forward_list</strong></h2><table>
-<thead>
-<tr>
-<th align="center">std::list</th>
-<th align="center">std::forward_list</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">双向链表</td>
-<td align="center">单链表</td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center">不支持随机访问， O(1)复杂度插入</td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center">唯一一个不提供size()的容器</td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center">不需要双向迭代时，更高的空间利用率</td>
-</tr>
-</tbody></table>
-<br/>
-
-<br/>                                                                                                                                                   
-
-<h2 id="std-tuple"><a href="#std-tuple" class="headerlink" title="std::tuple"></a><strong>std::tuple</strong></h2><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;tuple></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;boost/variant.hpp></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;variant></span></span>
-
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">LOG</span><span class="token expression"><span class="token punctuation">(</span>x<span class="token punctuation">)</span> std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl</span></span>
-
-<span class="token comment">// 用于求取 tuple size</span>
-
-<span class="token keyword">template</span> <span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">T</span><span class="token operator">></span>
-<span class="token keyword">auto</span> <span class="token function">tuple_size</span><span class="token punctuation">(</span><span class="token keyword">const</span> T<span class="token operator">&amp;</span> tpl<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-<span class="token keyword">return</span> std<span class="token double-colon punctuation">::</span>tuple_size<span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token double-colon punctuation">::</span>value<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">// 借助 boost::variant 实现 </span>
-<span class="token comment">// 参考 https://www.boost.org/doc/libs/1_75_0/doc/html/variant.html</span>
-<span class="token keyword">template</span> <span class="token operator">&lt;</span>size_t n<span class="token punctuation">,</span> <span class="token keyword">typename</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> Args<span class="token operator">></span>
-boost<span class="token double-colon punctuation">::</span>variant<span class="token operator">&lt;</span>Args<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">></span> <span class="token function">_tuple_index</span><span class="token punctuation">(</span>size_t i<span class="token punctuation">,</span> <span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>tuple<span class="token operator">&lt;</span>Args<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">></span><span class="token operator">&amp;</span> tpl<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-<span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> n<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> std<span class="token double-colon punctuation">::</span><span class="token generic-function"><span class="token function">get</span><span class="token generic class-name"><span class="token operator">&lt;</span>n<span class="token operator">></span></span></span><span class="token punctuation">(</span>tpl<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token keyword">sizeof</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">(</span>Args<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">throw</span> std<span class="token double-colon punctuation">::</span><span class="token function">out_of_range</span><span class="token punctuation">(</span><span class="token string">"越界！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> _tuple_index<span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token generic-function"><span class="token function">n</span> <span class="token generic class-name"><span class="token operator">&lt;</span> <span class="token keyword">sizeof</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">(</span>Args<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span> <span class="token operator">?</span> n <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token operator">></span></span></span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> tpl<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">// 用于获取指定索引的 tuple 元素值</span>
-<span class="token keyword">template</span> <span class="token operator">&lt;</span><span class="token keyword">typename</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> Args<span class="token operator">></span>
-boost<span class="token double-colon punctuation">::</span>variant<span class="token operator">&lt;</span>Args<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">></span> <span class="token function">tuple_index</span><span class="token punctuation">(</span>size_t i<span class="token punctuation">,</span> <span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>tuple<span class="token operator">&lt;</span>Args<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">></span><span class="token operator">&amp;</span> tpl<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-<span class="token keyword">return</span> <span class="token generic-function"><span class="token function">_tuple_index</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token number">0</span><span class="token operator">></span></span></span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> tpl<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-
-<span class="token keyword">auto</span> student <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token function">make_tuple</span><span class="token punctuation">(</span><span class="token string">"Liming"</span><span class="token punctuation">,</span> <span class="token number">18</span><span class="token punctuation">,</span> <span class="token char">'B'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token keyword">constexpr</span> <span class="token keyword">int</span> i_0 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> i_1 <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> i_2 <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-
-<span class="token comment">// std::get&lt;> 依赖的是编译期的常量</span>
-<span class="token function">LOG</span><span class="token punctuation">(</span><span class="token string">"姓名： "</span> <span class="token operator">+</span> std<span class="token double-colon punctuation">::</span><span class="token generic-function"><span class="token function">get</span><span class="token generic class-name"><span class="token operator">&lt;</span>i_0<span class="token operator">></span></span></span><span class="token punctuation">(</span>student<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">LOG</span><span class="token punctuation">(</span><span class="token string">"年龄： "</span> <span class="token operator">+</span> std<span class="token double-colon punctuation">::</span><span class="token generic-function"><span class="token function">get</span><span class="token generic class-name"><span class="token operator">&lt;</span>i_1<span class="token operator">></span></span></span><span class="token punctuation">(</span>student<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">LOG</span><span class="token punctuation">(</span><span class="token string">"成绩： "</span> <span class="token operator">+</span> std<span class="token double-colon punctuation">::</span><span class="token generic-function"><span class="token function">get</span><span class="token generic class-name"><span class="token operator">&lt;</span>i_2<span class="token operator">></span></span></span><span class="token punctuation">(</span>student<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-std<span class="token double-colon punctuation">::</span>string name<span class="token punctuation">;</span>
-<span class="token keyword">char</span> grade<span class="token punctuation">;</span>
-
-<span class="token comment">// 利用std::tie 进行元组拆包， std::ignore忽略某个元素</span>
-std<span class="token double-colon punctuation">::</span><span class="token function">tie</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> std<span class="token double-colon punctuation">::</span>ignore<span class="token punctuation">,</span> grade<span class="token punctuation">)</span> <span class="token operator">=</span> student<span class="token punctuation">;</span>
-<span class="token function">LOG</span><span class="token punctuation">(</span><span class="token string">"姓名： "</span> <span class="token operator">+</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">LOG</span><span class="token punctuation">(</span><span class="token string">"成绩： "</span> <span class="token operator">+</span> grade<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token comment">// 元组合并</span>
-<span class="token keyword">auto</span> teacher <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token function">make_tuple</span><span class="token punctuation">(</span><span class="token string">"Miss Li"</span><span class="token punctuation">,</span> <span class="token number">25</span><span class="token punctuation">,</span> <span class="token char">'A'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">auto</span> concat <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span><span class="token function">tuple_cat</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span><span class="token function">move</span><span class="token punctuation">(</span>student<span class="token punctuation">)</span><span class="token punctuation">,</span> std<span class="token double-colon punctuation">::</span><span class="token function">move</span><span class="token punctuation">(</span>teacher<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token comment">// 元组遍历</span>
-<span class="token keyword">for</span> <span class="token punctuation">(</span>size_t i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">!=</span> <span class="token function">tuple_size</span><span class="token punctuation">(</span>concat<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token function">LOG</span><span class="token punctuation">(</span><span class="token function">tuple_index</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> concat<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ ./std_tuple 
-姓名： Liming
-年龄： <span class="token number">18</span>
-成绩： B
-姓名： Liming
-成绩： B
-Liming
-<span class="token number">18</span>
-B
-Miss Li
-<span class="token number">25</span>
-A<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<br/>
-
-<br/>
-
-<h2 id="std-unordered-map"><a href="#std-unordered-map" class="headerlink" title="std::unordered_map"></a><strong>std::unordered_map</strong></h2><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unordered_map></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;map></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;algorithm></span></span>
-
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">LOG</span><span class="token expression"><span class="token punctuation">(</span>x<span class="token punctuation">)</span> std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> x <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl</span></span>
-
-<span class="token keyword">template</span> <span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">T</span><span class="token operator">></span>
-<span class="token keyword">void</span> <span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">const</span> T<span class="token operator">&amp;</span> t<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-<span class="token function">LOG</span><span class="token punctuation">(</span><span class="token string">"容器类型： "</span> <span class="token operator">+</span> <span class="token keyword">typeid</span><span class="token punctuation">(</span>T<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-std<span class="token double-colon punctuation">::</span><span class="token function">for_each</span><span class="token punctuation">(</span>t<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> t<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">auto</span><span class="token operator">&amp;</span> item<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-  <span class="token function">LOG</span><span class="token punctuation">(</span><span class="token string">"Key: "</span> <span class="token operator">+</span> item<span class="token punctuation">.</span>first <span class="token operator">+</span> <span class="token string">"  Value: "</span> <span class="token operator">+</span> item<span class="token punctuation">.</span>second<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-<span class="token comment">// 无序</span>
-std<span class="token double-colon punctuation">::</span>unordered_map<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> std<span class="token double-colon punctuation">::</span>string<span class="token operator">></span> unordered <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-  <span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"one"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token punctuation">&#123;</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token string">"four"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token punctuation">&#123;</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token string">"three"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> 
-  <span class="token punctuation">&#123;</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">"two"</span><span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-<span class="token comment">// 有序</span>
-std<span class="token double-colon punctuation">::</span>map<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> std<span class="token double-colon punctuation">::</span>string<span class="token operator">></span> ordered <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-  <span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"one"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token punctuation">&#123;</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token string">"four"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token punctuation">&#123;</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token string">"three"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> 
-  <span class="token punctuation">&#123;</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">"two"</span><span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-
-<span class="token function">log</span><span class="token punctuation">(</span>unordered<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">log</span><span class="token punctuation">(</span>ordered<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ ./std_unordered_map 
-容器类型： St13unordered_mapIiNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4hashIiESt8equal_toIiESaISt4pairIKiS5_EEE
-Key: <span class="token number">2</span>  Value: two
-Key: <span class="token number">3</span>  Value: three
-Key: <span class="token number">4</span>  Value: four
-Key: <span class="token number">1</span>  Value: one
-容器类型： St3mapIiNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4lessIiESaISt4pairIKiS5_EEE
-Key: <span class="token number">1</span>  Value: one
-Key: <span class="token number">2</span>  Value: two
-Key: <span class="token number">3</span>  Value: three
-Key: <span class="token number">4</span>  Value: four<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<br/>
-
-<br/>
-
-<h2 id="std-unordered-set"><a href="#std-unordered-set" class="headerlink" title="std::unordered_set"></a><strong>std::unordered_set</strong></h2><table>
-<thead>
-<tr>
-<th align="center"></th>
-<th align="center">set</th>
-<th align="center">unordered_set</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"></td>
-<td align="center">升序（默认）</td>
-<td align="center">无序</td>
-</tr>
-<tr>
-<td align="center">实现</td>
-<td align="center">RB Tree</td>
-<td align="center">Hash Table</td>
-</tr>
-<tr>
-<td align="center">查找时间复杂度</td>
-<td align="center">log(n)</td>
-<td align="center">best O(1) -&gt; O(n)  worst</td>
-</tr>
-<tr>
-<td align="center">插入时间复杂度</td>
-<td align="center">log(n) + Rebalance</td>
-<td align="center">同上</td>
-</tr>
-<tr>
-<td align="center">删除时间复杂度</td>
-<td align="center">log(n) + Rebalance</td>
-<td align="center">同上</td>
-</tr>
-</tbody></table>
-<h1 id=""><a href="#" class="headerlink" title=""></a><strong><img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/BlogImages/C++新特性/unordered_set.png"/></strong></h1>]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>Modern C++</tag>
-        <tag>C++17</tag>
-        <tag>C++11</tag>
-        <tag>C++14</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>gin 框架初探</title>
-    <url>/2022/02/13/Go/gin%20%E6%A1%86%E6%9E%B6%E5%88%9D%E6%8E%A2%E5%8F%8A%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>golang</category>
-        <category>golang 框架</category>
-      </categories>
-      <tags>
-        <tag>gin</tag>
-        <tag>golang</tag>
       </tags>
   </entry>
   <entry>
@@ -2975,10 +2962,23 @@ std<span class="token double-colon punctuation">::</span>weak_ptr<span class="to
         <category>C++</category>
       </categories>
       <tags>
-        <tag>Modern C++</tag>
         <tag>C++17</tag>
+        <tag>Modern C++</tag>
         <tag>C++11</tag>
         <tag>C++14</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>gin 框架初探</title>
+    <url>/2022/02/13/Go/gin%20%E6%A1%86%E6%9E%B6%E5%88%9D%E6%8E%A2%E5%8F%8A%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>golang</category>
+        <category>golang 框架</category>
+      </categories>
+      <tags>
+        <tag>gin</tag>
+        <tag>golang</tag>
       </tags>
   </entry>
   <entry>
@@ -2996,6 +2996,19 @@ std<span class="token double-colon punctuation">::</span>weak_ptr<span class="to
       </tags>
   </entry>
   <entry>
+    <title>gorm 框架初探</title>
+    <url>/2022/03/13/Go/gorm%20%E6%A1%86%E6%9E%B6%E5%88%9D%E6%8E%A2%E5%8F%8A%E5%85%B6%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>golang</category>
+        <category>golang 框架</category>
+      </categories>
+      <tags>
+        <tag>golang</tag>
+        <tag>gorm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>golang tools之Viper,Cobra</title>
     <url>/2022/03/13/Go/viper,cobra/</url>
     <content><![CDATA[]]></content>
@@ -3005,6 +3018,19 @@ std<span class="token double-colon punctuation">::</span>weak_ptr<span class="to
       <tags>
         <tag>golang</tag>
         <tag>golang 命令行</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Go 并发编程-Condition</title>
+    <url>/2023/12/15/Go/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-Cond/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>鸟窝的《深入理解 Go 并发编程》读书笔记以及其他go并发编程知识学习的汇总，持续完善中。</p>
+<br/>]]></content>
+      <categories>
+        <category>golang</category>
+      </categories>
+      <tags>
+        <tag>并发编程</tag>
+        <tag>golang</tag>
       </tags>
   </entry>
   <entry>
@@ -3148,19 +3174,6 @@ std<span class="token double-colon punctuation">::</span>weak_ptr<span class="to
       </tags>
   </entry>
   <entry>
-    <title>gorm 框架初探</title>
-    <url>/2022/03/13/Go/gorm%20%E6%A1%86%E6%9E%B6%E5%88%9D%E6%8E%A2%E5%8F%8A%E5%85%B6%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>golang</category>
-        <category>golang 框架</category>
-      </categories>
-      <tags>
-        <tag>golang</tag>
-        <tag>gorm</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Go 并发编程-互斥锁 Mutex</title>
     <url>/2023/12/15/Go/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-Mutex/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>鸟窝的《深入理解 Go 并发编程》读书笔记以及其他 go 并发编程知识学习的汇总，持续完善中。</p>
@@ -3170,19 +3183,6 @@ std<span class="token double-colon punctuation">::</span>weak_ptr<span class="to
 
 <h2 id="sync-Mutex"><a href="#sync-Mutex" class="headerlink" title="sync.Mutex"></a>sync.Mutex</h2><br/>
 ]]></content>
-      <categories>
-        <category>golang</category>
-      </categories>
-      <tags>
-        <tag>并发编程</tag>
-        <tag>golang</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Go 并发编程-Condition</title>
-    <url>/2023/12/15/Go/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-Cond/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>鸟窝的《深入理解 Go 并发编程》读书笔记以及其他go并发编程知识学习的汇总，持续完善中。</p>
-<br/>]]></content>
       <categories>
         <category>golang</category>
       </categories>
@@ -3263,8 +3263,8 @@ std<span class="token double-colon punctuation">::</span>weak_ptr<span class="to
       </tags>
   </entry>
   <entry>
-    <title>Go 并发编程-读写锁 RWMutex</title>
-    <url>/2023/12/15/Go/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-RWMutex/</url>
+    <title>Go 并发编程-Pool</title>
+    <url>/2023/12/15/Go/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-Pool/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>鸟窝的《深入理解 Go 并发编程》读书笔记以及其他go并发编程知识学习的汇总，持续完善中。</p>
 <br/>]]></content>
       <categories>
@@ -3280,90 +3280,6 @@ std<span class="token double-colon punctuation">::</span>weak_ptr<span class="to
     <url>/2023/12/15/Go/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-WaitGroup/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>鸟窝的《深入理解 Go 并发编程》读书笔记以及其他go并发编程知识学习的汇总，持续完善中。</p>
 <br/>]]></content>
-      <categories>
-        <category>golang</category>
-      </categories>
-      <tags>
-        <tag>并发编程</tag>
-        <tag>golang</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Go 并发编程-Pool</title>
-    <url>/2023/12/15/Go/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-Pool/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>鸟窝的《深入理解 Go 并发编程》读书笔记以及其他go并发编程知识学习的汇总，持续完善中。</p>
-<br/>]]></content>
-      <categories>
-        <category>golang</category>
-      </categories>
-      <tags>
-        <tag>并发编程</tag>
-        <tag>golang</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Go 并发编程-channel</title>
-    <url>/2023/12/15/Go/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-channel/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>鸟窝的《深入理解 Go 并发编程》读书笔记以及其他go并发编程知识学习的汇总，持续完善中。</p>
-<br/>
-
-
-
-<h2 id="sync-Mutex"><a href="#sync-Mutex" class="headerlink" title="sync.Mutex"></a>sync.Mutex</h2><br/>
-
-
-
-<h2 id="sync-RWMutex"><a href="#sync-RWMutex" class="headerlink" title="sync.RWMutex"></a>sync.RWMutex</h2><br/>
-
-
-
-<h2 id="sync-Map"><a href="#sync-Map" class="headerlink" title="sync.Map"></a>sync.Map</h2><br/>
-
-
-
-<h2 id="sync-WaitGroup"><a href="#sync-WaitGroup" class="headerlink" title="sync.WaitGroup"></a>sync.WaitGroup</h2><br/>
-
-
-
-<h2 id="sync-Cond"><a href="#sync-Cond" class="headerlink" title="sync.Cond"></a>sync.Cond</h2><br/>
-
-
-
-<h2 id="sync-Once"><a href="#sync-Once" class="headerlink" title="sync.Once"></a>sync.Once</h2><br/>
-
-
-
-<h2 id="如何实现线程安全的-map-及其他类型"><a href="#如何实现线程安全的-map-及其他类型" class="headerlink" title="如何实现线程安全的 map 及其他类型"></a>如何实现线程安全的 map 及其他类型</h2><br/>
-
-
-
-<h2 id="sync-Pool"><a href="#sync-Pool" class="headerlink" title="sync.Pool"></a>sync.Pool</h2><br/>
-
-
-
-<h2 id="atomic"><a href="#atomic" class="headerlink" title="atomic"></a>atomic</h2><br/>
-
-
-
-<h2 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h2><br/>
-
-<h2 id="Channel"><a href="#Channel" class="headerlink" title="Channel"></a>Channel</h2><br/>
-
-<h2 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h2><br/>
-
-
-
-<h2 id="Semaphore"><a href="#Semaphore" class="headerlink" title="Semaphore"></a>Semaphore</h2><br/>
-
-
-
-<h2 id="singleflight"><a href="#singleflight" class="headerlink" title="singleflight"></a>singleflight</h2><br/>
-
-
-
-<h2 id="cyclicbarrier"><a href="#cyclicbarrier" class="headerlink" title="cyclicbarrier"></a>cyclicbarrier</h2><br/>
-
-]]></content>
       <categories>
         <category>golang</category>
       </categories>
@@ -3582,6 +3498,77 @@ std<span class="token double-colon punctuation">::</span>weak_ptr<span class="to
       </tags>
   </entry>
   <entry>
+    <title>Go 并发编程-channel</title>
+    <url>/2023/12/15/Go/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-channel/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>鸟窝的《深入理解 Go 并发编程》读书笔记以及其他go并发编程知识学习的汇总，持续完善中。</p>
+<br/>
+
+
+
+<h2 id="sync-Mutex"><a href="#sync-Mutex" class="headerlink" title="sync.Mutex"></a>sync.Mutex</h2><br/>
+
+
+
+<h2 id="sync-RWMutex"><a href="#sync-RWMutex" class="headerlink" title="sync.RWMutex"></a>sync.RWMutex</h2><br/>
+
+
+
+<h2 id="sync-Map"><a href="#sync-Map" class="headerlink" title="sync.Map"></a>sync.Map</h2><br/>
+
+
+
+<h2 id="sync-WaitGroup"><a href="#sync-WaitGroup" class="headerlink" title="sync.WaitGroup"></a>sync.WaitGroup</h2><br/>
+
+
+
+<h2 id="sync-Cond"><a href="#sync-Cond" class="headerlink" title="sync.Cond"></a>sync.Cond</h2><br/>
+
+
+
+<h2 id="sync-Once"><a href="#sync-Once" class="headerlink" title="sync.Once"></a>sync.Once</h2><br/>
+
+
+
+<h2 id="如何实现线程安全的-map-及其他类型"><a href="#如何实现线程安全的-map-及其他类型" class="headerlink" title="如何实现线程安全的 map 及其他类型"></a>如何实现线程安全的 map 及其他类型</h2><br/>
+
+
+
+<h2 id="sync-Pool"><a href="#sync-Pool" class="headerlink" title="sync.Pool"></a>sync.Pool</h2><br/>
+
+
+
+<h2 id="atomic"><a href="#atomic" class="headerlink" title="atomic"></a>atomic</h2><br/>
+
+
+
+<h2 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h2><br/>
+
+<h2 id="Channel"><a href="#Channel" class="headerlink" title="Channel"></a>Channel</h2><br/>
+
+<h2 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h2><br/>
+
+
+
+<h2 id="Semaphore"><a href="#Semaphore" class="headerlink" title="Semaphore"></a>Semaphore</h2><br/>
+
+
+
+<h2 id="singleflight"><a href="#singleflight" class="headerlink" title="singleflight"></a>singleflight</h2><br/>
+
+
+
+<h2 id="cyclicbarrier"><a href="#cyclicbarrier" class="headerlink" title="cyclicbarrier"></a>cyclicbarrier</h2><br/>
+
+]]></content>
+      <categories>
+        <category>golang</category>
+      </categories>
+      <tags>
+        <tag>并发编程</tag>
+        <tag>golang</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Go 并发编程-并发模式</title>
     <url>/2023/12/15/Go/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>鸟窝的《深入理解 Go 并发编程》读书笔记以及其他go并发编程知识学习的汇总，持续完善中。</p>
@@ -3653,231 +3640,50 @@ std<span class="token double-colon punctuation">::</span>weak_ptr<span class="to
       </tags>
   </entry>
   <entry>
-    <title>日志系统接入探索</title>
-    <url>/2022/09/03/Job%20Relative/ELK,%20loki%20%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F%E6%A1%86%E6%9E%B6%E6%8E%A2%E7%B4%A2/</url>
-    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><h2 id="预研"><a href="#预研" class="headerlink" title="预研"></a>预研</h2><h3 id="ELK"><a href="#ELK" class="headerlink" title="ELK"></a>ELK</h3><h3 id="loki"><a href="#loki" class="headerlink" title="loki"></a>loki</h3><h2 id="技术选型"><a href="#技术选型" class="headerlink" title="技术选型"></a>技术选型</h2>]]></content>
-      <categories>
-        <category>job</category>
-      </categories>
-      <tags>
-        <tag>job</tag>
-        <tag>ELK</tag>
-        <tag>loki</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>grpc_server 实现</title>
-    <url>/2022/03/13/Job%20Relative/gprc_server%20%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>golang</category>
-        <category>golang 框架</category>
-      </categories>
-      <tags>
-        <tag>golang</tag>
-        <tag>grpc</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>pybind11 使用概要</title>
-    <url>/2022/03/13/Job%20Relative/pybind11%20%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<p>基于暗水印翻译</p>
-<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><h2 id="技术调研"><a href="#技术调研" class="headerlink" title="技术调研"></a>技术调研</h2><h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2>]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>C++ 调用 Python</tag>
-        <tag>pybind11</tag>
-        <tag>Python 调用 C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>一种关于内存缓存实现的方法</title>
-    <url>/2022/02/13/Job%20Relative/%E4%B8%80%E7%A7%8D%E5%85%B3%E4%BA%8E%E5%86%85%E5%AD%98%E7%BC%93%E5%AD%98%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>job</category>
-      </categories>
-      <tags>
-        <tag>job</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>一种PDF分栏识别算法实现</title>
-    <url>/2021/07/22/Job%20Relative/%E4%B8%80%E7%A7%8DPDF%E5%88%86%E6%A0%8F%E8%AF%86%E5%88%AB%E7%9A%84%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>job</category>
-      </categories>
-      <tags>
-        <tag>job</tag>
-        <tag>专利</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>工作中见到的一种消息触达模型</title>
-    <url>/2022/09/13/Job%20Relative/%E4%B8%80%E7%A7%8D%E6%B6%88%E6%81%AF%E8%A7%A6%E8%BE%BE%E6%A8%A1%E5%9E%8B/</url>
-    <content><![CDATA[<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>基于消息重构</p>
-<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><h2 id="设计思路"><a href="#设计思路" class="headerlink" title="设计思路"></a>设计思路</h2>]]></content>
-      <categories>
-        <category>job</category>
-      </categories>
-      <tags>
-        <tag>job</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>一种多终端知识库策略设计思路</title>
-    <url>/2022/03/13/Job%20Relative/%E4%B8%80%E7%A7%8D%E7%9F%A5%E8%AF%86%E5%BA%93%E7%AD%96%E7%95%A5/</url>
-    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><h2 id="表设计"><a href="#表设计" class="headerlink" title="表设计"></a>表设计</h2><h2 id="兼容性及拓展性"><a href="#兼容性及拓展性" class="headerlink" title="兼容性及拓展性"></a>兼容性及拓展性</h2>]]></content>
-      <categories>
-        <category>job</category>
-      </categories>
-      <tags>
-        <tag>job</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>一种 http_server搭建的方式</title>
-    <url>/2022/09/13/Job%20Relative/%E4%B8%80%E4%B8%AA%E8%BD%BB%E9%87%8F%E6%9C%8D%E5%8A%A1%E7%9A%84%E6%90%AD%E5%BB%BA/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><br/>
-
-
-
-<h2 id="服务架构"><a href="#服务架构" class="headerlink" title="服务架构"></a>服务架构</h2><p>基于 <code>watermark_server</code></p>
-]]></content>
-      <categories>
-        <category>job</category>
-      </categories>
-      <tags>
-        <tag>golang</tag>
-        <tag>job</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>一种安全终端离线卸载的授权方式</title>
-    <url>/2022/09/13/Job%20Relative/%E4%B8%80%E7%A7%8D%E7%A6%BB%E7%BA%BF%E6%8E%88%E6%9D%83%E7%9A%84%E6%96%B9%E5%BC%8F/</url>
-    <content><![CDATA[<h2 id="设计背景"><a href="#设计背景" class="headerlink" title="设计背景"></a>设计背景</h2><h2 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h2><h2 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h2><h2 id="kms-server-钥匙盘服务"><a href="#kms-server-钥匙盘服务" class="headerlink" title="kms_server 钥匙盘服务"></a>kms_server 钥匙盘服务</h2>]]></content>
-      <categories>
-        <category>job</category>
-      </categories>
-      <tags>
-        <tag>job</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Redis 在工作中的使用</title>
-    <url>/2023/10/13/Job%20Relative/%E5%B7%A5%E4%BD%9C%E4%B8%AD%20Redis%20%E9%82%A3%E7%82%B9%E4%BA%8B%E5%84%BF/</url>
-    <content><![CDATA[<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><h2 id="缓存设计思路"><a href="#缓存设计思路" class="headerlink" title="缓存设计思路"></a>缓存设计思路</h2><h3 id="旁路缓存-Cache-Aside-Lazy-Loading"><a href="#旁路缓存-Cache-Aside-Lazy-Loading" class="headerlink" title="旁路缓存 Cache-Aside (Lazy Loading)"></a>旁路缓存 Cache-Aside (Lazy Loading)</h3><br/>
-
-<h3 id="用户信息"><a href="#用户信息" class="headerlink" title="用户信息"></a>用户信息</h3><br/>
-
-<h3 id="网络策略"><a href="#网络策略" class="headerlink" title="网络策略"></a>网络策略</h3><br/>
-
-
-
-<h3 id="知识库策略"><a href="#知识库策略" class="headerlink" title="知识库策略"></a>知识库策略</h3><br/>
-
-
-
-
-
-
-
-<h2 id="（网络、开关）策略缓存设计思路"><a href="#（网络、开关）策略缓存设计思路" class="headerlink" title="（网络、开关）策略缓存设计思路"></a>（网络、开关）策略缓存设计思路</h2><br/>
-
-<h2 id="pipeline"><a href="#pipeline" class="headerlink" title="pipeline"></a>pipeline</h2><br/>
-
-<h2 id="缓存服务拆分-cron-task"><a href="#缓存服务拆分-cron-task" class="headerlink" title="缓存服务拆分 cron_task"></a>缓存服务拆分 cron_task</h2><br/>
-]]></content>
-      <categories>
-        <category>基础组件</category>
-        <category>redis</category>
-      </categories>
-      <tags>
-        <tag>Redis</tag>
-        <tag>基础组件</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>工作专利撰写小结</title>
-    <url>/2021/07/22/Job%20Relative/%E4%B8%93%E5%88%A9%E6%92%B0%E5%86%99%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>job</category>
-      </categories>
-      <tags>
-        <tag>job</tag>
-        <tag>专利</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>工作中常用的命令行汇总</title>
-    <url>/2022/09/13/Job%20Relative/%E5%B7%A5%E4%BD%9C%E4%B8%AD%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C/</url>
-    <content><![CDATA[<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><h3 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h3><p>(1) save镜像</p>
-<pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">docker save xxx_server:1.0 | gzip &gt; path&#x2F;to&#x2F;save&#x2F;xxx_server_1.0.tgz<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-
+    <title>拆书系列之《高性能 MySQL》 MySQL 架构与历史</title>
+    <url>/2022/11/23/SQL/%E3%80%8AAdvance%20MySQL%E3%80%8B%E6%9E%B6%E6%9E%84%E5%8F%8A%E5%8E%86%E5%8F%B2/</url>
+    <content><![CDATA[<h1 id="《高性能-MySQL》MySQL-架构与历史"><a href="#《高性能-MySQL》MySQL-架构与历史" class="headerlink" title="《高性能 MySQL》MySQL 架构与历史"></a>《高性能 MySQL》MySQL 架构与历史</h1><p><code>参考自《高性能 MySQL 3rd Edition》-by Baron Schwartz, Peter Zaitsev, Vadim Tkachenko。</code></p>
+<p>MySQL 拥有的是分层架构，上层是服务层的服务和查询执行引擎，下层是存储引擎。</p>
+<p>MySQL 的精髓在于存储引擎和服务层之间的处理查询时如果通过 API 交互。</p>
+<p>MySQL 最初基于 <code>ISAM</code> 构建（后来被 <code>MyISAM</code> 取代）， MySQL 5.0 后，对95%以上的用户 <code>InnoDB</code> 是最好的选择。</p>
+<div class="tabs" id="架构介绍"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#架构介绍-1">MySQL 服务器逻架构</button></li><li class="tab"><button type="button" data-href="#架构介绍-2">OLTP 与 OLAP</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="架构介绍-1"><p> #todo 补充图</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="架构介绍-2"><p> </p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
 
 <br/>
 
-<p>(2) run 镜像</p>
-<pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">docker run -rm -it --name mynginx -d nginx:1.0 bash # 临时run镜像<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="1-1-MySQL-逻辑架构"><a href="#1-1-MySQL-逻辑架构" class="headerlink" title="1.1 MySQL 逻辑架构"></a>1.1 MySQL 逻辑架构</h2><br/>
 
+<h2 id="1-2-并发控制"><a href="#1-2-并发控制" class="headerlink" title="1.2 并发控制"></a>1.2 并发控制</h2><br/>
 
+<h2 id="1-3-事务"><a href="#1-3-事务" class="headerlink" title="1.3 事务"></a>1.3 事务</h2><br/>
 
-<h3 id="tcpdump"><a href="#tcpdump" class="headerlink" title="tcpdump"></a>tcpdump</h3><br/>
+<h2 id="1-4-多版本并发控制"><a href="#1-4-多版本并发控制" class="headerlink" title="1.4 多版本并发控制"></a>1.4 多版本并发控制</h2><br/>
 
+<h2 id="1-5-MySQL-存储引擎"><a href="#1-5-MySQL-存储引擎" class="headerlink" title="1.5 MySQL 存储引擎"></a>1.5 MySQL 存储引擎</h2><br/>
 
+<h2 id="1-6-MySQL-时间线"><a href="#1-6-MySQL-时间线" class="headerlink" title="1.6 MySQL 时间线"></a>1.6 MySQL 时间线</h2><br/>
 
-<h3 id="ab"><a href="#ab" class="headerlink" title="ab"></a>ab</h3><br/>
-
-<h3 id="netstat"><a href="#netstat" class="headerlink" title="netstat"></a>netstat</h3><br/>
-
-<h3 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h3><br/>
-
-<h3 id="free"><a href="#free" class="headerlink" title="free"></a>free</h3><br/>
-
-<h3 id="date"><a href="#date" class="headerlink" title="date"></a>date</h3><br/>
-
-<h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3><br/>
-
-<h3 id="pgrep"><a href="#pgrep" class="headerlink" title="pgrep"></a>pgrep</h3><br/>
-
-
-
-
-
-
-
-<h2 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h2>]]></content>
+<h2 id="1-7-开发者模式"><a href="#1-7-开发者模式" class="headerlink" title="1.7 开发者模式"></a>1.7 开发者模式</h2><br/>
+]]></content>
       <categories>
-        <category>job</category>
-        <category>Linux</category>
+        <category>MySQL</category>
       </categories>
       <tags>
-        <tag>job</tag>
-        <tag>Linux</tag>
-        <tag>shell command</tag>
+        <tag>拆书系列</tag>
+        <tag>MySQL</tag>
+        <tag>数据库</tag>
       </tags>
   </entry>
   <entry>
-    <title>飞书等第三方渠道的审批对接</title>
-    <url>/2022/02/13/Job%20Relative/%E9%A3%9E%E4%B9%A6%E7%AD%89%E5%A4%96%E9%83%A8%E6%B8%A0%E9%81%93%E5%AF%B9%E6%8E%A5/</url>
-    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>飞书，钉钉，第三方客户OA系统对接</p>
-<h2 id="账号同步"><a href="#账号同步" class="headerlink" title="账号同步"></a>账号同步</h2><br/>
-
-
-
-<h2 id="审批对接"><a href="#审批对接" class="headerlink" title="审批对接"></a>审批对接</h2>]]></content>
+    <title>Go 并发编程-读写锁 RWMutex</title>
+    <url>/2023/12/15/Go/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-RWMutex/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>鸟窝的《深入理解 Go 并发编程》读书笔记以及其他go并发编程知识学习的汇总，持续完善中。</p>
+<br/>]]></content>
       <categories>
-        <category>job</category>
+        <category>golang</category>
       </categories>
       <tags>
-        <tag>job</tag>
-        <tag>审批流</tag>
+        <tag>并发编程</tag>
+        <tag>golang</tag>
       </tags>
   </entry>
   <entry>
@@ -3941,47 +3747,6 @@ std<span class="token double-colon punctuation">::</span>weak_ptr<span class="to
 <h2 id="unordered-multimap（hash-multimap）"><a href="#unordered-multimap（hash-multimap）" class="headerlink" title="unordered_multimap（hash_multimap）"></a>unordered_multimap（hash_multimap）</h2><br/>
 
 <br/>]]></content>
-      <categories>
-        <category>C++ STL</category>
-      </categories>
-      <tags>
-        <tag>拆书系列</tag>
-        <tag>STL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>拆书系列之《STL 源码剖析》概述</title>
-    <url>/2021/06/08/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E6%A6%82%E8%BF%B0/</url>
-    <content><![CDATA[<h1 id="拆书系列之《STL源码剖析》概述"><a href="#拆书系列之《STL源码剖析》概述" class="headerlink" title="拆书系列之《STL源码剖析》概述"></a>拆书系列之《STL源码剖析》概述</h1><p><code>参考自《STL 源码剖析》-侯捷著。</code></p>
-<br/>
-
-<h2 id="1、容器（container）"><a href="#1、容器（container）" class="headerlink" title="1、容器（container）"></a>1、容器（container）</h2><p>各种数据结构，如 <code>vector， list，deque，set，map</code>等。</p>
-<p>从实现角度看，<strong>STL容器是一种 class template</strong>。</p>
-<br/>
-
-<h2 id="2、算法（algorithms）"><a href="#2、算法（algorithms）" class="headerlink" title="2、算法（algorithms）"></a>2、算法（algorithms）</h2><p>如<code> sort，search，copy，erase</code>等。</p>
-<p>从实现角度看，<strong>STL 算法是一种 function template</strong>。</p>
-<h2 id="3、迭代器（iterators）"><a href="#3、迭代器（iterators）" class="headerlink" title="3、迭代器（iterators）"></a>3、迭代器（iterators）</h2><p>容器域算法之间的胶水，所谓的“泛型指针”。</p>
-<p>从实现角度看，<strong>是一种将 <code>operator*，operator-&gt;，operator++， operator-- </code>等指针操作给予重载的 calss template</strong>。</p>
-<br/>
-
-<h2 id="4、仿函数（functors）"><a href="#4、仿函数（functors）" class="headerlink" title="4、仿函数（functors）"></a>4、仿函数（functors）</h2><p>行为类似函数，可以作为算法的<code>某种策略（policy）</code>。</p>
-<p>从实现角度来看，<strong>仿函数是一种重载了 <code>operator()</code> 的 class 或者 class template</strong>。</p>
-<br/>
-
-<h2 id="5、配接器（adapters）"><a href="#5、配接器（adapters）" class="headerlink" title="5、配接器（adapters）"></a>5、配接器（adapters）</h2><p>一种用来修饰容器（containers）或者仿函数（functors）或者迭代器（iterators）接口的东西。</p>
-<br/>
-
-<h2 id="6、配置器（allocators）"><a href="#6、配置器（allocators）" class="headerlink" title="6、配置器（allocators）"></a>6、配置器（allocators）</h2><p>负责空间配置与管理。</p>
-<p>从实现角度来看，<strong>配置器是一个实现了动态空间配置，空间管理、空间释放的 class template</strong>。</p>
-<br/>
-
-<h2 id="STL六大组件的交互关系"><a href="#STL六大组件的交互关系" class="headerlink" title="STL六大组件的交互关系"></a>STL六大组件的交互关系</h2><img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/BlogImages/STL/STL%E5%85%AD%E5%A4%A7%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BA%A4%E4%BA%92%E5%85%B3%E7%B3%BB.png">
-
-<br/>
-
-<h2 id="STL-各种容器"><a href="#STL-各种容器" class="headerlink" title="STL 各种容器"></a>STL 各种容器</h2><img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/BlogImages/STL/%E5%90%84%E7%A7%8D%E5%AE%B9%E5%99%A8%E6%A6%82%E8%A7%88.png">
-]]></content>
       <categories>
         <category>C++ STL</category>
       </categories>
@@ -6146,6 +5911,47 @@ iterator <span class="token function">insert</span><span class="token punctuatio
       </tags>
   </entry>
   <entry>
+    <title>拆书系列之《STL 源码剖析》概述</title>
+    <url>/2021/06/08/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[<h1 id="拆书系列之《STL源码剖析》概述"><a href="#拆书系列之《STL源码剖析》概述" class="headerlink" title="拆书系列之《STL源码剖析》概述"></a>拆书系列之《STL源码剖析》概述</h1><p><code>参考自《STL 源码剖析》-侯捷著。</code></p>
+<br/>
+
+<h2 id="1、容器（container）"><a href="#1、容器（container）" class="headerlink" title="1、容器（container）"></a>1、容器（container）</h2><p>各种数据结构，如 <code>vector， list，deque，set，map</code>等。</p>
+<p>从实现角度看，<strong>STL容器是一种 class template</strong>。</p>
+<br/>
+
+<h2 id="2、算法（algorithms）"><a href="#2、算法（algorithms）" class="headerlink" title="2、算法（algorithms）"></a>2、算法（algorithms）</h2><p>如<code> sort，search，copy，erase</code>等。</p>
+<p>从实现角度看，<strong>STL 算法是一种 function template</strong>。</p>
+<h2 id="3、迭代器（iterators）"><a href="#3、迭代器（iterators）" class="headerlink" title="3、迭代器（iterators）"></a>3、迭代器（iterators）</h2><p>容器域算法之间的胶水，所谓的“泛型指针”。</p>
+<p>从实现角度看，<strong>是一种将 <code>operator*，operator-&gt;，operator++， operator-- </code>等指针操作给予重载的 calss template</strong>。</p>
+<br/>
+
+<h2 id="4、仿函数（functors）"><a href="#4、仿函数（functors）" class="headerlink" title="4、仿函数（functors）"></a>4、仿函数（functors）</h2><p>行为类似函数，可以作为算法的<code>某种策略（policy）</code>。</p>
+<p>从实现角度来看，<strong>仿函数是一种重载了 <code>operator()</code> 的 class 或者 class template</strong>。</p>
+<br/>
+
+<h2 id="5、配接器（adapters）"><a href="#5、配接器（adapters）" class="headerlink" title="5、配接器（adapters）"></a>5、配接器（adapters）</h2><p>一种用来修饰容器（containers）或者仿函数（functors）或者迭代器（iterators）接口的东西。</p>
+<br/>
+
+<h2 id="6、配置器（allocators）"><a href="#6、配置器（allocators）" class="headerlink" title="6、配置器（allocators）"></a>6、配置器（allocators）</h2><p>负责空间配置与管理。</p>
+<p>从实现角度来看，<strong>配置器是一个实现了动态空间配置，空间管理、空间释放的 class template</strong>。</p>
+<br/>
+
+<h2 id="STL六大组件的交互关系"><a href="#STL六大组件的交互关系" class="headerlink" title="STL六大组件的交互关系"></a>STL六大组件的交互关系</h2><img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/BlogImages/STL/STL%E5%85%AD%E5%A4%A7%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BA%A4%E4%BA%92%E5%85%B3%E7%B3%BB.png">
+
+<br/>
+
+<h2 id="STL-各种容器"><a href="#STL-各种容器" class="headerlink" title="STL 各种容器"></a>STL 各种容器</h2><img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/BlogImages/STL/%E5%90%84%E7%A7%8D%E5%AE%B9%E5%99%A8%E6%A6%82%E8%A7%88.png">
+]]></content>
+      <categories>
+        <category>C++ STL</category>
+      </categories>
+      <tags>
+        <tag>拆书系列</tag>
+        <tag>STL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>拆书系列之《STL 源码剖析》空间配置器（allocator）</title>
     <url>/2021/06/19/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89/</url>
     <content><![CDATA[<h1 id="《STL-源码剖析》空间配置器（allocator）"><a href="#《STL-源码剖析》空间配置器（allocator）" class="headerlink" title="《STL 源码剖析》空间配置器（allocator）"></a>《STL 源码剖析》空间配置器（allocator）</h1><p><code>参考自《STL 源码剖析》-侯捷著。</code></p>
@@ -7335,6 +7141,37 @@ __STL_TEMPLATE_NULL <span class="token keyword">struct</span> <span class="token
       </tags>
   </entry>
   <entry>
+    <title>拆书系列之《STL源码剖析》配接器（adapters）</title>
+    <url>/2021/06/20/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E9%85%8D%E6%8E%A5%E5%99%A8%20%EF%BC%88adapters%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="《STL源码剖析》配接器（adapters）"><a href="#《STL源码剖析》配接器（adapters）" class="headerlink" title="《STL源码剖析》配接器（adapters）"></a>《STL源码剖析》配接器（adapters）</h1><p><code>参考自《STL 源码剖析》-侯捷著。</code></p>
+<br/>]]></content>
+      <categories>
+        <category>C++ STL</category>
+      </categories>
+      <tags>
+        <tag>拆书系列</tag>
+        <tag>STL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GDB(LLDB)调试方法</title>
+    <url>/2020/03/13/%E7%A8%8B%E5%BA%8F%E8%B0%83%E8%AF%95/GDB%EF%BC%88LLDB%EF%BC%89%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h2 id="GDB-and-LLDB-Command-Examples"><a href="#GDB-and-LLDB-Command-Examples" class="headerlink" title="GDB and LLDB Command Examples"></a>GDB and LLDB Command Examples</h2><p><a href="https://developer.apple.com/library/archive/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-command-examples.html">https://developer.apple.com/library/archive/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-command-examples.html</a></p>
+<br/>
+
+<h2 id="Debug-C-in-Visual-Studio-Code"><a href="#Debug-C-in-Visual-Studio-Code" class="headerlink" title="Debug C++ in Visual Studio Code"></a>Debug C++ in Visual Studio Code</h2><p><a href="https://code.visualstudio.com/docs/cpp/cpp-debug">https://code.visualstudio.com/docs/cpp/cpp-debug</a></p>
+]]></content>
+      <categories>
+        <category>程序调试</category>
+        <category>debugging</category>
+      </categories>
+      <tags>
+        <tag>gdb</tag>
+        <tag>lldb</tag>
+        <tag>程序调试</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Redis 的使用</title>
     <url>/2023/10/13/%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6/Redis%20%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>日常工作中经常会用到 <code>Redis</code>,除了作为缓存使用，<code>Redis</code>还有其他用途（<a href="https://mp.weixin.qq.com/s/GoKekfj1bnifMBJ6E0sDpQ%EF%BC%89%EF%BC%8C%E7%BB%93%E5%90%88%E6%97%A5%E5%B8%B8%E5%B7%A5%E4%BD%9C%EF%BC%8C%E5%AF%B9%60Redis%60%E7%9A%84%E4%BD%BF%E7%94%A8%E8%BF%9B%E8%A1%8C%E6%80%BB%E7%BB%93%E3%80%82">https://mp.weixin.qq.com/s/GoKekfj1bnifMBJ6E0sDpQ），结合日常工作，对`Redis`的使用进行总结。</a></p>
@@ -7410,22 +7247,9 @@ __STL_TEMPLATE_NULL <span class="token keyword">struct</span> <span class="token
         <category>基础组件</category>
       </categories>
       <tags>
+        <tag>Cache</tag>
         <tag>Redis</tag>
         <tag>基础组件</tag>
-        <tag>Cache</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>拆书系列之《STL源码剖析》配接器（adapters）</title>
-    <url>/2021/06/20/STL/%E6%8B%86%E4%B9%A6%E7%B3%BB%E5%88%97%E4%B9%8B%E3%80%8ASTL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E3%80%8B%E9%85%8D%E6%8E%A5%E5%99%A8%20%EF%BC%88adapters%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="《STL源码剖析》配接器（adapters）"><a href="#《STL源码剖析》配接器（adapters）" class="headerlink" title="《STL源码剖析》配接器（adapters）"></a>《STL源码剖析》配接器（adapters）</h1><p><code>参考自《STL 源码剖析》-侯捷著。</code></p>
-<br/>]]></content>
-      <categories>
-        <category>C++ STL</category>
-      </categories>
-      <tags>
-        <tag>拆书系列</tag>
-        <tag>STL</tag>
       </tags>
   </entry>
   <entry>
@@ -7441,6 +7265,184 @@ __STL_TEMPLATE_NULL <span class="token keyword">struct</span> <span class="token
         <tag>Cache</tag>
         <tag>NoSQL</tag>
         <tag>etcd</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>grpc_server 实现</title>
+    <url>/2022/03/13/Job%20Relative/gprc_server%20%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>golang</category>
+        <category>golang 框架</category>
+      </categories>
+      <tags>
+        <tag>golang</tag>
+        <tag>grpc</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>日志系统接入探索</title>
+    <url>/2022/09/03/Job%20Relative/ELK,%20loki%20%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F%E6%A1%86%E6%9E%B6%E6%8E%A2%E7%B4%A2/</url>
+    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><h2 id="预研"><a href="#预研" class="headerlink" title="预研"></a>预研</h2><h3 id="ELK"><a href="#ELK" class="headerlink" title="ELK"></a>ELK</h3><h3 id="loki"><a href="#loki" class="headerlink" title="loki"></a>loki</h3><h2 id="技术选型"><a href="#技术选型" class="headerlink" title="技术选型"></a>技术选型</h2>]]></content>
+      <categories>
+        <category>job</category>
+      </categories>
+      <tags>
+        <tag>job</tag>
+        <tag>ELK</tag>
+        <tag>loki</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>pybind11 使用概要</title>
+    <url>/2022/03/13/Job%20Relative/pybind11%20%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<p>基于暗水印翻译</p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><h2 id="技术调研"><a href="#技术调研" class="headerlink" title="技术调研"></a>技术调研</h2><h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2>]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>C++ 调用 Python</tag>
+        <tag>pybind11</tag>
+        <tag>Python 调用 C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>一种 http_server搭建的方式</title>
+    <url>/2022/09/13/Job%20Relative/%E4%B8%80%E4%B8%AA%E8%BD%BB%E9%87%8F%E6%9C%8D%E5%8A%A1%E7%9A%84%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><br/>
+
+
+
+<h2 id="服务架构"><a href="#服务架构" class="headerlink" title="服务架构"></a>服务架构</h2><p>基于 <code>watermark_server</code></p>
+]]></content>
+      <categories>
+        <category>job</category>
+      </categories>
+      <tags>
+        <tag>golang</tag>
+        <tag>job</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>一种PDF分栏识别算法实现</title>
+    <url>/2021/07/22/Job%20Relative/%E4%B8%80%E7%A7%8DPDF%E5%88%86%E6%A0%8F%E8%AF%86%E5%88%AB%E7%9A%84%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>job</category>
+      </categories>
+      <tags>
+        <tag>job</tag>
+        <tag>专利</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>一种多终端知识库策略设计思路</title>
+    <url>/2022/03/13/Job%20Relative/%E4%B8%80%E7%A7%8D%E7%9F%A5%E8%AF%86%E5%BA%93%E7%AD%96%E7%95%A5/</url>
+    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><h2 id="表设计"><a href="#表设计" class="headerlink" title="表设计"></a>表设计</h2><h2 id="兼容性及拓展性"><a href="#兼容性及拓展性" class="headerlink" title="兼容性及拓展性"></a>兼容性及拓展性</h2>]]></content>
+      <categories>
+        <category>job</category>
+      </categories>
+      <tags>
+        <tag>job</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>一种安全终端离线卸载的授权方式</title>
+    <url>/2022/09/13/Job%20Relative/%E4%B8%80%E7%A7%8D%E7%A6%BB%E7%BA%BF%E6%8E%88%E6%9D%83%E7%9A%84%E6%96%B9%E5%BC%8F/</url>
+    <content><![CDATA[<h2 id="设计背景"><a href="#设计背景" class="headerlink" title="设计背景"></a>设计背景</h2><h2 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h2><h2 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h2><h2 id="kms-server-钥匙盘服务"><a href="#kms-server-钥匙盘服务" class="headerlink" title="kms_server 钥匙盘服务"></a>kms_server 钥匙盘服务</h2>]]></content>
+      <categories>
+        <category>job</category>
+      </categories>
+      <tags>
+        <tag>job</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>一种关于内存缓存实现的方法</title>
+    <url>/2022/02/13/Job%20Relative/%E4%B8%80%E7%A7%8D%E5%85%B3%E4%BA%8E%E5%86%85%E5%AD%98%E7%BC%93%E5%AD%98%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>job</category>
+      </categories>
+      <tags>
+        <tag>job</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>工作专利撰写小结</title>
+    <url>/2021/07/22/Job%20Relative/%E4%B8%93%E5%88%A9%E6%92%B0%E5%86%99%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>job</category>
+      </categories>
+      <tags>
+        <tag>job</tag>
+        <tag>专利</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Redis 在工作中的使用</title>
+    <url>/2023/10/13/Job%20Relative/%E5%B7%A5%E4%BD%9C%E4%B8%AD%20Redis%20%E9%82%A3%E7%82%B9%E4%BA%8B%E5%84%BF/</url>
+    <content><![CDATA[<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><h2 id="缓存设计思路"><a href="#缓存设计思路" class="headerlink" title="缓存设计思路"></a>缓存设计思路</h2><h3 id="旁路缓存-Cache-Aside-Lazy-Loading"><a href="#旁路缓存-Cache-Aside-Lazy-Loading" class="headerlink" title="旁路缓存 Cache-Aside (Lazy Loading)"></a>旁路缓存 Cache-Aside (Lazy Loading)</h3><br/>
+
+<h3 id="用户信息"><a href="#用户信息" class="headerlink" title="用户信息"></a>用户信息</h3><br/>
+
+<h3 id="网络策略"><a href="#网络策略" class="headerlink" title="网络策略"></a>网络策略</h3><br/>
+
+
+
+<h3 id="知识库策略"><a href="#知识库策略" class="headerlink" title="知识库策略"></a>知识库策略</h3><br/>
+
+
+
+
+
+
+
+<h2 id="（网络、开关）策略缓存设计思路"><a href="#（网络、开关）策略缓存设计思路" class="headerlink" title="（网络、开关）策略缓存设计思路"></a>（网络、开关）策略缓存设计思路</h2><br/>
+
+<h2 id="pipeline"><a href="#pipeline" class="headerlink" title="pipeline"></a>pipeline</h2><br/>
+
+<h2 id="缓存服务拆分-cron-task"><a href="#缓存服务拆分-cron-task" class="headerlink" title="缓存服务拆分 cron_task"></a>缓存服务拆分 cron_task</h2><br/>
+]]></content>
+      <categories>
+        <category>基础组件</category>
+        <category>redis</category>
+      </categories>
+      <tags>
+        <tag>Redis</tag>
+        <tag>基础组件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>工作中见到的一种消息触达模型</title>
+    <url>/2022/09/13/Job%20Relative/%E4%B8%80%E7%A7%8D%E6%B6%88%E6%81%AF%E8%A7%A6%E8%BE%BE%E6%A8%A1%E5%9E%8B/</url>
+    <content><![CDATA[<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>基于消息重构</p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><h2 id="设计思路"><a href="#设计思路" class="headerlink" title="设计思路"></a>设计思路</h2>]]></content>
+      <categories>
+        <category>job</category>
+      </categories>
+      <tags>
+        <tag>job</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>飞书等第三方渠道的审批对接</title>
+    <url>/2022/02/13/Job%20Relative/%E9%A3%9E%E4%B9%A6%E7%AD%89%E5%A4%96%E9%83%A8%E6%B8%A0%E9%81%93%E5%AF%B9%E6%8E%A5/</url>
+    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>飞书，钉钉，第三方客户OA系统对接</p>
+<h2 id="账号同步"><a href="#账号同步" class="headerlink" title="账号同步"></a>账号同步</h2><br/>
+
+
+
+<h2 id="审批对接"><a href="#审批对接" class="headerlink" title="审批对接"></a>审批对接</h2>]]></content>
+      <categories>
+        <category>job</category>
+      </categories>
+      <tags>
+        <tag>job</tag>
+        <tag>审批流</tag>
       </tags>
   </entry>
   <entry>
@@ -7479,15 +7481,15 @@ __STL_TEMPLATE_NULL <span class="token keyword">struct</span> <span class="token
       </tags>
   </entry>
   <entry>
-    <title>proto 接入工程的方法</title>
-    <url>/2022/07/13/%E5%B7%A5%E7%A8%8B%E6%9E%84%E5%BB%BA/proto%E6%8E%A5%E5%85%A5%E5%B7%A5%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95/</url>
+    <title>golang 工程管理</title>
+    <url>/2022/07/13/%E5%B7%A5%E7%A8%8B%E6%9E%84%E5%BB%BA/golang%20%E5%B7%A5%E7%A8%8B%E7%AE%A1%E7%90%86/</url>
     <content><![CDATA[]]></content>
       <categories>
-        <category>potobuf</category>
+        <category>golang</category>
       </categories>
       <tags>
         <tag>工程构建</tag>
-        <tag>proto</tag>
+        <tag>go mod</tag>
       </tags>
   </entry>
   <entry>
@@ -7503,78 +7505,65 @@ __STL_TEMPLATE_NULL <span class="token keyword">struct</span> <span class="token
       </tags>
   </entry>
   <entry>
-    <title>GDB(LLDB)调试方法</title>
-    <url>/2020/03/13/%E7%A8%8B%E5%BA%8F%E8%B0%83%E8%AF%95/GDB%EF%BC%88LLDB%EF%BC%89%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<h2 id="GDB-and-LLDB-Command-Examples"><a href="#GDB-and-LLDB-Command-Examples" class="headerlink" title="GDB and LLDB Command Examples"></a>GDB and LLDB Command Examples</h2><p><a href="https://developer.apple.com/library/archive/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-command-examples.html">https://developer.apple.com/library/archive/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-command-examples.html</a></p>
-<br/>
+    <title>工作中常用的命令行汇总</title>
+    <url>/2022/09/13/Job%20Relative/%E5%B7%A5%E4%BD%9C%E4%B8%AD%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C/</url>
+    <content><![CDATA[<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><h3 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h3><p>(1) save镜像</p>
+<pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">docker save xxx_server:1.0 | gzip &gt; path&#x2F;to&#x2F;save&#x2F;xxx_server_1.0.tgz<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h2 id="Debug-C-in-Visual-Studio-Code"><a href="#Debug-C-in-Visual-Studio-Code" class="headerlink" title="Debug C++ in Visual Studio Code"></a>Debug C++ in Visual Studio Code</h2><p><a href="https://code.visualstudio.com/docs/cpp/cpp-debug">https://code.visualstudio.com/docs/cpp/cpp-debug</a></p>
-]]></content>
-      <categories>
-        <category>程序调试</category>
-        <category>debugging</category>
-      </categories>
-      <tags>
-        <tag>gdb</tag>
-        <tag>lldb</tag>
-        <tag>程序调试</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>拆书系列之《高性能 MySQL》 MySQL 架构与历史</title>
-    <url>/2022/11/23/SQL/%E3%80%8AAdvance%20MySQL%E3%80%8B%E6%9E%B6%E6%9E%84%E5%8F%8A%E5%8E%86%E5%8F%B2/</url>
-    <content><![CDATA[<h1 id="《高性能-MySQL》MySQL-架构与历史"><a href="#《高性能-MySQL》MySQL-架构与历史" class="headerlink" title="《高性能 MySQL》MySQL 架构与历史"></a>《高性能 MySQL》MySQL 架构与历史</h1><p><code>参考自《高性能 MySQL 3rd Edition》-by Baron Schwartz, Peter Zaitsev, Vadim Tkachenko。</code></p>
-<p>MySQL 拥有的是分层架构，上层是服务层的服务和查询执行引擎，下层是存储引擎。</p>
-<p>MySQL 的精髓在于存储引擎和服务层之间的处理查询时如果通过 API 交互。</p>
-<p>MySQL 最初基于 <code>ISAM</code> 构建（后来被 <code>MyISAM</code> 取代）， MySQL 5.0 后，对95%以上的用户 <code>InnoDB</code> 是最好的选择。</p>
-<div class="tabs" id="架构介绍"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#架构介绍-1">MySQL 服务器逻架构</button></li><li class="tab"><button type="button" data-href="#架构介绍-2">OLTP 与 OLAP</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="架构介绍-1"><p> #todo 补充图</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="架构介绍-2"><p> </p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+
 
 <br/>
 
-<h2 id="1-1-MySQL-逻辑架构"><a href="#1-1-MySQL-逻辑架构" class="headerlink" title="1.1 MySQL 逻辑架构"></a>1.1 MySQL 逻辑架构</h2><br/>
+<p>(2) run 镜像</p>
+<pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">docker run -rm -it --name mynginx -d nginx:1.0 bash # 临时run镜像<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h2 id="1-2-并发控制"><a href="#1-2-并发控制" class="headerlink" title="1.2 并发控制"></a>1.2 并发控制</h2><br/>
 
-<h2 id="1-3-事务"><a href="#1-3-事务" class="headerlink" title="1.3 事务"></a>1.3 事务</h2><br/>
 
-<h2 id="1-4-多版本并发控制"><a href="#1-4-多版本并发控制" class="headerlink" title="1.4 多版本并发控制"></a>1.4 多版本并发控制</h2><br/>
+<h3 id="tcpdump"><a href="#tcpdump" class="headerlink" title="tcpdump"></a>tcpdump</h3><br/>
 
-<h2 id="1-5-MySQL-存储引擎"><a href="#1-5-MySQL-存储引擎" class="headerlink" title="1.5 MySQL 存储引擎"></a>1.5 MySQL 存储引擎</h2><br/>
 
-<h2 id="1-6-MySQL-时间线"><a href="#1-6-MySQL-时间线" class="headerlink" title="1.6 MySQL 时间线"></a>1.6 MySQL 时间线</h2><br/>
 
-<h2 id="1-7-开发者模式"><a href="#1-7-开发者模式" class="headerlink" title="1.7 开发者模式"></a>1.7 开发者模式</h2><br/>
-]]></content>
+<h3 id="ab"><a href="#ab" class="headerlink" title="ab"></a>ab</h3><br/>
+
+<h3 id="netstat"><a href="#netstat" class="headerlink" title="netstat"></a>netstat</h3><br/>
+
+<h3 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h3><br/>
+
+<h3 id="free"><a href="#free" class="headerlink" title="free"></a>free</h3><br/>
+
+<h3 id="date"><a href="#date" class="headerlink" title="date"></a>date</h3><br/>
+
+<h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3><br/>
+
+<h3 id="pgrep"><a href="#pgrep" class="headerlink" title="pgrep"></a>pgrep</h3><br/>
+
+
+
+
+
+
+
+<h2 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h2>]]></content>
       <categories>
-        <category>MySQL</category>
+        <category>job</category>
+        <category>Linux</category>
       </categories>
       <tags>
-        <tag>拆书系列</tag>
-        <tag>MySQL</tag>
-        <tag>数据库</tag>
+        <tag>job</tag>
+        <tag>Linux</tag>
+        <tag>shell command</tag>
       </tags>
   </entry>
   <entry>
-    <title>设计模式原则概要</title>
-    <url>/2020/07/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99%E6%A6%82%E8%A6%81/</url>
+    <title>proto 接入工程的方法</title>
+    <url>/2022/07/13/%E5%B7%A5%E7%A8%8B%E6%9E%84%E5%BB%BA/proto%E6%8E%A5%E5%85%A5%E5%B7%A5%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95/</url>
     <content><![CDATA[]]></content>
       <categories>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>golang 工程管理</title>
-    <url>/2022/07/13/%E5%B7%A5%E7%A8%8B%E6%9E%84%E5%BB%BA/golang%20%E5%B7%A5%E7%A8%8B%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>golang</category>
+        <category>potobuf</category>
       </categories>
       <tags>
         <tag>工程构建</tag>
-        <tag>go mod</tag>
+        <tag>proto</tag>
       </tags>
   </entry>
   <entry>
@@ -7613,6 +7602,17 @@ Singleton<span class="token operator">&amp;</span> <span class="token class-name
 
 
 <h2 id="2、工厂模式"><a href="#2、工厂模式" class="headerlink" title="2、工厂模式"></a>2、工厂模式</h2><h2 id="3、观察者模式"><a href="#3、观察者模式" class="headerlink" title="3、观察者模式"></a>3、观察者模式</h2>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式原则概要</title>
+    <url>/2020/07/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%9F%E5%88%99%E6%A6%82%E8%A6%81/</url>
+    <content><![CDATA[]]></content>
       <categories>
         <category>设计模式</category>
       </categories>
