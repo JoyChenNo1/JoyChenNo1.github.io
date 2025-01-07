@@ -1,0 +1,168 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.8 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.8">
+  <diagram name="第 1 页" id="ei_n2j1On-pOqH97iVax">
+    <mxGraphModel dx="920" dy="571" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-48" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="460" y="495" width="280" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-47" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="60" y="710" width="300" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-1" value="&lt;font size=&quot;1&quot; face=&quot;monaco&quot;&gt;&lt;b style=&quot;font-size: 14px;&quot;&gt;hchan&lt;/b&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="140" y="170" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-2" value="&lt;font face=&quot;monaco&quot;&gt;qcount = 2&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;monaco&quot;&gt;（队列中目前有 2 个元素）&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="140" y="210" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-3" value="&lt;font face=&quot;monaco&quot;&gt;dataqsiz = 6&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;monaco&quot;&gt;（可缓存 6 个元素）&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="140" y="250" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="KdcsLY0wSwG2pjoX2bvj-4" target="KdcsLY0wSwG2pjoX2bvj-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-4" value="&lt;font face=&quot;monaco&quot;&gt;buf&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;monaco&quot;&gt;(内存指针)&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="140" y="290" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="KdcsLY0wSwG2pjoX2bvj-5" target="KdcsLY0wSwG2pjoX2bvj-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-19" value="队尾" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="KdcsLY0wSwG2pjoX2bvj-15">
+          <mxGeometry x="-0.4086" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-5" value="&lt;font face=&quot;monaco&quot;&gt;sendx = 3&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;monaco&quot;&gt;（从该位置写入元素）&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="140" y="330" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="KdcsLY0wSwG2pjoX2bvj-6" target="KdcsLY0wSwG2pjoX2bvj-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-17" value="队首" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="KdcsLY0wSwG2pjoX2bvj-16">
+          <mxGeometry x="-0.3939" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-6" value="&lt;font face=&quot;monaco&quot;&gt;recvx = 1&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;monaco&quot;&gt;（从该位置读取元素）&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="140" y="370" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-8" value="&lt;font face=&quot;monaco&quot;&gt;0&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#ffe6cc;strokeColor=#d79b00;comic=1;jiggle=3;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="260" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-9" value="&lt;font face=&quot;monaco&quot;&gt;1&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#ffe6cc;strokeColor=#d79b00;comic=1;jiggle=3;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="490" y="260" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-10" value="&lt;font face=&quot;monaco&quot;&gt;1&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#ffe6cc;strokeColor=#d79b00;comic=1;jiggle=3;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="530" y="260" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-11" value="&lt;font face=&quot;monaco&quot;&gt;0&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#ffe6cc;strokeColor=#d79b00;comic=1;jiggle=3;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="570" y="260" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-12" value="&lt;font face=&quot;monaco&quot;&gt;0&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#ffe6cc;strokeColor=#d79b00;comic=1;jiggle=3;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="260" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-13" value="&lt;font face=&quot;monaco&quot;&gt;0&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#ffe6cc;strokeColor=#d79b00;comic=1;jiggle=3;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="650" y="260" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="KdcsLY0wSwG2pjoX2bvj-21" target="KdcsLY0wSwG2pjoX2bvj-23">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="370" y="470" />
+              <mxPoint x="370" y="535" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-45" value="&lt;span style=&quot;font-family: monaco; font-size: 12px; background-color: rgb(251, 251, 251);&quot;&gt;&lt;font color=&quot;#00cc66&quot;&gt;read from&lt;/font&gt;&lt;/span&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="KdcsLY0wSwG2pjoX2bvj-30">
+          <mxGeometry x="0.3901" y="-2" relative="1" as="geometry">
+            <mxPoint x="15" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-21" value="&lt;div&gt;&lt;font face=&quot;monaco&quot;&gt;recvq&lt;/font&gt;&lt;/div&gt;&lt;font face=&quot;monaco&quot;&gt;（等待读消息的协程队列）&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;gradientColor=none;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="450" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-22" value="&lt;div&gt;&lt;font face=&quot;monaco&quot;&gt;sendq&lt;/font&gt;&lt;/div&gt;&lt;font face=&quot;monaco&quot;&gt;（等待写消息的协程队列）&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;gradientColor=none;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="490" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="KdcsLY0wSwG2pjoX2bvj-23" target="KdcsLY0wSwG2pjoX2bvj-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-23" value="&lt;font face=&quot;monaco&quot;&gt;G&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;comic=1;jiggle=3;" vertex="1" parent="1">
+          <mxGeometry x="472" y="515" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="KdcsLY0wSwG2pjoX2bvj-24" target="KdcsLY0wSwG2pjoX2bvj-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-24" value="&lt;font face=&quot;monaco&quot;&gt;G&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;comic=1;jiggle=3;" vertex="1" parent="1">
+          <mxGeometry x="542" y="515" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="KdcsLY0wSwG2pjoX2bvj-25" target="KdcsLY0wSwG2pjoX2bvj-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-25" value="&lt;font face=&quot;monaco&quot;&gt;G&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;comic=1;jiggle=3;" vertex="1" parent="1">
+          <mxGeometry x="612" y="515" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-26" value="&lt;font face=&quot;monaco&quot;&gt;G&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;comic=1;jiggle=3;" vertex="1" parent="1">
+          <mxGeometry x="682" y="515" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-31" value="&lt;font face=&quot;monaco&quot; style=&quot;font-size: 13px;&quot; color=&quot;#666666&quot;&gt;某个 goroutine 从管道读取数据时：&lt;/font&gt;&lt;div style=&quot;font-size: 13px;&quot;&gt;&lt;font face=&quot;monaco&quot; style=&quot;font-size: 13px;&quot; color=&quot;#666666&quot;&gt;if buf == nil || len(buf) == 0 {&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 13px;&quot;&gt;&lt;font style=&quot;font-size: 13px;&quot; face=&quot;monaco&quot;&gt;&lt;span style=&quot;color: rgb(102, 102, 102); background-color: initial;&quot;&gt;&amp;nbsp;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;color: rgb(102, 102, 102); background-color: initial;&quot;&gt;goroutine 阻塞，加入 recvq&amp;nbsp;&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 13px;&quot;&gt;&lt;font face=&quot;monaco&quot; style=&quot;font-size: 13px;&quot; color=&quot;#666666&quot;&gt;}&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=#d5e8d4;opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="460" y="585" width="280" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-32" value="size: [0, 6)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="620" y="300" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-33" value="&lt;font size=&quot;1&quot; face=&quot;monaco&quot;&gt;&lt;b style=&quot;font-size: 15px;&quot;&gt;make(chan int, 6)&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="135" y="110" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fillColor=#f8cecc;strokeColor=#b85450;" edge="1" parent="1" source="KdcsLY0wSwG2pjoX2bvj-36" target="KdcsLY0wSwG2pjoX2bvj-38">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-36" value="&lt;font face=&quot;monaco&quot;&gt;G&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#f8cecc;strokeColor=#b85450;comic=1;jiggle=3;" vertex="1" parent="1">
+          <mxGeometry x="79" y="730" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fillColor=#f8cecc;strokeColor=#b85450;" edge="1" parent="1" source="KdcsLY0wSwG2pjoX2bvj-38" target="KdcsLY0wSwG2pjoX2bvj-40">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-38" value="&lt;font face=&quot;monaco&quot;&gt;G&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#f8cecc;strokeColor=#b85450;comic=1;jiggle=3;" vertex="1" parent="1">
+          <mxGeometry x="149" y="730" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fillColor=#f8cecc;strokeColor=#b85450;" edge="1" parent="1" source="KdcsLY0wSwG2pjoX2bvj-40" target="KdcsLY0wSwG2pjoX2bvj-41">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-40" value="&lt;font face=&quot;monaco&quot;&gt;G&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#f8cecc;strokeColor=#b85450;comic=1;jiggle=3;" vertex="1" parent="1">
+          <mxGeometry x="219" y="730" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="334" y="750.037037037037" as="sourcePoint" />
+            <mxPoint x="315" y="510" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="345" y="750" />
+              <mxPoint x="345" y="510" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-44" value="&lt;font color=&quot;#ff0000&quot; face=&quot;monaco&quot;&gt;write to&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="KdcsLY0wSwG2pjoX2bvj-42">
+          <mxGeometry x="-0.6217" relative="1" as="geometry">
+            <mxPoint y="-18" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-41" value="&lt;font face=&quot;monaco&quot;&gt;G&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#f8cecc;strokeColor=#b85450;comic=1;jiggle=3;" vertex="1" parent="1">
+          <mxGeometry x="289" y="730" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-46" value="&lt;font face=&quot;monaco&quot; style=&quot;font-size: 13px;&quot; color=&quot;#666666&quot;&gt;某个 goroutine 写入数据到管道时：&lt;/font&gt;&lt;div style=&quot;font-size: 13px;&quot;&gt;&lt;font face=&quot;monaco&quot; style=&quot;font-size: 13px;&quot; color=&quot;#666666&quot;&gt;if buf == nil || len(buf) ==&amp;nbsp;&lt;/font&gt;&lt;span style=&quot;font-family: monaco; text-align: center; text-wrap: wrap; background-color: initial; font-size: 12px;&quot;&gt;dataqsiz&lt;/span&gt;&lt;span style=&quot;color: rgb(102, 102, 102); font-family: monaco; background-color: initial;&quot;&gt;&amp;nbsp;{&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 13px;&quot;&gt;&lt;font style=&quot;font-size: 13px;&quot; face=&quot;monaco&quot;&gt;&lt;span style=&quot;color: rgb(102, 102, 102); background-color: initial;&quot;&gt;&amp;nbsp;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;color: rgb(102, 102, 102); background-color: initial;&quot;&gt;goroutine 阻塞，加入 sendq&amp;nbsp;&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 13px;&quot;&gt;&lt;font face=&quot;monaco&quot; style=&quot;font-size: 13px;&quot; color=&quot;#666666&quot;&gt;}&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=#d5e8d4;opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="60" y="810" width="320" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-49" value="" style="shape=doubleArrow;direction=south;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;rotation=40;arrowWidth=0.45868054123310087;arrowSize=0.317788605710795;strokeWidth=2;comic=1;jiggle=3;" vertex="1" parent="1">
+          <mxGeometry x="400" y="680" width="60" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-50" value="互相唤醒" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="435" y="728" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="KdcsLY0wSwG2pjoX2bvj-51" value="&lt;font face=&quot;monaco&quot;&gt;一般而言，recvq 和 sendq 至少有一个为空，&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;EthymV4M8sKJDtn8OXSA&quot;&gt;特别的，当同一个 goroutine， 使用 select 语句向 channel 一边写数据，一边读数据，此时 recvq 和 sendq都会存在 此goroutine。&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="60" y="910" width="730" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
