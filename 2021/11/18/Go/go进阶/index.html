@@ -1,13 +1,13 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><!-- hexo injector head_begin start --><link href="https://cdn.jsdelivr.net/npm/hexo-tag-common@latest/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end --><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>go 进阶 | JoyChen's 知识星球</title><meta name="keywords" content="golang"><meta name="author" content="JoyChen"><meta name="copyright" content="JoyChen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="调度器协程  G-M-P 模型    内存管理内存分配  垃圾回收    栈内存管理    反射interface 类型接口是 Go 语言中的一种类型，它能够出现在变量的定义、函数的入参和返回值中并对它们进行约束，不过 Go 语言中有两种略微不同的接口：    iface eface    表示包含方法的接口 表示不包含任何方法的 interface&amp;#123;&amp;#125; 类型   与 C 语言">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><!-- hexo injector head_begin start --><link href="https://cdn.jsdelivr.net/npm/hexo-tag-common@latest/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end --><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>go 进阶 | JoyChen's 知识星球</title><meta name="keywords" content="golang"><meta name="author" content="JoyChen"><meta name="copyright" content="JoyChen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Go 运行时  调度器协程一个 “用户态线程” 必须要绑定一个 “内核态线程” ，但是CPU并不知道有 “用户态线程” 的存在，它只知道它运行的是一个 “内核态线程” (Linux 的 PCB 进程控制块)。内核线程依然叫 “线程(thread)” ，用户线程叫 “协程(co-routine)” . 协程在用户态线程即完成切换，不会陷入到内核态，这种切换非常的轻量快速。    协程 线程    用">
 <meta property="og:type" content="article">
 <meta property="og:title" content="go 进阶">
 <meta property="og:url" content="http://example.com/2021/11/18/Go/go%E8%BF%9B%E9%98%B6/index.html">
 <meta property="og:site_name" content="JoyChen&#39;s 知识星球">
-<meta property="og:description" content="调度器协程  G-M-P 模型    内存管理内存分配  垃圾回收    栈内存管理    反射interface 类型接口是 Go 语言中的一种类型，它能够出现在变量的定义、函数的入参和返回值中并对它们进行约束，不过 Go 语言中有两种略微不同的接口：    iface eface    表示包含方法的接口 表示不包含任何方法的 interface&amp;#123;&amp;#125; 类型   与 C 语言">
+<meta property="og:description" content="Go 运行时  调度器协程一个 “用户态线程” 必须要绑定一个 “内核态线程” ，但是CPU并不知道有 “用户态线程” 的存在，它只知道它运行的是一个 “内核态线程” (Linux 的 PCB 进程控制块)。内核线程依然叫 “线程(thread)” ，用户线程叫 “协程(co-routine)” . 协程在用户态线程即完成切换，不会陷入到内核态，这种切换非常的轻量快速。    协程 线程    用">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/material-7.png">
 <meta property="article:published_time" content="2021-11-18T13:08:00.000Z">
-<meta property="article:modified_time" content="2025-01-12T07:53:25.495Z">
+<meta property="article:modified_time" content="2025-03-17T10:10:36.556Z">
 <meta property="article:author" content="JoyChen">
 <meta property="article:tag" content="golang">
 <meta name="twitter:card" content="summary">
@@ -53,7 +53,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2025-01-12 15:53:25'
+  postUpdate: '2025-03-17 18:10:36'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -146,23 +146,444 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">65</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">46</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/material-7.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">JoyChen's 知识星球</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">go 进阶</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-18T13:08:00.000Z" title="发表于 2021-11-18 21:08:00">2021-11-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-01-12T07:53:25.495Z" title="更新于 2025-01-12 15:53:25">2025-01-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/golang/">golang</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="调度器"><a href="#调度器" class="headerlink" title="调度器"></a>调度器</h2><h3 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h3><br/>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">68</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">46</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/material-7.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">JoyChen's 知识星球</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">go 进阶</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-18T13:08:00.000Z" title="发表于 2021-11-18 21:08:00">2021-11-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-03-17T10:10:36.556Z" title="更新于 2025-03-17 18:10:36">2025-03-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/golang/">golang</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Go-运行时"><a href="#Go-运行时" class="headerlink" title="Go 运行时"></a>Go 运行时</h2><br/>
 
-<h3 id="G-M-P-模型"><a href="#G-M-P-模型" class="headerlink" title="G-M-P 模型"></a>G-M-P 模型</h3><br/>
+<h2 id="调度器"><a href="#调度器" class="headerlink" title="调度器"></a>调度器</h2><h3 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h3><p>一个 “用户态线程” 必须要绑定一个 “内核态线程” ，但是CPU并不知道有 “用户态线程” 的存在，它只知道它运行的是一个 “内核态线程” (Linux 的 PCB 进程控制块)。内核线程依然叫 “线程(thread)” ，用户线程叫 “协程(co-routine)” .</p>
+<p>协程在用户态线程即完成切换，不会陷入到内核态，这种切换非常的轻量快速。</p>
+<table>
+<thead>
+<tr>
+<th>协程</th>
+<th>线程</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>用户态调度（协作式）</td>
+<td>由 CPU 调度（抢占式）</td>
+</tr>
+<tr>
+<td>创建一个 goroutine 的栈内存消耗为 2 KB，<br/>实际运行过程中，如果栈空间不够用，会自动进行扩容。</td>
+<td>创建一个 thread 则需要消耗 1 MB 栈内存，<br/>而且还需要一个被称为 “a guard page” 的区域用于和其他 thread 的栈空间进行隔离。</td>
+</tr>
+<tr>
+<td>goroutines 切换只需保存三个寄存器：Program Counter<br/>Stack Pointer <br/>BP</td>
+<td>当 threads 切换时，需要保存各种寄存器:<br/>16 general purpose registers<br/> PC (Program Counter)<br/> SP (Stack Pointer)<br/> segment registers<br/> 16 XMM registers<br/> FP coprocessor state<br/> 16 AVX registers<br/>all MSRs etc.</td>
+</tr>
+</tbody></table>
+<br/>
+
+<h3 id="G-M-P-模型"><a href="#G-M-P-模型" class="headerlink" title="G-M-P 模型"></a>G-M-P 模型</h3><h4 id="Go-前期-G-M-模型"><a href="#Go-前期-G-M-模型" class="headerlink" title="Go 前期 G-M 模型"></a>Go 前期 G-M 模型</h4><img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/BlogImages/GO/base/GM-model.png">
+
+<p>M 想要执行、放回 G 都必须访问全局 G 队列，并且 M 有多个，即多线程访问同一资源需要加锁进行保证互斥&#x2F;同步，所以全局 G 队列是有互斥锁进行保护的。</p>
+<p>调度器有以下缺点：</p>
+<ul>
+<li>创建、销毁、调度 G 都需要每个 M 获取锁（单一的全局 mutex（Sched.Lock）），这就形成了激烈的锁竞争。</li>
+<li>M 转移 G 会造成延迟和额外的系统负载。比如当 G 中包含创建新协程的时候，M 创建了 G’，为了继续执行 G，需要把 G’ 交给 M’ 执行，也造成了很差的局部性，因为 G’ 和 G 是相关的，最好放在 M 上执行，而不是其他 M’。</li>
+<li>存在 syscalls 系统调用情况下，CPU 在 M 之间的切换导致频繁的线程阻塞&#x2F;取消阻塞，增加了系统开销。</li>
+</ul>
+<br/>
+
+<h4 id="G-M-P-模型-1"><a href="#G-M-P-模型-1" class="headerlink" title="G-M-P 模型"></a>G-M-P 模型</h4><p>基于 M(thread) 和 G(goroutine)之间引入新组件：P(Processor)。</p>
+<img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/BlogImages/GO/Concurrency/GoConcurrencyGMP.png">
+
+<h5 id="go-func-函数调用流程"><a href="#go-func-函数调用流程" class="headerlink" title="go func 函数调用流程"></a>go func 函数调用流程</h5><img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/BlogImages/GO/base/go-func-call.png">
+
+<h5 id="追踪-goroutine-调用"><a href="#追踪-goroutine-调用" class="headerlink" title="追踪 goroutine 调用"></a>追踪 goroutine 调用</h5><pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">"os"</span>
+    <span class="token string">"fmt"</span>
+    <span class="token string">"runtime/trace"</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token comment">//创建trace文件</span>
+    f<span class="token punctuation">,</span> err <span class="token operator">:=</span> os<span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token string">"trace.out"</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">defer</span> f<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token comment">//启动trace goroutine</span>
+    err <span class="token operator">=</span> trace<span class="token punctuation">.</span><span class="token function">Start</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">defer</span> trace<span class="token punctuation">.</span><span class="token function">Stop</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token comment">//main</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Hello World"</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<br/>
+
+<h2 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h2><p>参考文档：</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jiujuan/p/13922551.html">https://www.cnblogs.com/jiujuan/p/13922551.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jiujuan/p/13869547.html">https://www.cnblogs.com/jiujuan/p/13869547.html</a></p>
+<p>Go 语言的内存分配器借鉴了 <code>TCMalloc</code> 的设计实现高速的内存分配，它的核心理念是使用多级缓存将对象根据大小分类，并按照类别实施不同的分配策略。Go 运行时根据对象的大小将对象分成微对象、小对象和大对象3种:</p>
+<table>
+<thead>
+<tr>
+<th><strong>对象类别</strong></th>
+<th><strong>分配方式</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tiny (0, 16B)</td>
+<td>Are allocated using the <code>mcache</code>’s tiny allocator. <br/>This is efficient and multiple tiny allocations are done on a <br/>single 16-byte block.</td>
+</tr>
+<tr>
+<td>Small [16B, 32KB]</td>
+<td>Are allocated on the corresponding size class(<code>mspan</code>) on <code>mcache</code> of <br/>the <code>P</code> where the <code>G</code> is running.</td>
+</tr>
+<tr>
+<td>Large (32KB, +∞)</td>
+<td>Are allocated directly on the corresponding size class of <code>mheap</code>. <br/>If the <code>mheap</code> is empty or has no page runs large enough <br/>then it allocates a new group of pages (at least 1MB) from the OS.</td>
+</tr>
+</tbody></table>
+<br/>
+
+<h3 id="内存管理组件"><a href="#内存管理组件" class="headerlink" title="内存管理组件"></a>内存管理组件</h3><p>分配器（Allocator）主要包含:内存管理单元（runtime.mspan）、线程缓存（runtime.mcache）、中心缓存（runtime.mcentral）和页堆 （runtime.mheap）。</p>
+<table>
+<thead>
+<tr>
+<th>对象</th>
+<th>结构类型</th>
+<th>角色</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>class</strong></td>
+<td>每个 class 代表一个固定大小的对象<br/>用 span 表示</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>mspan</strong></td>
+<td>双链表，存储管理（一或多）页的地址<br/>虚拟地址页维度</td>
+<td>管理特定的 class 对象，根据对象大小，<br/>将一个或者多个页拆分成多个块进行管理。</td>
+</tr>
+<tr>
+<td><strong>mcache</strong></td>
+<td>mspan 数组列表，<br/>线程内维度</td>
+<td>动态的从 mcentral 中获取，缓存下来供各个线程（Go 中指的是 G-M-P模型中的Processor）使用，<br/>对于单个线程而言，为了避免直接向 mheap 频繁申请内存导致频繁加锁带来的低效。<br/>是 Go 为每个线程分配的 span 的缓存。</td>
+</tr>
+<tr>
+<td><strong>mcentral</strong></td>
+<td>空闲的 span 列表 + 非空闲的 span 列表，<br/>多线程间的维度，带锁</td>
+<td>多线程之间的 mspan 缓存池。负责线程之间的 内存发放和回收。</td>
+</tr>
+<tr>
+<td><strong>mheap</strong></td>
+<td>[] *mspan全集 + []mcentral全集 + 堆区域的起始结束位置 <br/>运行时全局维度，带锁</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>以申请 <code>size = n</code>的内存为例：</p>
+<p>1、获取当前线程的私有内存 <code>mcache</code>.</p>
+<p>2、size &#x3D;&gt; 合适的 <code>class ID</code>。</p>
+<p>3、从 <code>mcache.alloc[classID]</code> 的链表中查询出可用的 <code>mspan</code>。</p>
+<p>4、if <code>mcache</code> 没有可用的 <code>mspan</code>，从 <code>mcentral</code> 申请一个新的 <code>mspan</code> -&gt; <code>mcache</code>。</p>
+<p>5、if <code>mcentral</code> 也没有可用的 <code>mspan</code>，从 <code>mheap</code> 中申请一个新的 <code>mspan</code> -&gt; <code>mcentral</code>。</p>
+<p>6、从该 <code>mspan</code> 获取空闲对象地址并返回。</p>
+<p>内存布局示意如下：</p>
+<img src="">
 
 
 
-<h2 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h2><h3 id="内存分配"><a href="#内存分配" class="headerlink" title="内存分配"></a>内存分配</h3><br/>
+<h4 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h4><div class="tabs" id="memory-management-data-structure"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#memory-management-data-structure-1">mspan</button></li><li class="tab"><button type="button" data-href="#memory-management-data-structure-2">mcache</button></li><li class="tab"><button type="button" data-href="#memory-management-data-structure-3">mcentral</button></li><li class="tab"><button type="button" data-href="#memory-management-data-structure-4">mheap</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="memory-management-data-structure-1"><pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">type</span> mspan <span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
+  next <span class="token operator">*</span>mspan     <span class="token comment">// 前驱指针</span>
+  prev <span class="token operator">*</span>mspan     <span class="token comment">// 后驱指针</span>
+  list <span class="token operator">*</span>mSpanList <span class="token comment">// For debugging. TODO: Remove.</span>
 
-<h3 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h3><br/>
+  startAddr <span class="token builtin">uintptr</span> <span class="token comment">// 所管理页的起始地址</span>
+  npages    <span class="token builtin">uintptr</span> <span class="token comment">// 所管理的页数</span>
+  <span class="token comment">// ...</span>
+  nelems <span class="token builtin">uintptr</span> <span class="token comment">// 有多少个块可供分配</span>
+  <span class="token comment">// ...</span>
+  allocBits  <span class="token operator">*</span>gcBits <span class="token comment">// 分配位图，每一位代表一个块是否已经分配</span>
+  gcmarkBits <span class="token operator">*</span>gcBits <span class="token comment">// 标记内存块被引用的情况，用于 GC</span>
+  pinnerBits <span class="token operator">*</span>gcBits <span class="token comment">// bitmap for pinned objects; accessed atomically</span>
+  spanclass  spanClass     <span class="token comment">// class 表中的 classID</span>
+  elemsize   <span class="token builtin">uintptr</span>       <span class="token comment">// class 表中的对象大小，块大小</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="memory-management-data-structure-2"><pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// mcaches are allocated from non-GC'd memory, so any heap pointers</span>
+<span class="token comment">// must be specially handled.</span>
+<span class="token keyword">type</span> mcache <span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
+  <span class="token boolean">_</span> sys<span class="token punctuation">.</span>NotInHeap
 
+  <span class="token comment">// The following members are accessed on every malloc,</span>
+  <span class="token comment">// so they are grouped here for better caching.</span>
+  nextSample <span class="token builtin">uintptr</span> <span class="token comment">// trigger heap sample after allocating this many bytes</span>
+  scanAlloc  <span class="token builtin">uintptr</span> <span class="token comment">// bytes of scannable heap allocated</span>
 
+  <span class="token comment">// Allocator cache for tiny objects w/o pointers.</span>
+  <span class="token comment">// See "Tiny allocator" comment in malloc.go.</span>
+
+  <span class="token comment">// tiny points to the beginning of the current tiny block, or</span>
+  <span class="token comment">// nil if there is no current tiny block.</span>
+  <span class="token comment">//</span>
+  <span class="token comment">// tiny is a heap pointer. Since mcache is in non-GC'd memory,</span>
+  <span class="token comment">// we handle it by clearing it in releaseAll during mark</span>
+  <span class="token comment">// termination.</span>
+  <span class="token comment">//</span>
+  <span class="token comment">// tinyAllocs is the number of tiny allocations performed</span>
+  <span class="token comment">// by the P that owns this mcache.</span>
+  tiny       <span class="token builtin">uintptr</span>
+  tinyoffset <span class="token builtin">uintptr</span>
+  tinyAllocs <span class="token builtin">uintptr</span>
+
+  <span class="token comment">// The rest is not accessed on every malloc.</span>
+
+  alloc <span class="token punctuation">[</span>numSpanClasses<span class="token punctuation">]</span><span class="token operator">*</span>mspan <span class="token comment">// 按照 class 分组的 mspan 列表</span>
+
+  stackcache <span class="token punctuation">[</span>_NumStackOrders<span class="token punctuation">]</span>stackfreelist
+
+  <span class="token comment">// flushGen indicates the sweepgen during which this mcache</span>
+  <span class="token comment">// was last flushed. If flushGen != mheap_.sweepgen, the spans</span>
+  <span class="token comment">// in this mcache are stale and need to the flushed so they</span>
+  <span class="token comment">// can be swept. This is done in acquirep.</span>
+  flushGen atomic<span class="token punctuation">.</span>Uint32
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="memory-management-data-structure-3"><pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// Central list of free objects of a given size.</span>
+<span class="token keyword">type</span> mcentral <span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
+  <span class="token boolean">_</span>         sys<span class="token punctuation">.</span>NotInHeap
+  spanclass spanClass
+
+  <span class="token comment">// partial and full contain two mspan sets: one of swept in-use</span>
+  <span class="token comment">// spans, and one of unswept in-use spans. These two trade</span>
+  <span class="token comment">// roles on each GC cycle. The unswept set is drained either by</span>
+  <span class="token comment">// allocation or by the background sweeper in every GC cycle,</span>
+  <span class="token comment">// so only two roles are necessary.</span>
+  <span class="token comment">//</span>
+  <span class="token comment">// sweepgen is increased by 2 on each GC cycle, so the swept</span>
+  <span class="token comment">// spans are in partial[sweepgen/2%2] and the unswept spans are in</span>
+  <span class="token comment">// partial[1-sweepgen/2%2]. Sweeping pops spans from the</span>
+  <span class="token comment">// unswept set and pushes spans that are still in-use on the</span>
+  <span class="token comment">// swept set. Likewise, allocating an in-use span pushes it</span>
+  <span class="token comment">// on the swept set.</span>
+  <span class="token comment">//</span>
+  <span class="token comment">// Some parts of the sweeper can sweep arbitrary spans, and hence</span>
+  <span class="token comment">// can't remove them from the unswept set, but will add the span</span>
+  <span class="token comment">// to the appropriate swept list. As a result, the parts of the</span>
+  <span class="token comment">// sweeper and mcentral that do consume from the unswept list may</span>
+  <span class="token comment">// encounter swept spans, and these should be ignored.</span>
+  partial <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>spanSet <span class="token comment">// list of spans with a free object</span>
+  full    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>spanSet <span class="token comment">// list of spans with no free objects</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="memory-management-data-structure-4"><pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">type</span> mheap <span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
+  <span class="token boolean">_</span> sys<span class="token punctuation">.</span>NotInHeap
+
+  <span class="token comment">// lock must only be acquired on the system stack, otherwise a g</span>
+  <span class="token comment">// could self-deadlock if its stack grows with the lock held.</span>
+  lock mutex
+
+  pages pageAlloc <span class="token comment">// page allocation data structure</span>
+
+  sweepgen <span class="token builtin">uint32</span> <span class="token comment">// sweep generation, see comment in mspan; written during STW</span>
+
+  <span class="token comment">// allspans is a slice of all mspans ever created. Each mspan</span>
+  <span class="token comment">// appears exactly once.</span>
+  <span class="token comment">//</span>
+  <span class="token comment">// The memory for allspans is manually managed and can be</span>
+  <span class="token comment">// reallocated and move as the heap grows.</span>
+  <span class="token comment">//</span>
+  <span class="token comment">// In general, allspans is protected by mheap_.lock, which</span>
+  <span class="token comment">// prevents concurrent access as well as freeing the backing</span>
+  <span class="token comment">// store. Accesses during STW might not hold the lock, but</span>
+  <span class="token comment">// must ensure that allocation cannot happen around the</span>
+  <span class="token comment">// access (since that may free the backing store).</span>
+  allspans <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>mspan <span class="token comment">// all spans out there</span>
+
+  <span class="token comment">// Proportional sweep</span>
+  <span class="token comment">//</span>
+  <span class="token comment">// These parameters represent a linear function from gcController.heapLive</span>
+  <span class="token comment">// to page sweep count. The proportional sweep system works to</span>
+  <span class="token comment">// stay in the black by keeping the current page sweep count</span>
+  <span class="token comment">// above this line at the current gcController.heapLive.</span>
+  <span class="token comment">//</span>
+  <span class="token comment">// The line has slope sweepPagesPerByte and passes through a</span>
+  <span class="token comment">// basis point at (sweepHeapLiveBasis, pagesSweptBasis). At</span>
+  <span class="token comment">// any given time, the system is at (gcController.heapLive,</span>
+  <span class="token comment">// pagesSwept) in this space.</span>
+  <span class="token comment">//</span>
+  <span class="token comment">// It is important that the line pass through a point we</span>
+  <span class="token comment">// control rather than simply starting at a 0,0 origin</span>
+  <span class="token comment">// because that lets us adjust sweep pacing at any time while</span>
+  <span class="token comment">// accounting for current progress. If we could only adjust</span>
+  <span class="token comment">// the slope, it would create a discontinuity in debt if any</span>
+  <span class="token comment">// progress has already been made.</span>
+  pagesInUse         atomic<span class="token punctuation">.</span>Uintptr <span class="token comment">// pages of spans in stats mSpanInUse</span>
+  pagesSwept         atomic<span class="token punctuation">.</span>Uint64  <span class="token comment">// pages swept this cycle</span>
+  pagesSweptBasis    atomic<span class="token punctuation">.</span>Uint64  <span class="token comment">// pagesSwept to use as the origin of the sweep ratio</span>
+  sweepHeapLiveBasis <span class="token builtin">uint64</span>         <span class="token comment">// value of gcController.heapLive to use as the origin of sweep ratio; written with lock, read without</span>
+  sweepPagesPerByte  <span class="token builtin">float64</span>        <span class="token comment">// proportional sweep ratio; written with lock, read without</span>
+
+  <span class="token comment">// Page reclaimer state</span>
+
+  <span class="token comment">// reclaimIndex is the page index in allArenas of next page to</span>
+  <span class="token comment">// reclaim. Specifically, it refers to page (i %</span>
+  <span class="token comment">// pagesPerArena) of arena allArenas[i / pagesPerArena].</span>
+  <span class="token comment">//</span>
+  <span class="token comment">// If this is >= 1&lt;&lt;63, the page reclaimer is done scanning</span>
+  <span class="token comment">// the page marks.</span>
+  reclaimIndex atomic<span class="token punctuation">.</span>Uint64
+
+  <span class="token comment">// reclaimCredit is spare credit for extra pages swept. Since</span>
+  <span class="token comment">// the page reclaimer works in large chunks, it may reclaim</span>
+  <span class="token comment">// more than requested. Any spare pages released go to this</span>
+  <span class="token comment">// credit pool.</span>
+  reclaimCredit atomic<span class="token punctuation">.</span>Uintptr
+
+  <span class="token boolean">_</span> cpu<span class="token punctuation">.</span>CacheLinePad <span class="token comment">// prevents false-sharing between arenas and preceding variables</span>
+
+  <span class="token comment">// arenas is the heap arena map. It points to the metadata for</span>
+  <span class="token comment">// the heap for every arena frame of the entire usable virtual</span>
+  <span class="token comment">// address space.</span>
+  <span class="token comment">//</span>
+  <span class="token comment">// Use arenaIndex to compute indexes into this array.</span>
+  <span class="token comment">//</span>
+  <span class="token comment">// For regions of the address space that are not backed by the</span>
+  <span class="token comment">// Go heap, the arena map contains nil.</span>
+  <span class="token comment">//</span>
+  <span class="token comment">// Modifications are protected by mheap_.lock. Reads can be</span>
+  <span class="token comment">// performed without locking; however, a given entry can</span>
+  <span class="token comment">// transition from nil to non-nil at any time when the lock</span>
+  <span class="token comment">// isn't held. (Entries never transitions back to nil.)</span>
+  <span class="token comment">//</span>
+  <span class="token comment">// In general, this is a two-level mapping consisting of an L1</span>
+  <span class="token comment">// map and possibly many L2 maps. This saves space when there</span>
+  <span class="token comment">// are a huge number of arena frames. However, on many</span>
+  <span class="token comment">// platforms (even 64-bit), arenaL1Bits is 0, making this</span>
+  <span class="token comment">// effectively a single-level map. In this case, arenas[0]</span>
+  <span class="token comment">// will never be nil.</span>
+  arenas <span class="token punctuation">[</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> arenaL1Bits<span class="token punctuation">]</span><span class="token operator">*</span><span class="token punctuation">[</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> arenaL2Bits<span class="token punctuation">]</span><span class="token operator">*</span>heapArena
+
+  <span class="token comment">// arenasHugePages indicates whether arenas' L2 entries are eligible</span>
+  <span class="token comment">// to be backed by huge pages.</span>
+  arenasHugePages <span class="token builtin">bool</span>
+
+  <span class="token comment">// heapArenaAlloc is pre-reserved space for allocating heapArena</span>
+  <span class="token comment">// objects. This is only used on 32-bit, where we pre-reserve</span>
+  <span class="token comment">// this space to avoid interleaving it with the heap itself.</span>
+  heapArenaAlloc linearAlloc
+
+  <span class="token comment">// arenaHints is a list of addresses at which to attempt to</span>
+  <span class="token comment">// add more heap arenas. This is initially populated with a</span>
+  <span class="token comment">// set of general hint addresses, and grown with the bounds of</span>
+  <span class="token comment">// actual heap arena ranges.</span>
+  arenaHints <span class="token operator">*</span>arenaHint
+
+  <span class="token comment">// arena is a pre-reserved space for allocating heap arenas</span>
+  <span class="token comment">// (the actual arenas). This is only used on 32-bit.</span>
+  arena linearAlloc
+
+  <span class="token comment">// allArenas is the arenaIndex of every mapped arena. This can</span>
+  <span class="token comment">// be used to iterate through the address space.</span>
+  <span class="token comment">//</span>
+  <span class="token comment">// Access is protected by mheap_.lock. However, since this is</span>
+  <span class="token comment">// append-only and old backing arrays are never freed, it is</span>
+  <span class="token comment">// safe to acquire mheap_.lock, copy the slice header, and</span>
+  <span class="token comment">// then release mheap_.lock.</span>
+  allArenas <span class="token punctuation">[</span><span class="token punctuation">]</span>arenaIdx
+
+  <span class="token comment">// sweepArenas is a snapshot of allArenas taken at the</span>
+  <span class="token comment">// beginning of the sweep cycle. This can be read safely by</span>
+  <span class="token comment">// simply blocking GC (by disabling preemption).</span>
+  sweepArenas <span class="token punctuation">[</span><span class="token punctuation">]</span>arenaIdx
+
+  <span class="token comment">// markArenas is a snapshot of allArenas taken at the beginning</span>
+  <span class="token comment">// of the mark cycle. Because allArenas is append-only, neither</span>
+  <span class="token comment">// this slice nor its contents will change during the mark, so</span>
+  <span class="token comment">// it can be read safely.</span>
+  markArenas <span class="token punctuation">[</span><span class="token punctuation">]</span>arenaIdx
+
+  <span class="token comment">// curArena is the arena that the heap is currently growing</span>
+  <span class="token comment">// into. This should always be physPageSize-aligned.</span>
+  curArena <span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
+    base<span class="token punctuation">,</span> end <span class="token builtin">uintptr</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token comment">// central free lists for small size classes.</span>
+  <span class="token comment">// the padding makes sure that the mcentrals are</span>
+  <span class="token comment">// spaced CacheLinePadSize bytes apart, so that each mcentral.lock</span>
+  <span class="token comment">// gets its own cache line.</span>
+  <span class="token comment">// central is indexed by spanClass.</span>
+  central <span class="token punctuation">[</span>numSpanClasses<span class="token punctuation">]</span><span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
+    mcentral mcentral
+    pad      <span class="token punctuation">[</span><span class="token punctuation">(</span>cpu<span class="token punctuation">.</span>CacheLinePadSize <span class="token operator">-</span> unsafe<span class="token punctuation">.</span><span class="token function">Sizeof</span><span class="token punctuation">(</span>mcentral<span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token operator">%</span>cpu<span class="token punctuation">.</span>CacheLinePadSize<span class="token punctuation">)</span> <span class="token operator">%</span> cpu<span class="token punctuation">.</span>CacheLinePadSize<span class="token punctuation">]</span><span class="token builtin">byte</span>
+  <span class="token punctuation">&#125;</span>
+
+  spanalloc              fixalloc <span class="token comment">// allocator for span*</span>
+  cachealloc             fixalloc <span class="token comment">// allocator for mcache*</span>
+  specialfinalizeralloc  fixalloc <span class="token comment">// allocator for specialfinalizer*</span>
+  specialprofilealloc    fixalloc <span class="token comment">// allocator for specialprofile*</span>
+  specialReachableAlloc  fixalloc <span class="token comment">// allocator for specialReachable</span>
+  specialPinCounterAlloc fixalloc <span class="token comment">// allocator for specialPinCounter</span>
+  specialWeakHandleAlloc fixalloc <span class="token comment">// allocator for specialWeakHandle</span>
+  speciallock            mutex    <span class="token comment">// lock for special record allocators.</span>
+  arenaHintAlloc         fixalloc <span class="token comment">// allocator for arenaHints</span>
+
+  <span class="token comment">// User arena state.</span>
+  <span class="token comment">//</span>
+  <span class="token comment">// Protected by mheap_.lock.</span>
+  userArena <span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// arenaHints is a list of addresses at which to attempt to</span>
+    <span class="token comment">// add more heap arenas for user arena chunks. This is initially</span>
+    <span class="token comment">// populated with a set of general hint addresses, and grown with</span>
+    <span class="token comment">// the bounds of actual heap arena ranges.</span>
+    arenaHints <span class="token operator">*</span>arenaHint
+
+    <span class="token comment">// quarantineList is a list of user arena spans that have been set to fault, but</span>
+    <span class="token comment">// are waiting for all pointers into them to go away. Sweeping handles</span>
+    <span class="token comment">// identifying when this is true, and moves the span to the ready list.</span>
+    quarantineList mSpanList
+
+    <span class="token comment">// readyList is a list of empty user arena spans that are ready for reuse.</span>
+    readyList mSpanList
+  <span class="token punctuation">&#125;</span>
+
+  unused <span class="token operator">*</span>specialfinalizer <span class="token comment">// never set, just here to force the specialfinalizer type into DWARF</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+
+<br/>
 
 <h3 id="栈内存管理"><a href="#栈内存管理" class="headerlink" title="栈内存管理"></a>栈内存管理</h3><br/>
 
 
 
-<h3 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h3><h4 id="interface-类型"><a href="#interface-类型" class="headerlink" title="interface 类型"></a>interface 类型</h4><p>接口是 Go 语言中的一种类型，它能够出现在变量的定义、函数的入参和返回值中并对它们进行约束，不过 Go 语言中有两种略微不同的接口：</p>
+<h3 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h3><h4 id="诞生背景"><a href="#诞生背景" class="headerlink" title="诞生背景"></a>诞生背景</h4><p>Go is a value-oriented language in the tradition of C-like systems languages rather than reference-oriented language in the tradition of most managed runtime languages.</p>
+<p>Value-orientation also helps with the foreign function interfaces. We have a fast FFI with C and C++. Obviously Google has a tremendous number of facilities available but they are written in C++. Go couldn’t wait to reimplement all of these things in Go so Go had to have access to these systems through the foreign function interface.</p>
+<p>This one design decision has led to some of the more amazing things that have to go on with the runtime. It is probably the most important thing that differentiates Go from other GCed languages（Go can have pointers and in fact they can have interior pointers. Such pointers keep the entire value live and they are fairly common）.</p>
+<p>2014， We（Google Golang Team） had to convert all of the runtime and compiler to Go. They were written in C at the time.</p>
+<p>Inorder to Read Barrier free concurrency GC (no coping)， to do a tri-color concurrent algorithm.</p>
+<br/> 
+
+<h4 id="回收算法"><a href="#回收算法" class="headerlink" title="回收算法"></a>回收算法</h4><p>Go 采用了标记-清除算法：从根变量开始遍历所有引用的对象，引用的对象标记为 <code>被引用</code>，没有标记的对象被回收。</p>
+<br/>
+
+<h4 id="Go-垃圾收集器的实现"><a href="#Go-垃圾收集器的实现" class="headerlink" title="Go 垃圾收集器的实现"></a>Go 垃圾收集器的实现</h4><p><a target="_blank" rel="noopener" href="https://go.dev/blog/ismmkeynote">https://go.dev/blog/ismmkeynote</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.ardanlabs.com/blog/2018/12/garbage-collection-in-go-part1-semantics.html">https://www.ardanlabs.com/blog/2018/12/garbage-collection-in-go-part1-semantics.html</a></p>
+<h4 id="写屏障（Write-Barrier）"><a href="#写屏障（Write-Barrier）" class="headerlink" title="写屏障（Write Barrier）"></a>写屏障（Write Barrier）</h4><p>Go 的垃圾回收器使用了写屏障。在 Go 的并发垃圾回收中，写屏障确保在程序修改对象引用时，不会影响垃圾回收的标记过程。Go 的写屏障有助于保证在并发执行的情况下，对象的可达性能够被正确更新，避免了在标记阶段出现对象丢失或错误回收的情况。</p>
+<p>写屏障是一种在垃圾回收（Garbage Collection，GC）系统中使用的机制，特别是在并发和增量式垃圾回收中。它的主要目的是在程序运行时修改对象引用时，确保垃圾回收器能够正确地维护对象图的一致性和完整性。当程序执行对对象引用的修改操作（如赋值操作，将一个对象的引用赋给另一个对象）时，写屏障会介入，保证垃圾回收器能够发现新的引用关系，或者在并发或增量式垃圾回收过程中，防止对象在被修改时被误回收。</p>
+<h5 id="写屏障的主要作用"><a href="#写屏障的主要作用" class="headerlink" title="写屏障的主要作用"></a>写屏障的主要作用</h5><ul>
+<li><strong>维护对象图一致性</strong>：在并发垃圾回收的场景下，程序的执行和垃圾回收过程是同时进行的。当程序在修改对象的引用时，可能会导致对象的可达性发生变化。写屏障可以确保这种变化被垃圾回收器及时知晓，避免对象的错误回收或引用关系的遗漏。实现更复杂的垃圾回收算法，如并发标记-清除、并发复制等，提高垃圾回收的效率。</li>
+<li><strong>防止浮动垃圾和对象丢失</strong>：在并发或增量式垃圾回收中，如果没有写屏障，可能会出现一些问题。例如，在标记阶段，可能会产生浮动垃圾（对象本应被回收，但由于并发修改，变成了可达对象），或者对象丢失（对象原本可达，但由于修改操作变成了不可达而被错误回收）。写屏障可以防止这些问题的发生。</li>
+</ul>
+<h5 id="写屏障可能带来的开销"><a href="#写屏障可能带来的开销" class="headerlink" title="写屏障可能带来的开销"></a>写屏障可能带来的开销</h5><ul>
+<li><strong>额外的指令执行成本</strong>，对于如<code>*dst = src</code> 的赋值操作，需要先执行 <code>mark(src)</code> 操作（假设这是写屏障的一部分），原本只需要一条指令完成的赋值操作，现在可能需要多条指令，如先将 <code>src</code> 压入标记队列，更新标记信息等。</li>
+<li><strong>增加内存访问</strong>，增加对内存的访问次数，在执行写屏障操作时，可能需要读取和写入额外的元数据信息，如标记信息、对象可达性信息等。这些额外的内存访问会增加内存系统的压力，内存访问速度通常比 CPU 处理速度慢，过多的内存访问会导致性能下降。</li>
+<li><strong>降低 CPU 缓存命中率</strong>，写屏障会引入额外的内存访问，这些额外的访问可能导致 CPU 缓存未命中，当 CPU 缓存未命中时，需要从主存中读取数据，这比从缓存中读取数据要慢几个数量级。频繁的缓存未命中会严重影响性能。</li>
+</ul>
+<br/>
+
+<h4 id="GC-Pacer"><a href="#GC-Pacer" class="headerlink" title="GC Pacer"></a>GC Pacer</h4><p>GC Pacer determines when to best start a GC cycle. If the system is in a steady state and not in a phase change, marking will end just about the time memory runs out.<br><a target="_blank" rel="noopener" href="https://docs.google.com/document/d/1wmjrocXIWTr1JxU-3EQBI6BK6KgtiFArkG47XK73xIQ/edit?pli=1&tab=t.0">https://docs.google.com/document/d/1wmjrocXIWTr1JxU-3EQBI6BK6KgtiFArkG47XK73xIQ/edit?pli=1&amp;tab=t.0</a></p>
+<p><a target="_blank" rel="noopener" href="https://go.googlesource.com/proposal/+/master/design/44167-gc-pacer-redesign.md">https://go.googlesource.com/proposal/+/master/design/44167-gc-pacer-redesign.md</a></p>
+<br/>
+
+<h4 id="回收触发时机"><a href="#回收触发时机" class="headerlink" title="回收触发时机"></a>回收触发时机</h4><br/>
+
+<h4 id="内存逃逸"><a href="#内存逃逸" class="headerlink" title="内存逃逸"></a>内存逃逸</h4><br/>
+
+<h3 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h3><h4 id="interface-类型"><a href="#interface-类型" class="headerlink" title="interface{} 类型"></a>interface{} 类型</h4><h5 id="interface-实现原理"><a href="#interface-实现原理" class="headerlink" title="interface{} 实现原理"></a>interface{} 实现原理</h5><p>接口是 Go 语言中的一种类型，它能够出现在变量的定义、函数的入参和返回值中并对它们进行约束，不过 Go 语言中有两种略微不同的接口：</p>
 <table>
 <thead>
 <tr>
@@ -254,6 +675,10 @@
 
 <span class="token keyword">func</span> <span class="token punctuation">(</span>d <span class="token operator">*</span>Puppy<span class="token punctuation">)</span> <span class="token function">Move</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
 
+<span class="token comment">// 让编译器在编译时检查派生类是否完整实现了接口类型的所有接口</span>
+<span class="token keyword">var</span> <span class="token boolean">_</span> Animal <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>Puppy<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token boolean">nil</span><span class="token punctuation">)</span> 
+<span class="token keyword">var</span> <span class="token boolean">_</span> Doggy <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>Puppy<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token boolean">nil</span><span class="token punctuation">)</span> 
+
 <span class="token comment">//go:noinline</span>
 <span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token comment">// (1)</span>
@@ -270,7 +695,7 @@
   a<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token operator">*</span>Puppy<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Move</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
   <span class="token comment">// (6)</span>
   d<span class="token punctuation">.</span><span class="token function">Move</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">TEXT main.main(SB) main.go
 # (1)
@@ -350,15 +775,117 @@
 # ...<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>对于 <code>var a Animal = &amp;puppy；</code>, 如下图所示：</p>
-<p>&lt;<img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/BlogImages/GO/base/interface-convert.png"></p>
+<img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/BlogImages/GO/base/interface-convert.png">
+
+<br/>
+
 <p>对于断言，a.(*Puppy).Move()， 会通过 iface 中的 hash 和 Puppy 的 hash 做比较，</p>
 <p>进而获取到 Puppy 的指针，进行 Move() 函数调用。</p>
+<h5 id="动态派发（Dynamic-dispatch）"><a href="#动态派发（Dynamic-dispatch）" class="headerlink" title="动态派发（Dynamic dispatch）"></a>动态派发（Dynamic dispatch）</h5><p>是在运行期间选择具体多态操作（方法或者函数）执行的过程，接口的引入为它带来了动态派发这一特性，调用接口类型的方法时，如果编译期间不能确认接口的类型，Go 语言会在运行期间决定具体调用该方法的哪个实现。使用结构体实现接口带来的开销会大于使用指针实现，而动态派发在结构体上的表现非常差，这也提醒我们应当尽量避免使用结构体类型实现接口。</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">type</span> Puppy <span class="token keyword">struct</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+
+<span class="token comment">// better</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>p <span class="token operator">*</span>Puppy<span class="token punctuation">)</span> <span class="token function">Move</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// bad</span>
+<span class="token comment">// func (p Puppy) Move() &#123;</span>
+<span class="token comment">//  </span>
+<span class="token comment">// &#125; </span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <br/>
 
 
 
-<h4 id="反射定律"><a href="#反射定律" class="headerlink" title="反射定律"></a>反射定律</h4><br/>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">JoyChen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2021/11/18/Go/go%E8%BF%9B%E9%98%B6/">http://example.com/2021/11/18/Go/go%E8%BF%9B%E9%98%B6/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">JoyChen's 知识星球</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/golang/">golang</a></div><div class="post_share"><div class="social-share" data-image="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/material-7.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/02/13/Job%20Relative/%E9%A3%9E%E4%B9%A6%E7%AD%89%E5%A4%96%E9%83%A8%E6%B8%A0%E9%81%93%E8%B4%A6%E5%8F%B7%E5%90%8C%E6%AD%A5/"><img class="prev-cover" src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/material-2.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">飞书等第三方渠道的账号同步</div></div></a></div><div class="next-post pull-right"><a href="/2021/11/13/Go/go%E5%9F%BA%E7%A1%80/"><img class="next-cover" src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/material-6.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">go 基础</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/11/13/Go/go%E5%9F%BA%E7%A1%80/" title="go 基础"><img class="cover" src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/material-6.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-13</div><div class="title">go 基础</div></div></a></div><div><a href="/2022/02/13/Go/gin%20%E6%A1%86%E6%9E%B6%E5%88%9D%E6%8E%A2%E5%8F%8A%E4%BD%BF%E7%94%A8/" title="gin 框架初探"><img class="cover" src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/material-12.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-13</div><div class="title">gin 框架初探</div></div></a></div><div><a href="/2022/03/13/Go/gorm%20%E6%A1%86%E6%9E%B6%E5%88%9D%E6%8E%A2%E5%8F%8A%E5%85%B6%E4%BD%BF%E7%94%A8/" title="gorm 框架初探"><img class="cover" src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/material-13.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-13</div><div class="title">gorm 框架初探</div></div></a></div><div><a href="/2022/03/13/Go/viper,cobra/" title="golang tools 之 Viper,Cobra"><img class="cover" src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/material-13.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-13</div><div class="title">golang tools 之 Viper,Cobra</div></div></a></div><div><a href="/2023/12/15/Go/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-Cond/" title="Go 并发编程-Condition"><img class="cover" src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/a/a6.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-15</div><div class="title">Go 并发编程-Condition</div></div></a></div><div><a href="/2023/12/15/Go/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-Context/" title="Go 并发编程-Context"><img class="cover" src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/a/a7.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-15</div><div class="title">Go 并发编程-Context</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">JoyChen</div><div class="author-info__description">If you haven't found it yet Keep looking Don't settle</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">65</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">46</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JoyChenNo1"><i class="fab fa-github"></i><span>关注我</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JoyChenNo1" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:joychenisno1@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E5%BA%A6%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">调度器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8F%E7%A8%8B"><span class="toc-number">1.1.</span> <span class="toc-text">协程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#G-M-P-%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.2.</span> <span class="toc-text">G-M-P 模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">内存管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="toc-number">2.1.</span> <span class="toc-text">内存分配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="toc-number">2.2.</span> <span class="toc-text">垃圾回收</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%88%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="toc-number">2.3.</span> <span class="toc-text">栈内存管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84"><span class="toc-number">2.4.</span> <span class="toc-text">反射</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#interface-%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.4.1.</span> <span class="toc-text">interface 类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84%E5%AE%9A%E5%BE%8B"><span class="toc-number">2.4.2.</span> <span class="toc-text">反射定律</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/09/20/Job%20Relative/%E7%AD%96%E7%95%A5%E5%90%8C%E6%AD%A5/" title="无题"><img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2024/09/20/Job%20Relative/%E7%AD%96%E7%95%A5%E5%90%8C%E6%AD%A5/" title="无题">无题</a><time datetime="2024-09-20T07:03:37.653Z" title="发表于 2024-09-20 15:03:37">2024-09-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/11/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/DDD%E6%80%9D%E6%83%B3%E5%8F%8A%E5%AE%9E%E8%B7%B5/" title="DDD设计模式"><img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/material-12.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DDD设计模式"/></a><div class="content"><a class="title" href="/2024/04/11/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/DDD%E6%80%9D%E6%83%B3%E5%8F%8A%E5%AE%9E%E8%B7%B5/" title="DDD设计模式">DDD设计模式</a><time datetime="2024-04-11T14:08:00.000Z" title="发表于 2024-04-11 22:08:00">2024-04-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/14/%E5%B7%A5%E7%A8%8B%E6%9E%84%E5%BB%BA/Docker%20build/" title="Docker 基础镜像构建示例"><img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/material-2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Docker 基础镜像构建示例"/></a><div class="content"><a class="title" href="/2024/01/14/%E5%B7%A5%E7%A8%8B%E6%9E%84%E5%BB%BA/Docker%20build/" title="Docker 基础镜像构建示例">Docker 基础镜像构建示例</a><time datetime="2024-01-14T12:08:00.000Z" title="发表于 2024-01-14 20:08:00">2024-01-14</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/material-7.png')"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2025 By JoyChen</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script>function panguFn () {
+<h4 id="反射定律"><a href="#反射定律" class="headerlink" title="反射定律"></a>反射定律</h4><p>Go 提供反射机制来操纵 interface{} 类型。</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">ValueOf</span><span class="token punctuation">(</span>i <span class="token keyword">interface</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span> Value
+<span class="token keyword">func</span> <span class="token function">TypeOf</span><span class="token punctuation">(</span>i <span class="token keyword">interface</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span> Type
+
+<span class="token comment">// 转成反射对象</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token keyword">var</span> a <span class="token builtin">float64</span> <span class="token operator">=</span> <span class="token number">4.5</span>
+  t <span class="token operator">:=</span> reflect<span class="token punctuation">.</span><span class="token function">TypeOf</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+  v <span class="token operator">:=</span> reflect<span class="token punctuation">.</span><span class="token function">ValueOf</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+
+<span class="token comment">// 反射对象还原</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token keyword">var</span> a <span class="token keyword">interface</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+  a <span class="token operator">:=</span> <span class="token number">100</span>
+  v <span class="token operator">:=</span> reflect<span class="token punctuation">.</span><span class="token function">ValueOf</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+  b <span class="token operator">:=</span> v<span class="token punctuation">.</span><span class="token function">Interface</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// a == b</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// 反射对象可以修改</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token keyword">var</span> x <span class="token builtin">float64</span> <span class="token operator">=</span> <span class="token number">4.5</span>
+  v <span class="token operator">:=</span> reflect<span class="token punctuation">.</span><span class="token function">ValueOf</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>x<span class="token punctuation">)</span>
+  v<span class="token punctuation">.</span><span class="token function">Elem</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">SetFloat</span><span class="token punctuation">(</span><span class="token number">3.33</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<br/>
+
+<h3 id="Pointers"><a href="#Pointers" class="headerlink" title="Pointers"></a>Pointers</h3><h4 id="unsafe-Pointer-提供的方法"><a href="#unsafe-Pointer-提供的方法" class="headerlink" title="unsafe.Pointer 提供的方法"></a>unsafe.Pointer 提供的方法</h4><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Alignof()</td>
+<td>get the address alignment of a value.</td>
+</tr>
+<tr>
+<td>Sizeof()</td>
+<td>get the size of a value (a.k.a., the size of the type of the value).</td>
+</tr>
+<tr>
+<td>Offsetof()</td>
+<td>get the address offset of a field in a struct value.</td>
+</tr>
+</tbody></table>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+  <span class="token string">"fmt"</span>
+  <span class="token string">"unsafe"</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">var</span> x <span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
+    a <span class="token builtin">int64</span>
+    b <span class="token builtin">bool</span>
+    c <span class="token builtin">string</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">const</span> M<span class="token punctuation">,</span> N <span class="token operator">=</span> unsafe<span class="token punctuation">.</span><span class="token function">Sizeof</span><span class="token punctuation">(</span>x<span class="token punctuation">.</span>c<span class="token punctuation">)</span><span class="token punctuation">,</span> unsafe<span class="token punctuation">.</span><span class="token function">Sizeof</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+  fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>M<span class="token punctuation">,</span> N<span class="token punctuation">)</span> <span class="token comment">// 16 32</span>
+  
+  fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>unsafe<span class="token punctuation">.</span><span class="token function">Alignof</span><span class="token punctuation">(</span>x<span class="token punctuation">.</span>a<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// 8</span>
+  fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>unsafe<span class="token punctuation">.</span><span class="token function">Alignof</span><span class="token punctuation">(</span>x<span class="token punctuation">.</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// 1</span>
+  fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>unsafe<span class="token punctuation">.</span><span class="token function">Alignof</span><span class="token punctuation">(</span>x<span class="token punctuation">.</span>c<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// 8</span>
+  
+  fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>unsafe<span class="token punctuation">.</span><span class="token function">Offsetof</span><span class="token punctuation">(</span>x<span class="token punctuation">.</span>a<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// 0</span>
+  fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>unsafe<span class="token punctuation">.</span><span class="token function">Offsetof</span><span class="token punctuation">(</span>x<span class="token punctuation">.</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// 8</span>
+  fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>unsafe<span class="token punctuation">.</span><span class="token function">Offsetof</span><span class="token punctuation">(</span>x<span class="token punctuation">.</span>c<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// 16</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<br/>
+
+
+
+<h3 id="CGO"><a href="#CGO" class="headerlink" title="CGO"></a>CGO</h3><p><a target="_blank" rel="noopener" href="https://www.linkinstars.com/post/19c0fd4e.html">https://www.linkinstars.com/post/19c0fd4e.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://chai2010.cn/advanced-go-programming-book/ch2-cgo/ch2-08-class.html">https://chai2010.cn/advanced-go-programming-book/ch2-cgo/ch2-08-class.html</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">JoyChen</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2021/11/18/Go/go%E8%BF%9B%E9%98%B6/">http://example.com/2021/11/18/Go/go%E8%BF%9B%E9%98%B6/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">JoyChen's 知识星球</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/golang/">golang</a></div><div class="post_share"><div class="social-share" data-image="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/material-7.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/11/23/SQL/MySQL%20InnoDB%20%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/"><img class="prev-cover" src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/material-14.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">MySQL InnoDB 存储引擎</div></div></a></div><div class="next-post pull-right"><a href="/2021/11/13/Go/go%E5%9F%BA%E7%A1%80/"><img class="next-cover" src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/material-6.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">go 基础</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/03/13/Go/gorm%20%E6%A1%86%E6%9E%B6%E5%88%9D%E6%8E%A2%E5%8F%8A%E5%85%B6%E4%BD%BF%E7%94%A8/" title="gorm 框架初探"><img class="cover" src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/material-13.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-13</div><div class="title">gorm 框架初探</div></div></a></div><div><a href="/2022/02/13/Go/gin%20%E6%A1%86%E6%9E%B6%E5%88%9D%E6%8E%A2%E5%8F%8A%E4%BD%BF%E7%94%A8/" title="gin 框架初探"><img class="cover" src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/material-12.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-13</div><div class="title">gin 框架初探</div></div></a></div><div><a href="/2022/03/13/Go/viper,cobra/" title="golang tools 之 Viper,Cobra"><img class="cover" src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/material-13.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-13</div><div class="title">golang tools 之 Viper,Cobra</div></div></a></div><div><a href="/2021/11/13/Go/go%E5%9F%BA%E7%A1%80/" title="go 基础"><img class="cover" src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/material-6.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-13</div><div class="title">go 基础</div></div></a></div><div><a href="/2023/12/15/Go/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-Context/" title="Go 并发编程-Context"><img class="cover" src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/a/a7.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-15</div><div class="title">Go 并发编程-Context</div></div></a></div><div><a href="/2023/12/15/Go/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-Go%20%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" title="Go 并发编程-内存模型"><img class="cover" src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/a/a8.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-15</div><div class="title">Go 并发编程-内存模型</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">JoyChen</div><div class="author-info__description">If you haven't found it yet Keep looking Don't settle</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">68</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">46</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">18</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/JoyChenNo1"><i class="fab fa-github"></i><span>关注我</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/JoyChenNo1" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:joychenisno1@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Go-%E8%BF%90%E8%A1%8C%E6%97%B6"><span class="toc-number">1.</span> <span class="toc-text">Go 运行时</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E5%BA%A6%E5%99%A8"><span class="toc-number">2.</span> <span class="toc-text">调度器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8F%E7%A8%8B"><span class="toc-number">2.1.</span> <span class="toc-text">协程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#G-M-P-%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.2.</span> <span class="toc-text">G-M-P 模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Go-%E5%89%8D%E6%9C%9F-G-M-%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.2.1.</span> <span class="toc-text">Go 前期 G-M 模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#G-M-P-%E6%A8%A1%E5%9E%8B-1"><span class="toc-number">2.2.2.</span> <span class="toc-text">G-M-P 模型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#go-func-%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E6%B5%81%E7%A8%8B"><span class="toc-number">2.2.2.1.</span> <span class="toc-text">go func 函数调用流程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%BD%E8%B8%AA-goroutine-%E8%B0%83%E7%94%A8"><span class="toc-number">2.2.2.2.</span> <span class="toc-text">追踪 goroutine 调用</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">内存管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E7%BB%84%E4%BB%B6"><span class="toc-number">3.1.</span> <span class="toc-text">内存管理组件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">3.1.1.</span> <span class="toc-text">数据结构</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%88%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="toc-number">3.2.</span> <span class="toc-text">栈内存管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="toc-number">3.3.</span> <span class="toc-text">垃圾回收</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%9E%E7%94%9F%E8%83%8C%E6%99%AF"><span class="toc-number">3.3.1.</span> <span class="toc-text">诞生背景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95"><span class="toc-number">3.3.2.</span> <span class="toc-text">回收算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Go-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.3.3.</span> <span class="toc-text">Go 垃圾收集器的实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%99%E5%B1%8F%E9%9A%9C%EF%BC%88Write-Barrier%EF%BC%89"><span class="toc-number">3.3.4.</span> <span class="toc-text">写屏障（Write Barrier）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%86%99%E5%B1%8F%E9%9A%9C%E7%9A%84%E4%B8%BB%E8%A6%81%E4%BD%9C%E7%94%A8"><span class="toc-number">3.3.4.1.</span> <span class="toc-text">写屏障的主要作用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%86%99%E5%B1%8F%E9%9A%9C%E5%8F%AF%E8%83%BD%E5%B8%A6%E6%9D%A5%E7%9A%84%E5%BC%80%E9%94%80"><span class="toc-number">3.3.4.2.</span> <span class="toc-text">写屏障可能带来的开销</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#GC-Pacer"><span class="toc-number">3.3.5.</span> <span class="toc-text">GC Pacer</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E6%94%B6%E8%A7%A6%E5%8F%91%E6%97%B6%E6%9C%BA"><span class="toc-number">3.3.6.</span> <span class="toc-text">回收触发时机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8"><span class="toc-number">3.3.7.</span> <span class="toc-text">内存逃逸</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84"><span class="toc-number">3.4.</span> <span class="toc-text">反射</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#interface-%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.4.1.</span> <span class="toc-text">interface{} 类型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#interface-%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-number">3.4.1.1.</span> <span class="toc-text">interface{} 实现原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E6%B4%BE%E5%8F%91%EF%BC%88Dynamic-dispatch%EF%BC%89"><span class="toc-number">3.4.1.2.</span> <span class="toc-text">动态派发（Dynamic dispatch）</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84%E5%AE%9A%E5%BE%8B"><span class="toc-number">3.4.2.</span> <span class="toc-text">反射定律</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pointers"><span class="toc-number">3.5.</span> <span class="toc-text">Pointers</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#unsafe-Pointer-%E6%8F%90%E4%BE%9B%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">3.5.1.</span> <span class="toc-text">unsafe.Pointer 提供的方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CGO"><span class="toc-number">3.6.</span> <span class="toc-text">CGO</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/02/19/SQL/MySQL%20%E8%BF%9B%E9%98%B6%20Q&amp;A/" title="无题"><img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2025/02/19/SQL/MySQL%20%E8%BF%9B%E9%98%B6%20Q&amp;A/" title="无题">无题</a><time datetime="2025-02-19T10:56:16.192Z" title="发表于 2025-02-19 18:56:16">2025-02-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/20/Job%20Relative/%E7%AD%96%E7%95%A5%E5%90%8C%E6%AD%A5/" title="无题"><img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2024/09/20/Job%20Relative/%E7%AD%96%E7%95%A5%E5%90%8C%E6%AD%A5/" title="无题">无题</a><time datetime="2024-09-20T07:03:37.653Z" title="发表于 2024-09-20 15:03:37">2024-09-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/11/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/DDD%E6%80%9D%E6%83%B3%E5%8F%8A%E5%AE%9E%E8%B7%B5/" title="DDD设计模式"><img src="https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/material-12.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DDD设计模式"/></a><div class="content"><a class="title" href="/2024/04/11/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/DDD%E6%80%9D%E6%83%B3%E5%8F%8A%E5%AE%9E%E8%B7%B5/" title="DDD设计模式">DDD设计模式</a><time datetime="2024-04-11T14:08:00.000Z" title="发表于 2024-04-11 22:08:00">2024-04-11</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://github.com/JoyChenNo1/JoyChenNo1.github.io/raw/master/img/random/material-7.png')"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2025 By JoyChen</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script>function panguFn () {
   if (typeof pangu === 'object') pangu.autoSpacingPage()
   else {
     getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
